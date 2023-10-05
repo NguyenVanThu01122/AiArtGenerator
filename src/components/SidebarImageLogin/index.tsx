@@ -8,12 +8,19 @@ import { WrapperSidebarImage } from "./styles";
 export function SidebarImageLogin() {
   return (
     <WrapperSidebarImage>
-      <Carousel className="item-carousel" autoplay dots={true} slidesToShow={1}>
+      <Carousel
+        adaptiveHeight={true}
+        className="item-carousel"
+        autoplay
+        dots={true}
+        slidesToShow={1}
+      >
         <img src={imageLogin1} alt="" />
         <img src={imageLogin2} alt="" />
         <img src={imageLogin3} alt="" />
         <img src={imageLogin4} alt="" />
       </Carousel>
+      <div className="welcome-text">Welcome to AiArt Generator</div>
     </WrapperSidebarImage>
   );
 }
