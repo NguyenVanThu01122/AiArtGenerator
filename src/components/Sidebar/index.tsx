@@ -20,7 +20,10 @@ export function Sidebar() {
         <div>CreatorHub</div>
       </div>
       <div className="select-item">
-        <div className="home">
+        <div
+          className={`home ${pathName === "/home" && "border"}`}
+          onClick={() => navigate("/home")}
+        >
           <img src={iconHome} alt="iconHome" />
           <div>Home</div>
         </div>

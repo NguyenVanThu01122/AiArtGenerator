@@ -10,8 +10,8 @@ import icHistory from "../../images/ic-history.svg";
 import icRandom from "../../images/ic-random.svg";
 import iconCancel from "../../images/icon-cancel.svg";
 import iconRotate from "../../images/icon-rotare.svg";
-import iconUploadImg from "../../images/icon-upload-img.svg";
 import iconShow from "../../images/icon-show.svg";
+import iconUploadImg from "../../images/icon-upload-img.svg";
 import {
   PageAiArtGenerator,
   ResultsItem,
@@ -34,7 +34,8 @@ function AiArtGenerator() {
   const [negativePrompt, setNegativePrompt] = useState("");
   const [uploadImage, setUploadImage] = useState<any>("");
   const [selectStyle, setSelectStyle] = useState<any>("");
-  const [fileUpload, setFileUpload] = useState<any>("");
+  const [fileUpload, setFileUpload] = useState<any>();
+
   const [listStyle, setListStyle] = useState<any>([]);
   const [resultImage, setResultImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -77,6 +78,7 @@ function AiArtGenerator() {
     setSliderValueScale(10);
   };
   const handleBack = () => {
+    setFileUpload(undefined);
     setResultImage("");
     setUploadImage("");
     setNegativePrompt("");
@@ -180,6 +182,20 @@ function AiArtGenerator() {
     clipboard.copy(textToCopy); // sao chép nội dụng từ textToCopy
     message.success("Sao chép thành công");
   };
+  const downloadImage = async (base64String: string, filename: string) => {
+    // Tạo một thẻ a để tạo link tải về
+    const a = document.createElement("a");
+
+    // gắn thuộc tính href có giá trị = đường dẫn ảnh
+    a.href = base64String;
+    // gắn thuộc tính download có giá trị =  filename
+    a.download = filename;
+
+    // gọi sự kiện click của thẻ a
+    a.click();
+
+    // <a href={base64string} download={filename} />
+  };
 
   useEffect(() => {
     handleGetListImage();
@@ -265,7 +281,10 @@ function AiArtGenerator() {
                       />
                       Copy Prompt
                     </Button>
-                    <Button className="download-button">
+                    <Button
+                      className="download-button"
+                      onClick={() => downloadImage(resultImage, "img.jpg")}
+                    >
                       Download - 1 Credit
                     </Button>
                   </div>

@@ -5,6 +5,11 @@ export const WrapperSidebar = styled.div`
   width: 280px;
   height: 100vh;
   border-right: 1px solid rgb(30, 36, 49);
+  .border {
+    background: rgb(36, 36, 60);
+    border-radius: 5px;
+    box-shadow: 0 0 2px 1px violet;
+  }
   .logo-AiArt {
     display: flex;
     gap: 15px;
@@ -29,7 +34,13 @@ export const WrapperSidebar = styled.div`
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 12px;
+      padding: 10px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      &:hover {
+        background: rgb(36, 36, 60);
+        border-radius: 5px;
+      }
       & > div:last-child {
         color: white;
       }
@@ -60,11 +71,6 @@ export const WrapperSidebar = styled.div`
           background: rgb(36, 36, 60);
           border-radius: 5px;
         }
-      }
-      .border {
-        background: rgb(36, 36, 60);
-        border-radius: 5px;
-        box-shadow: 0 0 2px 1px violet;
       }
     }
     .follow-options {

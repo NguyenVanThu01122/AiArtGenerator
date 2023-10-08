@@ -64,6 +64,9 @@ function Header() {
   // hàm xử lý lọc pathName
   const handleFilterPathName = () => {
     switch (pathName) {
+      case "/home":
+        setPathName("Home");
+        break;
       case "/ai-art-generator":
         setPathName("/ AI Art Generator");
         break;
@@ -80,13 +83,19 @@ function Header() {
   useEffect(() => {
     handleFilterPathName();
   }, []);
-  
+
   return (
     <HeaderAiArt>
       <div className="title-page">
         <img src={iconCloseSidebar} alt="" />
         <div>
-          Products <span>{savePathName}</span>
+          {pathName !== "/home" ? (
+            <div>
+              Products <span>{savePathName}</span>
+            </div>
+          ) : (
+            savePathName
+          )}
         </div>
       </div>
       <div className="account">
