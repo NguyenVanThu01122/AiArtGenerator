@@ -1,12 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Layout } from "./Layout";
 import { SidebarImageLogin } from "./components/SidebarImageLogin";
 import AiArtGenerator from "./pages/AiArtGenerator";
 import AiBackgroundChanger from "./pages/AiBackgroundChanger";
 import { AiPhotoEnhancer } from "./pages/AiPhotoEnhancer";
+import ChangePassword from "./pages/ChangePassword";
 import Home from "./pages/Home";
-import { Layout } from "./pages/Layout";
 import { Register } from "./pages/Register";
 import { SignIn } from "./pages/SignIn";
+import VerifyRegister from "./pages/VerifyRegister";
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +23,8 @@ function App() {
             element={<AiBackgroundChanger />}
           />
         </Route>
+        <Route path="/change-password" element={<ChangePassword />}></Route>
+        <Route path="/verify-register" element={<VerifyRegister />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
       </Routes>

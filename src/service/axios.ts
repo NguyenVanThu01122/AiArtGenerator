@@ -1,11 +1,13 @@
 import axios from "axios";
 
 const publicAxios = axios.create({
+  // baseURL: "https://creatorhub-ai-api.vercel.app",
   baseURL: "http://localhost:9090",
   timeout: 4000,
 });
 
 const privateAxios = axios.create({
+  // baseURL: "https://creatorhub-ai-api.vercel.app",
   baseURL: "http://localhost:9090",
   timeout: 4000,
 });

@@ -1,25 +1,30 @@
 import styled from "styled-components";
 
 export const PageAIBackgroundChanger = styled.div`
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent; //Màu của vùng cuộn
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(217deg, #e250e5, #4b50e6);
+    }
+  }
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   background-color: rgb(9, 9, 23);
-`;
-
-export const WrapperBackgroundChanger = styled.div`
-  /* width: calc(100%-280px) !important; */
-  flex: 1;
-`;
-
-export const BoxBackgroundChange = styled.div`
-  display: flex;
-  gap: 40px;
+  overflow-y: auto;
 `;
 
 export const ItemBackgroundChange = styled.div`
   width: 56%;
-  height: calc(100%-74px);
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 25px;

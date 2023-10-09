@@ -1,5 +1,6 @@
 import styled from "styled-components";
 export const HeaderAiArt = styled.div`
+  background-color: rgb(9, 9, 23);
   height: 74px;
   padding: 0px 15px;
   display: flex;

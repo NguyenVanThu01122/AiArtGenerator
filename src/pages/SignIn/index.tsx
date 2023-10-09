@@ -9,23 +9,20 @@ import icongg from "../../images/icongg.svg";
 import { publicAxios } from "../../service/axios";
 import {
   FormSignIn,
-  FormSignUp,
-  ItemFormSignUp,
   ItemSignIn,
   ModalForgotPassword,
   WrapperSignIn,
 } from "./styles";
 export function SignIn() {
   const [focusInput, setFocusInput] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
-  const [forgotPassword, setForgotPassword] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState<any>("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [focusEmail, seFocusEmail] = useState("");
+  const [isModalPassword, setIsModalPassword] = useState(false);
+
+  // const [forgotPassword, setForgotPassword] = useState(false);
   const [form] = Form.useForm();
   const navigate = useNavigate();
-
-  // hàm xử lý thay đổi form
-  const handleChangeForm = () => {
-    setIsLogin(!isLogin);
-  };
 
   // hàm xử lý form login
   const handleOnFinishLogin = (value: any) => {
@@ -38,49 +35,35 @@ export function SignIn() {
       .post("/auth/login", bodyLogin)
       .then((res) => {
         message.success(res.data?.message);
-        navigate("/ai-art-generator");
+        navigate("/home");
       })
       .catch((error) => {
         message.error(error.response?.data?.message);
       });
   };
 
-  // hàm xử lý form register
-  const handleOnFinishRegister = (value: any) => {
-    console.log("register");
-    const bodyRegister = {
-      firstName: value.firstName,
-      lastName: value.lastName,
-      email: value.email,
-      password: value.password,
-    };
-    publicAxios
-      .post("/auth/create", bodyRegister)
-      .then((res) => {
-        message.success(res.data?.message);
-        console.log(res.data?.data);
-        // setIsLogin(true);
-      })
-      .catch((error) => {
-        message.error(error.response?.data?.message);
-      });
-  };
-
-  // const handleForgotPassword=()=>{
-  //   setForgotPassword(true)
-  // }
-  const [isModalPassword, setIsModalPassword] = useState(false);
   const showModalForgotPassword = () => {
     setIsModalPassword(true);
   };
   const CancelModalForgotPassword = () => {
     setIsModalPassword(false);
+    setForgotEmail("");
+    setErrorEmail("");
   };
   const handleSubmit = () => {
     form.submit();
   };
-  const handleSubmitRegister = () => {
-    form.submit();
+
+  const handleChangeForgotEmail = (e: any) => {
+    const valueEmail = e.target.value;
+    setForgotEmail(valueEmail);
+    if (!valueEmail) {
+      setErrorEmail("Vui lòng nhập email !");
+    } else if (valueEmail.indexOf("@") === -1) {
+      setErrorEmail("Vui lòng nhập đúng định dạng Email !");
+    } else {
+      setErrorEmail("");
+    }
   };
 
   return (
@@ -90,250 +73,99 @@ export function SignIn() {
       <div id="stars3"></div>
       <SidebarImageLogin />
 
-      {!isLogin ? (
-        <ItemSignIn>
-          <img className="icon-login" src={iconLogin} alt="" />
-          <div>Sign in to your account</div>
-          <div className="group-img">
-            <img className="icon-google" src={icongg} alt="" />
-            <img className="icon-discord" src={iconDiscord} alt="" />
-            <img className="icon-facebook" src={iconFacebook} alt="" />
-          </div>
-          <div className="group-span">
-            <span></span>
-            <span>OR</span>
-            <span></span>
-          </div>
+      <ItemSignIn>
+        <img className="icon-login" src={iconLogin} alt="" />
+        <div>Sign in to your account</div>
+        <div className="group-img">
+          <img className="icon-google" src={icongg} alt="" />
+          <img className="icon-discord" src={iconDiscord} alt="" />
+          <img className="icon-facebook" src={iconFacebook} alt="" />
+        </div>
+        <div className="group-span">
+          <span></span>
+          <span>OR</span>
+          <span></span>
+        </div>
 
-          <FormSignIn
-            form={form}
-            onFinish={handleOnFinishLogin}
-            scrollToFirstError // tự động cuộn đến lỗi đầu tiên trong quá trình xử lý lỗi
+        <FormSignIn
+          form={form}
+          onFinish={handleOnFinishLogin}
+          scrollToFirstError // tự động cuộn đến lỗi đầu tiên trong quá trình xử lý lỗi
+        >
+          <Form.Item
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: "Please enter email address !",
+              },
+              () => ({
+                validator(_, value: String) {
+                  if (value.includes("@") === false && value !== "") {
+                    return Promise.reject(
+                      new Error("Please enter a valid email address !")
+                    );
+                  } else {
+                    return Promise.resolve();
+                  }
+                },
+              }),
+            ]}
           >
-            <Form.Item
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter email address !",
-                },
-                () => ({
-                  validator(_, value: String) {
-                    if (value.includes("@") === false && value !== "") {
-                      return Promise.reject(
-                        new Error("Please enter a valid email address !")
-                      );
-                    } else {
-                      return Promise.resolve();
-                    }
-                  },
-                }),
-              ]}
-            >
-              <Input
-                className={`custom-input ${
-                  focusInput === "name" && "border-violet"
-                }`}
-                onFocus={() => setFocusInput("name")}
-                onBlur={() => setFocusInput("")}
-                placeholder="Email Address"
-              />
-            </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter a valid password !",
-                },
-              ]}
-            >
-              <Input.Password
-                className={`custom-input ${
-                  focusInput === "password" && "border-violet"
-                }`}
-                onFocus={() => setFocusInput("password")}
-                onBlur={() => setFocusInput("")}
-                placeholder="Password"
-              />
-            </Form.Item>
-            <div className="select-item">
-              <Form.Item
-                name="checkbox"
-                valuePropName="checked" // giá trị của thuộc tính checkbox
-                rules={[
-                  {
-                    validator: (_, value) =>
-                      value
-                        ? Promise.resolve()
-                        : Promise.reject(new Error("Please confirm !")),
-                  },
-                ]}
-              >
-                <Checkbox className="checkbox">Remember me !</Checkbox>
-              </Form.Item>
-              <div onClick={showModalForgotPassword}>Forgot Password?</div>
-            </div>
-            <div className="submit-signin" onClick={handleSubmit}>
-              Sign in
-            </div>
-            <div className="item-register">
-              <div>Don't have an account?</div>
-              <div onClick={handleChangeForm}>Register</div>
-            </div>
-            <div>VisionLab., Inc</div>
-          </FormSignIn>
-        </ItemSignIn>
-      ) : (
-        <ItemFormSignUp>
-          <img className="icon-login" src={iconLogin} alt="" />
-          <div>Sign up to your account</div>
-          <div className="group-img">
-            <img className="icon-google" src={icongg} alt="" />
-            <img className="icon-discord" src={iconDiscord} alt="" />
-            <img className="icon-facebook" src={iconFacebook} alt="" />
-          </div>
-          <div className="group-span">
-            <span></span>
-            <span>OR</span>
-            <span></span>
-          </div>
-
-          <FormSignUp
-            form={form}
-            onFinish={handleOnFinishRegister}
-            scrollToFirstError // tự động cuộn đến lỗi đầu tiên trong quá trình xử lý lỗi form
+            <Input
+              className={`custom-input ${
+                focusInput === "name" && "border-violet"
+              }`}
+              onFocus={() => setFocusInput("name")}
+              onBlur={() => setFocusInput("")}
+              placeholder="Email Address"
+            />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: "Please enter a valid password !",
+              },
+            ]}
           >
-            <div className="custom-input-name">
-              <Form.Item
-                className="first-name"
-                name="firstName"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter a valid !",
-                  },
-                ]}
-              >
-                <Input
-                  className={`custom-input ${
-                    focusInput === "firstName" && "border-violet"
-                  }`}
-                  onFocus={() => setFocusInput("firstName")}
-                  onBlur={() => setFocusInput("")}
-                  placeholder="First Name"
-                />
-              </Form.Item>
-              <Form.Item
-                className="last-name"
-                name="lastName"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter a valid last name !",
-                  },
-                ]}
-              >
-                <Input
-                  className={`custom-input ${
-                    focusInput === "lastName" && "border-violet"
-                  }`}
-                  onFocus={() => setFocusInput("lastName")}
-                  onBlur={() => setFocusInput("")}
-                  placeholder="Last Name"
-                />
-              </Form.Item>
-            </div>
+            <Input.Password
+              className={`custom-input ${
+                focusInput === "password" && "border-violet"
+              }`}
+              onFocus={() => setFocusInput("password")}
+              onBlur={() => setFocusInput("")}
+              placeholder="Password"
+            />
+          </Form.Item>
+          <div className="select-item">
             <Form.Item
-              name="email"
+              name="checkbox"
+              valuePropName="checked" // giá trị của thuộc tính checkbox
               rules={[
                 {
-                  required: true,
-                  message: "Please enter a valid email address !",
-                },
-                () => ({
-                  validator(_, value: string) {
-                    if (value.includes("@") === false && value !== "") {
-                      return Promise.reject(
-                        new Error("Please enter a valid email address !")
-                      );
-                    } else {
-                      Promise.resolve();
-                    }
-                  },
-                }),
-              ]}
-            >
-              <Input
-                className={`custom-input ${
-                  focusInput === "email" && "border-violet"
-                }`}
-                onFocus={() => setFocusInput("email")}
-                onBlur={() => setFocusInput("")}
-                type="email"
-                placeholder="Email Address"
-              />
-            </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter a valid email address !",
+                  validator: (_, value) =>
+                    value
+                      ? Promise.resolve()
+                      : Promise.reject(new Error("Please confirm !")),
                 },
               ]}
             >
-              <Input.Password
-                className={`custom-input ${
-                  focusInput === "password" && "border-violet"
-                }`}
-                onFocus={() => setFocusInput("password")}
-                onBlur={() => setFocusInput("")}
-                placeholder="Password"
-              />
+              <Checkbox className="checkbox">Remember me !</Checkbox>
             </Form.Item>
-            <Form.Item
-              name="confirm"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter a valid confirm password !",
-                },
-                ({ getFieldValue }) => ({
-                  validator(_, value: number) {
-                    if (!value || getFieldValue("password") === value) {
-                      return Promise.resolve();
-                    } else {
-                      return Promise.reject(
-                        new Error("The password confirmation does not match !")
-                      );
-                    }
-                  },
-                }),
-              ]}
-            >
-              <Input.Password
-                className={`custom-input ${
-                  focusInput === "confirmPassword" && "border-violet"
-                }`}
-                onFocus={() => setFocusInput("confirmPassword")}
-                onBlur={() => setFocusInput("")}
-                placeholder="Confirm Password"
-              />
-            </Form.Item>
-            <div className="submit-register" onClick={handleSubmitRegister}>
-              Sign up
-            </div>
-          </FormSignUp>
-          <div className="item-login">
+            <div onClick={showModalForgotPassword}>Forgot Password?</div>
+          </div>
+          <div className="submit-signin" onClick={handleSubmit}>
+            Sign in
+          </div>
+          <div className="item-register">
             <div>Don't have an account?</div>
-            <div className="signInAnimation" onClick={handleChangeForm}>
-              Sign in
-            </div>
+            <div onClick={() => navigate("/register")}>Register</div>
           </div>
           <div>VisionLab., Inc</div>
-        </ItemFormSignUp>
-      )}
+        </FormSignIn>
+      </ItemSignIn>
 
       <ModalForgotPassword
         open={isModalPassword}
@@ -349,7 +181,13 @@ export function SignIn() {
             <div>
               Enter your email and we'll send you a link to reset your password
             </div>
-            <Input className="custom-input" />
+            <input
+              className="custom-input"
+              value={forgotEmail}
+              onChange={handleChangeForgotEmail}
+              placeholder="Please enter email address"
+            />
+            <div className="error-email">{errorEmail}</div>
             <Button className="custom-button">Request Password Reset</Button>
           </div>
           <div className="back" onClick={CancelModalForgotPassword}>

@@ -2,52 +2,16 @@ import styled from "styled-components";
 
 export const PageAiPhotoEnhancer = styled.div`
   display: flex;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: rgb(9, 9, 23);
-`;
-
-export const WrapperAiPhotoEnhancer = styled.div`
-  /* width: calc(100%-280px); */
-  flex: 1;
-  display: flex;
+  display:flex;
   flex-direction: column;
 `;
 
-// export const TitlePage = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   border-bottom: 1px solid rgb(30, 36, 49);
-//   .title {
-//     padding: 24px 15px;
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     gap: 10px;
-//     color: white;
-//     & > div:last-child {
-//       font-size: 17px;
-//       font-weight: 600;
-//       display: flex;
-//       gap: 10px;
-
-//       & span {
-//         color: gray;
-//         &:hover {
-//           color: white;
-//           cursor: pointer;
-//         }
-//       }
-//     }
-//   }
-//   .login {
-//     color: white;
-//   }
-// `;
-
 export const SectionContents = styled.div`
   overflow-y: auto;
+  flex: 1;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
   }

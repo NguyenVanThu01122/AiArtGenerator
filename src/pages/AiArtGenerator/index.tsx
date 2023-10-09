@@ -4,20 +4,13 @@ import axios from "axios";
 import { Buffer } from "buffer";
 import { useEffect, useRef, useState } from "react";
 import { useClipboard } from "use-clipboard-copy";
-import Header from "../../components/Header";
-import { Sidebar } from "../../components/Sidebar";
 import icHistory from "../../images/ic-history.svg";
 import icRandom from "../../images/ic-random.svg";
 import iconCancel from "../../images/icon-cancel.svg";
 import iconRotate from "../../images/icon-rotare.svg";
 import iconShow from "../../images/icon-show.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
-import {
-  PageAiArtGenerator,
-  ResultsItem,
-  SectionContents,
-  WrapperAiArtGenerator,
-} from "./styles";
+import { ResultsItem, SectionContents, WrapperAiArtGenerator } from "./styles";
 
 function AiArtGenerator() {
   const imageRef = useRef(null);
@@ -185,15 +178,12 @@ function AiArtGenerator() {
   const downloadImage = async (base64String: string, filename: string) => {
     // Tạo một thẻ a để tạo link tải về
     const a = document.createElement("a");
-
     // gắn thuộc tính href có giá trị = đường dẫn ảnh
     a.href = base64String;
     // gắn thuộc tính download có giá trị =  filename
     a.download = filename;
-
     // gọi sự kiện click của thẻ a
     a.click();
-
     // <a href={base64string} download={filename} />
   };
 
@@ -202,185 +192,151 @@ function AiArtGenerator() {
   }, []);
 
   return (
-    <PageAiArtGenerator>
-      <div className={`box-item`}>
-        <Sidebar />
-        <WrapperAiArtGenerator>
-          <Header />
-          {resultImage ? (
-            <ResultsItem>
-              <div className="back-item" onClick={handleBack}>
-                <img
-                  src="https://creatorhub.ai/static/media/arrow-left.399a6a0f4dc1267cf682ef36c05ed4b9.svg"
-                  alt=""
-                />
-                <div>Back to Generate</div>
-              </div>
-              <div className="box-result">
-                <div className="display-image">
-                  <img className="image-result" src={resultImage} alt="" />
-                  {/* <div className="edit-photo">
-                    <div className="btn-edit">
-                      <img
-                        src="https://creatorhub.ai/static/media/ic-edit.c6f5e372d8a9753c4cd42e1cf43f3549.svg"
-                        alt=""
-                      />
-                      <div>Edit Photo</div>
-                    </div>
-                  </div> */}
+    <WrapperAiArtGenerator>
+      {resultImage ? (
+        <ResultsItem>
+          <div className="back-item" onClick={handleBack}>
+            <img
+              src="https://creatorhub.ai/static/media/arrow-left.399a6a0f4dc1267cf682ef36c05ed4b9.svg"
+              alt=""
+            />
+            <div>Back to Generate</div>
+          </div>
+          <div className="box-result">
+            <div className="display-image">
+              <img className="image-result" src={resultImage} alt="" />
+            </div>
+            <div className="section-parameter">
+              <div>AI Art Result</div>
+              <div className="information-result">
+                <div className="detail-result">
+                  <div className="text-group">
+                    <div>Style</div>
+                    <div>{selectStyle ? selectStyle.name : "-"}</div>
+                  </div>
+                  <div className="text-group">
+                    <div>Step</div>
+                    <div>{sliderValueSteps}</div>
+                  </div>
                 </div>
-                <div className="section-parameter">
-                  <div>AI Art Result</div>
-                  <div className="information-result">
-                    <div className="detail-result">
-                      <div className="text-group">
-                        <div>Style</div>
-                        <div>{selectStyle ? selectStyle.name : "-"}</div>
-                      </div>
-                      <div className="text-group">
-                        <div>Step</div>
-                        <div>{sliderValueSteps}</div>
-                      </div>
-                    </div>
-                    <div className="detail-result">
-                      <div className="text-group">
-                        <div>Created</div>
-                        <div>{new Date().toDateString()}</div>
-                      </div>
-                      <div className="text-group">
-                        <div>Guidance Scale</div>
-                        <div>{sliderValueScale}</div>
-                      </div>
-                    </div>
-                    <div className="detail-result">
-                      <div className="text-group">
-                        <div>Alpha</div>
-                        <div>{sliderValueAlpha}</div>
-                      </div>
-                    </div>
+                <div className="detail-result">
+                  <div className="text-group">
+                    <div>Created</div>
+                    <div>{new Date().toDateString()}</div>
                   </div>
-                  <div className="item-prompt">
-                    <div className="text-prompt">
-                      <div>Prompt</div>
-                      <div ref={textToCopyRef}>
-                        {prompt.trim() ? prompt.trim() : "-"}
-                      </div>
-                    </div>
-                    <div className="text-prompt">
-                      <div>Negative Prompt</div>
-                      <div>
-                        {negativePrompt.trim() ? negativePrompt.trim() : "-"}
-                      </div>
-                    </div>
+                  <div className="text-group">
+                    <div>Guidance Scale</div>
+                    <div>{sliderValueScale}</div>
                   </div>
-                  <div className="button-group">
-                    <Button className="copy-button" onClick={handleCopyText}>
-                      <img
-                        src="https://creatorhub.ai/static/media/ic-remix.fc1b33535a75591dc551cfd88ba2f755.svg"
-                        alt=""
-                      />
-                      Copy Prompt
-                    </Button>
-                    <Button
-                      className="download-button"
-                      onClick={() => downloadImage(resultImage, "img.jpg")}
-                    >
-                      Download - 1 Credit
-                    </Button>
+                </div>
+                <div className="detail-result">
+                  <div className="text-group">
+                    <div>Alpha</div>
+                    <div>{sliderValueAlpha}</div>
                   </div>
                 </div>
               </div>
-            </ResultsItem>
-          ) : (
-            <SectionContents>
-              <div className="select-item">
-                <div className="select-photo">
-                  <div>Choose your style</div>
-                  <div>
-                    We will adjust the image options to the optimal settings.
-                  </div>
-                  <div className="item-carousel">
-                    <Carousel
-                      className="custom-carousel"
-                      dots={false}
-                      ref={imageRef}
-                      variableWidth={true}
-                      draggable={true}
-                      slidesToScroll={1}
-                      infinite={false} // ngăn chặn lặp lại
-                    >
-                      <div
-                        className={`item-none ${
-                          selectStyle === "" && "active-none"
-                        }`}
-                        onClick={handleClickNoneStyle}
-                      >
-                        <img
-                          src="https://creatorhub.ai/static/media/icon-no-style.d33035a216c7617296444019155e9933.svg"
-                          alt=""
-                        />
-                        <div>None</div>
-                      </div>
-                      {listStyle.map((item: any) => (
-                        <div
-                          key={item?.id}
-                          className={`custom-images ${
-                            item.id === selectStyle?.id && "active-style"
-                          }`}
-                          onClick={() => handleClickStyle(item)}
-                        >
-                          <img className="image-ai" src={item?.image} />
-                          <div className="name-style">{item?.name}</div>
-                        </div>
-                      ))}
-                    </Carousel>
-                    <div className="image-prev" onClick={handlePrevImageAi}>
-                      {"<"}
-                    </div>
-                    <div className="image-next" onClick={handleNextImageAi}>
-                      {">"}
-                    </div>
+              <div className="item-prompt">
+                <div className="text-prompt">
+                  <div>Prompt</div>
+                  <div ref={textToCopyRef}>
+                    {prompt.trim() ? prompt.trim() : "-"}
                   </div>
                 </div>
-                <div className="select-upload-image">
-                  <div>Reference image</div>
+                <div className="text-prompt">
+                  <div>Negative Prompt</div>
                   <div>
-                    Upload an image that will serve as the starting point of the
-                    result.
+                    {negativePrompt.trim() ? negativePrompt.trim() : "-"}
                   </div>
-                  {uploadImage ? (
-                    <div className="box-image">
-                      <img className="image" src={uploadImage} alt="" />
-                      <div className="item-change">
-                        <img
-                          onClick={() => setUploadImage(false)}
-                          className="icon-cancel"
-                          src={iconCancel}
-                        />
-                        <div className="change-images">
-                          <img src={iconRotate} alt="" />
-                          <div>Change Photo</div>
-                          <input
-                            title=""
-                            className="input-upload"
-                            type="file"
-                            name="img"
-                            accept="image/*"
-                            // accept=".jpg,.png" // định dạng ảnh muốn chọn
-                            onChange={handleChangeImage}
-                          />
-                        </div>
-                      </div>
+                </div>
+              </div>
+              <div className="button-group">
+                <Button className="copy-button" onClick={handleCopyText}>
+                  <img
+                    src="https://creatorhub.ai/static/media/ic-remix.fc1b33535a75591dc551cfd88ba2f755.svg"
+                    alt=""
+                  />
+                  Copy Prompt
+                </Button>
+                <Button
+                  className="download-button"
+                  onClick={() => downloadImage(resultImage, "img.jpg")}
+                >
+                  Download - 1 Credit
+                </Button>
+              </div>
+            </div>
+          </div>
+        </ResultsItem>
+      ) : (
+        <SectionContents>
+          <div className="select-item">
+            <div className="select-photo">
+              <div>Choose your style</div>
+              <div>
+                We will adjust the image options to the optimal settings.
+              </div>
+              <div className="item-carousel">
+                <Carousel
+                  className="custom-carousel"
+                  dots={false}
+                  ref={imageRef}
+                  variableWidth={true}
+                  draggable={true}
+                  slidesToScroll={1}
+                  infinite={false} // ngăn chặn lặp lại
+                >
+                  <div
+                    className={`item-none ${
+                      selectStyle === "" && "active-none"
+                    }`}
+                    onClick={handleClickNoneStyle}
+                  >
+                    <img
+                      src="https://creatorhub.ai/static/media/icon-no-style.d33035a216c7617296444019155e9933.svg"
+                      alt=""
+                    />
+                    <div>None</div>
+                  </div>
+                  {listStyle.map((item: any) => (
+                    <div
+                      key={item?.id}
+                      className={`custom-images ${
+                        item.id === selectStyle?.id && "active-style"
+                      }`}
+                      onClick={() => handleClickStyle(item)}
+                    >
+                      <img className="image-ai" src={item?.image} />
+                      <div className="name-style">{item?.name}</div>
                     </div>
-                  ) : (
-                    <div className="upload-image">
-                      <div className="image">
-                        <img src={iconUploadImg} alt="" />
-                      </div>
-                      <div>Upload or drop file here</div>
-                      <div>
-                        Supported formats: PNG, JPEG, JPG, File size limit:5MB.
-                      </div>
+                  ))}
+                </Carousel>
+                <div className="image-prev" onClick={handlePrevImageAi}>
+                  {"<"}
+                </div>
+                <div className="image-next" onClick={handleNextImageAi}>
+                  {">"}
+                </div>
+              </div>
+            </div>
+            <div className="select-upload-image">
+              <div>Reference image</div>
+              <div>
+                Upload an image that will serve as the starting point of the
+                result.
+              </div>
+              {uploadImage ? (
+                <div className="box-image">
+                  <img className="image" src={uploadImage} alt="" />
+                  <div className="item-change">
+                    <img
+                      onClick={() => setUploadImage(false)}
+                      className="icon-cancel"
+                      src={iconCancel}
+                    />
+                    <div className="change-images">
+                      <img src={iconRotate} alt="" />
+                      <div>Change Photo</div>
                       <input
                         title=""
                         className="input-upload"
@@ -391,47 +347,68 @@ function AiArtGenerator() {
                         onChange={handleChangeImage}
                       />
                     </div>
-                  )}
-                </div>
-                <div className="create-prompt">
-                  <div className="prompt-title">
-                    <div>Create your prompt</div>
-                    <div className="group-tool">
-                      <img src={icHistory} alt="" />
-                      <img src={icRandom} alt="" />
-                    </div>
                   </div>
+                </div>
+              ) : (
+                <div className="upload-image">
+                  <div className="image">
+                    <img src={iconUploadImg} alt="" />
+                  </div>
+                  <div>Upload or drop file here</div>
                   <div>
-                    Describe whatever you want or directly click the Suggestion
-                    icon to quickly generate AI art.
+                    Supported formats: PNG, JPEG, JPG, File size limit:5MB.
                   </div>
-                  <div>Prompt</div>
-                  <div className="textArea">
-                    <TextArea
-                      style={{ resize: "none" }}
-                      className="custom-textarea"
-                      maxLength={1000}
-                      value={prompt}
-                      onChange={(e) => setPrompt(e.target.value)}
-                      placeholder="Enter prompt..."
-                    />
-                  </div>
-                </div>
-                <div className="negative-prompt">
-                  <div>Negative Prompt</div>
-                  <TextArea
-                    style={{ resize: "none" }}
-                    className="custom-textarea"
-                    maxLength={1000}
-                    value={negativePrompt}
-                    onChange={(e) => setNegativePrompt(e.target.value)}
-                    placeholder="Enter negative prompt (optional)"
+                  <input
+                    title=""
+                    className="input-upload"
+                    type="file"
+                    name="img"
+                    accept="image/*"
+                    // accept=".jpg,.png" // định dạng ảnh muốn chọn
+                    onChange={handleChangeImage}
                   />
                 </div>
+              )}
+            </div>
+            <div className="create-prompt">
+              <div className="prompt-title">
+                <div>Create your prompt</div>
+                <div className="group-tool">
+                  <img src={icHistory} alt="" />
+                  <img src={icRandom} alt="" />
+                </div>
               </div>
-              <div className="item-configs">
-                <div className="content-configs">
-                  {/* <div className="header-config">
+              <div>
+                Describe whatever you want or directly click the Suggestion icon
+                to quickly generate AI art.
+              </div>
+              <div>Prompt</div>
+              <div className="textArea">
+                <TextArea
+                  style={{ resize: "none" }}
+                  className="custom-textarea"
+                  maxLength={1000}
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  placeholder="Enter prompt..."
+                />
+              </div>
+            </div>
+            <div className="negative-prompt">
+              <div>Negative Prompt</div>
+              <TextArea
+                style={{ resize: "none" }}
+                className="custom-textarea"
+                maxLength={1000}
+                value={negativePrompt}
+                onChange={(e) => setNegativePrompt(e.target.value)}
+                placeholder="Enter negative prompt (optional)"
+              />
+            </div>
+          </div>
+          <div className="item-configs">
+            <div className="content-configs">
+              {/* <div className="header-config">
                 <div>Image Resolution</div>
                 <div>
                   The width and height of the image. The larger the image, the
@@ -468,95 +445,78 @@ function AiArtGenerator() {
                   <div className="value-slider">{sliderValueHeight}</div>
                 </div>
               </div> */}
-                  <div className="last-config">
-                    <div
-                      className="advanced-settings"
-                      onClick={() => setFocusIcon(!focusIcon)}
-                    >
-                      <div>ADVANCED SETTINGS</div>
-                      <img
-                        className={`${
-                          focusIcon ? "reverse-icon" : "reverse-initial"
-                        }`}
-                        src={iconShow}
-                        alt=""
-                      />
+              <div className="last-config">
+                <div
+                  className="advanced-settings"
+                  onClick={() => setFocusIcon(!focusIcon)}
+                >
+                  <div>ADVANCED SETTINGS</div>
+                  <img
+                    className={`${
+                      focusIcon ? "reverse-icon" : "reverse-initial"
+                    }`}
+                    src={iconShow}
+                    alt=""
+                  />
+                </div>
+                {!focusIcon && (
+                  <div className="block-settings">
+                    <div className="select-alpha">
+                      <div>Alpha</div>
+                      <div>
+                        Adjust the level of control over output specificity.
+                        Higher values provide more specific output control,
+                        lower values allow for greater variation and creativity.
+                      </div>
+                      <div className="item-slider">
+                        <Slider
+                          className="custom-slider"
+                          min={0}
+                          max={1}
+                          step={0.1}
+                          onChange={(newValue) => setSliderValueAlpha(newValue)}
+                          value={sliderValueAlpha}
+                        />
+                        <div className="value-slider">{sliderValueAlpha}</div>
+                      </div>
                     </div>
-                    {!focusIcon && (
-                      <div className="block-settings">
-                        <div className="select-alpha">
-                          <div>Alpha</div>
-                          <div>
-                            Adjust the level of control over output specificity.
-                            Higher values provide more specific output control,
-                            lower values allow for greater variation and
-                            creativity.
-                          </div>
-                          <div className="item-slider">
-                            <Slider
-                              className="custom-slider"
-                              min={0}
-                              max={1}
-                              step={0.1}
-                              onChange={(newValue) =>
-                                setSliderValueAlpha(newValue)
-                              }
-                              value={sliderValueAlpha}
-                            />
-                            <div className="value-slider">
-                              {sliderValueAlpha}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="select-steps">
-                          <div>Steps</div>
-                          <div>
-                            Determine the level of iteration for text
-                            generation. Higher values refine output, lower
-                            values increase diversity.
-                          </div>
-                          <div className="item-slider">
-                            <Slider
-                              className="custom-slider"
-                              min={10}
-                              max={50}
-                              onChange={(newValue) =>
-                                setSliderValueSteps(newValue)
-                              }
-                              value={
-                                typeof sliderValueSteps === "number"
-                                  ? sliderValueSteps
-                                  : 0
-                              }
-                            />
-                            <div className="value-slider">
-                              {sliderValueSteps}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="select-scale">
-                          <div>Scale</div>
-                          <div>
-                            Control the balance between creativity and control
-                            in text generation. Higher values increase control,
-                            lower values enhance creativity.
-                          </div>
-                          <div className="item-slider">
-                            <Slider
-                              className="custom-slider"
-                              min={0}
-                              max={10}
-                              onChange={(newValue) =>
-                                setSliderValueScale(newValue)
-                              }
-                              value={sliderValueScale}
-                            />
-                            <div className="value-slider">
-                              {sliderValueScale}
-                            </div>
-                          </div>
-                        </div>
-                        {/* <div className="select-Seed">
+                    <div className="select-steps">
+                      <div>Steps</div>
+                      <div>
+                        Determine the level of iteration for text generation.
+                        Higher values refine output, lower values increase
+                        diversity.
+                      </div>
+                      <div className="item-slider">
+                        <Slider
+                          className="custom-slider"
+                          min={10}
+                          max={50}
+                          onChange={(newValue) => setSliderValueSteps(newValue)}
+                          value={sliderValueSteps}
+                        />
+                        <div className="value-slider">{sliderValueSteps}</div>
+                      </div>
+                    </div>
+                    <div className="select-scale">
+                      <div>Scale</div>
+                      <div>
+                        Control the balance between creativity and control in
+                        text generation. Higher values increase control, lower
+                        values enhance creativity.
+                      </div>
+                      <div className="item-slider">
+                        <Slider
+                          className="custom-slider"
+                          min={0}
+                          max={10}
+                          onChange={(newValue) => setSliderValueScale(newValue)}
+                          value={sliderValueScale}
+                        />
+                        <div className="value-slider">{sliderValueScale}</div>
+                      </div>
+                    </div>
+                    {/* <div className="select-Seed">
                       <div>Seed</div>
                       <div>
                         The random seed determines the initialize noise pattern
@@ -573,25 +533,23 @@ function AiArtGenerator() {
                         value={inputValueSeed}
                       />
                     </div> */}
-                      </div>
-                    )}
                   </div>
-                </div>
-                <div className="button-create">
-                  <Button
-                    loading={isLoading}
-                    onClick={handleGenerate}
-                    disabled={!uploadImage && !prompt.trim()}
-                    className="button"
-                  >
-                    Generate - 2 credits
-                  </Button>
-                </div>
+                )}
               </div>
-            </SectionContents>
-          )}
-        </WrapperAiArtGenerator>
-      </div>
+            </div>
+            <div className="button-create">
+              <Button
+                loading={isLoading}
+                onClick={handleGenerate}
+                disabled={!uploadImage && !prompt.trim()}
+                className="button"
+              >
+                Generate - 2 credits
+              </Button>
+            </div>
+          </div>
+        </SectionContents>
+      )}
       {isLoading && (
         <div className="item-loading">
           <img
@@ -601,7 +559,7 @@ function AiArtGenerator() {
           />
         </div>
       )}
-    </PageAiArtGenerator>
+    </WrapperAiArtGenerator>
   );
 }
 
