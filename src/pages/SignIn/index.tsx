@@ -1,41 +1,48 @@
 import { Button, Checkbox, Form, Input, message } from "antd";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SidebarImageLogin } from "../../components/SidebarImageLogin";
+import iconBack from "../../images/ic-back.svg";
 import iconDiscord from "../../images/iconDiscord.svg";
 import iconFacebook from "../../images/iconFacebook.svg";
 import iconLogin from "../../images/iconLogin.png";
 import icongg from "../../images/icongg.svg";
-import { publicAxios } from "../../service/axios";
+import { saveLogin, saveToken } from "../../redux/Actions/app";
+import { privateAxios } from "../../service/axios";
 import {
   FormSignIn,
+  GroupTextEmpty,
   ItemSignIn,
+  ItemVerifyEmail,
   ModalForgotPassword,
   WrapperSignIn,
 } from "./styles";
 export function SignIn() {
   const [focusInput, setFocusInput] = useState("");
   const [forgotEmail, setForgotEmail] = useState<any>("");
-  const [errorEmail, setErrorEmail] = useState("");
-  const [focusEmail, seFocusEmail] = useState("");
+  const [errorEmail, setErrorEmail] = useState<any>("");
+  const [isforgotPassword, setIsForgotPassword] = useState(false);
+  // const [focusEmail, seFocusEmail] = useState("");
   const [isModalPassword, setIsModalPassword] = useState(false);
-
-  // const [forgotPassword, setForgotPassword] = useState(false);
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // hàm xử lý form login
   const handleOnFinishLogin = (value: any) => {
-    console.log("login");
     const bodyLogin = {
       email: value?.email,
       password: value?.password,
     };
-    publicAxios
+    privateAxios
       .post("/auth/login", bodyLogin)
       .then((res) => {
-        message.success(res.data?.message);
-        navigate("/home");
+        dispatch(saveLogin(true));
+        dispatch(saveToken(res.data?.token));
+        localStorage.setItem("token", res.data?.token);
+        localStorage.setItem("refreshToken", res.data?.refreshToken);
+        navigate("/");
       })
       .catch((error) => {
         message.error(error.response?.data?.message);
@@ -44,7 +51,9 @@ export function SignIn() {
 
   const showModalForgotPassword = () => {
     setIsModalPassword(true);
+    setIsForgotPassword(true);
   };
+
   const CancelModalForgotPassword = () => {
     setIsModalPassword(false);
     setForgotEmail("");
@@ -54,23 +63,52 @@ export function SignIn() {
     form.submit();
   };
 
+  // hàm check lỗi form
   const handleChangeForgotEmail = (e: any) => {
     const valueEmail = e.target.value;
     setForgotEmail(valueEmail);
     if (!valueEmail) {
-      setErrorEmail("Vui lòng nhập email !");
+      setErrorEmail("Please enter email address!");
     } else if (valueEmail.indexOf("@") === -1) {
-      setErrorEmail("Vui lòng nhập đúng định dạng Email !");
+      setErrorEmail("Please enter the correct Email format!");
     } else {
       setErrorEmail("");
     }
   };
 
+  const handleResetPassword = () => {
+    if (!forgotEmail) {
+      setErrorEmail("Please enter email address!");
+    }
+    if (!errorEmail) {
+      const body = {
+        email: forgotEmail,
+        redirectUrl: "http://localhost:3000/change-password",
+      };
+      privateAxios
+        .post("/auth/forget-password", body)
+        .then((res) => {
+          setIsForgotPassword(false);
+        })
+        .catch((error) => {
+          message.error(error.response.data?.message);
+          setErrorEmail(error.response.data?.message);
+        });
+    }
+  };
+  const handleTryAgain = () => {
+    setForgotEmail("");
+    setIsForgotPassword(true);
+  };
+
   return (
     <WrapperSignIn>
-      <div id="stars"></div>
-      <div id="stars2"></div>
-      <div id="stars3"></div>
+      <GroupTextEmpty>
+        <div id="stars1"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        {isModalPassword && <div id="empty-div"></div>}
+      </GroupTextEmpty>
       <SidebarImageLogin />
 
       <ItemSignIn>
@@ -143,14 +181,6 @@ export function SignIn() {
             <Form.Item
               name="checkbox"
               valuePropName="checked" // giá trị của thuộc tính checkbox
-              rules={[
-                {
-                  validator: (_, value) =>
-                    value
-                      ? Promise.resolve()
-                      : Promise.reject(new Error("Please confirm !")),
-                },
-              ]}
             >
               <Checkbox className="checkbox">Remember me !</Checkbox>
             </Form.Item>
@@ -172,32 +202,56 @@ export function SignIn() {
         footer={false}
         onCancel={CancelModalForgotPassword}
       >
-        <div className="forgot-password">
-          <div className="title">
-            <img src={iconLogin} alt="" />
-            <div>Forgot your password?</div>
-          </div>
-          <div className="select-item">
-            <div>
-              Enter your email and we'll send you a link to reset your password
+        {isforgotPassword ? (
+          <div className="forgot-password">
+            <div className="title">
+              <img src={iconLogin} alt="" />
+              <div>Forgot your password?</div>
             </div>
-            <input
-              className="custom-input"
-              value={forgotEmail}
-              onChange={handleChangeForgotEmail}
-              placeholder="Please enter email address"
-            />
-            <div className="error-email">{errorEmail}</div>
-            <Button className="custom-button">Request Password Reset</Button>
+            <div className="select-item">
+              <div>
+                Enter your email and we'll send you a link to reset your
+                password
+              </div>
+              <input
+                type="email"
+                className={`custom-input ${errorEmail && "border-red"}`}
+                value={forgotEmail}
+                onChange={handleChangeForgotEmail}
+                placeholder="Please enter email address"
+              />
+              <div className="error-email">{errorEmail}</div>
+              <Button
+                className="custom-button"
+                onClick={handleResetPassword}
+                disabled={errorEmail || !forgotEmail}
+              >
+                Request Password Reset
+              </Button>
+            </div>
+            <div className="back" onClick={CancelModalForgotPassword}>
+              <img src={iconBack} alt="" />
+              <div>Back to sign in</div>
+            </div>
           </div>
-          <div className="back" onClick={CancelModalForgotPassword}>
-            <img
-              src="https://dev.creatorhub.ai/static/media/ic_back_to_login.3ec73c33f21abdcfc8ca17859bc90f95.svg"
-              alt=""
-            />
-            <div>Back to sign in</div>
-          </div>
-        </div>
+        ) : (
+          <ItemVerifyEmail>
+            <img className="ic-logo" src={iconLogin} alt="" />
+            <div>Email Sent</div>
+            <div>
+              We've sent you an email with a link to verify your account. Click
+              link in email to verify.
+            </div>
+            <div>
+              Wrong email? <span onClick={handleTryAgain}>Try Again</span>
+            </div>
+            <div className="item-back" onClick={CancelModalForgotPassword}>
+              <img src={iconBack} alt="" />
+              <div>Back to sign in</div>
+            </div>
+            <div>VisionLab., Inc</div>
+          </ItemVerifyEmail>
+        )}
       </ModalForgotPassword>
     </WrapperSignIn>
   );

@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Layout } from "./Layout";
-import { SidebarImageLogin } from "./components/SidebarImageLogin";
 import AiArtGenerator from "./pages/AiArtGenerator";
 import AiBackgroundChanger from "./pages/AiBackgroundChanger";
 import { AiPhotoEnhancer } from "./pages/AiPhotoEnhancer";
@@ -14,8 +13,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/sidebar-login" element={<SidebarImageLogin />} />
+          <Route path="/" element={<Home />} />
           <Route path="ai-art-generator" element={<AiArtGenerator />} />
           <Route path="/ai-photo-enhancer" element={<AiPhotoEnhancer />} />
           <Route

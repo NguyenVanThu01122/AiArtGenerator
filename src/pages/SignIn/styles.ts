@@ -7,8 +7,21 @@ export const WrapperSignIn = styled.div`
   flex: 1;
   align-items: center;
   justify-content: space-between;
+  position: relative;
   background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%);
-  #stars {
+`;
+
+export const GroupTextEmpty = styled.div`
+  #empty-div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+  }
+  #stars1 {
     width: 1px;
     height: 1px;
     background: transparent;
@@ -204,7 +217,7 @@ export const WrapperSignIn = styled.div`
       515px 1464px #fff, 1430px 315px #fff, 721px 1265px #fff, 383px 796px #fff;
     animation: animStar 50s linear infinite;
   }
-  #stars:after {
+  #stars1:after {
     content: " ";
     position: absolute;
 
@@ -785,6 +798,9 @@ export const FormSignIn = styled(Form)`
 `;
 
 export const ModalForgotPassword = styled(Modal)`
+  .ant-modal-content {
+    height: 500px;
+  }
   // class ant
   .ant-modal-content {
     background-color: rgb(9, 9, 23);
@@ -803,7 +819,6 @@ export const ModalForgotPassword = styled(Modal)`
       }
     }
   }
-
   .forgot-password {
     width: 80%;
     margin: auto;
@@ -820,25 +835,36 @@ export const ModalForgotPassword = styled(Modal)`
       & > div:first-child {
         color: white;
         font-size: 18px;
+        margin-bottom: 20px;
       }
       .custom-input {
         width: 100%;
         color: white;
-        margin: 20px 0px;
         padding: 10px;
         height: 46px;
-        /* border: none; */
+        border: none;
+        border-radius: 5px;
         background: radial-gradient(
           ellipse at bottom,
           #1b2735 0%,
           #12141d 100%
         );
+        &:hover {
+          outline: 1px solid skyblue;
+        }
+        &:focus {
+          outline: 1px solid violet;
+        }
         &::placeholder {
           color: gray;
           font-style: italic;
         }
       }
+      .border-red {
+        outline: 1px solid red !important;
+      }
       .custom-button {
+        margin-top: 20px;
         width: 100%;
         height: 40px;
         border: none;
@@ -853,9 +879,12 @@ export const ModalForgotPassword = styled(Modal)`
         &:hover {
           filter: brightness(0.6);
         }
+        &:disabled {
+          filter: brightness(0.6);
+        }
       }
       .error-email {
-        margin-bottom: 5px;
+        margin-top: 5px;
         font-size: 14px;
         font-style: italic;
         color: red !important;
@@ -872,5 +901,51 @@ export const ModalForgotPassword = styled(Modal)`
         font-weight: bold;
       }
     }
+  }
+`;
+
+export const ItemVerifyEmail = styled.div`
+  margin-top: 50px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  .ic-logo {
+  }
+
+  & > div:nth-child(2) {
+    font-size: 40px;
+    font-weight: bold;
+  }
+  & > div:nth-child(4) {
+    span {
+      margin-left: 4px;
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: bold;
+      font-style: italic;
+    }
+  }
+  .item-back {
+    margin-top: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    & > div:last-child {
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+  & > div:last-child {
+    margin-top: 50px;
+    width: 80%;
+    color: gray;
+    padding-bottom: 5px;
+    border-bottom: 1px solid gray;
   }
 `;

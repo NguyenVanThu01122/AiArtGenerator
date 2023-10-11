@@ -3,6 +3,8 @@ import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
 import { Buffer } from "buffer";
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useClipboard } from "use-clipboard-copy";
 import icHistory from "../../images/ic-history.svg";
 import icRandom from "../../images/ic-random.svg";
@@ -10,6 +12,11 @@ import iconCancel from "../../images/icon-cancel.svg";
 import iconRotate from "../../images/icon-rotare.svg";
 import iconShow from "../../images/icon-show.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
+import {
+  DEFAULT_ALPHA,
+  DEFAULT_SCALE,
+  DEFAULT_STEPS,
+} from "../../utils/contanst";
 import { ResultsItem, SectionContents, WrapperAiArtGenerator } from "./styles";
 
 function AiArtGenerator() {
@@ -17,12 +24,12 @@ function AiArtGenerator() {
   const [focusIcon, setFocusIcon] = useState(false);
   const textToCopyRef = useRef(null);
   const clipboard = useClipboard();
-  // const [sliderValueWidth, setSliderValueWidth] = useState(768);
-  // const [sliderValueHeight, setSliderValueHeight] = useState(768);
-  // const [inputValueSeed, setInputValueSeed] = useState(1);
-  const [sliderValueAlpha, setSliderValueAlpha] = useState(0.8);
-  const [sliderValueSteps, setSliderValueSteps] = useState(30);
-  const [sliderValueScale, setSliderValueScale] = useState(10);
+  const navigate = useNavigate();
+ 
+  const [sliderValueAlpha, setSliderValueAlpha] = useState(DEFAULT_ALPHA);
+  const [sliderValueSteps, setSliderValueSteps] = useState(DEFAULT_STEPS);
+  const [sliderValueScale, setSliderValueScale] = useState(DEFAULT_SCALE);
+
   const [prompt, setPrompt] = useState("");
   const [negativePrompt, setNegativePrompt] = useState("");
   const [uploadImage, setUploadImage] = useState<any>("");
@@ -32,6 +39,7 @@ function AiArtGenerator() {
   const [listStyle, setListStyle] = useState<any>([]);
   const [resultImage, setResultImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const login = useSelector((state: any) => state.app.login);
 
   // hàm lấy list image
   const handleGetListImage = async () => {
@@ -39,7 +47,7 @@ function AiArtGenerator() {
       const res = await axios.get(
         "https://style-management-api.dev.apero.vn/v2/styles?limit=1000000&page=1&project=Creatorhub_WEB"
       );
-      console.log(res.data.data.items);
+      // console.log(res.data.data.items);
       const result = res.data.data.items?.map((item: any) => {
         return {
           id: item._id,
@@ -53,7 +61,6 @@ function AiArtGenerator() {
       message.error("Lỗi server");
     }
   };
-  // console.log(selectStyle);
 
   // hàm click image
   const handleClickStyle = (style: any) => {
@@ -66,9 +73,9 @@ function AiArtGenerator() {
   // hàm click item none
   const handleClickNoneStyle = () => {
     setSelectStyle("");
-    setSliderValueAlpha(0.8);
-    setSliderValueSteps(30);
-    setSliderValueScale(10);
+    setSliderValueAlpha(DEFAULT_ALPHA);
+    setSliderValueSteps(DEFAULT_STEPS);
+    setSliderValueScale(DEFAULT_SCALE);
   };
   const handleBack = () => {
     setFileUpload(undefined);
@@ -102,6 +109,10 @@ function AiArtGenerator() {
   // hàm create image
   const handleGenerate = async () => {
     try {
+      if (!login) {
+        navigate("/sign-in");
+      }
+
       setIsLoading(true);
       const formData: any = new FormData(); // tạo mới đối tượng formData
       if (fileUpload) {

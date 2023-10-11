@@ -18,10 +18,13 @@ export const ItemImage = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: rgb(29, 25, 45);
+  /* background-color: rgb(13, 18, 32); */
   img {
-    width: 60%;
+    width: 65%;
   }
   .contents {
+    padding: 0px 50px;
     & > div:first-child {
       color: var(--noble-black-0, #fff);
       font-size: 24px;
@@ -65,8 +68,8 @@ export const FormChangePassword = styled(Form)`
   }
   .parent-form {
     width: 500px;
-    .title {
-        margin-bottom: 20px;
+    .form-title {
+      margin-bottom: 20px;
       text-align: center;
       div {
         font-size: 40px;

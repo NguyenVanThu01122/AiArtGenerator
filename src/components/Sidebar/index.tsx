@@ -15,14 +15,14 @@ export function Sidebar() {
   const pathName = window.location.pathname;
   return (
     <WrapperSidebar>
-      <div className="logo-AiArt">
+      <div className="logo-AiArt" onClick={()=>navigate('/')}>
         <img src={iconAiArt} alt="iconAiArt" />
         <div>CreatorHub</div>
       </div>
       <div className="select-item">
         <div
-          className={`home ${pathName === "/home" && "border"}`}
-          onClick={() => navigate("/home")}
+          className={`home ${pathName === "/" && "border"}`}
+          onClick={() => navigate("/")}
         >
           <img src={iconHome} alt="iconHome" />
           <div>Home</div>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-export const HeaderAiArt = styled.div`
+export const WrapperHeader = styled.div`
   background-color: rgb(9, 9, 23);
   height: 74px;
   padding: 0px 15px;
@@ -45,15 +45,13 @@ export const HeaderAiArt = styled.div`
         margin-bottom: 3px;
       }
     }
-    .ant-popover-inner {
-      padding: 60px !important;
-      background-color: red !important; /* Màu nền tùy chỉnh */
-    }
     .custom-popover {
-      .item-account {
-        .information {
-          display: flex !important;
-        }
+      .ant-popover-inner {
+        padding: 0px !important;
+      }
+      .ant-popover {
+        /* Định nghĩa padding cho popover */
+        padding: 0px !important; /* Sửa giá trị padding theo nhu cầu của bạn */
       }
     }
     .avatar {
@@ -63,7 +61,14 @@ export const HeaderAiArt = styled.div`
       cursor: pointer;
     }
   }
-  .login {
-    color: white;
+  .btn-login {
+    color: white !important;
+    background: linear-gradient(
+      190deg,
+      rgb(226, 80, 229) 0%,
+      rgb(75, 80, 230) 100%
+    );
+    font-weight: bold;
+    border: none;
   }
 `;

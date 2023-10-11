@@ -1,14 +1,27 @@
-import { Form } from "antd";
+import { Form, Modal } from "antd";
 import styled from "styled-components";
 
 export const WrapperRegister = styled.div`
   height: 100vh;
+  position: relative;
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: space-between;
-  /* padding: 0px 50px; */
   background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%);
+`;
+
+export const GroupDivEmpty = styled.div`
+  #empty-div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+  }
+
   #stars {
     width: 1px;
     height: 1px;
@@ -468,7 +481,6 @@ export const WrapperRegister = styled.div`
   #stars2:after {
     content: " ";
     position: absolute;
-
     width: 2px;
     height: 2px;
     background: transparent;
@@ -566,7 +578,6 @@ export const WrapperRegister = styled.div`
   #stars3:after {
     content: " ";
     position: absolute;
-
     width: 3px;
     height: 3px;
     background: transparent;
@@ -780,11 +791,11 @@ export const FormSignUp = styled(Form)`
       width: 70%;
     }
   }
+
   // class input password (phần conten)
   .ant-input-affix-wrapper > input.ant-input {
     /* background-color: rgb(13, 18, 32); */
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%);
-
     color: white;
     &::placeholder {
       color: gray;
@@ -796,11 +807,18 @@ export const FormSignUp = styled(Form)`
     color: gray;
     font-size: 18px;
   }
+  /* .ant-input-password {
+    &:hover{
+      outline: 1px solid red !important;
+    }
+    &:focus {
+      box-shadow: 0 0 0 1px violet !important;
+    }
+  } */
   .custom-input {
     color: white;
     height: 50px;
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%);
-    /* background-color: rgb(13, 18, 32); */
     border: none;
     &::placeholder {
       color: gray;
@@ -809,30 +827,159 @@ export const FormSignUp = styled(Form)`
     &:hover {
       box-shadow: 0 0 0 1px #6366f1;
     }
+    &:focus {
+      box-shadow: 0 0 0 1px violet !important;
+    }
   }
   .border-violet {
     box-shadow: 0 0 0 1px violet;
   }
 `;
+
+export const ModalSentEmail = styled(Modal)`
+  .ant-modal-content {
+    height: 500px;
+  }
+  // class ant
+  .ant-modal-content {
+    background-color: rgb(9, 9, 23);
+  }
+  // class icon x ant
+  .ant-modal-close {
+    transition: transform 0.6s ease;
+    &:hover {
+      transform: scale(1.6);
+      cursor: pointer;
+    }
+    .anticon svg {
+      color: white;
+      &:hover {
+        color: red;
+      }
+    }
+  }
+  .forgot-password {
+    width: 80%;
+    margin: auto;
+    .title {
+      text-align: center;
+      & > div:last-child {
+        font-weight: bold;
+        font-size: 28px;
+        color: white;
+      }
+    }
+    .select-item {
+      margin: 40px 0px;
+      & > div:first-child {
+        color: white;
+        font-size: 18px;
+      }
+      .custom-input {
+        width: 100%;
+        color: white;
+        margin: 20px 0px;
+        padding: 10px;
+        height: 46px;
+        border: none;
+        border-radius: 5px;
+        background: radial-gradient(
+          ellipse at bottom,
+          #1b2735 0%,
+          #12141d 100%
+        );
+        &:hover {
+          outline: 1px solid skyblue;
+        }
+        &:focus {
+          outline: 1px solid violet;
+        }
+        &::placeholder {
+          color: gray;
+          font-style: italic;
+        }
+      }
+      /* .custom-password {
+        input:focus-within {
+          outline: 1px solid violet !important;
+        }
+      } */
+      .custom-button {
+        width: 100%;
+        height: 40px;
+        border: none;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        background: linear-gradient(
+          217deg,
+          rgb(226, 80, 229) 0%,
+          rgb(75, 80, 230) 100%
+        );
+        &:hover {
+          filter: brightness(0.6);
+        }
+      }
+      .error-email {
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-style: italic;
+        color: red !important;
+      }
+    }
+    .back {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      & > div:last-child {
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
+  }
+`;
+
 export const ItemVerifyEmail = styled.div`
-  text-align: center;
+  margin-top: 50px;
   color: white;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  & > div:first-child {
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  & > div:nth-child(2) {
     font-size: 40px;
     font-weight: bold;
   }
-
-  & > div:nth-child(2) {
-  }
-  & > div:nth-child(3) {
+  & > div:nth-child(4) {
     span {
+      margin-left: 4px;
       cursor: pointer;
+      font-size: 17px;
+      font-weight: bold;
+      font-style: italic;
+    }
+  }
+  .item-back {
+    margin-top: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    & > div:last-child {
+      color: white;
+      font-size: 18px;
       font-weight: bold;
     }
   }
-  & > div:first-child {
+  & > div:last-child {
+    margin-top: 50px;
+    width: 80%;
+    color: gray;
+    padding-bottom: 5px;
+    border-bottom: 1px solid gray;
   }
 `;
