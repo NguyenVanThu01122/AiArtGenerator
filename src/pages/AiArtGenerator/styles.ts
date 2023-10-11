@@ -1,22 +1,15 @@
 import styled from "styled-components";
-export const PageAiArtGenerator = styled.div`
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  .box-item {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(9, 9, 23);
-  }
-
+export const WrapperAiArtGenerator = styled.div`
+  background-color: rgb(9, 9, 23);
+  width: 100%;
+  height: 100%;
   .item-loading {
     z-index: 1000;
-    width: 100vw;
+    width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0px;
-    left: 0px;
+    position: fixed;
+     top: 0px; 
+    left: 0px; 
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
@@ -30,31 +23,26 @@ export const PageAiArtGenerator = styled.div`
     }
   }
 `;
-export const WrapperAiArtGenerator = styled.div`
-  /* flex: 1; */
-  width: calc(100vw - 280px);
-`;
-
 export const SectionContents = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
-  height: calc(100% - 74px);
   .select-item {
     flex: 1;
     padding: 24px 16px;
     overflow-y: auto;
     &::-webkit-scrollbar-thumb {
-      border-radius: 5px;
+      border-radius: 5px !important;
     }
     &::-webkit-scrollbar {
-      width: 4px;
+      width: 4px !important;
     }
     &::-webkit-scrollbar-track {
-      background-color: transparent; //Màu của vùng cuộn
+      background-color: transparent !important; //Màu của vùng cuộn
     }
     &:hover {
       &::-webkit-scrollbar-thumb {
-        background: linear-gradient(217deg, #e250e5, #4b50e6);
+        background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
       }
     }
     .select-photo {
@@ -404,17 +392,17 @@ export const SectionContents = styled.div`
       padding: 24px 16px;
       overflow-y: auto;
       &::-webkit-scrollbar-thumb {
-        border-radius: 5px;
+        border-radius: 5px !important;
       }
       &::-webkit-scrollbar {
-        width: 4px;
+        width: 4px !important;
       }
       &::-webkit-scrollbar-track {
-        background-color: transparent; //Màu của vùng cuộn
+        background-color: transparent !important; //Màu của vùng cuộn
       }
       &:hover {
         &::-webkit-scrollbar-thumb {
-          background: linear-gradient(217deg, #e250e5, #4b50e6);
+          background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
         }
       }
       // class ant slider
@@ -574,7 +562,7 @@ export const SectionContents = styled.div`
 
 export const ResultsItem = styled.div`
   width: 100%;
-  height: calc(100% - 74px);
+  height: 100%;
   display: flex;
   flex-direction: column;
   .back-item {
@@ -610,27 +598,6 @@ export const ResultsItem = styled.div`
         width: 100%;
         object-fit: contain;
         cursor: pointer;
-      }
-      .edit-photo {
-        display: none;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        color: white;
-        width: 100%;
-        height: 100%;
-        border: 1px solid white;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(0, 0, 0, 0.5);
-        .btn-edit {
-          display: flex;
-          cursor: pointer;
-          gap: 10px;
-        }
-      }
-      &:hover .edit-photo {
-        display: flex !important;
       }
     }
     .section-parameter {
@@ -720,7 +687,7 @@ export const ResultsItem = styled.div`
           color: white;
           height: 45px;
           font-weight: bold;
-          &:hover{
+          &:hover {
             filter: brightness(0.6);
           }
         }
@@ -731,7 +698,7 @@ export const ResultsItem = styled.div`
           border-radius: 8px;
           border: none;
           background: linear-gradient(217deg, #e250e5 5.32%, #4b50e6 94.32%);
-          &:hover{
+          &:hover {
             filter: brightness(0.6);
           }
         }

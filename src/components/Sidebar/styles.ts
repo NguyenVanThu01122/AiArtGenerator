@@ -3,8 +3,10 @@ import styled from "styled-components";
 export const WrapperSidebar = styled.div`
   background-color: rgb(9, 9, 23);
   width: 280px;
-  height: 100vh;
+  height: 100%;
   border-right: 1px solid rgb(30, 36, 49);
+  display: flex;
+  flex-direction: column;
   .border {
     background: rgb(36, 36, 60);
     border-radius: 5px;
@@ -29,6 +31,22 @@ export const WrapperSidebar = styled.div`
     }
   }
   .select-item {
+    flex: 1;
+    overflow-y: auto;
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px !important;
+    }
+    &::-webkit-scrollbar {
+      width: 4px !important;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent !important; //Màu của vùng cuộn
+    }
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
+      }
+    }
     padding: 18px;
     .home {
       display: flex;
