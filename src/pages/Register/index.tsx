@@ -1,6 +1,7 @@
 import { Form, Input, message } from "antd";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { SidebarImageLogin } from "../../components/SidebarImageLogin";
 import icBack from "../../images/ic-back.svg";
 import iconDiscord from "../../images/iconDiscord.svg";
@@ -18,9 +19,6 @@ import {
 } from "./styles";
 
 export function Register() {
-  const [focusInput, setFocusInput] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
-  const [isRegister, setIsRegister] = useState(false);
   const [isModalSentEmail, setIsModalSentEmail] = useState(false);
 
   const [form] = Form.useForm();
@@ -50,9 +48,19 @@ export function Register() {
     setIsModalSentEmail(false);
   };
 
+  // hàm đăng ký bằng google
+  const handleRegisterGoogle = () => {
+    window.location.href = `http://localhost:9090/google?redirect_url=${window.location.origin}`;
+  };
+  // hàm đăng ký bằng facebook
+  const handleRegisterFacebook = () => {
+    window.location.href = `https://creatorhub-ai-api.vercel.app/facebook?redirect_url=${window.location.origin}`;
+  };
+
   const handleSubmit = () => {
     form.submit();
   };
+
   return (
     <WrapperRegister>
       <GroupDivEmpty>
@@ -66,9 +74,19 @@ export function Register() {
         <img className="icon-login" src={iconLogin} alt="" />
         <div>Sign up to your account</div>
         <div className="group-img">
-          <img className="icon-google" src={icongg} alt="" />
+          <img
+            className="icon-google"
+            onClick={handleRegisterGoogle}
+            src={icongg}
+            alt=""
+          />
           <img className="icon-discord" src={iconDiscord} alt="" />
-          <img className="icon-facebook" src={iconFacebook} alt="" />
+          <img
+            className="icon-facebook"
+            onClick={handleRegisterFacebook}
+            src={iconFacebook}
+            alt=""
+          />
         </div>
         <div className="group-span">
           <span></span>

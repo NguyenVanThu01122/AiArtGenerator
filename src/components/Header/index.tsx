@@ -2,7 +2,9 @@ import { Button, Popover } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import imgAvatarDefault from "../../images/avatar-default.jpg";
 import iconCloseSidebar from "../../images/icon-close-sidebar.svg";
+
 import { saveLogin, saveToken, saveUser } from "../../redux/Actions/app";
 import { WrapperHeader } from "./styles";
 
@@ -64,12 +66,12 @@ function Header() {
             height: "70px",
             borderRadius: "50%",
           }}
-          src="https://lh3.googleusercontent.com/a/AAcHTteq9JYJtlWkfu4b_IE8K4EUcwVmpDGVRInVCajd5q84gA=s96-c"
+          src={users?.avatar || imgAvatarDefault}
           alt=""
         />
         <div style={{ color: "white" }}>
           <div style={{ fontWeight: "800", fontSize: "17px" }}>
-            Nguyễn văn Thư
+            {users?.lastName} <span>{users?.firstName}</span>
           </div>
           <div>
             {users?.credits} {users?.credits > 1 ? "credits" : "credit"}
@@ -135,7 +137,7 @@ function Header() {
           <Popover className="custom-popover" content={content} trigger="click">
             <img
               className="avatar"
-              src="https://lh3.googleusercontent.com/a/AAcHTteq9JYJtlWkfu4b_IE8K4EUcwVmpDGVRInVCajd5q84gA=s96-c"
+              src={users?.avatar || imgAvatarDefault}
               alt=""
             />
           </Popover>

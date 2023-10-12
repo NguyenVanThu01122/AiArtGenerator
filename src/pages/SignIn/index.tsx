@@ -18,12 +18,12 @@ import {
   ModalForgotPassword,
   WrapperSignIn,
 } from "./styles";
+
 export function SignIn() {
   const [focusInput, setFocusInput] = useState("");
   const [forgotEmail, setForgotEmail] = useState<any>("");
   const [errorEmail, setErrorEmail] = useState<any>("");
   const [isforgotPassword, setIsForgotPassword] = useState(false);
-  // const [focusEmail, seFocusEmail] = useState("");
   const [isModalPassword, setIsModalPassword] = useState(false);
   const [form] = Form.useForm();
   const navigate = useNavigate();
@@ -49,21 +49,24 @@ export function SignIn() {
       });
   };
 
+  // mở modal quên password
   const showModalForgotPassword = () => {
     setIsModalPassword(true);
     setIsForgotPassword(true);
   };
 
+  // hủy bỏ modal quên password
   const CancelModalForgotPassword = () => {
     setIsModalPassword(false);
     setForgotEmail("");
     setErrorEmail("");
   };
+
   const handleSubmit = () => {
     form.submit();
   };
 
-  // hàm check lỗi form
+  // hàm check lỗi modal form
   const handleChangeForgotEmail = (e: any) => {
     const valueEmail = e.target.value;
     setForgotEmail(valueEmail);
@@ -96,9 +99,20 @@ export function SignIn() {
         });
     }
   };
+
   const handleTryAgain = () => {
     setForgotEmail("");
     setIsForgotPassword(true);
+  };
+
+  // hàm đăng nhập google
+  const handleLoginGoogle = () => {
+    window.location.href = `http://localhost:9090/google?redirect_url=${window.location.origin}`;
+  };
+
+  // hàm đăng nhập facebook
+  const handleLoginFacebook = () => {
+    window.location.href = `https://creatorhub-ai-api.vercel.app/facebook?redirect_url=${window.location.origin}`;
   };
 
   return (
@@ -115,9 +129,19 @@ export function SignIn() {
         <img className="icon-login" src={iconLogin} alt="" />
         <div>Sign in to your account</div>
         <div className="group-img">
-          <img className="icon-google" src={icongg} alt="" />
+          <img
+            className="icon-google"
+            onClick={handleLoginGoogle}
+            src={icongg}
+            alt=""
+          />
           <img className="icon-discord" src={iconDiscord} alt="" />
-          <img className="icon-facebook" src={iconFacebook} alt="" />
+          <img
+            className="icon-facebook"
+            onClick={handleLoginFacebook}
+            src={iconFacebook}
+            alt=""
+          />
         </div>
         <div className="group-span">
           <span></span>
