@@ -21,9 +21,33 @@ import icArrow from "../../images/ic-arrow.png";
 import icTabBar1 from "../../images/icTabBar1.png";
 import icTabBar from "../../images/icon-tab-bar.png";
 
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+import { saveLogin, saveToken } from "../../redux/Actions/app";
 import { ItemCarousel, LastItem, SectionContents, WrapperHome } from "./styles";
 
 function Home() {
+  const [searchParam, setSearchParam] = useSearchParams();
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    if (searchParam.get("token") && searchParam.get("refresh_token")) {
+      localStorage.setItem("token", searchParam.get("token") || "");
+      localStorage.setItem(
+        "refreshToken",
+        searchParam.get("refresh_token") || ""
+      );
+      // lưu lại token và refresh token khi đăng nhập hoặc đăng ký bằng google và facebook thành công
+      dispatch(saveLogin(true));
+      dispatch(saveToken(searchParam.get("token") || ""));
+      setSearchParam({})
+      // searchParam.delete("token");
+      // searchParam.delete("refresh_token");
+      // setSearchParam(searchParam);
+    }
+  }, []);
   return (
     <WrapperHome>
       <ItemCarousel slidesToShow={1} dots={true} autoplay>

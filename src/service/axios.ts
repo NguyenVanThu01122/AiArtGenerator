@@ -44,7 +44,7 @@ privateAxios.interceptors.response.use(
         });
     }
 
-    Promise.reject(error);
+     return Promise.reject(error);
   }
 );
 

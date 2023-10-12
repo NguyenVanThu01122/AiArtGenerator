@@ -20,6 +20,7 @@ import {
 import { ResultsItem, SectionContents, WrapperAiArtGenerator } from "./styles";
 
 function AiArtGenerator() {
+  console.log(window.location.origin)
   const imageRef = useRef(null);
   const [focusIcon, setFocusIcon] = useState(false);
   const textToCopyRef = useRef(null);
