@@ -43,9 +43,7 @@ function Home() {
       dispatch(saveLogin(true));
       dispatch(saveToken(searchParam.get("token") || ""));
       setSearchParam({})
-      // searchParam.delete("token");
-      // searchParam.delete("refresh_token");
-      // setSearchParam(searchParam);
+      
     }
   }, []);
   return (
