@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import iconAiBackgroundChange from "../../images/ic-ai-background-chage.svg";
+import iconPricing from "../../images/ic-pricing.svg";
 import iconAiArtGenerator from "../../images/iconAiArtGenerator.svg";
 import iconAiPhoto from "../../images/iconAiPhoto.svg";
 import iconDiscordAiArt from "../../images/iconDiscordAiArt.svg";
@@ -15,7 +16,7 @@ export function Sidebar() {
   const pathName = window.location.pathname;
   return (
     <WrapperSidebar>
-      <div className="logo-AiArt" onClick={()=>navigate('/')}>
+      <div className="logo-AiArt" onClick={() => navigate("/")}>
         <img src={iconAiArt} alt="iconAiArt" />
         <div>CreatorHub</div>
       </div>
@@ -26,6 +27,13 @@ export function Sidebar() {
         >
           <img src={iconHome} alt="iconHome" />
           <div>Home</div>
+        </div>
+        <div
+          className={`pricing ${pathName === "/pricing" && "border"}`}
+          onClick={() => navigate("/pricing")}
+        >
+          <img src={iconPricing} alt="" />
+          <div>Pricing</div>
         </div>
         <div className="section-products">
           <div>PRODUCTS</div>
@@ -57,14 +65,36 @@ export function Sidebar() {
             <div>AI Background Changer</div>
           </div>
         </div>
-        <div className="follow-options">
-          <div>FOLLOW US ON</div>
-          <div className="group-icon">
-            <img src={iconTwitter} alt="iconTwitter" />
-            <img src={iconTiktok} alt="iconTiktok" />
-            <img src={iconFacebookAiArt} alt="iconFacebook" />
-            <img src={iconDiscordAiArt} alt="iconDiscord" />
-          </div>
+      </div>
+      <div className="follow-options">
+        <div>FOLLOW US ON</div>
+        <div className="group-icon">
+          <img
+            onClick={() =>
+              (window.location.href =
+                "https://instagram.com/vanthu_0112?igshid=YTQwZjQ0NmI0OA%3D%3D&utm_source=qr")
+            }
+            src={iconTwitter}
+            alt="iconTwitter"
+          />
+          <img
+            onClick={() =>
+              (window.location.href =
+                "https://www.tiktok.com/@creatorhub.ai?_t=8gVOwiPr5P8&_r=1")
+            }
+            src={iconTiktok}
+            alt="iconTiktok"
+          />
+          <img
+            onClick={() =>
+              window.location.assign(
+                "https://www.facebook.com/profile.php?id=100065754240272"
+              )
+            }
+            src={iconFacebookAiArt}
+            alt="iconFacebook"
+          />
+          <img src={iconDiscordAiArt} alt="iconDiscord" />
         </div>
       </div>
     </WrapperSidebar>

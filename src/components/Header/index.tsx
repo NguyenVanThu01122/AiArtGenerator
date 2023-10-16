@@ -21,6 +21,9 @@ function Header() {
       case "/":
         setSavePathName("Home");
         break;
+      case "/pricing":
+        setSavePathName("Pricing");
+        break;
       case "/ai-art-generator":
         setSavePathName("/ AI Art Generator");
         break;
@@ -114,7 +117,7 @@ function Header() {
       <div className="title-page">
         <img src={iconCloseSidebar} alt="" />
         <div>
-          {pathName !== "/" ? (
+          {pathName !== "/" && pathName !== "/pricing" ? (
             <div>
               Products <span>{savePathName}</span>
             </div>

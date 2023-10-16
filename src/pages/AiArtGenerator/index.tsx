@@ -16,17 +16,18 @@ import {
   DEFAULT_ALPHA,
   DEFAULT_SCALE,
   DEFAULT_STEPS,
+  FILE_FORMAT,
+  MAX_SIZE_INBYTES,
 } from "../../utils/contanst";
 import { ResultsItem, SectionContents, WrapperAiArtGenerator } from "./styles";
 
 function AiArtGenerator() {
-  console.log(window.location.origin)
   const imageRef = useRef(null);
   const [focusIcon, setFocusIcon] = useState(false);
   const textToCopyRef = useRef(null);
   const clipboard = useClipboard();
   const navigate = useNavigate();
- 
+
   const [sliderValueAlpha, setSliderValueAlpha] = useState(DEFAULT_ALPHA);
   const [sliderValueSteps, setSliderValueSteps] = useState(DEFAULT_STEPS);
   const [sliderValueScale, setSliderValueScale] = useState(DEFAULT_SCALE);
@@ -78,6 +79,7 @@ function AiArtGenerator() {
     setSliderValueSteps(DEFAULT_STEPS);
     setSliderValueScale(DEFAULT_SCALE);
   };
+
   const handleBack = () => {
     setFileUpload(undefined);
     setResultImage("");
@@ -86,9 +88,19 @@ function AiArtGenerator() {
     setPrompt("");
     handleClickNoneStyle();
   };
+
   // hàm xử lý tải ảnh lên
-  const handleChangeImage = (e: any) => {
+  const handleUploadImage = (e: any) => {
     const file = e.target.files[0]; // Lấy giá trị file vừa tải lên và gắn vào biến file
+
+    if (file.size > MAX_SIZE_INBYTES) {
+      message.error("File size exceeds the allowed limit.");
+      return; // Dừng các dòng code phía sau nếu vượt quá giới hạn
+    } else if (FILE_FORMAT.includes(file.type) === false) {
+      message.error("Please upload type image jpeg, jpg, png");
+      return; // file.type === false dừng các dòng code phía sau
+    }
+
     setFileUpload(file);
     const reader = new FileReader();
     if (file) {
@@ -113,7 +125,6 @@ function AiArtGenerator() {
       if (!login) {
         navigate("/sign-in");
       }
-
       setIsLoading(true);
       const formData: any = new FormData(); // tạo mới đối tượng formData
       if (fileUpload) {
@@ -187,6 +198,7 @@ function AiArtGenerator() {
     clipboard.copy(textToCopy); // sao chép nội dụng từ textToCopy
     message.success("Sao chép thành công");
   };
+  // hàm tải ảnh
   const downloadImage = async (base64String: string, filename: string) => {
     // Tạo một thẻ a để tạo link tải về
     const a = document.createElement("a");
@@ -354,9 +366,8 @@ function AiArtGenerator() {
                         className="input-upload"
                         type="file"
                         name="img"
-                        accept="image/*"
-                        // accept=".jpg,.png" // định dạng ảnh muốn chọn
-                        onChange={handleChangeImage}
+                        accept=".jpg,.png,.jpeg" // định dạng ảnh muốn chọn
+                        onChange={handleUploadImage}
                       />
                     </div>
                   </div>
@@ -375,9 +386,8 @@ function AiArtGenerator() {
                     className="input-upload"
                     type="file"
                     name="img"
-                    accept="image/*"
-                    // accept=".jpg,.png" // định dạng ảnh muốn chọn
-                    onChange={handleChangeImage}
+                    accept=".jpg,.png,.jpeg" // định dạng ảnh muốn chọn
+                    onChange={handleUploadImage}
                   />
                 </div>
               )}

@@ -23,14 +23,119 @@ import icTabBar from "../../images/icon-tab-bar.png";
 
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import AnimationStar from "../../components/AnimationStar";
+import Footer from "../../components/Footer";
 import { saveLogin, saveToken } from "../../redux/Actions/app";
 import { ItemCarousel, LastItem, SectionContents, WrapperHome } from "./styles";
 
+const listProduct = [
+  {
+    id: 1,
+    image: imgProduct1,
+    title: "AI Art Generator",
+    text: "Transform photos into stunning artistic pieces or create original artwork effortlessly.",
+    url: "/ai-art-generator",
+  },
+  {
+    id: 2,
+    image: imgProduct2,
+    title: "AI Background Changer",
+    text: "Effortlessly remove backgrounds from your images using our AI-powered Background Remover.",
+    url: "/ai-background-changer",
+  },
+  {
+    id: 3,
+    image: imgProduct3,
+    title: "AI Photo Enhancer",
+    text: " Enhance sharpness, clarity, colors, and reduce noise to give your images a professional touch.",
+    url: "/ai-photo-enhancer",
+  },
+  {
+    id: 4,
+    image: imgProduct4,
+    title: "AI Social Posts Generator",
+    text: "Easily generate social media posts with spectacular by AI in one minute.",
+  },
+  {
+    id: 5,
+    image: imgProduct5,
+    title: "AI Writing Assistant",
+    text: " AI Writing Assistant - your creative, fast, and flexible tool to elevate every word.",
+  },
+  {
+    id: 6,
+    image: imgProduct6,
+    title: "New Features are coming!",
+    text: "Magical thing by our AI service is about to show up!Can’t wait to suprise you guys.",
+  },
+];
+const listBenefits = [
+  {
+    id: 1,
+    image: imgbenefits1,
+    title: "Higher Efficiency",
+    text: "Save time & effort with AI-powered editing.",
+  },
+  {
+    id: 2,
+    image: imgbenefits2,
+    title: "Limitless Creative",
+    text: "Unleash creativity with inspiring content ideas.",
+  },
+  {
+    id: 3,
+    image: imgbenefits3,
+    title: "Faster Productivity",
+    text: "Boost efficiency for engaging content creation.",
+  },
+  {
+    id: 4,
+    image: imgbenefits4,
+    title: "Professional Results",
+    text: " Achieve professional quality without extensive editing skills.",
+  },
+];
+const listTestimonials = [
+  {
+    id: 1,
+    image: imgPeople1,
+    content:
+      '"The AI Social Post Generator is a game-changer! It saved me hours of work and boosted our engagement rates. Highly recommended!"',
+    name: "Danny",
+    job: "Marketing Manager",
+  },
+  {
+    id: 2,
+    image: imgPeople2,
+    content:
+      '"The AI Writing Assistant elevated my content quality. Correcting grammar and suggesting creative ideas, it`s a must-have for creators!"',
+    name: "Sarah",
+    job: "Content Creator",
+  },
+  {
+    id: 3,
+    image: imgPeople3,
+    content:
+      '"The AI Background Changer saved my time and enhanced product visuals. An essential tool for any entrepreneur!"',
+    name: "Michael",
+    job: "Social Media Manager",
+  },
+  {
+    id: 4,
+    image: imgPeople4,
+    content:
+      '"The AI Background Changer saved my time and enhanced product visuals. An essential tool for any entrepreneur!"',
+    name: "Emily",
+    job: "Social Media Manager",
+  },
+];
 function Home() {
   const [searchParam, setSearchParam] = useSearchParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  console.log(process.env.REACT_APP_BASE_URL);
 
   useEffect(() => {
     if (searchParam.get("token") && searchParam.get("refresh_token")) {
@@ -42,12 +147,13 @@ function Home() {
       // lưu lại token và refresh token khi đăng nhập hoặc đăng ký bằng google và facebook thành công
       dispatch(saveLogin(true));
       dispatch(saveToken(searchParam.get("token") || ""));
-      setSearchParam({})
-      
+      // set lại login và token vào redux
+      setSearchParam({});
     }
   }, []);
   return (
     <WrapperHome>
+      <AnimationStar />
       <ItemCarousel slidesToShow={1} dots={true} autoplay>
         <div className="introduce-item">
           <div className="contents">
@@ -99,102 +205,24 @@ function Home() {
             </div>
           </div>
           <div className="list-products">
-            <div className="detail-product">
-              <div className="item-img">
-                <img src={imgProduct1} alt="" />
-              </div>
-              <div className="contents-products">
-                <div>AI Art Generator</div>
-                <div>
-                  Transform photos into stunning artistic pieces or create
-                  original artwork effortlessly.
+            {listProduct.map((item: any) => (
+              <div className="detail-product" key={item?.id}>
+                <div className="item-img">
+                  <img src={item?.image} alt="" />
                 </div>
-              </div>
-              <Button className="btn-try-now">
-                <span>Try Now</span>
-                <img src={icArrow} alt="" />
-              </Button>
-            </div>
-            <div className="detail-product">
-              <div className="item-img">
-                <img src={imgProduct2} alt="" />
-              </div>
-              <div className="contents-products">
-                <div>AI Background Changer</div>
-                <div>
-                  Effortlessly remove backgrounds from your images using our
-                  AI-powered Background Remover.
+                <div className="contents-products">
+                  <div>{item?.title}</div>
+                  <div>{item?.text}</div>
                 </div>
+                <Button
+                  className="btn-try-now"
+                  onClick={() => navigate(item?.url)}
+                >
+                  <span>Try Now</span>
+                  <img src={icArrow} alt="" />
+                </Button>
               </div>
-              <Button className="btn-try-now">
-                <span>Try Now</span>
-                <img src={icArrow} alt="" />
-              </Button>
-            </div>
-            <div className="detail-product">
-              <div className="item-img">
-                <img src={imgProduct3} alt="" />
-              </div>
-              <div className="contents-products">
-                <div>AI Photo Enhancer</div>
-                <div>
-                  Enhance sharpness, clarity, colors, and reduce noise to give
-                  your images a professional touch.
-                </div>
-              </div>
-              <Button className="btn-try-now">
-                <span>Try Now</span>
-                <img src={icArrow} alt="" />
-              </Button>
-            </div>
-            <div className="detail-product">
-              <div className="item-img">
-                <img src={imgProduct4} alt="" />
-              </div>
-              <div className="contents-products">
-                <div>AI Social Posts Generator</div>
-                <div>
-                  Easily generate social media posts with spectacular by AI in
-                  one minute.
-                </div>
-              </div>
-              <Button className="btn-try-now">
-                <span>Try Now</span>
-                <img src={icArrow} alt="" />
-              </Button>
-            </div>
-            <div className="detail-product">
-              <div className="item-img">
-                <img src={imgProduct5} alt="" />
-              </div>
-              <div className="contents-products">
-                <div>AI Writing Assistant</div>
-                <div>
-                  AI Writing Assistant - your creative, fast, and flexible tool
-                  to elevate every word.
-                </div>
-              </div>
-              <Button className="btn-try-now">
-                <span>Try Now</span>
-                <img src={icArrow} alt="" />
-              </Button>
-            </div>
-            <div className="detail-product">
-              <div className="item-img">
-                <img src={imgProduct6} alt="" />
-              </div>
-              <div className="contents-products">
-                <div>New Features are coming!</div>
-                <div>
-                  Magical thing by our AI service is about to show up!Can’t wait
-                  to suprise you guys.
-                </div>
-              </div>
-              <Button className="btn-try-now">
-                <span>Try Now</span>
-                <img src={icArrow} alt="" />
-              </Button>
-            </div>
+            ))}
           </div>
         </div>
         <div className="item-benefits">
@@ -207,48 +235,18 @@ function Home() {
             </div>
           </div>
           <div className="box-benefits">
-            <div className="detail-benefit">
-              <div className="empty-box"></div>
-              <div className="item-img">
-                <img src={imgbenefits1} alt="" />
-              </div>
-              <div className="contents">
-                <div>Higher Efficiency</div>
-                <div>Save time & effort with AI-powered editing.</div>
-              </div>
-            </div>
-            <div className="detail-benefit">
-              <div className="empty-box"></div>
-              <div className="item-img">
-                <img src={imgbenefits2} alt="" />
-              </div>
-              <div className="contents">
-                <div>Limitless Creative</div>
-                <div>Unleash creativity with inspiring content ideas.</div>
-              </div>
-            </div>
-            <div className="detail-benefit">
-              <div className="empty-box"></div>
-              <div className="item-img">
-                <img src={imgbenefits3} alt="" />
-              </div>
-              <div className="contents">
-                <div>Faster Productivity</div>
-                <div>Boost efficiency for engaging content creation.</div>
-              </div>
-            </div>
-            <div className="detail-benefit">
-              <div className="empty-box"></div>
-              <div className="item-img">
-                <img src={imgbenefits4} alt="" />
-              </div>
-              <div className="contents">
-                <div>Professional Results</div>
-                <div>
-                  Achieve professional quality without extensive editing skills.
+            {listBenefits.map((item: any) => (
+              <div className="detail-benefit" key={item?.id}>
+                <div className="empty-box"></div>
+                <div className="item-img">
+                  <img src={item?.image} alt="" />
+                </div>
+                <div className="contents">
+                  <div>{item?.title}</div>
+                  <div>{item?.text}</div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
         <div className="item-testimonials">
@@ -261,56 +259,17 @@ function Home() {
             </div>
           </div>
           <div className="list-testimonials">
-            <div className="detail-item">
-              <img className="img-user" src={imgPeople1} alt="" />
-              <img className="img-quote" src={iconQuote} alt="" />
-              <div className="contents">
-                "The AI Social Post Generator is a game-changer! It saved me
-                hours of work and boosted our engagement rates. Highly
-                recommended!
+            {listTestimonials.map((item: any) => (
+              <div className="detail-item" key={item?.id}>
+                <img className="img-user" src={item?.image} alt="" />
+                <img className="img-quote" src={iconQuote} alt="" />
+                <div className="contents">{item?.content}</div>
+                <div className="information-user">
+                  <div>{item?.name}</div>
+                  <div>{item?.job}</div>
+                </div>
               </div>
-              <div className="information-user">
-                <div>Danny</div>
-                <div>Marketing Manager</div>
-              </div>
-            </div>
-            <div className="detail-item">
-              <img className="img-user" src={imgPeople2} alt="" />
-              <img className="img-quote" src={iconQuote} alt="" />
-              <div className="contents">
-                "The AI Writing Assistant elevated my content quality.
-                Correcting grammar and suggesting creative ideas, it's a
-                must-have for creators!"
-              </div>
-              <div className="information-user">
-                <div>Sarah</div>
-                <div>Content Creator</div>
-              </div>
-            </div>
-            <div className="detail-item">
-              <img className="img-user" src={imgPeople3} alt="" />
-              <img className="img-quote" src={iconQuote} alt="" />
-              <div className="contents">
-                "The AI Background Changer saved my time and enhanced product
-                visuals. An essential tool for any entrepreneur!"
-              </div>
-              <div className="information-user">
-                <div>Michael</div>
-                <div>Entrepreneur</div>
-              </div>
-            </div>
-            <div className="detail-item">
-              <img className="img-user" src={imgPeople4} alt="" />
-              <img className="img-quote" src={iconQuote} alt="" />
-              <div className="contents">
-                "The AI Background Changer saved my time and enhanced product
-                visuals. An essential tool for any entrepreneur!"
-              </div>
-              <div className="information-user">
-                <div>Emily</div>
-                <div>Social Media Manager</div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </SectionContents>
@@ -326,14 +285,7 @@ function Home() {
           </div>
           <Button>Get Started</Button>
         </div>
-        <div className="footer">
-          <div>© 2023 by VisionLab., Inc. All Rights Reserved.</div>
-          <div className="group-text">
-            <div>Privacy Policy</div>
-            <div>Terms of Service</div>
-            <div>Cookies Policy</div>
-          </div>
-        </div>
+        <Footer />
       </LastItem>
     </WrapperHome>
   );

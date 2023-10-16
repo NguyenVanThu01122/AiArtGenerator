@@ -21,3 +21,12 @@ code {
 .border-violet {
   box-shadow: 0 0 2px violet;
 }
+
+.ant-popover-inner {
+  transform: translateY(-15px);
+  background-color: transparent !important;
+}
+
+.ant-popover-arrow {
+  display: none !important;
+}

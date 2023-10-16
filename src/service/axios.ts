@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const privateAxios = axios.create({
-  // baseURL: "https://creatorhub-ai-api.vercel.app",
-  baseURL: "http://localhost:9090",
+  baseURL: process.env.REACT_APP_BASE_URL,
+  // baseURL: "http://localhost:9090",
   timeout: 4000,
   // headers: {
   //   Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -44,7 +44,7 @@ privateAxios.interceptors.response.use(
         });
     }
 
-     return Promise.reject(error);
+    return Promise.reject(error);
   }
 );
 
