@@ -186,6 +186,8 @@ const listComment = [
 function Pricing() {
   const textRef = useRef<any>();
   const [listPricing, setListPricing] = useState([]);
+  const [selectPrice, setSelectPrice] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const getListPricing = () => {
     privateAxios
@@ -194,6 +196,24 @@ function Pricing() {
         setListPricing(res.data);
       })
       .catch((error) => {});
+  };
+
+  const handleStripeOrder = (id: string) => {
+    setIsLoading(true);
+    setSelectPrice(id);
+    const body = {
+      priceId: id,
+      redirectUrl: "http://localhost:3000",
+    };
+    privateAxios
+      .post("/stripe/order", body)
+      .then((res) => {
+        setIsLoading(false);
+        window.location.assign(res.data?.url);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+      });
   };
   const handlePrev = () => {
     (textRef.current as any).prev();
@@ -261,7 +281,13 @@ function Pricing() {
                       : "Perfect for professional users who require generating 6-15 social media posts or 12-60 images using AI per day."}
                   </div>
                 </div>
-                <Button className="btn-eco">Payment</Button>
+                <Button
+                  className="btn-eco"
+                  onClick={() => handleStripeOrder(item?.id)}
+                  loading={selectPrice === item?.id && isLoading}
+                >
+                  Payment
+                </Button>
                 {item?.name === "Lite" ? (
                   <div className="list-benefit">
                     <div className="all-benefit">
