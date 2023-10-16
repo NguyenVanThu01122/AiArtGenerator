@@ -1,14 +1,15 @@
 import { Button } from "antd";
 import icCheckBlue from "../../images/Pricing/ic-check-blue.png";
 import icCheckGreen from "../../images/Pricing/ic-check-green.png";
-import icCheckviolet from "../../images/Pricing/ic-check-violet.png";
+import icCheckViolet from "../../images/Pricing/ic-check-violet.png";
 import icNext from "../../images/Pricing/icon-next.svg";
 import icPack from "../../images/Pricing/icon-pack.svg";
 import icPrev from "../../images/Pricing/icon-prev.svg";
 import imgSlider from "../../images/Pricing/icon-slider.svg";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Footer from "../../components/Footer";
+import { privateAxios } from "../../service/axios";
 import {
   BlockContents,
   ItemCarousel,
@@ -184,13 +185,26 @@ const listComment = [
 ];
 function Pricing() {
   const textRef = useRef<any>();
+  const [listPricing, setListPricing] = useState([]);
 
+  const getListPricing = () => {
+    privateAxios
+      .get("/stripe/prices")
+      .then((res) => {
+        setListPricing(res.data);
+      })
+      .catch((error) => {});
+  };
   const handlePrev = () => {
-    (textRef.current as any).prev(); 
+    (textRef.current as any).prev();
   };
   const handleNext = () => {
     (textRef.current as any).next();
   };
+
+  useEffect(() => {
+    getListPricing();
+  }, []);
   return (
     <WrapperPricing>
       <BlockContents>
@@ -204,123 +218,158 @@ function Pricing() {
             </div>
           </div>
           <div className="list-pricing">
-            <div className="option-container">
-              <div className="detail-pricing">
-                <div className="title-eco">Eco</div>
-                <div className="pricing">
-                  $4.99 <span>/ month</span>
-                </div>
-                <div className="credits-eco">+ 300 credits per month</div>
-                <div className="content">
-                  Suitable for those who want to discover the potential of AI
-                  through our essential toolkit.
-                </div>
-              </div>
-              <Button className="btn-eco">Active</Button>
-              <div className="list-benefit">
-                <div className="all-benefit">
-                  All the basic features, include:
-                </div>
-                <div className="conten-benefit">
-                  <img src={icCheckGreen} alt="" />
-                  <div>No advertisement</div>
-                </div>
-                <div className="conten-benefit">
-                  <img src={icCheckGreen} alt="" />
-                  <div>
-                    Long-form content length and medium resolution download
-                    quality
+            {listPricing.map((item: any) => (
+              <div
+                className={`option-container ${
+                  item?.name === "Basic" && "option2"
+                }`}
+              >
+                <div className="detail-pricing">
+                  {item.name === "Basic" && (
+                    <div id="popular">
+                      <div>MOST POPULAR</div>
+                    </div>
+                  )}
+                  <div
+                    className={`${
+                      item?.name === "Lite"
+                        ? "title-eco"
+                        : item?.name == "Basic"
+                        ? "title-basic"
+                        : "title-pro"
+                    }`}
+                  >
+                    {item?.name}
+                  </div>
+                  <div className="pricing">${item?.price}</div>
+                  <div
+                    className={`${
+                      item?.name === "Lite"
+                        ? "credits-eco"
+                        : item?.name === "Basic"
+                        ? "credits-basic"
+                        : "credits-pro"
+                    }`}
+                  >
+                    + {item?.credits} credits
+                  </div>
+                  <div className="content">
+                    {item?.name === "Lite"
+                      ? " Suitable for those who want to discover the potential of AI through our essential toolkit."
+                      : item?.name === "Basic"
+                      ? "Ideal for individual users who need to create 2-5 social media posts or 6-20 images using AI per day."
+                      : "Perfect for professional users who require generating 6-15 social media posts or 12-60 images using AI per day."}
                   </div>
                 </div>
-                <div className="conten-benefit">
-                  <img src={icCheckGreen} alt="" />
-                  <div>Access to premium art styles</div>
-                </div>
-                <div className="conten-benefit">
-                  <img src={icCheckGreen} alt="" />
-                  <div>Remove Watermark</div>
-                </div>
+                <Button className="btn-eco">Payment</Button>
+                {item?.name === "Lite" ? (
+                  <div className="list-benefit">
+                    <div className="all-benefit">
+                      All the basic features, include:
+                    </div>
+                    <div className="conten-benefit">
+                      <img src={icCheckGreen} alt="" />
+                      <div>No advertiseme</div>
+                    </div>
+                    <div className="conten-benefit">
+                      <img src={icCheckGreen} alt="" />
+                      <div>
+                        Long-form content length and medium resolution download
+                        quality
+                      </div>
+                    </div>
+                    <div className="conten-benefit">
+                      <img src={icCheckGreen} alt="" />
+                      <div>Access to premium art styles</div>
+                    </div>
+                    <div className="conten-benefit">
+                      <img src={icCheckGreen} alt="" />
+                      <div>Remove Watermark</div>
+                    </div>
+                  </div>
+                ) : item?.name === "Basic" ? (
+                  <div className="list-benefit">
+                    <div className="all-benefit">
+                      All the basic features, include:
+                    </div>
+                    <div className="conten-benefit">
+                      <img src={icCheckViolet} alt="" />
+                      <div>No advertisement</div>
+                    </div>
+                    <div className="conten-benefit">
+                      <img src={icCheckViolet} alt="" />
+                      <div>
+                        Long-form content length and medium resolution download
+                        quality
+                      </div>
+                    </div>
+                    <div className="conten-benefit">
+                      <img src={icCheckViolet} alt="" />
+                      <div>Access to premium art styles</div>
+                    </div>
+                    <div className="conten-benefit">
+                      <img src={icCheckViolet} alt="" />
+                      <div>Remove Watermark</div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="list-benefit">
+                    <div className="all-benefit">
+                      All the greatness of Plus, and:
+                    </div>
+                    <div className="conten-benefit">
+                      <img src={icCheckBlue} alt="" />
+                      <div>Brand management</div>
+                    </div>
+                    <div className="conten-benefit">
+                      <img src={icCheckBlue} alt="" />
+                      <div>
+                        Unlimited content length and high resolution download
+                        quality
+                      </div>
+                    </div>
+                    <div className="conten-benefit">
+                      <img src={icCheckBlue} alt="" />
+                      <div>Priority support</div>
+                    </div>
+                    <div className="conten-benefit">
+                      <img src={icCheckBlue} alt="" />
+                      <div>Beta access to new feature</div>
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
-            <div className="option-container option2">
+            ))}
+
+            {/* <div className="option-container option2">
               <div className="detail-pricing">
                 <div id="popular">
                   <div>MOST POPULAR</div>
                 </div>
                 <div className="title-basic">Basic</div>
-                <div className="pricing">
-                  $9.99<span>/ month</span>
-                </div>
-                <div className="credits-basic">+ 1,000 credits per month</div>
+                <div className="pricing">$9.99</div>
+                <div className="credits-basic">+ 1,000 credits</div>
                 <div className="content">
                   Ideal for individual users who need to create 2-5 social media
                   posts or 6-20 images using AI per day.
                 </div>
               </div>
-              <Button className="btn-basic">Start 3 days trial</Button>
-              <div className="list-benefit">
-                <div className="all-benefit">
-                  All the basic features, include:
-                </div>
-                <div className="conten-benefit">
-                  <img src={icCheckviolet} alt="" />
-                  <div>No advertisement</div>
-                </div>
-                <div className="conten-benefit">
-                  <img src={icCheckviolet} alt="" />
-                  <div>
-                    Long-form content length and medium resolution download
-                    quality
-                  </div>
-                </div>
-                <div className="conten-benefit">
-                  <img src={icCheckviolet} alt="" />
-                  <div>Access to premium art styles</div>
-                </div>
-                <div className="conten-benefit">
-                  <img src={icCheckviolet} alt="" />
-                  <div>Remove Watermark</div>
-                </div>
-              </div>
+              
+             
             </div>
             <div className="option-container">
               <div className="detail-pricing">
                 <div className="title-pro">Pro</div>
-                <div className="pricing">
-                  $19.99 <span>/ month</span>
-                </div>
-                <div className="credits-pro">+ 3,000 credits per month</div>
+                <div className="pricing">$19.99</div>
+                <div className="credits-pro">+ 3,000 credits</div>
                 <div className="content">
                   Perfect for professional users who require generating 6-15
                   social media posts or 12-60 images using AI per day.
                 </div>
               </div>
               <Button className="btn-pro">Start 3 days trial</Button>
-              <div className="list-benefit">
-                <div className="all-benefit">
-                  All the greatness of Plus, and:
-                </div>
-                <div className="conten-benefit">
-                  <img src={icCheckBlue} alt="" />
-                  <div>Brand management</div>
-                </div>
-                <div className="conten-benefit">
-                  <img src={icCheckBlue} alt="" />
-                  <div>
-                    Unlimited content length and high resolution download
-                    quality
-                  </div>
-                </div>
-                <div className="conten-benefit">
-                  <img src={icCheckBlue} alt="" />
-                  <div>Priority support</div>
-                </div>
-                <div className="conten-benefit">
-                  <img src={icCheckBlue} alt="" />
-                  <div>Beta access to new feature</div>
-                </div>
-              </div>
-            </div>
+             
+            </div>  */}
           </div>
         </div>
         <div className="box-choosers">

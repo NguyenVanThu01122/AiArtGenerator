@@ -72,6 +72,7 @@ export const BlockContents = styled.div`
         padding-top: 35px;
         position: relative;
         .detail-pricing {
+
           #popular {
             position: absolute;
             border-top: 2px solid rgb(151, 80, 230);
@@ -155,6 +156,8 @@ export const BlockContents = styled.div`
             line-height: 100%; /* 16px */
           }
           .content {
+            /* border: 1px solid white; */
+            height: 80px;
             color: var(--text-primary, #fff);
             font-size: 12px;
             font-weight: 400;
@@ -163,7 +166,7 @@ export const BlockContents = styled.div`
         }
         .btn-eco {
           width: 100%;
-          margin: 28px 0px;
+          margin-bottom: 28px;
           height: 35px;
           border-radius: 8px;
           background: #24c6b2;
@@ -215,6 +218,7 @@ export const BlockContents = styled.div`
               height: 25.404px;
             }
             & > div:last-child {
+
               color: var(--text-secondary, #d2d2d2);
               font-size: 12px;
               font-weight: 500;
