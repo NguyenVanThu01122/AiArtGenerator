@@ -135,7 +135,7 @@ function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log(process.env.REACT_APP_BASE_URL);
+  
 
   useEffect(() => {
     if (searchParam.get("token") && searchParam.get("refresh_token")) {
