@@ -2,6 +2,7 @@ import { Button, Checkbox, Form, Input, message } from "antd";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import AnimationStar from "../../components/AnimationStar";
 import { SidebarImageLogin } from "../../components/SidebarImageLogin";
 import iconBack from "../../images/ic-back.svg";
 import iconDiscord from "../../images/iconDiscord.svg";
@@ -12,7 +13,6 @@ import { saveLogin, saveToken } from "../../redux/Actions/app";
 import { privateAxios } from "../../service/axios";
 import {
   FormSignIn,
-  GroupTextEmpty,
   ItemSignIn,
   ItemVerifyEmail,
   ModalForgotPassword,
@@ -117,14 +117,9 @@ export function SignIn() {
 
   return (
     <WrapperSignIn>
-      <GroupTextEmpty>
-        <div id="stars1"></div>
-        <div id="stars2"></div>
-        <div id="stars3"></div>
-        {isModalPassword && <div id="empty-div"></div>}
-      </GroupTextEmpty>
+      <AnimationStar />
+      {isModalPassword && <div className="empty-div"></div>}
       <SidebarImageLogin />
-
       <ItemSignIn>
         <img className="icon-login" src={iconLogin} alt="" />
         <div>Sign in to your account</div>
@@ -222,6 +217,7 @@ export function SignIn() {
       </ItemSignIn>
 
       <ModalForgotPassword
+        centered
         open={isModalPassword}
         footer={false}
         onCancel={CancelModalForgotPassword}

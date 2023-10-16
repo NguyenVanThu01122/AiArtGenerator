@@ -1,7 +1,7 @@
 import { Form, Input, message } from "antd";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import AnimationStar from "../../components/AnimationStar";
 import { SidebarImageLogin } from "../../components/SidebarImageLogin";
 import icBack from "../../images/ic-back.svg";
 import iconDiscord from "../../images/iconDiscord.svg";
@@ -11,7 +11,6 @@ import icongg from "../../images/icongg.svg";
 import { privateAxios } from "../../service/axios";
 import {
   FormSignUp,
-  GroupDivEmpty,
   ItemFormSignUp,
   ItemVerifyEmail,
   ModalSentEmail,
@@ -50,7 +49,8 @@ export function Register() {
 
   // hàm đăng ký bằng google
   const handleRegisterGoogle = () => {
-    window.location.href = `http://localhost:9090/google?redirect_url=${window.location.origin}`;
+    window.location.href = `${process.env.REACT_APP_BASE_URL}/google?redirect_url=${window.location.origin}`;
+    // window.location.href = `http://localhost:9090/google?redirect_url=${window.location.origin}`;
   };
   // hàm đăng ký bằng facebook
   const handleRegisterFacebook = () => {
@@ -63,12 +63,7 @@ export function Register() {
 
   return (
     <WrapperRegister>
-      <GroupDivEmpty>
-        <div id="stars"></div>
-        <div id="stars2"></div>
-        <div id="stars3"></div>
-        {isModalSentEmail && <div id="empty-div"></div>}
-      </GroupDivEmpty>
+      <AnimationStar />
       <SidebarImageLogin />
       <ItemFormSignUp>
         <img className="icon-login" src={iconLogin} alt="" />

@@ -5,7 +5,7 @@ export const PageAiPhotoEnhancer = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgb(9, 9, 23);
-  display:flex;
+  display: flex;
   flex-direction: column;
 `;
 
@@ -34,7 +34,6 @@ export const SectionContents = styled.div`
       align-items: center;
       padding: 30px 20px;
       cursor: pointer;
-
       & > div:last-child {
         color: white;
         font-weight: bold;
@@ -43,6 +42,33 @@ export const SectionContents = styled.div`
       .icon-back {
         color: white;
         font-size: 16px;
+      }
+    }
+    .box-result {
+      .result-img {
+        max-width: 500px;
+        height: max-content;
+        margin: auto;
+        img {
+          width: 100%;
+        }
+      }
+      .btn-downdload {
+        width: 200px;
+        height: 40px;
+        display: block;
+        margin: 50px auto;
+        border: none;
+        color: white !important;
+        font-weight: bold;
+        font-size: large;
+        background: var(
+          --linear,
+          linear-gradient(182deg, #e250e5 0%, #4b50e6 100%)
+        );
+        &:hover {
+          filter: brightness(0.6);
+        }
       }
     }
     .item-upload {
@@ -93,9 +119,9 @@ export const SectionContents = styled.div`
         align-items: center;
         position: relative;
         .item-change {
+          position: relative;
           background: rgb(35, 32, 44);
           border-radius: 10px;
-
           &:hover {
             background-color: transparent;
             filter: brightness(0.5);
@@ -106,6 +132,20 @@ export const SectionContents = styled.div`
             object-fit: contain;
             cursor: pointer;
           }
+          .item-loading {
+            filter: brightness(0.9);
+            background-color: rgb(0, 0, 0, 0.9);
+            .img-loading {
+              border-radius: 10px;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              width: 152px;
+              height: 152px;
+            }
+          }
+
           .change-photo {
             position: relative;
             opacity: 0;
@@ -138,6 +178,7 @@ export const SectionContents = styled.div`
         }
         button {
           border: none;
+          font-size: 18px;
           height: 50px;
           color: white;
           background: linear-gradient(

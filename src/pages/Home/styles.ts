@@ -25,7 +25,7 @@ export const WrapperHome = styled.div`
 export const ItemCarousel = styled(Carousel)`
   width: 100%;
   height: 515px;
-  flex-shrink: 0;
+
   .slick-dots li {
     width: 10px !important;
     height: 10px !important;
@@ -39,6 +39,7 @@ export const ItemCarousel = styled(Carousel)`
   .introduce-item {
     display: flex !important;
     gap: 40px;
+    padding-top: 0px !important;
     padding: 60px 40px;
     width: 100%;
     .contents {

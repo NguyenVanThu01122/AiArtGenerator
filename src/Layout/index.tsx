@@ -11,7 +11,6 @@ export function Layout() {
   const login = useSelector((state: any) => state.app.login);
   const dispatch = useDispatch();
   // lấy user
-
   useEffect(() => {
     if (login) {
       privateAxios

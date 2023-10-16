@@ -37,7 +37,7 @@ export const WrapperSidebar = styled.div`
       border-radius: 5px !important;
     }
     &::-webkit-scrollbar {
-      width: 4px !important;
+      width: 3px !important;
     }
     &::-webkit-scrollbar-track {
       background-color: transparent !important; //Màu của vùng cuộn
@@ -48,7 +48,8 @@ export const WrapperSidebar = styled.div`
       }
     }
     padding: 18px;
-    .home {
+    .home,
+    .pricing {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -91,35 +92,34 @@ export const WrapperSidebar = styled.div`
         }
       }
     }
-    .follow-options {
-      text-align: center;
-      margin-top: 20px;
-      & > div:first-child {
-        color: white;
-        font-size: 15px;
-        font-weight: 300;
-      }
-      .group-icon {
-        margin: 20px;
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        & img {
-          width: 18%;
-          width: 18%;
-          border-radius: 50%;
-          background: rgb(36, 36, 60);
-          padding: 10px;
-          cursor: pointer;
-          transition: transform 0.4s ease; // Hiệu ứng chuyển đổi kích thước, ease hiệu ứng làm mượt//
-          &:hover {
-            /* box-shadow: 0 0 20px 5px violet; */
-            transform: scale(1.2);
-            background-color: #03e9f4;
-            box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
-              0 0 600px #03e9f4;
-            -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
-          }
+  }
+  .follow-options {
+    text-align: center;
+    & > div:first-child {
+      color: white;
+      font-size: 15px;
+      font-weight: 300;
+    }
+    .group-icon {
+      margin: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      & img {
+        width: 18%;
+        width: 18%;
+        border-radius: 50%;
+        background: rgb(36, 36, 60);
+        padding: 10px;
+        cursor: pointer;
+        transition: transform 0.4s ease; // Hiệu ứng chuyển đổi kích thước, ease hiệu ứng làm mượt//
+        &:hover {
+          /* box-shadow: 0 0 20px 5px violet; */
+          transform: scale(1.2);
+          background-color: #03e9f4;
+          box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+            0 0 600px #03e9f4;
+          -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
         }
       }
     }
