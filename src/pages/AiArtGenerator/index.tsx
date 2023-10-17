@@ -3,7 +3,6 @@ import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
 import { Buffer } from "buffer";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useClipboard } from "use-clipboard-copy";
 import icHistory from "../../images/ic-history.svg";
@@ -19,6 +18,7 @@ import {
   FILE_FORMAT,
   MAX_SIZE_INBYTES,
 } from "../../utils/contanst";
+import { useCheckLogin } from "../../utils/useCheckLogin";
 import { ResultsItem, SectionContents, WrapperAiArtGenerator } from "./styles";
 
 function AiArtGenerator() {
@@ -41,7 +41,7 @@ function AiArtGenerator() {
   const [listStyle, setListStyle] = useState<any>([]);
   const [resultImage, setResultImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const login = useSelector((state: any) => state.app.login);
+  const [login, navigateLogin] = useCheckLogin();
 
   // hàm lấy list image
   const handleGetListImage = async () => {
@@ -123,7 +123,8 @@ function AiArtGenerator() {
   const handleGenerate = async () => {
     try {
       if (!login) {
-        navigate("/sign-in");
+        navigateLogin();
+        return;
       }
       setIsLoading(true);
       const formData: any = new FormData(); // tạo mới đối tượng formData

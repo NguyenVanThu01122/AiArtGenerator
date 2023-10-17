@@ -10,6 +10,8 @@ import imgSlider from "../../images/Pricing/icon-slider.svg";
 import { useEffect, useRef, useState } from "react";
 import Footer from "../../components/Footer";
 import { privateAxios } from "../../service/axios";
+
+import { useCheckLogin } from "../../utils/useCheckLogin";
 import {
   BlockContents,
   ItemCarousel,
@@ -183,11 +185,14 @@ const listComment = [
     job: "Marketing Manager",
   },
 ];
+
 function Pricing() {
   const textRef = useRef<any>();
   const [listPricing, setListPricing] = useState([]);
   const [selectPrice, setSelectPrice] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [login, navigateLogin] = useCheckLogin();
 
   const getListPricing = () => {
     privateAxios
@@ -199,6 +204,10 @@ function Pricing() {
   };
 
   const handleStripeOrder = (id: string) => {
+    if (!login) {
+      navigateLogin();
+      return;
+    }
     setIsLoading(true);
     setSelectPrice(id);
     const body = {

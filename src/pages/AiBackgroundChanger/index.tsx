@@ -8,8 +8,8 @@ import iconRotate from "../../images/icon-rotare.svg";
 import iconStar from "../../images/icon-star.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
 import imgLoading from "../../images/img-loading1.gif";
-
 import { FILE_FORMAT, MAX_SIZE_INBYTES } from "../../utils/contanst";
+import { useCheckLogin } from "../../utils/useCheckLogin";
 import {
   BoxUpload,
   ItemBackgroundChange,
@@ -22,6 +22,7 @@ function AiBackgroundChanger() {
   const [uploadedImage, setUploadedImage] = useState<any>("");
   const [resultImage, setResultImage] = useState("");
   const [isloading, setIsloading] = useState(false);
+  const [login, navigateLogin] = useCheckLogin();
 
   // hàm xử lý tải ảnh lên
   const handleUploadImage = (e: any) => {
@@ -48,6 +49,10 @@ function AiBackgroundChanger() {
 
   // hàm xóa background
   const handleRemoveBackground = () => {
+    if (!login) {
+      navigateLogin();
+      return;
+    }
     setIsloading(true);
     const formData: any = new FormData();
     formData.append("file", fileUpload);

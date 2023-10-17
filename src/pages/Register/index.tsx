@@ -54,7 +54,7 @@ export function Register() {
   };
   // hàm đăng ký bằng facebook
   const handleRegisterFacebook = () => {
-    window.location.href = `https://creatorhub-ai-api.vercel.app/facebook?redirect_url=${window.location.origin}`;
+    window.location.href = `${process.env.REACT_APP_BASE_URL}/facebook?redirect_url=${window.location.origin}`;
   };
 
   const handleSubmit = () => {
