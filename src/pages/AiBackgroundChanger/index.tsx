@@ -2,14 +2,18 @@ import { Button, message } from "antd";
 import axios from "axios";
 import { Buffer } from "buffer";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import icBack from "../../images/ic-back.svg";
 import iconCancel from "../../images/icon-cancel.svg";
 import iconRotate from "../../images/icon-rotare.svg";
 import iconStar from "../../images/icon-star.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
 import imgLoading from "../../images/img-loading1.gif";
+import { privateAxios } from "../../service/axios";
 import { FILE_FORMAT, MAX_SIZE_INBYTES } from "../../utils/contanst";
 import { useCheckLogin } from "../../utils/useCheckLogin";
+import { useGetInforUser } from "../../utils/useGetInforUser";
 import {
   BoxUpload,
   ItemBackgroundChange,
@@ -23,6 +27,9 @@ function AiBackgroundChanger() {
   const [resultImage, setResultImage] = useState("");
   const [isloading, setIsloading] = useState(false);
   const [login, navigateLogin] = useCheckLogin();
+  const [getUser] = useGetInforUser();
+  const user = useSelector((state: any) => state.app.user);
+  const navigate = useNavigate();
 
   // hàm xử lý tải ảnh lên
   const handleUploadImage = (e: any) => {
@@ -53,6 +60,11 @@ function AiBackgroundChanger() {
       navigateLogin();
       return;
     }
+    if (user.credits < 3) {
+      message.error("Your credits is not enable. Please purchase credits!");
+      navigate("/pricing");
+      return;
+    }
     setIsloading(true);
     const formData: any = new FormData();
     formData.append("file", fileUpload);
@@ -67,12 +79,18 @@ function AiBackgroundChanger() {
           responseType: "arraybuffer", // responseType định nghĩa kiểu dữ liệi trả về.
         }
       )
-      .then((res) => {
+      .then(async (res) => {
         const base64ImageString =
           "data:image/png;base64," +
           Buffer.from(res.data, "binary").toString("base64");
         setResultImage(base64ImageString);
         setIsloading(false);
+        await privateAxios.get("/user/use-credits", {
+          params: {
+            type: "REMOVE_BACKGROUND",
+          },
+        });
+        getUser();
       })
       .catch((error) => {
         setIsloading(false);
