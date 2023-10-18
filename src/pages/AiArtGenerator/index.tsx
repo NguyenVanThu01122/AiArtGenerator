@@ -194,17 +194,33 @@ function AiArtGenerator() {
       const base64ImageString =
         "data:image/png;base64," +
         Buffer.from(res.data, "binary").toString("base64");
+
       setResultImage(base64ImageString);
       setIsLoading(false);
+      // get api trừ tiền
       await privateAxios.get("/user/use-credits", {
         params: {
           type: "AI_ART",
         },
       });
-      getUser();
-    } catch (error) {
+      getUser(); // goi api trừ tiền xong get user để cập nhập lại
+
+      const body = {
+        url: base64ImageString,
+        config: {
+          step: sliderValueSteps,
+          style: selectStyle?.name || "None",
+          alpha: sliderValueAlpha,
+          scale: sliderValueScale,
+          positivePrompt: prompt || "",
+          negativePrompt: negativePrompt || "",
+        },
+      };
+      // lưu result image
+      await privateAxios.post("/store/save-image", body);
+    } catch (error: any) {
       setIsLoading(false);
-      message.error("Lỗi server");
+      message.error("Error. Please try again.");
     }
   };
 
