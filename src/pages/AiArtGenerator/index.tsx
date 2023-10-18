@@ -3,6 +3,7 @@ import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
 import { Buffer } from "buffer";
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useClipboard } from "use-clipboard-copy";
 import icHistory from "../../images/ic-history.svg";
@@ -11,6 +12,7 @@ import iconCancel from "../../images/icon-cancel.svg";
 import iconRotate from "../../images/icon-rotare.svg";
 import iconShow from "../../images/icon-show.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
+import { privateAxios } from "../../service/axios";
 import {
   DEFAULT_ALPHA,
   DEFAULT_SCALE,
@@ -19,6 +21,7 @@ import {
   MAX_SIZE_INBYTES,
 } from "../../utils/contanst";
 import { useCheckLogin } from "../../utils/useCheckLogin";
+import { useGetInforUser } from "../../utils/useGetInforUser";
 import { ResultsItem, SectionContents, WrapperAiArtGenerator } from "./styles";
 
 function AiArtGenerator() {
@@ -42,6 +45,8 @@ function AiArtGenerator() {
   const [resultImage, setResultImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [login, navigateLogin] = useCheckLogin();
+  const user = useSelector((state: any) => state.app.user);
+  const [getUser] = useGetInforUser();
 
   // hàm lấy list image
   const handleGetListImage = async () => {
@@ -49,7 +54,6 @@ function AiArtGenerator() {
       const res = await axios.get(
         "https://style-management-api.dev.apero.vn/v2/styles?limit=1000000&page=1&project=Creatorhub_WEB"
       );
-      // console.log(res.data.data.items);
       const result = res.data.data.items?.map((item: any) => {
         return {
           id: item._id,
@@ -126,6 +130,11 @@ function AiArtGenerator() {
         navigateLogin();
         return;
       }
+      if (user?.credits < 5) {
+        message.error("Your credits is not enable. Please purchase credits!");
+        navigate("/pricing");
+        return;
+      }
       setIsLoading(true);
       const formData: any = new FormData(); // tạo mới đối tượng formData
       if (fileUpload) {
@@ -187,6 +196,12 @@ function AiArtGenerator() {
         Buffer.from(res.data, "binary").toString("base64");
       setResultImage(base64ImageString);
       setIsLoading(false);
+      await privateAxios.get("/user/use-credits", {
+        params: {
+          type: "AI_ART",
+        },
+      });
+      getUser();
     } catch (error) {
       setIsLoading(false);
       message.error("Lỗi server");

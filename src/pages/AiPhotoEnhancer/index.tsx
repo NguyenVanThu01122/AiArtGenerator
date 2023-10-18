@@ -4,13 +4,17 @@ import { Button, message } from "antd";
 import axios from "axios";
 import { Buffer } from "buffer";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import iconRotate from "../../images/icon-rotare.svg";
 import iconStar from "../../images/icon-star.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
 import imgPhoto from "../../images/image-photo.svg";
 import imgLoading from "../../images/img-loading1.gif";
+import { privateAxios } from "../../service/axios";
 import { FILE_FORMAT, MAX_SIZE_INBYTES } from "../../utils/contanst";
 import { useCheckLogin } from "../../utils/useCheckLogin";
+import { useGetInforUser } from "../../utils/useGetInforUser";
 import { ItemFooter, PageAiPhotoEnhancer, SectionContents } from "./styles";
 
 export function AiPhotoEnhancer() {
@@ -19,6 +23,9 @@ export function AiPhotoEnhancer() {
   const [resultImage, setResultImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [login, navigateLogin] = useCheckLogin();
+  const user = useSelector((state: any) => state.app.user);
+  const [getUser] = useGetInforUser();
+  const navigate = useNavigate();
 
   // hàm upload ảnh lên
   const handleUploadImage = (e: any) => {
@@ -48,6 +55,11 @@ export function AiPhotoEnhancer() {
       navigateLogin();
       return;
     }
+    if (user.credits < 4) {
+      message.error("Your credits is not enable. Please purchase credits!");
+      navigate("/pricing");
+      return;
+    }
     setIsLoading(true);
     const formData: any = new FormData(); // tạo mới đối tượng formData
     formData.append("file", fileUpload);
@@ -58,12 +70,18 @@ export function AiPhotoEnhancer() {
         },
         responseType: "arraybuffer",
       })
-      .then((res) => {
+      .then(async (res) => {
         const base64ImageString =
           "data:image/png;base64," +
           Buffer.from(res.data, "binary").toString("base64");
         setResultImage(base64ImageString);
         setIsLoading(false);
+        await privateAxios.get("/user/use-credits", {
+          params: {
+            type: "ENHANCE",
+          },
+        });
+        getUser();
       })
       .catch((error) => {
         setIsLoading(false);
