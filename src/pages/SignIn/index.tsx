@@ -107,12 +107,12 @@ export function SignIn() {
 
   // hàm đăng nhập google
   const handleLoginGoogle = () => {
-    window.location.href = `http://localhost:9090/google?redirect_url=${window.location.origin}`;
+    window.location.href = `${process.env.REACT_APP_BASE_URL}/google?redirect_url=${window.location.origin}`;
   };
 
   // hàm đăng nhập facebook
   const handleLoginFacebook = () => {
-    window.location.href = `https://creatorhub-ai-api.vercel.app/facebook?redirect_url=${window.location.origin}`;
+    window.location.href = `${process.env.REACT_APP_BASE_URL}/facebook?redirect_url=${window.location.origin}`;
   };
 
   return (

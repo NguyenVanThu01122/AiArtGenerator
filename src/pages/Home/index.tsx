@@ -135,8 +135,6 @@ function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  
-
   useEffect(() => {
     if (searchParam.get("token") && searchParam.get("refresh_token")) {
       localStorage.setItem("token", searchParam.get("token") || "");

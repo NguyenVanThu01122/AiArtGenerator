@@ -10,6 +10,7 @@ import iconUploadImg from "../../images/icon-upload-img.svg";
 import imgPhoto from "../../images/image-photo.svg";
 import imgLoading from "../../images/img-loading1.gif";
 import { FILE_FORMAT, MAX_SIZE_INBYTES } from "../../utils/contanst";
+import { useCheckLogin } from "../../utils/useCheckLogin";
 import { ItemFooter, PageAiPhotoEnhancer, SectionContents } from "./styles";
 
 export function AiPhotoEnhancer() {
@@ -17,6 +18,7 @@ export function AiPhotoEnhancer() {
   const [fileUpload, setFileUpload] = useState();
   const [resultImage, setResultImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [login, navigateLogin] = useCheckLogin();
 
   // hàm upload ảnh lên
   const handleUploadImage = (e: any) => {
@@ -42,6 +44,10 @@ export function AiPhotoEnhancer() {
 
   // hàm generate ảnh
   const handleGenerateImage = () => {
+    if (!login) {
+      navigateLogin();
+      return;
+    }
     setIsLoading(true);
     const formData: any = new FormData(); // tạo mới đối tượng formData
     formData.append("file", fileUpload);
