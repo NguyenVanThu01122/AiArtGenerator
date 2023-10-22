@@ -12,6 +12,7 @@ import iconCancel from "../../images/icon-cancel.svg";
 import iconRotate from "../../images/icon-rotare.svg";
 import iconShow from "../../images/icon-show.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
+import icCopy from "../../images/ic-copy.svg";
 import { privateAxios } from "../../service/axios";
 import {
   DEFAULT_ALPHA,
@@ -212,8 +213,8 @@ function AiArtGenerator() {
           style: selectStyle?.name || "None",
           alpha: sliderValueAlpha,
           scale: sliderValueScale,
-          positivePrompt: prompt || "",
-          negativePrompt: negativePrompt || "",
+          positivePrompt: prompt.trim() || "",
+          negativePrompt: negativePrompt.trim() || "",
         },
       };
       // lưu result image
@@ -228,8 +229,9 @@ function AiArtGenerator() {
   const handleCopyText = () => {
     const textToCopy = (textToCopyRef.current as any).textContent; //lấy nội dung của ptu textToCopyRef.current đang trỏ đến.
     clipboard.copy(textToCopy); // sao chép nội dụng từ textToCopy
-    message.success("Sao chép thành công");
+    message.success("Copy successfully");
   };
+
   // hàm tải ảnh
   const downloadImage = async (base64String: string, filename: string) => {
     // Tạo một thẻ a để tạo link tải về
@@ -309,7 +311,7 @@ function AiArtGenerator() {
               <div className="button-group">
                 <Button className="copy-button" onClick={handleCopyText}>
                   <img
-                    src="https://creatorhub.ai/static/media/ic-remix.fc1b33535a75591dc551cfd88ba2f755.svg"
+                    src={icCopy}
                     alt=""
                   />
                   Copy Prompt

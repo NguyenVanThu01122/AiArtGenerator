@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
-export const WrapperSidebar = styled.div`
+export const WrapperSidebar = styled.div<{ closeMenu: boolean }>`
   background-color: rgb(9, 9, 23);
-  width: 280px;
+  width: ${(props) => (props?.closeMenu ? "120px" : "280px")};
+  transition: 0.3s ease;
   height: 100%;
   border-right: 1px solid rgb(30, 36, 49);
   display: flex;
@@ -13,6 +14,7 @@ export const WrapperSidebar = styled.div`
     box-shadow: 0 0 2px 1px violet;
   }
   .logo-AiArt {
+    height: 75px;
     display: flex;
     gap: 15px;
     justify-content: center;
@@ -20,19 +22,21 @@ export const WrapperSidebar = styled.div`
     padding: 22px;
     border-bottom: 1px solid rgb(30, 36, 49);
     img {
-      width: 22px;
-      height: 22px;
+      width: 25px;
+      height: 25px;
       object-fit: cover;
     }
-    & > div:last-child {
+    span {
+      display: ${(props: any) => (props.closeMenu ? "none" : "block")};
       color: white;
-      font-size: 24.5px;
+      font-size: 24px;
       font-weight: 500;
     }
   }
   .select-item {
     flex: 1;
     overflow-y: auto;
+    padding: 18px;
     &::-webkit-scrollbar-thumb {
       border-radius: 5px !important;
     }
@@ -47,23 +51,6 @@ export const WrapperSidebar = styled.div`
         background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
       }
     }
-    padding: 18px;
-    .home,
-    .pricing {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px;
-      cursor: pointer;
-      margin-bottom: 10px;
-      &:hover {
-        background: rgb(36, 36, 60);
-        border-radius: 5px;
-      }
-      & > div:last-child {
-        color: white;
-      }
-    }
     .section-products {
       display: flex;
       flex-direction: column;
@@ -74,26 +61,36 @@ export const WrapperSidebar = styled.div`
         font-size: 15px;
         font-weight: 300;
       }
-      .ai-art-generator,
-      .ai-photo-enhancer {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        padding: 10px;
-        cursor: pointer;
-        & > div:last-child {
-          color: white;
-          font-size: 14px;
-          font-weight: bold;
-        }
-        &:hover {
-          background: rgb(36, 36, 60);
-          border-radius: 5px;
-        }
+    }
+    .item-menu {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      justify-content: ${(props: any) =>
+        props.closeMenu ? "center" : "flex-start"} !important;
+      span {
+        display: ${(props: any) =>
+          props.closeMenu ? "none" : "inline"} !important;
+      }
+      &:hover {
+        background: rgb(36, 36, 60);
+        border-radius: 5px;
+      }
+      span {
+        color: white;
+      }
+      .ic-avatar {
+        color: white;
+        font-size: 20px;
+
       }
     }
   }
   .follow-options {
+    display: ${(props: any) => (props.closeMenu ? "none" : "block")};
     text-align: center;
     & > div:first-child {
       color: white;

@@ -17,4 +17,10 @@ const saveToken = (payload: string) => {
     payload,
   };
 };
-export { saveToken, saveUser,saveLogin };
+const saveCloseMenu = (payload: boolean) => {
+  return {
+    type: "SAVE_CLOSE_MENU",
+    payload,
+  };
+};
+export { saveCloseMenu, saveLogin, saveToken, saveUser };

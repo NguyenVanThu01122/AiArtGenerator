@@ -1,7 +1,7 @@
 import styled from "styled-components";
 export const WrapperHeader = styled.div`
   background-color: rgb(9, 9, 23);
-  height: 74px;
+  height: 75px;
   padding: 0px 15px;
   display: flex;
   justify-content: space-between;
@@ -14,6 +14,9 @@ export const WrapperHeader = styled.div`
     align-items: center;
     gap: 10px;
     color: white;
+    .ic-close{
+      cursor: pointer;
+    }
     & > div:last-child {
       font-size: 17px;
       font-weight: 600;
@@ -70,5 +73,8 @@ export const WrapperHeader = styled.div`
     );
     font-weight: bold;
     border: none;
+    &:hover{
+      filter: brightness(0.6);
+    }
   }
 `;

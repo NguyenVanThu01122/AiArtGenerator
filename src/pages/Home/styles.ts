@@ -8,6 +8,7 @@ export const WrapperHome = styled.div`
   flex-direction: column;
   gap: 110px;
   overflow-y: auto;
+  padding: 20px;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
   }
@@ -25,7 +26,6 @@ export const WrapperHome = styled.div`
 export const ItemCarousel = styled(Carousel)`
   width: 100%;
   height: 515px;
-
   .slick-dots li {
     width: 10px !important;
     height: 10px !important;
@@ -73,7 +73,7 @@ export const ItemCarousel = styled(Carousel)`
         }
       }
       .custom-btn {
-        width: 40%;
+        width: 210px;
         height: 48px;
         display: flex;
         padding: 8px 24px;
@@ -218,8 +218,8 @@ export const SectionContents = styled.div`
         position: relative;
         border-radius: 12px;
         padding: 24px;
-        width: 264px;
-        height: 256px;
+        /* width: 264px;
+        height: 256px; */
         cursor: pointer;
         background: var(--BG-on-Blue, #141420);
         .empty-box {

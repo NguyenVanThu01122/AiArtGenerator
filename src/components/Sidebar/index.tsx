@@ -1,3 +1,7 @@
+import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Tooltip } from "antd";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import iconAiBackgroundChange from "../../images/ic-ai-background-chage.svg";
 import iconPricing from "../../images/ic-pricing.svg";
@@ -14,59 +18,89 @@ import { WrapperSidebar } from "./styles";
 export function Sidebar() {
   const navigate = useNavigate();
   const pathName = window.location.pathname;
+  const closeMenu = useSelector((state: any) => state.app.closeMenu);
+  // const text1 = <span>Home</span>;
+  // const text2 = <span>Pricing</span>;
+  // const text3 = <span>My Avatars</span>;
+  // const text4 = <span>Ai Art Generator</span>;
+  // const text5 = <span>Ai Photo Enhancer</span>;
+  // const text6 = <span>Ai BacKground Change</span>;
+
   return (
-    <WrapperSidebar>
+    <WrapperSidebar closeMenu={closeMenu}>
       <div className="logo-AiArt" onClick={() => navigate("/")}>
         <img src={iconAiArt} alt="iconAiArt" />
-        <div>CreatorHub</div>
+        <span>CreatorHub</span>
       </div>
       <div className="select-item">
-        <div
-          className={`home ${pathName === "/" && "border"}`}
-          onClick={() => navigate("/")}
-        >
-          <img src={iconHome} alt="iconHome" />
-          <div>Home</div>
-        </div>
-        <div
-          className={`pricing ${pathName === "/pricing" && "border"}`}
-          onClick={() => navigate("/pricing")}
-        >
-          <img src={iconPricing} alt="" />
-          <div>Pricing</div>
-        </div>
+        <Tooltip placement="right" title={closeMenu && "Home"}>
+          <div
+            className={`item-menu ${pathName === "/" && "border"} `}
+            onClick={() => navigate("/")}
+          >
+            <img src={iconHome} alt="iconHome" />
+            <span>Home</span>
+          </div>
+        </Tooltip>
+        <Tooltip placement="right" title={closeMenu && "Pricing"}>
+          <div
+            className={`item-menu ${pathName === "/pricing" && "border"}`}
+            onClick={() => navigate("/pricing")}
+          >
+            <img src={iconPricing} alt="" />
+            <span>Pricing</span>
+          </div>
+        </Tooltip>
+        <Tooltip placement="right" title={closeMenu && "My Avatars"}>
+          <div
+            className={`item-menu ${pathName === "/my-avatars" && "border"}`}
+            onClick={() => navigate("/my-avatars")}
+          >
+            <FontAwesomeIcon className="ic-avatar" icon={faImage} />
+            <span>My Avatars</span>
+          </div>
+        </Tooltip>
         <div className="section-products">
           <div>PRODUCTS</div>
-          <div
-            className={`ai-art-generator ${
-              pathName === "/ai-art-generator" && "border"
-            }`}
-            onClick={() => navigate("/ai-art-generator")}
+          <Tooltip placement="right" title={closeMenu && "Ai Art Generator"}>
+            <div
+              className={`item-menu ${
+                pathName === "/ai-art-generator" && "border"
+              }`}
+              onClick={() => navigate("/ai-art-generator")}
+            >
+              <img src={iconAiArtGenerator} alt="iconAiArtGenerator" />
+              <span>Ai Art Generator</span>
+            </div>
+          </Tooltip>
+          <Tooltip placement="right" title={closeMenu && "Ai Photo Enhancer"}>
+            <div
+              className={`item-menu ${
+                pathName === "/ai-photo-enhancer" && "border"
+              }`}
+              onClick={() => navigate("/ai-photo-enhancer")}
+            >
+              <img src={iconAiPhoto} alt="iconAiPhoto" />
+              <span>AI Photo Enhancer</span>
+            </div>
+          </Tooltip>
+          <Tooltip
+            placement="right"
+            title={closeMenu && "Ai BacKground Change"}
           >
-            <img src={iconAiArtGenerator} alt="iconAiArtGenerator" />
-            <div>Ai Art Generator</div>
-          </div>
-          <div
-            className={`ai-photo-enhancer ${
-              pathName === "/ai-photo-enhancer" && "border"
-            }`}
-            onClick={() => navigate("/ai-photo-enhancer")}
-          >
-            <img src={iconAiPhoto} alt="iconAiPhoto" />
-            <div>AI Photo Enhancer</div>
-          </div>
-          <div
-            className={`ai-photo-enhancer ${
-              pathName === "/ai-background-changer" && "border"
-            }`}
-            onClick={() => navigate("/ai-background-changer")}
-          >
-            <img src={iconAiBackgroundChange} alt="iconAiPhoto" />
-            <div>AI Background Changer</div>
-          </div>
+            <div
+              className={`item-menu ${
+                pathName === "/ai-background-changer" && "border"
+              } `}
+              onClick={() => navigate("/ai-background-changer")}
+            >
+              <img src={iconAiBackgroundChange} alt="iconAiPhoto" />
+              <span>AI Background Changer</span>
+            </div>
+          </Tooltip>
         </div>
       </div>
-      <div className="follow-options">
+      <div className={`follow-options ${closeMenu && "none-text"}`}>
         <div>FOLLOW US ON</div>
         <div className="group-icon">
           <img

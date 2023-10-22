@@ -2,10 +2,10 @@ import { Carousel, Collapse } from "antd";
 import styled from "styled-components";
 
 export const WrapperPricing = styled.div`
-  width: 100%;
+  width: 100% !important;
   height: 100%;
   overflow-y: auto;
-  padding: 20px;
+  padding: 15px;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px !important;
   }
@@ -22,7 +22,7 @@ export const WrapperPricing = styled.div`
 
 export const BlockContents = styled.div`
   margin: auto;
-  max-width: 1128px;
+  max-width: 1024px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,7 +72,6 @@ export const BlockContents = styled.div`
         padding-top: 35px;
         position: relative;
         .detail-pricing {
-
           #popular {
             position: absolute;
             border-top: 2px solid rgb(151, 80, 230);
@@ -177,7 +176,7 @@ export const BlockContents = styled.div`
         }
         .btn-basic {
           width: 100%;
-          margin: 28px 0px;
+          margin-bottom: 28px;
           height: 35px;
           border-radius: 8px;
           background: var(
@@ -191,7 +190,7 @@ export const BlockContents = styled.div`
         }
         .btn-pro {
           width: 100%;
-          margin: 28px 0px;
+          margin-bottom: 28px;
           height: 35px;
           border-radius: 8px;
           background: var(--Stroke-2, #242c3d);
@@ -218,7 +217,6 @@ export const BlockContents = styled.div`
               height: 25.404px;
             }
             & > div:last-child {
-
               color: var(--text-secondary, #d2d2d2);
               font-size: 12px;
               font-weight: 500;

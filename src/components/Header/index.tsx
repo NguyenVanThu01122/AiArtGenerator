@@ -4,8 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import imgAvatarDefault from "../../images/avatar-default.jpg";
 import iconCloseSidebar from "../../images/icon-close-sidebar.svg";
+import iconOpenSidebar from "../../images/icon-open-sidebar.svg";
 
-import { saveLogin, saveToken, saveUser } from "../../redux/Actions/app";
+import {
+  saveCloseMenu,
+  saveLogin,
+  saveToken,
+  saveUser,
+} from "../../redux/Actions/app";
 import { WrapperHeader } from "./styles";
 
 function Header() {
@@ -14,6 +20,7 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const users = useSelector((state: any) => state.app?.user);
+  const closeMenu = useSelector((state: any) => state.app.closeMenu);
 
   // hàm xử lý lọc pathName
   const handleFilterPathName = () => {
@@ -23,6 +30,9 @@ function Header() {
         break;
       case "/pricing":
         setSavePathName("Pricing");
+        break;
+      case "/my-avatars":
+        setSavePathName("My Avatars");
         break;
       case "/ai-art-generator":
         setSavePathName("/ AI Art Generator");
@@ -37,7 +47,7 @@ function Header() {
         setSavePathName("");
     }
   };
-
+  // hàm đăng xuất
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
@@ -45,6 +55,10 @@ function Header() {
     dispatch(saveLogin(false));
     dispatch(saveToken(""));
     navigate("/sign-in");
+  };
+
+  const hanleCloseMenu = () => {
+    dispatch(saveCloseMenu(!closeMenu));
   };
 
   const content = (
@@ -89,8 +103,9 @@ function Header() {
         }}
       >
         <div
+          className="option-title-account"
           style={{
-            marginBottom: "10px",
+            padding: "10px",
             fontWeight: "800",
             fontSize: "15px",
             cursor: "pointer",
@@ -99,8 +114,14 @@ function Header() {
           My Account
         </div>
         <div
+          className="option-title-account"
           onClick={handleLogout}
-          style={{ fontWeight: "800", fontSize: "15px", cursor: "pointer" }}
+          style={{
+            fontWeight: "800",
+            fontSize: "15px",
+            cursor: "pointer",
+            padding: "10px",
+          }}
         >
           Logout
         </div>
@@ -115,9 +136,26 @@ function Header() {
   return (
     <WrapperHeader>
       <div className="title-page">
-        <img src={iconCloseSidebar} alt="" />
+        {closeMenu ? (
+          <img
+            className="ic-close"
+            onClick={hanleCloseMenu}
+            src={iconOpenSidebar}
+            alt=""
+          />
+        ) : (
+          <img
+            className="ic-close"
+            onClick={hanleCloseMenu}
+            src={iconCloseSidebar}
+            alt=""
+          />
+        )}
+
         <div>
-          {pathName !== "/" && pathName !== "/pricing" ? (
+          {pathName !== "/" &&
+          pathName !== "/pricing" &&
+          pathName !== "/my-avatars" ? (
             <div>
               Products <span>{savePathName}</span>
             </div>

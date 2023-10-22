@@ -4,16 +4,18 @@ export const WrapperLayout = styled.div`
   background-color: rgb(9, 9, 23);
   width: 100vw;
   height: 100vh;
-
   .box-content {
     display: flex;
     width: 100%;
     height: 100%;
     .main-content {
-      width: calc(100vw - 280px);
+      width: calc(100% - 280px);
       .parent-content {
-        height: calc(100vh - 74px);
+        height: calc(100vh - 75px);
       }
+    }
+    .close-box {
+      width: calc(100% - 120px) !important;
     }
   }
   .item-loading {

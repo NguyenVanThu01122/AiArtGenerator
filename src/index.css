@@ -30,3 +30,7 @@ code {
 .ant-popover-arrow {
   display: none !important;
 }
+.option-title-account:hover {
+  background: rgb(36, 36, 60);
+  border-radius: 5px;
+}
