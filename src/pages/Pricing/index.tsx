@@ -291,7 +291,13 @@ function Pricing() {
                   </div>
                 </div>
                 <Button
-                  className="btn-eco"
+                  className={` ${
+                    item?.name === "Lite"
+                      ? "btn-eco"
+                      : item?.name === "Basic"
+                      ? "btn-basic"
+                      : "btn-pro"
+                  }`}
                   onClick={() => handleStripeOrder(item?.id)}
                   loading={selectPrice === item?.id && isLoading}
                 >

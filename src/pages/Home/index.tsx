@@ -130,6 +130,7 @@ const listTestimonials = [
     job: "Social Media Manager",
   },
 ];
+
 function Home() {
   const [searchParam, setSearchParam] = useSearchParams();
   const dispatch = useDispatch();

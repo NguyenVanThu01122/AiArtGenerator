@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const PageAiPhotoEnhancer = styled.div`
-  display: flex;
   width: 100%;
   height: 100%;
   background-color: rgb(9, 9, 23);

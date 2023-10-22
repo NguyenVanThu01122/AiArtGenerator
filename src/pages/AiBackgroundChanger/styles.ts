@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 export const WrapperAIBackgroundChanger = styled.div`
   padding: 20px;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(9, 9, 23);
+  overflow-y: auto;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
   }
@@ -16,12 +20,8 @@ export const WrapperAIBackgroundChanger = styled.div`
       background: linear-gradient(217deg, #e250e5, #4b50e6);
     }
   }
-  width: 100%;
-  height: 100%;
-  background-color: rgb(9, 9, 23);
-  overflow-y: auto;
+
   .item-result {
-    /* width: 100%; */
     .back {
       display: flex;
       gap: 15px;

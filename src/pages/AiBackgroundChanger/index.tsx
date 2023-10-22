@@ -101,7 +101,7 @@ function AiBackgroundChanger() {
     setResultImage("");
     setFileUpload(undefined);
   };
-
+  // hàm download img
   const handleDowndloadImage = () => {
     const a = document.createElement("a");
     a.href = resultImage;
