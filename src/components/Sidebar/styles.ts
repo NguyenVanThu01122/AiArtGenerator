@@ -13,7 +13,7 @@ export const WrapperSidebar = styled.div<{ closeMenu: boolean }>`
     border-radius: 5px;
     box-shadow: 0 0 2px 1px violet;
   }
-  .logo-AiArt {
+  .logo-creator {
     height: 75px;
     display: flex;
     gap: 15px;
@@ -85,7 +85,6 @@ export const WrapperSidebar = styled.div<{ closeMenu: boolean }>`
       .ic-avatar {
         color: white;
         font-size: 20px;
-
       }
     }
   }
@@ -119,6 +118,11 @@ export const WrapperSidebar = styled.div<{ closeMenu: boolean }>`
           -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
         }
       }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    & {
+      display: none;
     }
   }
 `;

@@ -28,7 +28,7 @@ export function Sidebar() {
 
   return (
     <WrapperSidebar closeMenu={closeMenu}>
-      <div className="logo-AiArt" onClick={() => navigate("/")}>
+      <div className="logo-creator" onClick={() => navigate("/")}>
         <img src={iconAiArt} alt="iconAiArt" />
         <span>CreatorHub</span>
       </div>

@@ -6,6 +6,9 @@ export const WrapperFooter = styled.div`
   padding: 30px;
   display: flex;
   justify-content: space-between;
+  background-image: url("https://creatorhub.ai/static/media/ready-start-bg.c80579052a6e6eeee38e.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   & > div:first-child {
     color: white;
     font-size: 13px;
@@ -17,6 +20,23 @@ export const WrapperFooter = styled.div`
       color: white;
       cursor: pointer;
       font-size: 13px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    & {
+      display: block;
+      text-align: center;
+      border: none;
+      margin-top: 40px;
+      padding: 0px;
+      .group-text {
+        justify-content: center;
+        margin-top: 20px;
+        gap: 15px;
+        div {
+          font-size: 12px;
+        }
+      }
     }
   }
 `;

@@ -1,3 +1,4 @@
+import { Drawer } from "antd";
 import styled from "styled-components";
 export const WrapperHeader = styled.div`
   background-color: rgb(9, 9, 23);
@@ -8,13 +9,16 @@ export const WrapperHeader = styled.div`
   align-items: center;
   gap: 10px;
   border-bottom: 1px solid rgb(30, 36, 49);
-  .title-page {
+  .ant-drawer .ant-drawer-content {
+    background-color: red !important;
+  }
+  .item-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
     color: white;
-    .ic-close{
+    .ic-close {
       cursor: pointer;
     }
     & > div:last-child {
@@ -31,7 +35,11 @@ export const WrapperHeader = styled.div`
       }
     }
   }
-  .account {
+
+  .logo-creator {
+    display: none;
+  }
+  .box-account {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -61,6 +69,7 @@ export const WrapperHeader = styled.div`
       border-radius: 50%;
       width: 40px;
       height: 40px;
+      object-fit: contain;
       cursor: pointer;
     }
   }
@@ -73,8 +82,180 @@ export const WrapperHeader = styled.div`
     );
     font-weight: bold;
     border: none;
-    &:hover{
+    &:hover {
       filter: brightness(0.6);
+    }
+  }
+
+  // responsive
+  @media screen and (max-width: 768px) {
+    & {
+      .item-title {
+        display: none !important;
+      }
+      .ant-drawer .ant-drawer-content {
+        background-color: red !important;
+      }
+      .item-menu {
+        .title-menu {
+          display: flex !important;
+          .icon-angles {
+            color: white;
+            border: 1px solid white;
+          }
+        }
+        .ant-drawer .ant-drawer-content {
+          background-color: red !important;
+        }
+        .ic-menu {
+          display: block;
+          font-size: 20px;
+          color: white;
+        }
+        .custom-menu {
+          .title-menu {
+            display: flex !important;
+            .icon-angles {
+              color: white;
+              border: 1px solid white;
+            }
+          }
+        }
+      }
+      .logo-creator {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        span {
+          color: white;
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+      .box-account {
+        .account-information {
+          display: none;
+        }
+        .avatar {
+          width: 35px;
+          height: 35px;
+        }
+      }
+    }
+  }
+`;
+
+export const ItemMenu = styled.div`
+  .ic-menu {
+    display: none;
+  }
+  @media screen and (max-width: 768px) {
+    & {
+      .ic-menu {
+        display: block;
+        color: white;
+        font-size: 20px;
+      }
+    }
+  }
+`;
+
+export const ItemDrawer = styled(Drawer)`
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 50px !important;
+  /* overflow-y: auto;
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px !important;
+  }
+  &::-webkit-scrollbar {
+    width: 3px !important;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent !important; //Màu của vùng cuộn
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
+    }
+  } */
+  background-color: rgb(9, 9, 23) !important;
+  .title-menu {
+    display: flex;
+    justify-content: space-between;
+    .icon-angles {
+      color: white;
+      font-size: 18px;
+    }
+  }
+  .parent-content {
+    display: flex;
+    flex-direction: column;
+    gap: 160px;
+    .select-item {
+      padding: 10px;
+      .section-products {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        & > div:first-child {
+          color: white;
+          margin: 18px 0px;
+          font-size: 15px;
+          font-weight: 300;
+        }
+      }
+      .item-menu {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        &:hover {
+          background: rgb(36, 36, 60);
+          border-radius: 5px;
+        }
+        span {
+          color: white;
+        }
+        .ic-avatar {
+          color: white;
+          font-size: 20px;
+        }
+      }
+    }
+    .follow-options {
+      text-align: center;
+      & > div:first-child {
+        color: white;
+        font-size: 15px;
+        font-weight: 300;
+      }
+      .group-icon {
+        margin: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        & img {
+          width: 18%;
+          width: 18%;
+          border-radius: 50%;
+          background: rgb(36, 36, 60);
+          padding: 10px;
+          cursor: pointer;
+          transition: transform 0.4s ease; // Hiệu ứng chuyển đổi kích thước, ease hiệu ứng làm mượt//
+          &:hover {
+            transform: scale(1.2);
+            background-color: #03e9f4;
+            box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+              0 0 600px #03e9f4;
+            -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+          }
+        }
+      }
     }
   }
 `;

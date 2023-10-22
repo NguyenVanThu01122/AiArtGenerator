@@ -194,7 +194,7 @@ function Home() {
       </ItemCarousel>
       <SectionContents>
         <div className="item-products">
-          <div className="title-products">
+          <div className="title">
             <div>PRODUCTS</div>
             <div>One solution, countless content possibilities</div>
             <div>
@@ -225,7 +225,7 @@ function Home() {
           </div>
         </div>
         <div className="item-benefits">
-          <div className="title-benefit">
+          <div className="title">
             <div>BENEFITS</div>
             <div>Achieve more with less effort</div>
             <div>
@@ -249,7 +249,7 @@ function Home() {
           </div>
         </div>
         <div className="item-testimonials">
-          <div className="title-testimonials">
+          <div className="title">
             <div>TESTIMONIALS </div>
             <div>Don't just take our word for it</div>
             <div>

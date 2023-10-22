@@ -4,6 +4,7 @@ export const WrapperLayout = styled.div`
   background-color: rgb(9, 9, 23);
   width: 100vw;
   height: 100vh;
+
   .box-content {
     display: flex;
     width: 100%;
@@ -34,6 +35,11 @@ export const WrapperLayout = styled.div`
       height: 300px;
       object-fit: contain;
       border-radius: 10px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .main-content {
+      width: 100vw !important;
     }
   }
 `;

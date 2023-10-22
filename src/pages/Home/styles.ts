@@ -109,6 +109,29 @@ export const ItemCarousel = styled(Carousel)`
       }
     }
   }
+  @media screen and (max-width: 768px) {
+    .slick-dots li {
+      button {
+        margin-top: 220px;
+      }
+    }
+    .introduce-item {
+      display: block !important;
+      width: 100% !important;
+      padding: 0px;
+      .contents,
+      .item-img {
+        padding: 0px;
+        width: 100%;
+        img {
+          width: 100%;
+        }
+        & > div:nth-child(2) {
+          font-size: 25px;
+        }
+      }
+    }
+  }
 `;
 
 export const SectionContents = styled.div`
@@ -117,9 +140,7 @@ export const SectionContents = styled.div`
   display: flex;
   flex-direction: column;
   gap: 120px;
-  .title-testimonials,
-  .title-products,
-  .title-benefit {
+  .title {
     width: 80%;
     margin: auto;
     display: flex;
@@ -317,9 +338,47 @@ export const SectionContents = styled.div`
       }
     }
   }
+  @media screen and (max-width: 768px) {
+    & {
+      width: 100%;
+      gap: 50px;
+      margin-top: 180px;
+      .title {
+        gap: 0px;
+        & > div:nth-child(2) {
+          font-size: 22px;
+          margin: 8px 0px;
+        }
+      }
+      .item-products {
+        .list-products {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+      }
+    }
+    .item-benefits {
+      .box-benefits {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+    .item-testimonials {
+      .list-testimonials {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  }
 `;
 
 export const LastItem = styled.div`
+  background-image: url("https://creatorhub.ai/static/media/ready-start-bg.c80579052a6e6eeee38e.png");
+  background-repeat: no-repeat;
+  background-size: contain;
   .header {
     text-align: center;
     & > div:first-child {
@@ -350,22 +409,15 @@ export const LastItem = styled.div`
       }
     }
   }
-  .footer {
-    margin-top: 20px;
-    padding: 35px;
-    display: flex;
-    justify-content: space-between;
-    & > div:first-child {
-      color: white;
-      font-size: 13px;
-    }
-    .group-text {
-      display: flex;
-      gap: 20px;
-      div {
-        color: white;
-        cursor: pointer;
-        font-size: 13px;
+  @media screen and (max-width: 768px) {
+    & {
+      .header {
+        & > div:first-child {
+          font-size: 22px;
+        }
+      }
+      button {
+        width: 40% !important;
       }
     }
   }
