@@ -26,6 +26,7 @@ export const WrapperHome = styled.div`
 export const ItemCarousel = styled(Carousel)`
   width: 100%;
   height: 515px;
+  margin-top: -50px;
   .slick-dots li {
     width: 10px !important;
     height: 10px !important;
@@ -110,24 +111,27 @@ export const ItemCarousel = styled(Carousel)`
     }
   }
   @media screen and (max-width: 768px) {
-    .slick-dots li {
-      button {
-        margin-top: 220px;
-      }
-    }
-    .introduce-item {
-      display: block !important;
-      width: 100% !important;
-      padding: 0px;
-      .contents,
-      .item-img {
-        padding: 0px;
-        width: 100%;
-        img {
-          width: 100%;
+    & {
+      margin-top: -90px;
+      .slick-dots li {
+        button {
+          margin-top: 235px;
         }
-        & > div:nth-child(2) {
-          font-size: 25px;
+      }
+      .introduce-item {
+        display: block !important;
+        width: 100% !important;
+        padding: 0px;
+        .contents,
+        .item-img {
+          padding: 0px;
+          width: 100%;
+          img {
+            width: 100%;
+          }
+          & > div:nth-child(2) {
+            font-size: 25px;
+          }
         }
       }
     }

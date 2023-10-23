@@ -132,6 +132,7 @@ const listTestimonials = [
 ];
 
 function Home() {
+  
   const [searchParam, setSearchParam] = useSearchParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();

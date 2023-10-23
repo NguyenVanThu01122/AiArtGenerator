@@ -18,9 +18,6 @@ export const ItemFormSignUp = styled(Form)`
   width: 100%;
   text-align: center;
   padding: 50px 95px;
-  @media screen and (max-width: 768px){
-    padding: 15px;
-  }
   background-image: url("https://melkior-nguyen.github.io/Portfolio/static/media/bg2.e6fe0abcb2a72bd51eee.jpg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -135,7 +132,6 @@ export const ItemFormSignUp = styled(Form)`
     }
     .signInAnimation {
       animation: signInAnimation 1s linear;
-
       @keyframes signInAnimation {
         from {
           transform: rotateY(180deg);
@@ -148,6 +144,18 @@ export const ItemFormSignUp = styled(Form)`
   }
   & > div:last-child {
     color: gray;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 15px;
+    .submit-register {
+      margin-top: 0px;
+    }
+    .group-img {
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
   }
 `;
 
@@ -186,7 +194,6 @@ export const FormSignUp = styled(Form)`
       width: 70%;
     }
   }
-
   // class input password (phần conten)
   .ant-input-affix-wrapper > input.ant-input {
     /* background-color: rgb(13, 18, 32); */
@@ -202,14 +209,6 @@ export const FormSignUp = styled(Form)`
     color: gray;
     font-size: 18px;
   }
-  /* .ant-input-password {
-    &:hover{
-      outline: 1px solid red !important;
-    }
-    &:focus {
-      box-shadow: 0 0 0 1px violet !important;
-    }
-  } */
   .custom-input {
     color: white;
     height: 50px;
@@ -228,6 +227,9 @@ export const FormSignUp = styled(Form)`
   }
   .border-violet {
     box-shadow: 0 0 0 1px violet;
+  }
+  @media screen and (max-width: 768px) {
+    padding-top: 0px;
   }
 `;
 
