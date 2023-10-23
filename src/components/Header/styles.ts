@@ -9,9 +9,6 @@ export const WrapperHeader = styled.div`
   align-items: center;
   gap: 10px;
   border-bottom: 1px solid rgb(30, 36, 49);
-  .ant-drawer .ant-drawer-content {
-    background-color: red !important;
-  }
   .item-title {
     display: flex;
     justify-content: space-between;
@@ -136,6 +133,7 @@ export const WrapperHeader = styled.div`
         .account-information {
           display: none;
         }
+
         .avatar {
           width: 35px;
           height: 35px;
@@ -161,26 +159,9 @@ export const ItemMenu = styled.div`
 `;
 
 export const ItemDrawer = styled(Drawer)`
-  width: 100% !important;
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 50px !important;
-  /* overflow-y: auto;
-  &::-webkit-scrollbar-thumb {
-    border-radius: 5px !important;
-  }
-  &::-webkit-scrollbar {
-    width: 3px !important;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: transparent !important; //Màu của vùng cuộn
-  }
-  &:hover {
-    &::-webkit-scrollbar-thumb {
-      background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
-    }
-  } */
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
   background-color: rgb(9, 9, 23) !important;
   .title-menu {
     display: flex;
@@ -193,7 +174,7 @@ export const ItemDrawer = styled(Drawer)`
   .parent-content {
     display: flex;
     flex-direction: column;
-    gap: 160px;
+    gap: 130px;
     .select-item {
       padding: 10px;
       .section-products {

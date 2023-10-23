@@ -191,7 +191,6 @@ function Pricing() {
   const [listPricing, setListPricing] = useState([]);
   const [selectPrice, setSelectPrice] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
   const [login, navigateLogin] = useCheckLogin();
 
   const getListPricing = () => {
@@ -203,6 +202,7 @@ function Pricing() {
       .catch((error) => {});
   };
 
+  // hàm xử lý thanh toán credits
   const handleStripeOrder = (id: string) => {
     if (!login) {
       navigateLogin();
@@ -224,6 +224,7 @@ function Pricing() {
         setIsLoading(false);
       });
   };
+
   const handlePrev = () => {
     (textRef.current as any).prev();
   };
@@ -234,6 +235,7 @@ function Pricing() {
   useEffect(() => {
     getListPricing();
   }, []);
+
   return (
     <WrapperPricing>
       <BlockContents>
@@ -246,6 +248,7 @@ function Pricing() {
               designed to elevate your content creation.
             </div>
           </div>
+
           <div className="list-pricing">
             {listPricing.map((item: any) => (
               <div
@@ -381,36 +384,6 @@ function Pricing() {
                 )}
               </div>
             ))}
-
-            {/* <div className="option-container option2">
-              <div className="detail-pricing">
-                <div id="popular">
-                  <div>MOST POPULAR</div>
-                </div>
-                <div className="title-basic">Basic</div>
-                <div className="pricing">$9.99</div>
-                <div className="credits-basic">+ 1,000 credits</div>
-                <div className="content">
-                  Ideal for individual users who need to create 2-5 social media
-                  posts or 6-20 images using AI per day.
-                </div>
-              </div>
-              
-             
-            </div>
-            <div className="option-container">
-              <div className="detail-pricing">
-                <div className="title-pro">Pro</div>
-                <div className="pricing">$19.99</div>
-                <div className="credits-pro">+ 3,000 credits</div>
-                <div className="content">
-                  Perfect for professional users who require generating 6-15
-                  social media posts or 12-60 images using AI per day.
-                </div>
-              </div>
-              <Button className="btn-pro">Start 3 days trial</Button>
-             
-            </div>  */}
           </div>
         </div>
         <div className="box-choosers">
@@ -436,7 +409,6 @@ function Pricing() {
               dots={false}
               ref={textRef}
               draggable
-              // slidesToScroll={3}
             >
               {listComment.map((item: any) => (
                 <div className="section-feedback" key={item.id}>

@@ -58,14 +58,14 @@ export const BlockContents = styled.div`
       }
     }
     .list-pricing {
-      color: white;
-      display: flex;
+      width: 100%;
+      display: flex !important;
       gap: 24px;
       .option2 {
-        border: 2px solid rgb(151, 80, 230);
+        border: 2px solid rgb(151, 80, 230) !important;
       }
       .option-container {
-        width: 33%;
+        width: 30%;
         border-radius: 12px;
         background: #10101f;
         padding: 25px;
@@ -80,7 +80,6 @@ export const BlockContents = styled.div`
             left: -1.5px;
             right: -1.6px;
             top: -25px;
-            height: max-content;
             border-top-left-radius: 12px;
             border-top-right-radius: 12px;
             text-align: right;
@@ -315,7 +314,6 @@ export const BlockContents = styled.div`
       & > div:first-child {
         color: #fff;
         text-align: center;
-        font-family: GT Walsheim Pro;
         font-size: 40px;
         font-weight: 700;
         line-height: 120%; /* 48px */
@@ -329,6 +327,63 @@ export const BlockContents = styled.div`
         line-height: 150%; /* 24px */
         margin-top: 5px;
         margin-bottom: 25px;
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    & {
+      gap: 50px;
+      .box-pricing {
+        .title-pricing {
+          margin: 20px 0px;
+          & > div:nth-child(2) {
+            font-size: 20px;
+            font-weight: 600;
+          }
+          & > div:last-child {
+            font-size: 12px;
+          }
+        }
+        .list-pricing {
+          display: flex;
+          flex-direction: column;
+          .option-container {
+            width: 100%;
+          }
+          .option2 {
+            margin-top: 25px;
+          }
+        }
+      }
+      .box-choosers {
+        padding: 20px 12px;
+        .header-choosers {
+          display: block;
+          .title {
+            width: 100%;
+            & > div:nth-child(2) {
+              font-size: 20px;
+              font-weight: 600;
+            }
+            & > div:last-child {
+              font-size: 12px;
+            }
+          }
+          .item-img {
+            width: 100%;
+            margin: 10px 0px;
+          }
+        }
+      }
+      .box-question {
+        .title-question {
+          & > div:first-child {
+            font-size: 20px;
+          }
+          & > div:last-child {
+            font-size: 12px;
+          }
+        }
       }
     }
   }
