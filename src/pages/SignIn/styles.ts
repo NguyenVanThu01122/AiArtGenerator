@@ -26,9 +26,6 @@ export const ItemSignIn = styled.div`
   width: 100%;
   text-align: center;
   padding: 50px 100px;
-  @media screen and (max-width: 768px) {
-    padding: 15px;
-  }
   background-image: url("https://melkior-nguyen.github.io/Portfolio/static/media/bg2.e6fe0abcb2a72bd51eee.jpg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -45,8 +42,8 @@ export const ItemSignIn = styled.div`
     gap: 25px;
     margin: 35px 0px;
     img {
-      width: 11%;
-      height: 11%;
+      width: 55px;
+      height: 55px;
       padding: 10px;
       cursor: pointer;
       border-radius: 50%;
@@ -96,12 +93,20 @@ export const ItemSignIn = styled.div`
       width: 100%;
     }
   }
+  @media screen and (max-width: 768px) {
+    padding: 15px;
+    .group-img {
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
 `;
 
 // css Form đăng nhập
 export const FormSignIn = styled(Form)`
   margin-top: 30px;
-
   // class input password (phần conten)
   .ant-input-affix-wrapper > input.ant-input {
     /* background-color: rgb(13, 18, 32); */
@@ -197,6 +202,19 @@ export const FormSignIn = styled(Form)`
   }
   & > div:last-child {
     color: gray;
+  }
+  @media screen and (max-width: 768px) {
+    .select-item {
+      .checkbox {
+        /* margin: 0px; */
+      }
+    }
+    .item-register {
+      margin: 35px 0px 10px 0px;
+      gap: 5px;
+      & > div:first-child {
+      }
+    }
   }
 `;
 

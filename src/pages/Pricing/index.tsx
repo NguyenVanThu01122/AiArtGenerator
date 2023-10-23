@@ -23,13 +23,13 @@ const items = [
   {
     key: "1",
     label: (
-      <div style={{ fontWeight: "500" }}>
+      <div style={{ fontWeight: "500", display: "flex", alignItems: "center" }}>
         <span
           style={{ fontSize: "18px", fontWeight: "600", marginRight: "15px" }}
         >
           01
         </span>
-        Can I try before signing up?
+        <div>Can I try before signing up?</div>
       </div>
     ),
     children: (
@@ -43,13 +43,20 @@ const items = [
   {
     key: "2",
     label: (
-      <div style={{ fontWeight: "500" }}>
+      <div
+        style={{
+          fontWeight: "500",
+          width: "90%",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
         <span
           style={{ fontSize: "18px", fontWeight: "600", marginRight: "15px" }}
         >
           02
         </span>
-        I want to purchase the yearly package. Will I get a discount?
+        <div>I want to purchase the yearly package. Will I get a discount?</div>
       </div>
     ),
     children: (
@@ -102,13 +109,20 @@ const items = [
   {
     key: "5",
     label: (
-      <div style={{ fontWeight: "500" }}>
+      <div
+        style={{
+          fontWeight: "500",
+          width: "90%",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
         <span
           style={{ fontSize: "18px", fontWeight: "600", marginRight: "15px" }}
         >
           05
         </span>
-        What if I want to change my paid package in the middle?
+        <div>What if I want to change my paid package in the middle?</div>
       </div>
     ),
     children: (
