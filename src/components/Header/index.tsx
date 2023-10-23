@@ -72,7 +72,7 @@ function Header() {
     dispatch(saveToken(""));
     navigate("/sign-in");
   };
-
+  // nôi dung account
   const content = (
     <div
       style={{
@@ -91,8 +91,8 @@ function Header() {
       >
         <img
           style={{
-            width: "70px",
-            height: "70px",
+            width: "50px",
+            height: "50px",
             borderRadius: "50%",
           }}
           src={users?.avatar || imgAvatarDefault}
@@ -141,12 +141,14 @@ function Header() {
     </div>
   );
 
-  const showMenu = () => {
-    setisOpenMenu(true);
-  };
   const hanleOpenAndCloseMenu = () => {
     dispatch(saveCloseMenu(!closeMenu));
   };
+
+  const showMenu = () => {
+    setisOpenMenu(true);
+  };
+
   const handleCloseMenu = () => {
     setisOpenMenu(false);
   };
@@ -156,6 +158,7 @@ function Header() {
     navigate(url);
     setisOpenMenu(false);
   };
+
   useEffect(() => {
     handleFilterPathName();
   }, [pathName]);
@@ -209,24 +212,19 @@ function Header() {
           </div>
           <div className="parent-content">
             <div className="select-item">
-              <div
-                className={`item-menu ${pathName === "/" && "border"} `}
-                onClick={() => handleRedirect("/")}
-              >
+              <div className="item-menu" onClick={() => handleRedirect("/")}>
                 <img src={iconHome} alt="iconHome" />
                 <span>Home</span>
               </div>
               <div
-                className={`item-menu ${pathName === "/pricing" && "border"}`}
+                className="item-menu"
                 onClick={() => handleRedirect("/pricing")}
               >
                 <img src={iconPricing} alt="" />
                 <span>Pricing</span>
               </div>
               <div
-                className={`item-menu ${
-                  pathName === "/my-avatars" && "border"
-                }`}
+                className="item-menu"
                 onClick={() => handleRedirect("/my-avatars")}
               >
                 <FontAwesomeIcon className="ic-avatar" icon={faImage} />
@@ -235,27 +233,21 @@ function Header() {
               <div className="section-products">
                 <div>PRODUCTS</div>
                 <div
-                  className={`item-menu ${
-                    pathName === "/ai-art-generator" && "border"
-                  }`}
+                  className="item-menu"
                   onClick={() => handleRedirect("/ai-art-generator")}
                 >
                   <img src={iconAiArtGenerator} alt="iconAiArtGenerator" />
                   <span>Ai Art Generator</span>
                 </div>
                 <div
-                  className={`item-menu ${
-                    pathName === "/ai-photo-enhancer" && "border"
-                  }`}
+                  className="item-menu"
                   onClick={() => handleRedirect("/ai-photo-enhancer")}
                 >
                   <img src={iconAiPhoto} alt="iconAiPhoto" />
                   <span>AI Photo Enhancer</span>
                 </div>
                 <div
-                  className={`item-menu ${
-                    pathName === "/ai-background-changer" && "border"
-                  } `}
+                  className="item-menu"
                   onClick={() => handleRedirect("/ai-background-changer")}
                 >
                   <img src={iconAiBackgroundChange} alt="iconAiPhoto" />
@@ -263,7 +255,7 @@ function Header() {
                 </div>
               </div>
             </div>
-            <div className={`follow-options ${closeMenu && "none-text"}`}>
+            <div className="follow-options">
               <div>FOLLOW US ON</div>
               <div className="group-icon">
                 <img
