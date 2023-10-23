@@ -1,53 +1,16 @@
 import styled from "styled-components";
 
 export const PageAiPhotoEnhancer = styled.div`
-  display: flex;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: rgb(9, 9, 23);
-`;
-
-export const WrapperAiPhotoEnhancer = styled.div`
-  /* width: calc(100%-280px); */
-  flex: 1;
   display: flex;
   flex-direction: column;
 `;
 
-// export const TitlePage = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   border-bottom: 1px solid rgb(30, 36, 49);
-//   .title {
-//     padding: 24px 15px;
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     gap: 10px;
-//     color: white;
-//     & > div:last-child {
-//       font-size: 17px;
-//       font-weight: 600;
-//       display: flex;
-//       gap: 10px;
-
-//       & span {
-//         color: gray;
-//         &:hover {
-//           color: white;
-//           cursor: pointer;
-//         }
-//       }
-//     }
-//   }
-//   .login {
-//     color: white;
-//   }
-// `;
-
 export const SectionContents = styled.div`
   overflow-y: auto;
+  flex: 1;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
   }
@@ -70,7 +33,6 @@ export const SectionContents = styled.div`
       align-items: center;
       padding: 30px 20px;
       cursor: pointer;
-
       & > div:last-child {
         color: white;
         font-weight: bold;
@@ -79,6 +41,33 @@ export const SectionContents = styled.div`
       .icon-back {
         color: white;
         font-size: 16px;
+      }
+    }
+    .box-result {
+      .result-img {
+        max-width: 500px;
+        height: max-content;
+        margin: auto;
+        img {
+          width: 100%;
+        }
+      }
+      .btn-downdload {
+        width: 200px;
+        height: 40px;
+        display: block;
+        margin: 50px auto;
+        border: none;
+        color: white !important;
+        font-weight: bold;
+        font-size: large;
+        background: var(
+          --linear,
+          linear-gradient(182deg, #e250e5 0%, #4b50e6 100%)
+        );
+        &:hover {
+          filter: brightness(0.6);
+        }
       }
     }
     .item-upload {
@@ -129,9 +118,9 @@ export const SectionContents = styled.div`
         align-items: center;
         position: relative;
         .item-change {
+          position: relative;
           background: rgb(35, 32, 44);
           border-radius: 10px;
-
           &:hover {
             background-color: transparent;
             filter: brightness(0.5);
@@ -142,6 +131,20 @@ export const SectionContents = styled.div`
             object-fit: contain;
             cursor: pointer;
           }
+          .item-loading {
+            filter: brightness(0.9);
+            background-color: rgb(0, 0, 0, 0.9);
+            .img-loading {
+              border-radius: 10px;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              width: 152px;
+              height: 152px;
+            }
+          }
+
           .change-photo {
             position: relative;
             opacity: 0;
@@ -174,6 +177,7 @@ export const SectionContents = styled.div`
         }
         button {
           border: none;
+          font-size: 18px;
           height: 50px;
           color: white;
           background: linear-gradient(

@@ -11,6 +11,9 @@ export const WrapperSidebarImage = styled.div`
   /* background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%); */
 
   border-radius: 8px;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
   .ant-carousel .slick-dots li {
     position: relative;
     top: -20px !important;
