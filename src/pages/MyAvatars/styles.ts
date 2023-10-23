@@ -11,6 +11,9 @@ export const WrapperMyAvatars = styled.div`
     font-size: 20px;
     font-style: italic;
   }
+  @media screen and (max-width: 768px) {
+    padding: 20px 5px;
+  }
 `;
 
 export const BoxImage = styled.div`
@@ -80,6 +83,9 @@ export const BoxImage = styled.div`
     overflow-y: auto;
     padding: 0px 10px;
     margin: 20px 0px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
     &::-webkit-scrollbar-thumb {
       border-radius: 5px !important;
     }
@@ -92,9 +98,7 @@ export const BoxImage = styled.div`
     &::-webkit-scrollbar-thumb {
       background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
     }
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 12px;
+
     .result-img {
       position: relative;
       img {
@@ -119,11 +123,17 @@ export const BoxImage = styled.div`
     align-items: center;
     justify-content: space-between;
     .custom-pagination {
+      .ant-pagination-item-active {
+        border: none !important;
+        background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
+      }
       .ant-pagination-item a {
-        color: #4b50e6;
+        color: white;
+        font-weight: bold;
       }
       .anticon svg {
         color: white;
+        font-size: 16px;
       }
     }
     .display-total-img {
@@ -139,10 +149,57 @@ export const BoxImage = styled.div`
       font-style: italic;
     }
   }
+  @media screen and (max-width: 768px) {
+    .header {
+      display: block;
+      .content-header {
+        margin-bottom: 15px;
+        font-size: 18px;
+      }
+      .item-select {
+        display: flex;
+        justify-content: space-between;
+        .select-sort-date {
+          .select-date {
+            width: 120px;
+          }
+        }
+        .select-img {
+          button {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    .list-image {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .item-pagination {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      .custom-pagination {
+        .ant-pagination-item-active {
+          background: orange !important;
+        }
+      }
+      .display-total-img {
+        display: block;
+        font-size: 12px;
+        .ant-select-selector {
+        }
+      }
+    }
+  }
 `;
 
 export const ModalDetailImage = styled(Modal)`
   position: relative;
+  .ant-modal-content {
+    padding: 5px;
+  }
   .box-detail {
     width: 100%;
     padding: 20px;
@@ -165,16 +222,46 @@ export const ModalDetailImage = styled(Modal)`
         font-weight: bold;
       }
       .item-parameters {
-        display: grid;
-        grid-template-columns: repeat(2, 2fr);
-        gap: 25px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
         flex: 1;
-        .detail-parameter {
-          & > div:first-child {
-            font-weight: 600;
-          }
-          & > div:last-child {
-            color: gray;
+        .head-box {
+          width: 40%;
+        }
+        .end-box {
+          width: 60%;
+        }
+        .head-box,
+        .end-box {
+          .detail-parameter {
+            margin-bottom: 20px;
+            & > div:first-child {
+              font-weight: 600;
+            }
+            & > div:last-child {
+              color: gray;
+            }
+            .prompt {
+              height: 50px;
+              overflow: auto;
+              &::-webkit-scrollbar-thumb {
+                border-radius: 5px !important;
+              }
+              &::-webkit-scrollbar {
+                width: 4px !important;
+              }
+              &::-webkit-scrollbar-track {
+                background-color: transparent !important; //Màu của vùng cuộn
+              }
+              &::-webkit-scrollbar-thumb {
+                background: linear-gradient(
+                  217deg,
+                  #e250e5,
+                  #4b50e6
+                ) !important;
+              }
+            }
           }
         }
       }
@@ -248,6 +335,42 @@ export const ModalDetailImage = styled(Modal)`
       transition: 0.5s ease;
     }
   }
+  @media screen and (max-width: 768px) {
+    width: 400px !important;
+    .box-detail {
+      padding: 0px;
+      padding-top: 10px;
+      padding-left: 10px;
+      .item-img {
+        width: 25%;
+        img {
+          width: 100%;
+        }
+      }
+      .product-parameters {
+        .item-parameters {
+          .head-box,
+          .end-box {
+            .detail-parameter {
+              & > div:first-child {
+                font-size: 11px;
+                font-weight: 700;
+              }
+              & > div:last-child {
+              }
+            }
+          }
+        }
+        .group-btn {
+          button {
+            height: 28px;
+            width: 90px;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
 `;
 
 export const ModalDeleteImg = styled(Modal)`
@@ -289,6 +412,10 @@ export const ModalDeleteImg = styled(Modal)`
       &:hover {
         filter: brightness(0.6);
       }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    & {
     }
   }
 `;

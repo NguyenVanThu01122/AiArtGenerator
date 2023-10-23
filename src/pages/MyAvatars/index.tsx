@@ -303,30 +303,36 @@ function MyAvatars() {
               </div>
               <div className="product-parameters">
                 <div className="item-parameters">
-                  <div className="detail-parameter">
-                    <div>Alpha</div>
-                    <div>{dataImg?.config?.alpha}</div>
+                  <div className="head-box">
+                    <div className="detail-parameter">
+                      <div>Alpha</div>
+                      <div>{dataImg?.config?.alpha}</div>
+                    </div>
+                    <div className="detail-parameter">
+                      <div>Scale</div>
+                      <div>{dataImg?.config?.scale}</div>
+                    </div>
+                    <div className="detail-parameter">
+                      <div>Step</div>
+                      <div>{dataImg?.config?.step}</div>
+                    </div>
                   </div>
-                  <div className="detail-parameter">
-                    <div>Scale</div>
-                    <div>{dataImg?.config?.scale}</div>
-                  </div>
-                  <div className="detail-parameter">
-                    <div>Step</div>
-                    <div>{dataImg?.config?.step}</div>
-                  </div>
-                  <div className="detail-parameter">
-                    <div>Slyte</div>
-                    <div>{dataImg?.config?.slyte || "-"}</div>
-                  </div>
-                  <div className="detail-parameter">
-                    <div>NegativePrompt</div>
-                    <div>{dataImg?.config?.negativePrompt || "-"}</div>
-                  </div>
-                  <div className="detail-parameter">
-                    <div>PositivePrompt</div>
-                    <div ref={textToCopyRef}>
-                      {dataImg?.config?.positivePrompt || "-"}
+                  <div className="end-box">
+                    <div className="detail-parameter">
+                      <div>Slyte</div>
+                      <div>{dataImg?.config?.slyte || "-"}</div>
+                    </div>
+                    <div className="detail-parameter">
+                      <div>NegativePrompt</div>
+                      <div className="prompt">
+                        {dataImg?.config?.negativePrompt || "-"}
+                      </div>
+                    </div>
+                    <div className="detail-parameter">
+                      <div>PositivePrompt</div>
+                      <div className="prompt" ref={textToCopyRef}>
+                        {dataImg?.config?.positivePrompt || "-"}
+                      </div>
                     </div>
                   </div>
                 </div>
