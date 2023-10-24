@@ -31,13 +31,13 @@ import { ItemDrawer, ItemMenu, WrapperHeader } from "./styles";
 function Header() {
   const pathName = window.location.pathname;
   const [savePathName, setSavePathName] = useState("");
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const users = useSelector((state: any) => state.app?.user);
   const closeMenu = useSelector((state: any) => state.app.closeMenu);
   const [isOpenMenu, setisOpenMenu] = useState(false);
   const [placement, setPlacement] = useState<DrawerProps["placement"]>("left");
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
   // hàm xử lý lọc pathName
   const handleFilterPathName = () => {
     switch (pathName) {
@@ -212,19 +212,26 @@ function Header() {
           </div>
           <div className="parent-content">
             <div className="select-item">
-              <div className="item-menu" onClick={() => handleRedirect("/")}>
+              <div
+                className={`item-menu ${pathName === "/" && "border-item"} `}
+                onClick={() => handleRedirect("/")}
+              >
                 <img src={iconHome} alt="iconHome" />
                 <span>Home</span>
               </div>
               <div
-                className="item-menu"
+                className={`item-menu ${
+                  pathName === "/pricing" && "border-item"
+                } `}
                 onClick={() => handleRedirect("/pricing")}
               >
                 <img src={iconPricing} alt="" />
                 <span>Pricing</span>
               </div>
               <div
-                className="item-menu"
+                className={`item-menu ${
+                  pathName === "/my-avatars" && "border-item"
+                } `}
                 onClick={() => handleRedirect("/my-avatars")}
               >
                 <FontAwesomeIcon className="ic-avatar" icon={faImage} />
@@ -233,21 +240,27 @@ function Header() {
               <div className="section-products">
                 <div>PRODUCTS</div>
                 <div
-                  className="item-menu"
+                  className={`item-menu ${
+                    pathName === "/ai-art-generator" && "border-item"
+                  } `}
                   onClick={() => handleRedirect("/ai-art-generator")}
                 >
                   <img src={iconAiArtGenerator} alt="iconAiArtGenerator" />
                   <span>Ai Art Generator</span>
                 </div>
                 <div
-                  className="item-menu"
+                  className={`item-menu ${
+                    pathName === "/ai-photo-enhancer" && "border-item"
+                  } `}
                   onClick={() => handleRedirect("/ai-photo-enhancer")}
                 >
                   <img src={iconAiPhoto} alt="iconAiPhoto" />
                   <span>AI Photo Enhancer</span>
                 </div>
                 <div
-                  className="item-menu"
+                  className={`item-menu ${
+                    pathName === "/ai-background-changer" && "border-item"
+                  } `}
                   onClick={() => handleRedirect("/ai-background-changer")}
                 >
                   <img src={iconAiBackgroundChange} alt="iconAiPhoto" />

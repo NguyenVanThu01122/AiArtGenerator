@@ -21,53 +21,77 @@ export const WrapperAIBackgroundChanger = styled.div`
     }
   }
 
-  .item-result {
-    .back {
-      display: flex;
-      gap: 15px;
-      cursor: pointer;
-      margin-bottom: 50px;
-      width: max-content;
-      & > div:last-child {
-        color: white;
-        font-weight: bold;
-        font-size: 18px;
-      }
+  @media screen and (max-width: 768px) {
+    padding: 15px;
+  }
+`;
+
+export const BoxResult = styled.div`
+  .back {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    margin-bottom: 50px;
+    width: max-content;
+    & > div:last-child {
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
     }
-    .box-img {
-      border: 1px solid white;
-      margin: auto;
-      max-width: 450px;
-      background-image: url("https://t3.ftcdn.net/jpg/03/76/74/78/360_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg");
-      background-repeat: no-repeat;
-      background-size: cover;
-      .img-result {
-        width: 100%;
-        margin-bottom: -5px;
+  }
+  .box-img {
+    border: 1px solid white;
+    margin: auto;
+    max-width: 450px;
+    background-image: url("https://t3.ftcdn.net/jpg/03/76/74/78/360_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    .img-result {
+      width: 100%;
+      margin-bottom: -5px;
+    }
+  }
+  .btn-downdload {
+    width: 200px;
+    height: 40px;
+    display: block;
+    margin: 50px auto;
+    border: none;
+    color: white !important;
+    font-weight: bold;
+    font-size: large;
+    background: var(
+      --linear,
+      linear-gradient(182deg, #e250e5 0%, #4b50e6 100%)
+    );
+    &:hover {
+      filter: brightness(0.6);
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .back {
+      margin-bottom: 30px;
+      div {
+        font-size: 14px !important;
       }
     }
     .btn-downdload {
-      width: 200px;
-      height: 40px;
-      display: block;
-      margin: 50px auto;
-      border: none;
-      color: white !important;
-      font-weight: bold;
-      font-size: large;
-      background: var(
-        --linear,
-        linear-gradient(182deg, #e250e5 0%, #4b50e6 100%)
-      );
-      &:hover {
-        filter: brightness(0.6);
-      }
+      margin-top: 20px;
+      width: 100%;
     }
   }
 `;
+
 export const BoxUpload = styled.div`
   display: flex;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
+
 export const ItemBackgroundChange = styled.div`
   width: 56%;
   height: 100%;
@@ -109,8 +133,8 @@ export const ItemBackgroundChange = styled.div`
       }
       img {
         position: absolute;
-        top: 0px;
-        left: 57%;
+        top: -15px;
+        left: 55%;
       }
     }
     & > div:last-child {
@@ -259,14 +283,82 @@ export const ItemBackgroundChange = styled.div`
       cursor: not-allowed;
     }
   }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    padding: 0px;
+    .title-page {
+      /* text-align: center; */
+      gap: 10px;
+      padding: 0px;
+      padding-top: 10px;
+      & > div:nth-child(2) {
+        div {
+          font-size: 20px;
+        }
+      }
+      & > div:last-child {
+        font-size: 13px;
+      }
+    }
+    .create-upload {
+      padding: 15px;
+      .uploaded {
+        height: 100px;
+        .img-uploaded {
+        }
+        .box-change {
+          .icon-cancel {
+            top: -15px;
+            right: -15px;
+            width: 30px;
+          }
+          .item-change {
+            width: 130px;
+            .change-img {
+              gap: 0px;
+              div {
+                font-weight: bold;
+                font-size: 12px;
+              }
+            }
+          }
+        }
+      }
+      .not-uploaded {
+        height: 100px;
+        img {
+          padding: 10px;
+          height: 45px;
+          width: 45px;
+          object-fit: contain;
+        }
+        .format-information {
+          & > div:first-child {
+            font-size: 12px;
+          }
+          & > div:last-child {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+    .btn-change {
+      font-size: 15px;
+      height: 44px;
+      margin-top: 0px !important;
+      margin-bottom: 12px;
+    }
+  }
 `;
 
 export const ItemImage = styled.div`
   width: 44%;
-
   img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+  @media screen and (max-width: 768px) {
+    width: 100%;
   }
 `;

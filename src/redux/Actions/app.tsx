@@ -23,4 +23,10 @@ const saveCloseMenu = (payload: boolean) => {
     payload,
   };
 };
-export { saveCloseMenu, saveLogin, saveToken, saveUser };
+const LoginNotification = (payload: boolean) => {
+  return {
+    type: "LOGIN_NOTIFICATION",
+    payload,
+  };
+};
+export { LoginNotification, saveCloseMenu, saveLogin, saveToken, saveUser };

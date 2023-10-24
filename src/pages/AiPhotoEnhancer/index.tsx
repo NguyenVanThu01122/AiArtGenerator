@@ -4,18 +4,21 @@ import { Button, message } from "antd";
 import axios from "axios";
 import { Buffer } from "buffer";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../components/Footer";
+import { ModalNotification } from "../../components/Modal";
 import iconRotate from "../../images/icon-rotare.svg";
 import iconStar from "../../images/icon-star.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
 import imgPhoto from "../../images/image-photo.svg";
 import imgLoading from "../../images/img-loading1.gif";
+import { LoginNotification } from "../../redux/Actions/app";
 import { privateAxios } from "../../service/axios";
 import { FILE_FORMAT, MAX_SIZE_INBYTES } from "../../utils/contanst";
 import { useCheckLogin } from "../../utils/useCheckLogin";
 import { useGetInforUser } from "../../utils/useGetInforUser";
-import { ItemFooter, PageAiPhotoEnhancer, SectionContents } from "./styles";
+import { PageAiPhotoEnhancer, SectionContents } from "./styles";
 
 export function AiPhotoEnhancer() {
   const [uploadImage, setUploadImage] = useState<any>("");
@@ -23,10 +26,16 @@ export function AiPhotoEnhancer() {
   const [resultImage, setResultImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [login, navigateLogin] = useCheckLogin();
+
+  const isLoginNotification = useSelector(
+    (state: any) => state.app.LoginNotification
+  );
   const user = useSelector((state: any) => state.app.user);
   const [getUser] = useGetInforUser();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const [is, setIs] = useState(false);
   // hàm upload ảnh lên
   const handleUploadImage = (e: any) => {
     const file = e.target.files[0]; // Lấy giá trị file vừa tải lên và gắn vào biến file
@@ -52,7 +61,9 @@ export function AiPhotoEnhancer() {
   // hàm generate ảnh
   const handleGenerateImage = () => {
     if (!login) {
-      navigateLogin();
+      dispatch(LoginNotification(true));
+      setIs(!is);
+      // navigateLogin();
       return;
     }
     if (user.credits < 4) {
@@ -76,6 +87,7 @@ export function AiPhotoEnhancer() {
           Buffer.from(res.data, "binary").toString("base64");
         setResultImage(base64ImageString);
         setIsLoading(false);
+        // gọi api Trừ credits với các lần sử dụng
         await privateAxios.get("/user/use-credits", {
           params: {
             type: "ENHANCE",
@@ -148,7 +160,6 @@ export function AiPhotoEnhancer() {
                         <img className="img-loading" src={imgLoading} alt="" />
                       </div>
                     )}
-
                     <div className="change-photo">
                       <img src={iconRotate} alt="" />
                       <div>Change Photo</div>
@@ -216,14 +227,8 @@ export function AiPhotoEnhancer() {
           </div>
         )}
       </SectionContents>
-      <ItemFooter>
-        <div>© 2023 by VisionLab., Inc. All Rights Reserved.</div>
-        <div className="select-item">
-          <div>Privacy Policy</div>
-          <div>Terms of Services</div>
-          <div>Contact Us</div>
-        </div>
-      </ItemFooter>
+      <Footer />
+      {is && <ModalNotification />}
     </PageAiPhotoEnhancer>
   );
 }

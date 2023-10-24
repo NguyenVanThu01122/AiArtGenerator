@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 export const useCheckLogin = () => {
   const login = useSelector((state: any) => state.app.login);
+  const isLoginNotification = useSelector(
+    (state: any) => state.app.LoginNotification
+  );
   const navigate = useNavigate();
 
   const navigateLogin = () => {
@@ -14,5 +17,5 @@ export const useCheckLogin = () => {
       navigate("/sign-in");
     }
   };
-  return [login, navigateLogin];
+  return [login, navigateLogin, isLoginNotification];
 };
