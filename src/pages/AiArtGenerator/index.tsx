@@ -1,18 +1,20 @@
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Carousel, Slider, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
 import { Buffer } from "buffer";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useClipboard } from "use-clipboard-copy";
+import icCopy from "../../images/ic-copy.svg";
 import icHistory from "../../images/ic-history.svg";
 import icRandom from "../../images/ic-random.svg";
 import iconCancel from "../../images/icon-cancel.svg";
 import iconRotate from "../../images/icon-rotare.svg";
 import iconShow from "../../images/icon-show.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
-import icCopy from "../../images/ic-copy.svg";
 import { privateAxios } from "../../service/axios";
 import {
   DEFAULT_ALPHA,
@@ -23,7 +25,12 @@ import {
 } from "../../utils/contanst";
 import { useCheckLogin } from "../../utils/useCheckLogin";
 import { useGetInforUser } from "../../utils/useGetInforUser";
-import { ResultsItem, SectionContents, WrapperAiArtGenerator } from "./styles";
+import {
+  ModalNotificationLogin,
+  ResultsItem,
+  SectionContents,
+  WrapperAiArtGenerator,
+} from "./styles";
 
 function AiArtGenerator() {
   const imageRef = useRef(null);
@@ -31,6 +38,7 @@ function AiArtGenerator() {
   const textToCopyRef = useRef(null);
   const clipboard = useClipboard();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [sliderValueAlpha, setSliderValueAlpha] = useState(DEFAULT_ALPHA);
   const [sliderValueSteps, setSliderValueSteps] = useState(DEFAULT_STEPS);
@@ -46,6 +54,13 @@ function AiArtGenerator() {
   const [resultImage, setResultImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [login, navigateLogin] = useCheckLogin();
+
+  const [isLoginNotification, setIsLoginNotification] = useState(false);
+
+  const cancelModalNotification = () => {
+    setIsLoginNotification(false);
+  };
+
   const user = useSelector((state: any) => state.app.user);
   const [getUser] = useGetInforUser();
 
@@ -65,7 +80,7 @@ function AiArtGenerator() {
       });
       setListStyle(result);
     } catch (error: any) {
-      message.error("Lỗi server");
+      message.error("Error server");
     }
   };
 
@@ -128,7 +143,7 @@ function AiArtGenerator() {
   const handleGenerate = async () => {
     try {
       if (!login) {
-        navigateLogin();
+        setIsLoginNotification(true);
         return;
       }
       if (user?.credits < 5) {
@@ -195,10 +210,9 @@ function AiArtGenerator() {
       const base64ImageString =
         "data:image/png;base64," +
         Buffer.from(res.data, "binary").toString("base64");
-
       setResultImage(base64ImageString);
       setIsLoading(false);
-      // get api trừ tiền
+      // gọi api Trừ credits với các lần sử dụng
       await privateAxios.get("/user/use-credits", {
         params: {
           type: "AI_ART",
@@ -254,9 +268,9 @@ function AiArtGenerator() {
       {resultImage ? (
         <ResultsItem>
           <div className="back-item" onClick={handleBack}>
-            <img
-              src="https://creatorhub.ai/static/media/arrow-left.399a6a0f4dc1267cf682ef36c05ed4b9.svg"
-              alt=""
+            <FontAwesomeIcon
+              style={{ color: "white", fontSize: "18px", marginRight: "6px" }}
+              icon={faAngleLeft}
             />
             <div>Back to Generate</div>
           </div>
@@ -310,10 +324,7 @@ function AiArtGenerator() {
               </div>
               <div className="button-group">
                 <Button className="copy-button" onClick={handleCopyText}>
-                  <img
-                    src={icCopy}
-                    alt=""
-                  />
+                  <img src={icCopy} alt="" />
                   Copy Prompt
                 </Button>
                 <Button
@@ -572,23 +583,6 @@ function AiArtGenerator() {
                         <div className="value-slider">{sliderValueScale}</div>
                       </div>
                     </div>
-                    {/* <div className="select-Seed">
-                      <div>Seed</div>
-                      <div>
-                        The random seed determines the initialize noise pattern
-                        and hence the final image.
-                      </div>
-                      <Input
-                        // max={10000}
-                        type="number"
-                        className="custom-input"
-                        onChange={(e: any) =>
-                          setInputValueSeed(Number(e.target.value))
-                        }
-                        placeholder="Please enter seed"
-                        value={inputValueSeed}
-                      />
-                    </div> */}
                   </div>
                 )}
               </div>
@@ -614,6 +608,25 @@ function AiArtGenerator() {
             alt=""
           />
         </div>
+      )}
+      {isLoginNotification && (
+        <ModalNotificationLogin
+          open={isLoginNotification}
+          onCancel={cancelModalNotification}
+          footer={false}
+          centered
+          width={450}
+        >
+          <div className="content">Please log in to use the service</div>
+          <div className="group-btn">
+            <Button className="btn-login" onClick={() => navigate("/sign-in")}>
+              Log In
+            </Button>
+            <Button className="btn-cancel" onClick={cancelModalNotification}>
+              Cancel
+            </Button>
+          </div>
+        </ModalNotificationLogin>
       )}
     </WrapperAiArtGenerator>
   );

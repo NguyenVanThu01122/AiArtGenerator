@@ -10,32 +10,30 @@ export const WrapperFooter = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   & > div:first-child {
-    color: white;
+    color: var(--text-secondary, #d2d2d2);
     font-size: 13px;
   }
   .group-text {
     display: flex;
     gap: 20px;
     div {
-      color: white;
+      color: var(--text-secondary, #d2d2d2);
       cursor: pointer;
       font-size: 13px;
     }
   }
   @media screen and (max-width: 768px) {
-    & {
-      display: block;
-      text-align: center;
-      border: none;
-      margin-top: 40px;
-      padding: 0px;
-      .group-text {
-        justify-content: center;
-        margin-top: 20px;
-        gap: 15px;
-        div {
-          font-size: 12px;
-        }
+    display: block;
+    text-align: center;
+    border: none;
+    margin-top: 50px;
+    padding: 0px;
+    .group-text {
+      justify-content: center;
+      margin: 18px 0px;
+      gap: 15px;
+      div {
+        font-size: 12px;
       }
     }
   }

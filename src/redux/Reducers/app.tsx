@@ -3,6 +3,7 @@ interface State {
   token: string;
   login: boolean;
   closeMenu: boolean;
+  loginNotification: boolean;
 }
 
 const initalState: State = {
@@ -10,6 +11,7 @@ const initalState: State = {
   token: localStorage.getItem("token") || "",
   login: localStorage.getItem("token") ? true : false,
   closeMenu: false,
+  loginNotification: false,
 };
 
 export const handleReducer = (
@@ -37,6 +39,11 @@ export const handleReducer = (
       return {
         ...state,
         closeMenu: action.payload,
+      };
+    case "LOGIN_NOTIFICATION":
+      return {
+        ...state,
+        loginNotification: action.payload,  
       };
     default:
       return state;

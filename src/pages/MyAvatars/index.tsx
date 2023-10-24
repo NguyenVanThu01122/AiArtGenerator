@@ -4,6 +4,8 @@ import { Button, Input, Pagination, Select, message } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useClipboard } from "use-clipboard-copy";
 import icCopy from "../../images/ic-copy.svg";
+import icGif1 from "../../images/icon-gif1.gif";
+
 // import icDeleteRed from "../../images/ic-delete-red.jpg";
 import icDeleteBlue from "../../images/ic-delete-blue.png";
 import { privateAxios } from "../../service/axios";
@@ -364,7 +366,10 @@ function MyAvatars() {
           </ModalDetailImage>
         </BoxImage>
       ) : (
-        <div className="error-text">No photos saved!</div>
+        <div className="box-empty">
+          <img src={icGif1} alt="" />
+          <div className="error-text">No photos saved!</div>
+        </div>
       )}
 
       <ModalDeleteImg

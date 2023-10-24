@@ -15,6 +15,7 @@ import { FILE_FORMAT, MAX_SIZE_INBYTES } from "../../utils/contanst";
 import { useCheckLogin } from "../../utils/useCheckLogin";
 import { useGetInforUser } from "../../utils/useGetInforUser";
 import {
+  BoxResult,
   BoxUpload,
   ItemBackgroundChange,
   ItemImage,
@@ -85,6 +86,7 @@ function AiBackgroundChanger() {
           Buffer.from(res.data, "binary").toString("base64");
         setResultImage(base64ImageString);
         setIsloading(false);
+        // gọi api Trừ credits với các lần sử dụng
         await privateAxios.get("/user/use-credits", {
           params: {
             type: "REMOVE_BACKGROUND",
@@ -111,7 +113,7 @@ function AiBackgroundChanger() {
   return (
     <WrapperAIBackgroundChanger>
       {resultImage ? (
-        <div className="item-result">
+        <BoxResult>
           <div className="back" onClick={handleBack}>
             <img src={icBack} alt="" />
             <div>Back to generate</div>
@@ -122,7 +124,7 @@ function AiBackgroundChanger() {
           <Button className="btn-downdload" onClick={handleDowndloadImage}>
             Downdload
           </Button>
-        </div>
+        </BoxResult>
       ) : (
         <BoxUpload>
           <ItemBackgroundChange>
@@ -131,6 +133,7 @@ function AiBackgroundChanger() {
               <div>
                 <div>
                   Effortless Background Changer Made Possible by <span>AI</span>
+                  <img src={iconStar} alt="" />
                   <img src={iconStar} alt="" />
                 </div>
               </div>

@@ -87,6 +87,7 @@ export const WrapperHeader = styled.div`
   // responsive
   @media screen and (max-width: 768px) {
     & {
+
       .item-title {
         display: none !important;
       }
@@ -159,8 +160,7 @@ export const ItemMenu = styled.div`
 `;
 
 export const ItemDrawer = styled(Drawer)`
-  display: flex;
-  flex-direction: column;
+  display: none;
   gap: 50px;
   background-color: rgb(9, 9, 23) !important;
   .title-menu {
@@ -174,13 +174,14 @@ export const ItemDrawer = styled(Drawer)`
   .parent-content {
     display: flex;
     flex-direction: column;
-    gap: 130px;
+    gap: 180px;
     .select-item {
       padding: 10px;
+      margin-top: 10px;
       .section-products {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
         & > div:first-child {
           color: white;
           margin: 18px 0px;
@@ -192,7 +193,7 @@ export const ItemDrawer = styled(Drawer)`
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 10px;
+        padding: 8px;
         cursor: pointer;
         margin-bottom: 10px;
         &:hover {
@@ -206,6 +207,11 @@ export const ItemDrawer = styled(Drawer)`
           color: white;
           font-size: 20px;
         }
+      }
+      .border-item {
+        background: rgb(36, 36, 60);
+        border-radius: 5px;
+        box-shadow: 0 0 2px 1px violet;
       }
     }
     .follow-options {
@@ -238,5 +244,8 @@ export const ItemDrawer = styled(Drawer)`
         }
       }
     }
+  }
+  @media screen and (max-width: 768px) {
+    display: block;
   }
 `;

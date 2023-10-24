@@ -5,12 +5,24 @@ export const WrapperMyAvatars = styled.div`
   width: 100%;
   height: 100%;
   padding: 20px;
-  .error-text {
-    text-align: center;
-    color: red;
-    font-size: 20px;
-    font-style: italic;
+  .box-empty {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    img {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+    }
+    .error-text {
+      color: red;
+      font-size: 20px;
+      font-style: italic;
+    }
   }
+
   @media screen and (max-width: 768px) {
     padding: 20px 5px;
   }
@@ -51,8 +63,8 @@ export const BoxImage = styled.div`
           display: flex;
           gap: 10px;
           .btn-cancel-all {
-            background: var(--Stroke-2, #242c3d);
-            color: yellow;
+            background: blue;
+            color: white;
           }
         }
         .btn-select-all,
@@ -103,6 +115,9 @@ export const BoxImage = styled.div`
       position: relative;
       img {
         width: 100%;
+      }
+      .item-select .custom-checkbox[type="checkbox"]:checked {
+        background-color: orange !important; /* Màu nền khi hover và được chọn */
       }
       .item-select {
         width: 100%;
@@ -296,10 +311,11 @@ export const ModalDetailImage = styled(Modal)`
     }
   }
   .ic-next {
+    z-index: 100;
     transition: 0.3s ease;
     opacity: 0;
     position: absolute;
-    background: rgb(0, 0, 0, 0.6);
+    background: blueviolet;
     color: white;
     width: 15px;
     height: 15px;
@@ -309,14 +325,18 @@ export const ModalDetailImage = styled(Modal)`
     right: 0px;
     transform: translateY(-50%);
     cursor: pointer;
+    &:hover {
+      background-color: orange;
+    }
   }
   .ic-prev {
+    z-index: 100;
     transition: 0.3s ease;
     opacity: 0;
     width: 15px;
     height: 15px;
     position: absolute;
-    background: rgb(0, 0, 0, 0.6);
+    background: blueviolet;
     color: white;
     padding: 10px;
     border-radius: 50%;
@@ -324,6 +344,9 @@ export const ModalDetailImage = styled(Modal)`
     left: 0px;
     transform: translateY(-50%);
     cursor: pointer;
+    &:hover {
+      background-color: orange;
+    }
   }
   .icon-none {
     display: none;
@@ -352,11 +375,13 @@ export const ModalDetailImage = styled(Modal)`
           .head-box,
           .end-box {
             .detail-parameter {
+              margin-bottom: 10px;
               & > div:first-child {
                 font-size: 11px;
                 font-weight: 700;
               }
               & > div:last-child {
+                height: 40px;
               }
             }
           }
@@ -415,7 +440,20 @@ export const ModalDeleteImg = styled(Modal)`
     }
   }
   @media screen and (max-width: 768px) {
-    & {
+    .ant-modal-content {
+      padding: 4px 20px !important;
+    }
+    .item-remind {
+      img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+      }
+    }
+    .group-btn {
+      .btn-delete {
+        width: 70px;
+      }
     }
   }
 `;

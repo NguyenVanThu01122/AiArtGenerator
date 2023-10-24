@@ -19,12 +19,6 @@ export function Sidebar() {
   const navigate = useNavigate();
   const pathName = window.location.pathname;
   const closeMenu = useSelector((state: any) => state.app.closeMenu);
-  // const text1 = <span>Home</span>;
-  // const text2 = <span>Pricing</span>;
-  // const text3 = <span>My Avatars</span>;
-  // const text4 = <span>Ai Art Generator</span>;
-  // const text5 = <span>Ai Photo Enhancer</span>;
-  // const text6 = <span>Ai BacKground Change</span>;
 
   return (
     <WrapperSidebar closeMenu={closeMenu}>
