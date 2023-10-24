@@ -43,40 +43,13 @@ export const SectionContents = styled.div`
         font-size: 16px;
       }
     }
-    .box-result {
-      .result-img {
-        max-width: 500px;
-        height: max-content;
-        margin: auto;
-        img {
-          width: 100%;
-        }
-      }
-      .btn-downdload {
-        width: 200px;
-        height: 40px;
-        display: block;
-        margin: 50px auto;
-        border: none;
-        color: white !important;
-        font-weight: bold;
-        font-size: large;
-        background: var(
-          --linear,
-          linear-gradient(182deg, #e250e5 0%, #4b50e6 100%)
-        );
-        &:hover {
-          filter: brightness(0.6);
-        }
-      }
-    }
     .item-upload {
       margin: auto;
       /* width: 50%; */
       flex: 1;
       .title-upload {
         position: relative;
-        & > div:first-child {
+        .ai-photo {
           display: flex;
           justify-content: center;
           gap: 10px;
@@ -195,6 +168,33 @@ export const SectionContents = styled.div`
               rgb(226, 80, 229) 100%
             );
           }
+        }
+      }
+    }
+    .box-result {
+      .result-img {
+        max-width: 500px;
+        height: max-content;
+        margin: auto;
+        img {
+          width: 100%;
+        }
+      }
+      .btn-downdload {
+        width: 200px;
+        height: 40px;
+        display: block;
+        margin: 50px auto;
+        border: none;
+        color: white !important;
+        font-weight: bold;
+        font-size: large;
+        background: var(
+          --linear,
+          linear-gradient(182deg, #e250e5 0%, #4b50e6 100%)
+        );
+        &:hover {
+          filter: brightness(0.6);
         }
       }
     }
@@ -336,22 +336,96 @@ export const SectionContents = styled.div`
       }
     }
   }
-`;
-
-export const ItemFooter = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 22px;
-  color: var(--text-secondary, #d2d2d2);
-  & > div:first-child {
-    font-size: 14px;
-  }
-  .select-item {
-    display: flex;
-    gap: 20px;
-    & div {
-      font-size: 14px;
-      cursor: pointer;
+  @media screen and (max-width: 768px) {
+    .box-contents {
+      padding: 15px;
+      display: block;
+      .create-photo {
+        width: 100%;
+        .icon-star {
+          margin-top: -90px;
+          top: 60px;
+          left: 125px;
+        }
+        & > div:nth-child(2) {
+          font-size: 22px;
+          margin: 0px;
+        }
+        & > div:nth-child(3) {
+          font-size: 14px;
+        }
+        .select-upload-image {
+          margin: 16px auto;
+          .upload-image {
+            padding: 12px;
+            .image {
+              width: 45px;
+              height: 45px;
+            }
+            & > div:nth-child(2) {
+              font-size: 14px;
+            }
+            & > div:nth-child(3) {
+              text-align: center;
+              font-size: 10px;
+            }
+          }
+        }
+        & > div:last-child {
+          text-align: center;
+          font-size: 14px;
+        }
+      }
+      .image-ai {
+        width: 100%;
+      }
+    }
+    .box-upload {
+      padding: 0px 15px;
+      .item-back {
+        padding: 20px 0px;
+        font-size: 14px;
+      }
+      .item-upload {
+        width: 100%;
+        .title-upload {
+          margin-top: 20px;
+          .ai-photo {
+            font-size: 22px;
+            margin-bottom: 0px;
+            .photo-enhance {
+            }
+          }
+          & > div:nth-child(2) {
+            font-size: 12px;
+          }
+        }
+        .create-upload {
+          .item-change {
+            .image-upload {
+              width: 100%;
+              height: 100%;
+            }
+          }
+          .btn-generate {
+            margin: 20px 0px;
+            width: 100%;
+            /* font-size: 16px; */
+            height: 40px;
+          }
+        }
+      }
+      .box-result {
+        .result-img {
+          img {
+            width: 100%;
+          }
+        }
+        .btn-downdload {
+          margin-top: 20px;
+          width: 100% ;
+        }
+      }
     }
   }
 `;

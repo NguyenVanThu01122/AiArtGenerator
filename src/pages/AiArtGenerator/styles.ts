@@ -1,3 +1,4 @@
+import { Modal } from "antd";
 import styled from "styled-components";
 export const WrapperAiArtGenerator = styled.div`
   background-color: rgb(9, 9, 23);
@@ -8,8 +9,8 @@ export const WrapperAiArtGenerator = styled.div`
     width: 100%;
     height: 100%;
     position: fixed;
-     top: 0px; 
-    left: 0px; 
+    top: 0px;
+    left: 0px;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
@@ -22,6 +23,7 @@ export const WrapperAiArtGenerator = styled.div`
       border-radius: 10px;
     }
   }
+
 `;
 export const SectionContents = styled.div`
   width: 100%;
@@ -702,6 +704,51 @@ export const ResultsItem = styled.div`
             filter: brightness(0.6);
           }
         }
+      }
+    }
+  }
+`;
+
+export const ModalNotificationLogin = styled(Modal)`
+  .anticon svg {
+    font-size: 18px;
+    &:hover {
+      color: red;
+    }
+  }
+  .ant-modal-content {
+    padding: 10px;
+    background-color: rgb(242, 245, 245, 0.904);
+  }
+  .content {
+    margin: 10px;
+    font-weight: bold;
+    font-size: 22px;
+    text-align: center;
+  }
+  .group-btn {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    .btn-login {
+      font-weight: bold;
+      color: white !important ;
+      width: 30%;
+      border: none;
+      background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
+      &:hover {
+        filter: brightness(0.8);
+      }
+    }
+    .btn-cancel {
+      width: 25%;
+      border: none;
+      font-weight: bold;
+      color: red !important;
+      background-color: orange;
+      &:hover {
+        filter: brightness(0.8);
       }
     }
   }
