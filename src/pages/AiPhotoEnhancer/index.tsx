@@ -226,8 +226,8 @@ export function AiPhotoEnhancer() {
             </div>
           </div>
         )}
+        <Footer />
       </SectionContents>
-      <Footer />
       {is && <ModalNotification />}
     </PageAiPhotoEnhancer>
   );

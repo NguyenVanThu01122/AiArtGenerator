@@ -23,8 +23,10 @@ export const WrapperAiArtGenerator = styled.div`
       border-radius: 10px;
     }
   }
-
+  @media screen and (max-width: 768px) {
+  }
 `;
+
 export const SectionContents = styled.div`
   width: 100%;
   height: 100%;
@@ -122,11 +124,11 @@ export const SectionContents = styled.div`
             }
           }
         }
-        .image-prev {
-          width: 32px;
-          height: 32px;
+        .ic-prev {
+          width: 20px;
+          height: 20px;
+          padding: 5px;
           background-color: rgb(9, 9, 23);
-          font-size: large;
           color: white;
           border-radius: 50%;
           display: flex;
@@ -139,16 +141,20 @@ export const SectionContents = styled.div`
           left: 5px;
           font-weight: bold;
           transform: translateY(-50%);
+          background-color: #ffcc33;
           &:hover {
-            background-color: #ffcc33;
-            color: #e8e8e8;
+            background-color: #03e9f4;
+            box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+              0 0 600px #03e9f4;
+            -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+            transition: transform 0.4s ease; // Hiệu ứng chuyển đổi kích thước, ease hiệu ứng làm mượt//
           }
         }
-        .image-next {
-          width: 32px;
-          height: 32px;
+        .ic-next {
+          width: 20px;
+          height: 20px;
+          padding: 5px;
           background-color: rgb(9, 9, 23);
-          font-size: 20px;
           font-weight: bold;
           border-radius: 60%;
           color: white;
@@ -162,9 +168,13 @@ export const SectionContents = styled.div`
           top: 50%;
           transform: translateY(-50%);
           right: 5px;
+          background-color: #ffcc33;
           &:hover {
-            background-color: #ffcc33;
-            color: #e8e8e8;
+            background-color: #03e9f4;
+            box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+              0 0 600px #03e9f4;
+            -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+            transition: transform 0.4s ease; // Hiệu ứng chuyển đổi kích thước, ease hiệu ứng làm mượt//
           }
         }
       }
@@ -194,7 +204,7 @@ export const SectionContents = styled.div`
         .image {
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: contain;
         }
         .item-change {
           position: absolute;
@@ -560,6 +570,77 @@ export const SectionContents = styled.div`
       }
     }
   }
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px !important;
+    }
+    &::-webkit-scrollbar {
+      width: 4px !important;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent !important; //Màu của vùng cuộn
+    }
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
+      }
+    }
+    .select-item {
+      width: 100%;
+      overflow-y: visible; /* Cho phép nội dung vượt ra ngoài */
+      .select-photo {
+        .item-carousel {
+          .custom-carousel {
+            .item-none {
+              width: 80px !important;
+              height: 80px !important;
+            }
+            .custom-images {
+              .image-ai {
+                width: 80px !important;
+                height: 80px !important;
+              }
+            }
+          }
+          .ic-prev,
+          .ic-next {
+            background-color: #03e9f4;
+            &:hover {
+              background-color: #ffcc33;
+              box-shadow: 0 0 5px #ffcc33, 0 0 25px #ffcc33, 0 0 50px #ffcc33,
+                0 0 600px #ffcc33;
+              -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+              transition: transform 0.4s ease; // Hiệu ứng chuyển đổi kích thước, ease hiệu ứng làm mượt//
+            }
+          }
+        }
+      }
+      .select-upload-image {
+        .box-image {
+          width: 100%;
+          height: 100%;
+          .image {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .upload-image {
+          padding: 15px;
+          & > div:nth-child(3) {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+    .item-configs {
+      width: 100%;
+    }
+  }
 `;
 
 export const ResultsItem = styled.div`
@@ -591,13 +672,27 @@ export const ResultsItem = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 0px 27px;
-
+    overflow-y: auto;
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px !important;
+    }
+    &::-webkit-scrollbar {
+      width: 4px !important;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent !important; //Màu của vùng cuộn
+    }
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
+      }
+    }
     .display-image {
       position: relative;
       width: 40%;
       .image-result {
-        height: 512px;
         width: 100%;
+        height: 100%;
         object-fit: contain;
         cursor: pointer;
       }
@@ -634,11 +729,8 @@ export const ResultsItem = styled.div`
       }
       .information-result {
         display: flex;
-        /* justify-content: space-between; */
         gap: 150px;
         .detail-result {
-          /* flex: 1; */
-          /* border: 1px solid white; */
           .text-group {
             display: flex;
             flex-direction: column;
@@ -707,6 +799,40 @@ export const ResultsItem = styled.div`
       }
     }
   }
+  @media screen and (max-width: 768px) {
+    .box-result {
+      gap: 0px;
+      flex-direction: column;
+      .display-image {
+        width: 100%;
+      }
+      .section-parameter {
+        width: 100%;
+        overflow-y: visible;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        .information-result {
+          display: flex;
+          gap: 0px;
+          justify-content: space-between;
+          .detail-result {
+            .text-group {
+            }
+          }
+        }
+      }
+      .button-group {
+        margin: 10px 0px;
+        .copy-button,
+        .download-button {
+          width: 50%;
+          font-size: 13px;
+          font-weight: 700 !important;
+        }
+      }
+    }
+  }
 `;
 
 export const ModalNotificationLogin = styled(Modal)`
@@ -750,6 +876,23 @@ export const ModalNotificationLogin = styled(Modal)`
       &:hover {
         filter: brightness(0.8);
       }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .content {
+      font-size: 18px;
+      margin-top: 15px;
+      margin-bottom: 0px;
+    }
+    .anticon svg {
+      margin-top: -20px;
+      margin-right: -30px;
+      &:hover {
+        color: red;
+      }
+    }
+    .ant-modal-content {
+      padding: 5px;
     }
   }
 `;

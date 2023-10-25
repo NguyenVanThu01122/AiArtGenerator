@@ -25,13 +25,14 @@ export const WrapperFooter = styled.div`
   @media screen and (max-width: 768px) {
     display: block;
     text-align: center;
-    border: none;
-    margin-top: 50px;
     padding: 0px;
+    & > div:first-child {
+      margin-top: 15px;
+    }
     .group-text {
       justify-content: center;
-      margin: 18px 0px;
       gap: 15px;
+      margin: 10px 0px;
       div {
         font-size: 12px;
       }

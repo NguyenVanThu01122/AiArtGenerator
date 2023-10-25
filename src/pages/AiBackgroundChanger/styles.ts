@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const WrapperAIBackgroundChanger = styled.div`
-  padding: 20px;
+  padding: 20px 20px 0px 20px;
   width: 100%;
   height: 100%;
   background-color: rgb(9, 9, 23);
@@ -293,11 +293,11 @@ export const ItemBackgroundChange = styled.div`
       padding-top: 10px;
       & > div:nth-child(2) {
         div {
-          font-size: 20px;
+          font-size: 21px;
         }
       }
       & > div:last-child {
-        font-size: 13px;
+        font-size: 14px;
       }
     }
     .create-upload {
@@ -335,6 +335,7 @@ export const ItemBackgroundChange = styled.div`
         .format-information {
           & > div:first-child {
             font-size: 12px;
+            font-weight: 900;
           }
           & > div:last-child {
             font-size: 10px;
@@ -344,7 +345,7 @@ export const ItemBackgroundChange = styled.div`
     }
     .btn-change {
       font-size: 15px;
-      height: 44px;
+      height: 45px;
       margin-top: 0px !important;
       margin-bottom: 12px;
     }

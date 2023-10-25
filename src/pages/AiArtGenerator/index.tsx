@@ -1,4 +1,4 @@
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Carousel, Slider, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
@@ -54,6 +54,7 @@ function AiArtGenerator() {
   const [resultImage, setResultImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [login, navigateLogin] = useCheckLogin();
+  const [curentNumber, setCurentNumber] = useState(0);
 
   const [isLoginNotification, setIsLoginNotification] = useState(false);
 
@@ -132,11 +133,13 @@ function AiArtGenerator() {
     };
   };
 
-  const handleNextImageAi = () => {
-    (imageRef.current as any).next();
-  };
   const handlePrevImageAi = () => {
     (imageRef.current as any).prev();
+    setCurentNumber(curentNumber - 1);
+  };
+  const handleNextImageAi = () => {
+    (imageRef.current as any).next();
+    setCurentNumber(curentNumber + 1);
   };
 
   // hàm create image
@@ -352,7 +355,7 @@ function AiArtGenerator() {
                   ref={imageRef}
                   variableWidth={true}
                   draggable={true}
-                  slidesToScroll={1}
+                  slidesToScroll={2}
                   infinite={false} // ngăn chặn lặp lại
                 >
                   <div
@@ -380,12 +383,18 @@ function AiArtGenerator() {
                     </div>
                   ))}
                 </Carousel>
-                <div className="image-prev" onClick={handlePrevImageAi}>
-                  {"<"}
-                </div>
-                <div className="image-next" onClick={handleNextImageAi}>
-                  {">"}
-                </div>
+                {curentNumber > 0 && (
+                  <FontAwesomeIcon
+                    className="ic-prev"
+                    icon={faAngleLeft}
+                    onClick={handlePrevImageAi}
+                  />
+                )}
+                <FontAwesomeIcon
+                  className="ic-next"
+                  icon={faAngleRight}
+                  onClick={handleNextImageAi}
+                />
               </div>
             </div>
             <div className="select-upload-image">

@@ -12,6 +12,7 @@ import Footer from "../../components/Footer";
 import { privateAxios } from "../../service/axios";
 
 import { useCheckLogin } from "../../utils/useCheckLogin";
+import { useGetInforUser } from "../../utils/useGetInforUser";
 import {
   BlockContents,
   ItemCarousel,
