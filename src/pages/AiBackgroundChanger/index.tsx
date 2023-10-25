@@ -21,6 +21,7 @@ import {
   ItemImage,
   WrapperAIBackgroundChanger,
 } from "./styles";
+import Footer from "../../components/Footer";
 
 function AiBackgroundChanger() {
   const [fileUpload, setFileUpload] = useState();
@@ -215,6 +216,7 @@ function AiBackgroundChanger() {
           </ItemImage>
         </BoxUpload>
       )}
+      <Footer/>
     </WrapperAIBackgroundChanger>
   );
 }

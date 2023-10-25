@@ -10,7 +10,6 @@ export const PageAiPhotoEnhancer = styled.div`
 
 export const SectionContents = styled.div`
   overflow-y: auto;
-  flex: 1;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
   }
@@ -23,6 +22,7 @@ export const SectionContents = styled.div`
   &::-webkit-scrollbar-thumb {
     background: linear-gradient(217deg, #e250e5, #4b50e6);
   }
+  flex: 1;
   .box-upload {
     display: flex;
     flex-direction: column;
@@ -200,7 +200,6 @@ export const SectionContents = styled.div`
     }
   }
   .box-contents {
-    overflow-y: auto;
     display: flex;
     flex: 1;
     gap: 90px;
@@ -348,7 +347,7 @@ export const SectionContents = styled.div`
           left: 125px;
         }
         & > div:nth-child(2) {
-          font-size: 22px;
+          font-size: 25px;
           margin: 0px;
         }
         & > div:nth-child(3) {
@@ -363,7 +362,7 @@ export const SectionContents = styled.div`
               height: 45px;
             }
             & > div:nth-child(2) {
-              font-size: 14px;
+              font-size: 15px;
             }
             & > div:nth-child(3) {
               text-align: center;
@@ -384,20 +383,19 @@ export const SectionContents = styled.div`
       padding: 0px 15px;
       .item-back {
         padding: 20px 0px;
-        font-size: 14px;
       }
       .item-upload {
         width: 100%;
         .title-upload {
           margin-top: 20px;
           .ai-photo {
-            font-size: 22px;
+            font-size: 25px;
             margin-bottom: 0px;
             .photo-enhance {
             }
           }
           & > div:nth-child(2) {
-            font-size: 12px;
+            font-size: 14px;
           }
         }
         .create-upload {
@@ -410,8 +408,7 @@ export const SectionContents = styled.div`
           .btn-generate {
             margin: 20px 0px;
             width: 100%;
-            /* font-size: 16px; */
-            height: 40px;
+            height: 45px;
           }
         }
       }
@@ -423,7 +420,7 @@ export const SectionContents = styled.div`
         }
         .btn-downdload {
           margin-top: 20px;
-          width: 100% ;
+          width: 100%;
         }
       }
     }
