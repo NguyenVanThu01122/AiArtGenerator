@@ -7,8 +7,8 @@ export const WrapperHome = styled.div`
   display: flex;
   flex-direction: column;
   gap: 110px;
+  padding: 20px 20px 0px 20px;
   overflow-y: auto;
-  padding: 20px;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
   }

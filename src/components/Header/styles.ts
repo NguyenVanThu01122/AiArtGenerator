@@ -87,7 +87,6 @@ export const WrapperHeader = styled.div`
   // responsive
   @media screen and (max-width: 768px) {
     & {
-
       .item-title {
         display: none !important;
       }
@@ -124,9 +123,12 @@ export const WrapperHeader = styled.div`
         display: flex;
         align-items: center;
         gap: 10px;
+        img {
+          width: 30px;
+        }
         span {
           color: white;
-          font-size: 20px;
+          font-size: 22px;
           font-weight: bold;
         }
       }
@@ -134,7 +136,6 @@ export const WrapperHeader = styled.div`
         .account-information {
           display: none;
         }
-
         .avatar {
           width: 35px;
           height: 35px;
@@ -153,7 +154,7 @@ export const ItemMenu = styled.div`
       .ic-menu {
         display: block;
         color: white;
-        font-size: 20px;
+        font-size: 22px;
       }
     }
   }
@@ -165,18 +166,19 @@ export const ItemDrawer = styled(Drawer)`
   background-color: rgb(9, 9, 23) !important;
   .title-menu {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     .icon-angles {
       color: white;
-      font-size: 18px;
+      font-size: 20px;
     }
   }
   .parent-content {
     display: flex;
     flex-direction: column;
-    gap: 180px;
+    gap: 60px;
     .select-item {
-      padding: 10px;
+      padding: 10px 0px 10px 0px;
       margin-top: 10px;
       .section-products {
         display: flex;
@@ -185,7 +187,7 @@ export const ItemDrawer = styled(Drawer)`
         & > div:first-child {
           color: white;
           margin: 18px 0px;
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 300;
         }
       }
@@ -193,12 +195,18 @@ export const ItemDrawer = styled(Drawer)`
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 8px;
         cursor: pointer;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+        font-size: 17px;
         &:hover {
           background: rgb(36, 36, 60);
           border-radius: 5px;
+        }
+        img {
+          /* width: 35px; */
+          background: rgb(36, 36, 60);
+          border-radius: 50%;
+          padding: 12px;
         }
         span {
           color: white;
@@ -206,6 +214,9 @@ export const ItemDrawer = styled(Drawer)`
         .ic-avatar {
           color: white;
           font-size: 20px;
+          background: rgb(36, 36, 60);
+          border-radius: 50%;
+          padding: 10px;
         }
       }
       .border-item {
@@ -218,28 +229,29 @@ export const ItemDrawer = styled(Drawer)`
       text-align: center;
       & > div:first-child {
         color: white;
-        font-size: 15px;
+        font-size: 18px;
         font-weight: 300;
       }
       .group-icon {
-        margin: 20px;
+        margin-top: 30px;
         display: flex;
         justify-content: center;
-        gap: 8px;
+        gap: 12px;
         & img {
-          width: 18%;
-          width: 18%;
+          width: 45px;
+          height: 45px;
+          object-fit: contain;
           border-radius: 50%;
           background: rgb(36, 36, 60);
           padding: 10px;
           cursor: pointer;
+          background-color: #03e9f4;
+          box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+            0 0 600px #03e9f4;
+          -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
           transition: transform 0.4s ease; // Hiệu ứng chuyển đổi kích thước, ease hiệu ứng làm mượt//
           &:hover {
             transform: scale(1.2);
-            background-color: #03e9f4;
-            box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
-              0 0 600px #03e9f4;
-            -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
           }
         }
       }

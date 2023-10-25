@@ -4,9 +4,12 @@ export const WrapperLogo = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  img{
+    width: 30px;
+  }
   span {
     color: white;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
   }
 `;

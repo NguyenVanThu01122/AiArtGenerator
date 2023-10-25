@@ -199,7 +199,7 @@ function Header() {
         <ItemDrawer
           open={isOpenMenu}
           placement={placement}
-          width={280}
+          width={300}
           closable={false}
         >
           <div className="title-menu">
