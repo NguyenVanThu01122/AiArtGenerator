@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, message } from "antd";
 import iconQuote from "../../images/Home/icon-quote.png";
 import imgbenefits1 from "../../images/Home/img-benefits1.png";
 import imgbenefits2 from "../../images/Home/img-benefits2.png";
@@ -40,9 +40,9 @@ const listProduct = [
   {
     id: 2,
     image: imgProduct2,
-    title: "AI Background Changer",
+    title: "AI Background Remove",
     text: "Effortlessly remove backgrounds from your images using our AI-powered Background Remover.",
-    url: "/ai-background-changer",
+    url: "/ai-background-remove",
   },
   {
     id: 3,
@@ -132,7 +132,6 @@ const listTestimonials = [
 ];
 
 function Home() {
-  
   const [searchParam, setSearchParam] = useSearchParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -151,6 +150,10 @@ function Home() {
       setSearchParam({});
     }
   }, []);
+
+  const handleNotification = () => {
+    message.success("This feature post development");
+  };
   return (
     <WrapperHome>
       <AnimationStar />
@@ -216,7 +219,9 @@ function Home() {
                 </div>
                 <Button
                   className="btn-try-now"
-                  onClick={() => navigate(item?.url)}
+                  onClick={() =>
+                    item?.url ? navigate(item?.url) : handleNotification()
+                  }
                 >
                   <span>Try Now</span>
                   <img src={icArrow} alt="" />
@@ -283,7 +288,7 @@ function Home() {
             Join thousands of content creators, entrepreneurs, and professionals
             who have already harnessed the power of our innovative solutions.
           </div>
-          <Button>Get Started</Button>
+          <Button onClick={() => navigate("/pricing")}>Get Started</Button>
         </div>
         <Footer />
       </LastItem>

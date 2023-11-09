@@ -10,6 +10,7 @@ export default function VerifyRegister() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
+    
     // hàm xác thực người dùng mới
     const handleVerifyToken = async () => {
       try {

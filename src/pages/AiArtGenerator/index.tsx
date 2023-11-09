@@ -121,7 +121,6 @@ function AiArtGenerator() {
       message.error("Please upload type image jpeg, jpg, png");
       return; // file.type === false dừng các dòng code phía sau
     }
-
     setFileUpload(file);
     const reader = new FileReader();
     if (file) {
@@ -250,7 +249,7 @@ function AiArtGenerator() {
   };
 
   // hàm tải ảnh
-  const downloadImage = async (base64String: string, filename: string) => {
+  const downloadImage = (base64String: string, filename: string) => {
     // Tạo một thẻ a để tạo link tải về
     const a = document.createElement("a");
     // gắn thuộc tính href có giá trị = đường dẫn ảnh
@@ -618,6 +617,7 @@ function AiArtGenerator() {
           />
         </div>
       )}
+      
       {isLoginNotification && (
         <ModalNotificationLogin
           open={isLoginNotification}

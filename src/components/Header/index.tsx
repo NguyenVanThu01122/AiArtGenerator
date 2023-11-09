@@ -1,11 +1,12 @@
 import { faImage } from "@fortawesome/free-solid-svg-icons";
-import { Button, DrawerProps, Popover } from "antd";
-import { useEffect, useState } from "react";
+import { Button, DrawerProps } from "antd";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import imgAvatarDefault from "../../images/avatar-default.jpg";
 import iconAiBackgroundChange from "../../images/ic-ai-background-chage.svg";
 import iconPricing from "../../images/ic-pricing.svg";
+import icCredits1 from "../../images/ic_credits1.svg";
 import iconCloseSidebar from "../../images/icon-close-sidebar.svg";
 import iconOpenSidebar from "../../images/icon-open-sidebar.svg";
 import iconAiArtGenerator from "../../images/iconAiArtGenerator.svg";
@@ -26,7 +27,7 @@ import {
   saveUser,
 } from "../../redux/Actions/app";
 import { LogoCreatorHub } from "../LogoCreatorHub";
-import { ItemDrawer, ItemMenu, WrapperHeader } from "./styles";
+import { BoxProfile, ItemDrawer, ItemMenu, WrapperHeader } from "./styles";
 
 function Header() {
   const pathName = window.location.pathname;
@@ -34,10 +35,15 @@ function Header() {
   const users = useSelector((state: any) => state.app?.user);
   const closeMenu = useSelector((state: any) => state.app.closeMenu);
   const [isOpenMenu, setisOpenMenu] = useState(false);
+  const [isBoxProfile, setIsBoxProfile] = useState(false);
+  const profileRef = useRef<HTMLImageElement | null>(null); // Đảm bảo kiểu dữ liệu của ref
+
   const [placement, setPlacement] = useState<DrawerProps["placement"]>("left");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
+  const filterListPathName = ["/", "/pricing", "/my-account", "/my-avatars"];
+
   // hàm xử lý lọc pathName
   const handleFilterPathName = () => {
     switch (pathName) {
@@ -50,20 +56,24 @@ function Header() {
       case "/my-avatars":
         setSavePathName("My Avatars");
         break;
+      case "/my-account":
+        setSavePathName("My Account");
+        break;
       case "/ai-art-generator":
         setSavePathName("/ AI Art Generator");
         break;
       case "/ai-photo-enhancer":
         setSavePathName("/ AI Photo Enhancer");
         break;
-      case "/ai-background-changer":
-        setSavePathName("/ AI Background changer");
+      case "/ai-background-remove":
+        setSavePathName("/ AI Background Remove");
         break;
       default:
         setSavePathName("");
     }
   };
-  // hàm đăng xuất
+
+  // hàm sign out
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
@@ -72,74 +82,6 @@ function Header() {
     dispatch(saveToken(""));
     navigate("/sign-in");
   };
-  // nôi dung account
-  const content = (
-    <div
-      style={{
-        width: "280px",
-        background: "rgb(20, 20, 31)",
-        borderRadius: "8px",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-          padding: "20px",
-        }}
-      >
-        <img
-          style={{
-            width: "50px",
-            height: "50px",
-            borderRadius: "50%",
-          }}
-          src={users?.avatar || imgAvatarDefault}
-          alt=""
-        />
-        <div style={{ color: "white" }}>
-          <div style={{ fontWeight: "800", fontSize: "17px" }}>
-            {users?.lastName} <span>{users?.firstName}</span>
-          </div>
-          <div>
-            {users?.credits} {users?.credits > 1 ? "credits" : "credit"}
-          </div>
-        </div>
-      </div>
-      <div
-        style={{
-          color: "white",
-          borderTop: "1px solid rgb(30, 36, 49)",
-          padding: "20px",
-        }}
-      >
-        <div
-          className="option-title-account"
-          style={{
-            padding: "10px",
-            fontWeight: "800",
-            fontSize: "15px",
-            cursor: "pointer",
-          }}
-        >
-          My Account
-        </div>
-        <div
-          className="option-title-account"
-          onClick={handleLogout}
-          style={{
-            fontWeight: "800",
-            fontSize: "15px",
-            cursor: "pointer",
-            padding: "10px",
-          }}
-        >
-          Logout
-        </div>
-      </div>
-    </div>
-  );
 
   const hanleOpenAndCloseMenu = () => {
     dispatch(saveCloseMenu(!closeMenu));
@@ -157,11 +99,36 @@ function Header() {
   const handleRedirect = (url: string) => {
     navigate(url);
     setisOpenMenu(false);
+    setIsBoxProfile(false);
+  };
+  // hàm chuyển đổi trạng thái của boxProfile
+  const toggleBoxProfile = () => {
+    setIsBoxProfile(!isBoxProfile);
   };
 
   useEffect(() => {
     handleFilterPathName();
   }, [pathName]);
+
+  // Sử dụng useEffect để theo dõi sự kiện click trên document
+  useEffect(() => {
+    // Hàm xử lý khi click ra ngoài hộp profile
+    const handleDocumentClick = (e: any) => {
+      const target = e.target;
+      if (
+        isBoxProfile &&
+        profileRef.current &&
+        !profileRef.current.contains(target)
+      ) {
+        setIsBoxProfile(false); // Nếu click ra ngoài hộp menu, ẩn hộp profile
+      }
+    };
+    document.addEventListener("click", handleDocumentClick); // Dòng này lắng nghe sự kiện click lên toàn bộ tài liệu (document). Khi một sự kiện click xảy ra bất kỳ nơi nào trên trang, handleDocumentClick sẽ được gọi.
+
+    return () => {
+      document.removeEventListener("click", handleDocumentClick); // Cleanup listener khi component unmount
+    };
+  }, [isBoxProfile]);
 
   return (
     <WrapperHeader>
@@ -183,23 +150,22 @@ function Header() {
         )}
 
         <div>
-          {pathName !== "/" &&
-          pathName !== "/pricing" &&
-          pathName !== "/my-avatars" ? (
+          {filterListPathName.includes(pathName) ? (
+            savePathName
+          ) : (
             <div>
               Products <span>{savePathName}</span>
             </div>
-          ) : (
-            savePathName
           )}
         </div>
       </div>
+
       <ItemMenu>
         <FontAwesomeIcon className="ic-menu" icon={faBars} onClick={showMenu} />
         <ItemDrawer
           open={isOpenMenu}
           placement={placement}
-          width={300}
+          width={320}
           closable={false}
         >
           <div className="title-menu">
@@ -259,12 +225,12 @@ function Header() {
                 </div>
                 <div
                   className={`item-menu ${
-                    pathName === "/ai-background-changer" && "border-item"
+                    pathName === "/ai-background-remove" && "border-item"
                   } `}
-                  onClick={() => handleRedirect("/ai-background-changer")}
+                  onClick={() => handleRedirect("/ai-background-remove")}
                 >
                   <img src={iconAiBackgroundChange} alt="iconAiPhoto" />
-                  <span>AI Background Changer</span>
+                  <span>AI Background Remove</span>
                 </div>
               </div>
             </div>
@@ -316,13 +282,46 @@ function Header() {
               {users?.credits} {users?.credits > 1 ? "credits" : "credit"}
             </div>
           </div>
-          <Popover className="custom-popover" content={content} trigger="click">
+          <div ref={profileRef}>
             <img
               className="avatar"
+              onClick={toggleBoxProfile}
               src={users?.avatar || imgAvatarDefault}
               alt=""
             />
-          </Popover>
+            {isBoxProfile && (
+              <BoxProfile>
+                <div className="detail-user">
+                  <img
+                    className="avatar"
+                    src={users?.avatar || imgAvatarDefault}
+                    alt=""
+                  />
+                  <div className="content-user">
+                    <div className="name">
+                      {users?.lastName} <span>{users?.firstName}</span>
+                    </div>
+                    <div className="credits">
+                      <img src={icCredits1} alt="" />
+                      {users?.credits}{" "}
+                      {users?.credits > 1 ? "credits" : "credit"}
+                    </div>
+                  </div>
+                </div>
+                <div className="option-container">
+                  <div
+                    onClick={() => handleRedirect("/my-account")}
+                    className="item-menu"
+                  >
+                    My Account
+                  </div>
+                  <div className="item-menu" onClick={handleLogout}>
+                    Logout
+                  </div>
+                </div>
+              </BoxProfile>
+            )}
+          </div>
         </div>
       ) : (
         <Button onClick={() => navigate("/sign-in")} className="btn-login">
