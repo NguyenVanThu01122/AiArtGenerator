@@ -1,6 +1,7 @@
 import { Drawer } from "antd";
 import styled from "styled-components";
 export const WrapperHeader = styled.div`
+  position: relative;
   background-color: rgb(9, 9, 23);
   height: 75px;
   padding: 0px 15px;
@@ -145,6 +146,58 @@ export const WrapperHeader = styled.div`
   }
 `;
 
+export const BoxProfile = styled.div`
+  z-index: 100;
+  position: absolute;
+  bottom: -280%;
+  right: 0px;
+  width: 280px;
+  background: rgb(20, 20, 31);
+  border-radius: 8px;
+  .detail-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    .avatar {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+    .content-user {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      .name {
+        color: white;
+        font-size: 17px;
+        font-weight: bold;
+      }
+      .credits {
+        display: flex;
+        align-items: center;
+        color: var(--text-secondary, #d2d2d2);
+      }
+    }
+  }
+  .option-container {
+    padding: 20px;
+    border-top: 1px solid rgb(30, 36, 49);
+    .item-menu {
+      padding: 10px;
+      cursor: pointer;
+      color: white;
+      &:hover {
+        background: rgb(36, 36, 60);
+        border-radius: 5px;
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+  }
+`;
+
 export const ItemMenu = styled.div`
   .ic-menu {
     display: none;
@@ -197,7 +250,7 @@ export const ItemDrawer = styled(Drawer)`
         gap: 10px;
         cursor: pointer;
         margin-bottom: 15px;
-        font-size: 17px;
+        font-size: 16px;
         &:hover {
           background: rgb(36, 36, 60);
           border-radius: 5px;
@@ -206,7 +259,7 @@ export const ItemDrawer = styled(Drawer)`
           /* width: 35px; */
           background: rgb(36, 36, 60);
           border-radius: 50%;
-          padding: 12px;
+          padding: 10px;
         }
         span {
           color: white;

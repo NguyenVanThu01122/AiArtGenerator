@@ -29,4 +29,17 @@ const LoginNotification = (payload: boolean) => {
     payload,
   };
 };
-export { LoginNotification, saveCloseMenu, saveLogin, saveToken, saveUser };
+const boxProfile = (payload: boolean) => {
+  return {
+    type: "BOX_PROFILE",
+    payload,
+  };
+};
+export {
+  LoginNotification,
+  boxProfile,
+  saveCloseMenu,
+  saveLogin,
+  saveToken,
+  saveUser,
+};

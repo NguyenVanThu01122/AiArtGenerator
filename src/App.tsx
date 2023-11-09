@@ -1,15 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Layout } from "./Layout";
 import AiArtGenerator from "./pages/AiArtGenerator";
-import AiBackgroundChanger from "./pages/AiBackgroundChanger";
+import AiBackgroundRemove from "./pages/AiBackgroundRemove";
 import { AiPhotoEnhancer } from "./pages/AiPhotoEnhancer";
 import ChangePassword from "./pages/ChangePassword";
 import Home from "./pages/Home";
+import { HomeNew } from "./pages/HomeNew";
+import { MyAccount } from "./pages/MyAccount";
 import MyAvatars from "./pages/MyAvatars";
 import Pricing from "./pages/Pricing";
 import { Register } from "./pages/Register";
 import { SignIn } from "./pages/SignIn";
 import VerifyRegister from "./pages/VerifyRegister";
+import Error from "./pages/Error";
 function App() {
   return (
     <BrowserRouter>
@@ -21,12 +24,13 @@ function App() {
           <Route path="/ai-photo-enhancer" element={<AiPhotoEnhancer />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route
-            path="/ai-background-changer"
-            element={<AiBackgroundChanger />}
+            path="/ai-background-remove"
+            element={<AiBackgroundRemove />}
           />
+          <Route path="/my-account" element={<MyAccount />} />
         </Route>
-
-
+        <Route path="*" element={<Error />} />
+        <Route path="/home-new" element={<HomeNew />}></Route>
         <Route path="/change-password" element={<ChangePassword />}></Route>
         <Route path="/verify-register" element={<VerifyRegister />} />
         <Route path="/sign-in" element={<SignIn />} />

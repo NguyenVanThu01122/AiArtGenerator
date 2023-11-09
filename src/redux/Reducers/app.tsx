@@ -4,6 +4,7 @@ interface State {
   login: boolean;
   closeMenu: boolean;
   loginNotification: boolean;
+  boxProfile: boolean;
 }
 
 const initalState: State = {
@@ -12,6 +13,7 @@ const initalState: State = {
   login: localStorage.getItem("token") ? true : false,
   closeMenu: false,
   loginNotification: false,
+  boxProfile: false,
 };
 
 export const handleReducer = (
@@ -43,7 +45,12 @@ export const handleReducer = (
     case "LOGIN_NOTIFICATION":
       return {
         ...state,
-        loginNotification: action.payload,  
+        loginNotification: action.payload,
+      };
+    case "BOX_PROFILE":
+      return {
+        ...state,
+        boxProfile: action.payload,
       };
     default:
       return state;

@@ -35,6 +35,7 @@ export function SignIn() {
       email: value?.email,
       password: value?.password,
     };
+    
     privateAxios
       .post("/auth/login", bodyLogin)
       .then((res) => {
