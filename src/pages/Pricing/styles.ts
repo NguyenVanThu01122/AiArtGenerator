@@ -100,6 +100,7 @@ export const BlockContents = styled.div`
             }
           }
           .title-eco {
+            font-size: 18px;
             color: #00ffe0;
             font-weight: 600;
             line-height: 150%; /* 27px */

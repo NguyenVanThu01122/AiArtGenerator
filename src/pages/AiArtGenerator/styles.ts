@@ -884,12 +884,9 @@ export const ModalNotificationLogin = styled(Modal)`
       margin-top: 15px;
       margin-bottom: 0px;
     }
-    .anticon svg {
-      margin-top: -20px;
-      margin-right: -30px;
-      &:hover {
-        color: red;
-      }
+    .ant-modal-close {
+      top: 5px;
+      right: 6px;
     }
     .ant-modal-content {
       padding: 5px;

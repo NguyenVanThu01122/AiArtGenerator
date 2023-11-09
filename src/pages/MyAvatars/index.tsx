@@ -88,7 +88,7 @@ function MyAvatars() {
   const handleDownloadImg = () => {
     const a = document.createElement("a");
     a.href = image;
-    a.download = "avatar-img.png";
+    a.download = "my-image.jpg";
     a.click();
   };
 
@@ -136,11 +136,13 @@ function MyAvatars() {
   const handleClickSelect = () => {
     setIsCheckbox(!isCheckbox);
   };
+
   // hàm chọn tất cả checkbox muốn delete
   const handleClickSelectAll = () => {
     const arrId = listResultImg.map((item: any) => item?.id);
     setListId(arrId);
   };
+  
   // hàm hủy bỏ item đã chọn
   const handleClickCancelAll = () => {
     setIsCheckbox(false);

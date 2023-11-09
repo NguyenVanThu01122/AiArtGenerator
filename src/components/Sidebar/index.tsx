@@ -15,10 +15,16 @@ import iconTiktok from "../../images/iconTiktok.svg";
 import iconTwitter from "../../images/iconTwitter.svg";
 import { WrapperSidebar } from "./styles";
 
-export function Sidebar() {
+function Sidebar({ boxProfileHide }: any) {
   const navigate = useNavigate();
   const pathName = window.location.pathname;
   const closeMenu = useSelector((state: any) => state.app.closeMenu);
+
+  // hàm navigate chuyển hướng
+  const handleRedirect = (url: string) => {
+    navigate(url);
+    boxProfileHide();
+  };
 
   return (
     <WrapperSidebar closeMenu={closeMenu}>
@@ -30,7 +36,7 @@ export function Sidebar() {
         <Tooltip placement="right" title={closeMenu && "Home"}>
           <div
             className={`item-menu ${pathName === "/" && "border"} `}
-            onClick={() => navigate("/")}
+            onClick={() => handleRedirect("/")}
           >
             <img src={iconHome} alt="iconHome" />
             <span>Home</span>
@@ -39,7 +45,7 @@ export function Sidebar() {
         <Tooltip placement="right" title={closeMenu && "Pricing"}>
           <div
             className={`item-menu ${pathName === "/pricing" && "border"}`}
-            onClick={() => navigate("/pricing")}
+            onClick={() => handleRedirect("/pricing")}
           >
             <img src={iconPricing} alt="" />
             <span>Pricing</span>
@@ -48,7 +54,7 @@ export function Sidebar() {
         <Tooltip placement="right" title={closeMenu && "My Avatars"}>
           <div
             className={`item-menu ${pathName === "/my-avatars" && "border"}`}
-            onClick={() => navigate("/my-avatars")}
+            onClick={() => handleRedirect("/my-avatars")}
           >
             <FontAwesomeIcon className="ic-avatar" icon={faImage} />
             <span>My Avatars</span>
@@ -61,7 +67,7 @@ export function Sidebar() {
               className={`item-menu ${
                 pathName === "/ai-art-generator" && "border"
               }`}
-              onClick={() => navigate("/ai-art-generator")}
+              onClick={() => handleRedirect("/ai-art-generator")}
             >
               <img src={iconAiArtGenerator} alt="iconAiArtGenerator" />
               <span>Ai Art Generator</span>
@@ -72,7 +78,7 @@ export function Sidebar() {
               className={`item-menu ${
                 pathName === "/ai-photo-enhancer" && "border"
               }`}
-              onClick={() => navigate("/ai-photo-enhancer")}
+              onClick={() => handleRedirect("/ai-photo-enhancer")}
             >
               <img src={iconAiPhoto} alt="iconAiPhoto" />
               <span>AI Photo Enhancer</span>
@@ -80,16 +86,16 @@ export function Sidebar() {
           </Tooltip>
           <Tooltip
             placement="right"
-            title={closeMenu && "Ai BacKground Change"}
+            title={closeMenu && "Ai BacKground Remove"}
           >
             <div
               className={`item-menu ${
-                pathName === "/ai-background-changer" && "border"
+                pathName === "/ai-background-remove" && "border"
               } `}
-              onClick={() => navigate("/ai-background-changer")}
+              onClick={() => handleRedirect("/ai-background-remove")}
             >
               <img src={iconAiBackgroundChange} alt="iconAiPhoto" />
-              <span>AI Background Changer</span>
+              <span>AI Background Remove</span>
             </div>
           </Tooltip>
         </div>
@@ -128,3 +134,4 @@ export function Sidebar() {
     </WrapperSidebar>
   );
 }
+export default Sidebar;
