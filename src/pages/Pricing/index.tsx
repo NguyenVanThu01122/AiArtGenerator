@@ -9,10 +9,9 @@ import imgSlider from "../../images/Pricing/icon-slider.svg";
 
 import { useEffect, useRef, useState } from "react";
 import Footer from "../../components/Footer";
-import { privateAxios } from "../../service/axios";
+import { privateAxios } from "../../services/axios";
 
 import { useCheckLogin } from "../../utils/useCheckLogin";
-import { useGetInforUser } from "../../utils/useGetInforUser";
 import {
   BlockContents,
   ItemCarousel,

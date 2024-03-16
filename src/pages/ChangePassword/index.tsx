@@ -1,7 +1,7 @@
 import { Button, Form, Input, message } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import logo from "../../images/iconLogin.png";
-import { privateAxios } from "../../service/axios";
+import { privateAxios } from "../../services/axios";
 import { FormChangePassword, ItemImage, WrapperChangePassword } from "./styles";
 function ChangePassword() {
   const [form] = Form.useForm();

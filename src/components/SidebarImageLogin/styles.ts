@@ -33,19 +33,17 @@ export const WrapperSidebarImage = styled.div`
     text-align: center;
     font-size: large;
     letter-spacing: 4px; //xác định khoảng cách giữa các ký tự trong văn bản
-    margin-top: 16px;
-    /* animation: welcomAnimationLeftRigth 5s  infinite;
-    animation-delay: 2s;
-    border: 1px solid red;
-    @keyframes welcomAnimationLeftRigth {
+    animation: welcomeAnimationLeftRight 5s infinite;
+    animation-delay: 3s;
+    @keyframes welcomeAnimationLeftRight {
       from {
-        transform: translatey(100px);
+        transform: rotateX("angle");
         opacity: 0;
       }
       to {
-        transform: translatey(0);
+        transform: rotateX("angle");
         opacity: 1;
       }
-    } */
+    }
   }
 `;

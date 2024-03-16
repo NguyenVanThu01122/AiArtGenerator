@@ -13,15 +13,6 @@ export const WrapperFooter = styled.div`
     color: var(--text-secondary, #d2d2d2);
     font-size: 13px;
   }
-  .group-text {
-    display: flex;
-    gap: 20px;
-    div {
-      color: var(--text-secondary, #d2d2d2);
-      cursor: pointer;
-      font-size: 13px;
-    }
-  }
   @media screen and (max-width: 768px) {
     display: block;
     text-align: center;
@@ -29,13 +20,23 @@ export const WrapperFooter = styled.div`
     & > div:first-child {
       margin-top: 15px;
     }
-    .group-text {
-      justify-content: center;
-      gap: 15px;
-      margin: 10px 0px;
-      div {
-        font-size: 12px;
-      }
+  }
+`;
+
+export const GroupText = styled.div`
+  display: flex;
+  gap: 20px;
+  div {
+    color: var(--text-secondary, #d2d2d2);
+    cursor: pointer;
+    font-size: 13px;
+  }
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+    gap: 15px;
+    margin: 10px 0px;
+    div {
+      font-size: 12px;
     }
   }
 `;

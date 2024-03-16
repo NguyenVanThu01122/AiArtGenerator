@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { saveUser } from "../redux/Actions/app";
-import { privateAxios } from "../service/axios";
+import { privateAxios } from "../services/axios";
+import { ERROR_MESSAGES } from "./constants";
 
 export const useGetInforUser = () => {
   const login = useSelector((state: any) => state.app.login);
@@ -14,7 +16,7 @@ export const useGetInforUser = () => {
       .then((res) => {
         dispatch(saveUser(res.data?.data));
       })
-      .catch((error) => {});
+      .catch((error) => toast.error(ERROR_MESSAGES.SERVER_ERROR));
   };
 
   useEffect(() => {
