@@ -7,7 +7,7 @@ interface State {
   boxProfile: boolean;
 }
 
-const initalState: State = {
+const initialState: State = {
   user: null,
   token: localStorage.getItem("token") || "",
   login: localStorage.getItem("token") ? true : false,
@@ -17,7 +17,7 @@ const initalState: State = {
 };
 
 export const handleReducer = (
-  state = initalState,
+  state = initialState,
   action: { type: string; payload: any }
 ) => {
   switch (action.type) {

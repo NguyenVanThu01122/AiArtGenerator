@@ -34,7 +34,7 @@ function Header() {
   const [savePathName, setSavePathName] = useState("");
   const users = useSelector((state: any) => state.app?.user);
   const closeMenu = useSelector((state: any) => state.app.closeMenu);
-  const [isOpenMenu, setisOpenMenu] = useState(false);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isBoxProfile, setIsBoxProfile] = useState(false);
   const profileRef = useRef<HTMLImageElement | null>(null); // Đảm bảo kiểu dữ liệu của ref
 
@@ -83,22 +83,22 @@ function Header() {
     navigate("/sign-in");
   };
 
-  const hanleOpenAndCloseMenu = () => {
+  const handleOpenAndCloseMenu = () => {
     dispatch(saveCloseMenu(!closeMenu));
   };
 
   const showMenu = () => {
-    setisOpenMenu(true);
+    setIsOpenMenu(true);
   };
 
   const handleCloseMenu = () => {
-    setisOpenMenu(false);
+    setIsOpenMenu(false);
   };
 
   // hàm navigate chuyển hướng
   const handleRedirect = (url: string) => {
     navigate(url);
-    setisOpenMenu(false);
+    setIsOpenMenu(false);
     setIsBoxProfile(false);
   };
   // hàm chuyển đổi trạng thái của boxProfile
@@ -136,14 +136,14 @@ function Header() {
         {closeMenu ? (
           <img
             className="ic-close"
-            onClick={hanleOpenAndCloseMenu}
+            onClick={handleOpenAndCloseMenu}
             src={iconOpenSidebar}
             alt=""
           />
         ) : (
           <img
             className="ic-close"
-            onClick={hanleOpenAndCloseMenu}
+            onClick={handleOpenAndCloseMenu}
             src={iconCloseSidebar}
             alt=""
           />
@@ -268,6 +268,7 @@ function Header() {
           </div>
         </ItemDrawer>
       </ItemMenu>
+
       <div className="logo-creator" onClick={() => navigate("/")}>
         <img src={logoCreator} alt="iconAiArt" />
         <span>CreatorHub</span>

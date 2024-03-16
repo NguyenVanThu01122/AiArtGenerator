@@ -4,15 +4,15 @@ import AiArtGenerator from "./pages/AiArtGenerator";
 import AiBackgroundRemove from "./pages/AiBackgroundRemove";
 import { AiPhotoEnhancer } from "./pages/AiPhotoEnhancer";
 import ChangePassword from "./pages/ChangePassword";
+import Error from "./pages/Error";
 import Home from "./pages/Home";
 import { HomeNew } from "./pages/HomeNew";
 import { MyAccount } from "./pages/MyAccount";
 import MyAvatars from "./pages/MyAvatars";
 import Pricing from "./pages/Pricing";
-import { Register } from "./pages/Register";
+import Register from "./pages/Register";
 import { SignIn } from "./pages/SignIn";
 import VerifyRegister from "./pages/VerifyRegister";
-import Error from "./pages/Error";
 function App() {
   return (
     <BrowserRouter>

@@ -1,30 +1,59 @@
-import { Form, Input, message } from "antd";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import AnimationStar from "../../components/AnimationStar";
+import EmailSentDialog from "../../components/SentEmailDialog";
 import { SidebarImageLogin } from "../../components/SidebarImageLogin";
-import icBack from "../../images/ic-back.svg";
-import iconDiscord from "../../images/iconDiscord.svg";
-import iconFacebook from "../../images/iconFacebook.svg";
-import iconLogin from "../../images/iconLogin.png";
-import icongg from "../../images/icongg.svg";
-import { privateAxios } from "../../service/axios";
+import TextFieldController from "../../components/Ui/TextFieldController ";
+import ImageGeneral from "../../components/Ui/image";
+import { TextFieldType } from "../../components/Ui/textFieldCommon";
+import { RegisterType, register } from "../../services/auth";
 import {
-  FormSignUp,
-  ItemFormSignUp,
-  ItemVerifyEmail,
-  ModalSentEmail,
+  imageDiscord,
+  imageFacebook,
+  imageLogin,
+  imagegg,
+} from "../../utils/images";
+import {
+  handleFacebookAuth,
+  handleGoogleAuth,
+} from "../../utils/redirectToAuthProvider";
+import {
+  confirmPasswordValidation,
+  validateEmail,
+  validateFirstName,
+  validateLastName,
+  validatePassword,
+} from "../../utils/validationRules";
+import {
+  BoxContent,
+  ContainerRegister,
+  GroupImageGeneral,
+  GroupSpan,
+  OptionLogin,
+  OptionSubmit,
+  SignUpOptions,
+  StyledFormControl,
+  SubmitLogin,
+  SubmitRegister,
+  TitleForm,
   WrapperRegister,
 } from "./styles";
 
-export function Register() {
-  const [isModalSentEmail, setIsModalSentEmail] = useState(false);
-
-  const [form] = Form.useForm();
+export default function Register() {
   const navigate = useNavigate();
+  const [openDialogSentEmail, setOpenDialogSentEmail] = useState(false);
+  const {
+    control,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // hàm xử lý form register
-  const handleOnFinishRegister = (value: any) => {
+  const handleOnFinishRegister = (value: RegisterType) => {
     const bodyRegister = {
       firstName: value.firstName,
       lastName: value.lastName,
@@ -32,200 +61,140 @@ export function Register() {
       password: value.password,
       redirectUrl: "http://localhost:3000/verify-register",
     };
-    privateAxios
-      .post("/auth/create", bodyRegister)
+    register(bodyRegister)
       .then((res) => {
-        form.resetFields();
-        setIsModalSentEmail(true);
+        setOpenDialogSentEmail(true);
       })
-      .catch((error) => {
-        message.error(error.response?.data?.message);
-      });
+      .catch((error) => toast.error(error.response?.data?.message));
   };
 
-  const handleCancelModal = () => {
-    setIsModalSentEmail(false);
+  const handleClose = () => {
+    setOpenDialogSentEmail(false);
+    reset(); // Reset form về trạng thái rỗng
   };
 
-  // hàm đăng ký bằng google
-  const handleRegisterGoogle = () => {
-    window.location.href = `${process.env.REACT_APP_BASE_URL}/google?redirect_url=${window.location.origin}`;
-    // window.location.href = `http://localhost:9090/google?redirect_url=${window.location.origin}`;
-  };
-  // hàm đăng ký bằng facebook
-  const handleRegisterFacebook = () => {
-    window.location.href = `${process.env.REACT_APP_BASE_URL}/facebook?redirect_url=${window.location.origin}`;
-  };
-
-  const handleSubmit = () => {
-    form.submit();
-  };
-
+  const handleTryAgain = () => setOpenDialogSentEmail(false);
   return (
     <WrapperRegister>
       <AnimationStar />
       <SidebarImageLogin />
-      <ItemFormSignUp>
-        <img className="icon-login" src={iconLogin} alt="" />
-        <div>Sign up to your account</div>
-        <div className="group-img">
-          <img
-            className="icon-google"
-            onClick={handleRegisterGoogle}
-            src={icongg}
-            alt=""
-          />
-          <img className="icon-discord" src={iconDiscord} alt="" />
-          <img
-            className="icon-facebook"
-            onClick={handleRegisterFacebook}
-            src={iconFacebook}
-            alt=""
-          />
-        </div>
-        <div className="group-span">
-          <span></span>
-          <span>OR</span>
-          <span></span>
-        </div>
 
-        <FormSignUp
-          form={form}
-          onFinish={handleOnFinishRegister}
-          scrollToFirstError // tự động cuộn đến lỗi đầu tiên trong quá trình xử lý lỗi form
-        >
-          <div className="custom-input-name">
-            <Form.Item
-              className="first-name"
+      {/* content Register */}
+      <ContainerRegister>
+        <BoxContent>
+          <SignUpOptions>
+            <ImageGeneral className="logo-login" src={imageLogin} />
+            <TitleForm>Sign up to your account</TitleForm>
+            <GroupImageGeneral>
+              <ImageGeneral
+                className="icon-google"
+                onClick={handleGoogleAuth}
+                src={imagegg}
+              />
+              <ImageGeneral className="icon-discord" src={imageDiscord} />
+              <ImageGeneral
+                className="icon-facebook"
+                onClick={handleFacebookAuth}
+                src={imageFacebook}
+              />
+            </GroupImageGeneral>
+            <GroupSpan>
+              <span></span>
+              <span>OR</span>
+              <span></span>
+            </GroupSpan>
+          </SignUpOptions>
+
+          {/* form Register */}
+          <StyledFormControl fullWidth>
+            <TextFieldController
               name="firstName"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter a valid !",
-                },
-              ]}
-            >
-              <Input className="custom-input" placeholder="First Name" />
-            </Form.Item>
-            <Form.Item
-              className="last-name"
+              control={control}
+              defaultValue=""
+              type={TextFieldType.TEXT}
+              label="First Name"
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              rules={validateFirstName}
+              errors={errors}
+            />
+            <TextFieldController
               name="lastName"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter a valid last name !",
-                },
-              ]}
-            >
-              <Input className="custom-input" placeholder="Last Name" />
-            </Form.Item>
-          </div>
-          <Form.Item
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "Please enter a valid email address !",
-              },
-              () => ({
-                validator(_, value: string) {
-                  if (value.includes("@") === false && value !== "") {
-                    return Promise.reject(
-                      new Error("Please enter a valid email address !")
-                    );
-                  } else {
-                    return Promise.resolve();
-                  }
-                },
-              }),
-            ]}
-          >
-            <Input
-              className="custom-input"
-              type="email"
-              placeholder="Email Address"
+              control={control}
+              defaultValue=""
+              type={TextFieldType.TEXT}
+              label="Last Name"
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              errors={errors}
+              rules={validateLastName}
             />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please enter password!",
-              },
-              {
-                min: 8,
-                message: "Password must be at least eight characters!",
-              },
-            ]}
-          >
-            <Input.Password
-              className="custom-input custom-password"
-              placeholder="Password"
+            <TextFieldController
+              name="email"
+              control={control}
+              defaultValue=""
+              type={TextFieldType.EMAIL}
+              label="Email"
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              errors={errors}
+              rules={validateEmail}
             />
-          </Form.Item>
-          <Form.Item
-            name="confirm"
-            rules={[
-              {
-                required: true,
-                message: "Please enter a valid confirm password!",
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value: number) {
-                  if (!value || getFieldValue("password") === value) {
-                    return Promise.resolve();
-                  } else {
-                    return Promise.reject(
-                      new Error("The password confirmation does not match !")
-                    );
-                  }
+            <TextFieldController
+              name="password"
+              control={control}
+              defaultValue=""
+              type={TextFieldType.PASSWORD}
+              label="Password"
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              rules={validatePassword}
+              errors={errors}
+            />
+            <TextFieldController
+              name="confirm"
+              control={control}
+              defaultValue=""
+              type={TextFieldType.PASSWORD}
+              label="ConfirmPassword"
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              rules={{
+                required: "Please confirm your password !",
+                validate: {
+                  matchesPassword: (value: number) =>
+                    confirmPasswordValidation(value, watch("password")),
                 },
-              }),
-            ]}
-          >
-            <Input.Password
-              className="custom-input custom-password"
-              placeholder="Confirm Password"
+              }}
+              errors={errors}
             />
-          </Form.Item>
-        </FormSignUp>
-        <div className="submit-register" onClick={handleSubmit}>
-          Sign up
-        </div>
-        <div className="item-login">
-          <div>Don't have an account?</div>
-          <div className="signInAnimation" onClick={() => navigate("/sign-in")}>
-            Sign in
-          </div>
-        </div>
-        <div>VisionLab., Inc</div>
-      </ItemFormSignUp>
-
-      {isModalSentEmail && (
-        <ModalSentEmail
-          open={isModalSentEmail}
-          footer={false}
-          onCancel={handleCancelModal}
-        >
-          <ItemVerifyEmail>
-            <img className="ic-logo" src={iconLogin} alt="" />
-            <div>Email Sent</div>
-            <div>
-              We've sent you an email with a link to verify your account. Click
-              link in email to verify.
-            </div>
-            <div>
-              Wrong email? <span onClick={handleCancelModal}>Try Again</span>
-            </div>
-            <div className="item-back" onClick={() => navigate("/sign-in")}>
-              <img src={icBack} alt="" />
-              <div>Back to sign in</div>
-            </div>
+          </StyledFormControl>
+          <OptionSubmit>
+            <SubmitRegister onClick={handleSubmit(handleOnFinishRegister)}>
+              Sign up
+            </SubmitRegister>
+            <OptionLogin>
+              <div>Don't have an account?</div>
+              <SubmitLogin onClick={() => navigate("/sign-in")}>
+                Sign in
+              </SubmitLogin>
+            </OptionLogin>
             <div>VisionLab., Inc</div>
-          </ItemVerifyEmail>
-        </ModalSentEmail>
-      )}
+          </OptionSubmit>
+        </BoxContent>
+      </ContainerRegister>
+
+      {/* Dialog VerifyEmail */}
+      <EmailSentDialog
+        open={openDialogSentEmail}
+        onClose={handleClose}
+        handleTryAgain={handleTryAgain}
+      />
     </WrapperRegister>
   );
 }
