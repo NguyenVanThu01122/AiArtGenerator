@@ -1,5 +1,4 @@
 import { GroupDivEmpty } from "./styles";
-
   function AnimationStar() {
   return (
     <GroupDivEmpty>

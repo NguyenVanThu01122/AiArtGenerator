@@ -13,7 +13,7 @@ import iconUploadImg from "../../images/icon-upload-img.svg";
 import imgLoading from "../../images/img-loading1.gif";
 import { privateAxios } from "../../services/axios";
 import { useCheckLogin } from "../../utils/useCheckLogin";
-import { useGetInforUser } from "../../utils/useGetInforUser";
+import { useGetInfoUser } from "../../utils/useGetInfoUser";
 import {
   BoxResult,
   BoxUpload,
@@ -28,7 +28,7 @@ function AiBackgroundRemove() {
   const [resultImage, setResultImage] = useState("");
   const [isloading, setIsloading] = useState(false);
   const [login, navigateLogin] = useCheckLogin();
-  const [getUser] = useGetInforUser();
+  const [getUser] = useGetInfoUser();
   const user = useSelector((state: any) => state.app.user);
   const navigate = useNavigate();
 

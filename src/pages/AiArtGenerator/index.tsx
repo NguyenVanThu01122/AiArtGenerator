@@ -24,7 +24,7 @@ import {
   MAX_SIZE_INBYTES,
 } from "../../utils/constants";
 import { useCheckLogin } from "../../utils/useCheckLogin";
-import { useGetInforUser } from "../../utils/useGetInforUser";
+import { useGetInfoUser } from "../../utils/useGetInfoUser";
 import {
   ModalNotificationLogin,
   ResultsItem,
@@ -63,7 +63,7 @@ function AiArtGenerator() {
   };
 
   const user = useSelector((state: any) => state.app.user);
-  const [getUser] = useGetInforUser();
+  const [getUser] = useGetInfoUser();
 
   // hàm lấy list image
   const handleGetListImage = async () => {

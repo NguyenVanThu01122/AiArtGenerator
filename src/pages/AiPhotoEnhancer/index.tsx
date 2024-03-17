@@ -17,7 +17,7 @@ import { LoginNotification } from "../../redux/Actions/app";
 import { privateAxios } from "../../services/axios";
 import { FILE_FORMAT, MAX_SIZE_INBYTES } from "../../utils/constants";
 import { useCheckLogin } from "../../utils/useCheckLogin";
-import { useGetInforUser } from "../../utils/useGetInforUser";
+import { useGetInfoUser } from "../../utils/useGetInfoUser";
 import { PageAiPhotoEnhancer, SectionContents } from "./styles";
 
 export function AiPhotoEnhancer() {
@@ -31,7 +31,7 @@ export function AiPhotoEnhancer() {
     (state: any) => state.app.LoginNotification
   );
   const user = useSelector((state: any) => state.app.user);
-  const [getUser] = useGetInforUser();
+  const [getUser] = useGetInfoUser();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

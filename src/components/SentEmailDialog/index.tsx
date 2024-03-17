@@ -13,7 +13,6 @@ import {
   TitleDialog,
   TryAgain,
 } from "./styles";
-
 interface EmailSentDialogProps {
   open: boolean;
   onClose: () => void;

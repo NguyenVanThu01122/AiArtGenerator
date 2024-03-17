@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 export const GroupDivEmpty = styled.div`
   #stars {
     width: 1px;

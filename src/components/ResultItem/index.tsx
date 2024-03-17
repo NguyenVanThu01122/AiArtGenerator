@@ -1,6 +1,5 @@
 import { Button } from "antd";
 import { ResultsItem } from "./styles";
-
 export function ResultItem() {
   return (
     <ResultsItem>
@@ -72,3 +71,4 @@ export function ResultItem() {
     </ResultsItem>
   );
 }
+
