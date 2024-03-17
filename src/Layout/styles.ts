@@ -4,7 +4,6 @@ export const WrapperLayout = styled.div`
   background-color: rgb(9, 9, 23);
   width: 100vw;
   height: 100vh;
-
   .box-content {
     display: flex;
     width: 100%;

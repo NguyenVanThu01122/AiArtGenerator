@@ -1,24 +1,22 @@
-import { message } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { privateAxios } from "../../service/axios";
-import { Wrapper } from "./styles";
+import { toast } from "react-toastify";
+import { verifytoken } from "../../services/auth";
+import { SUCCESS_MESSAGE } from "../../utils/constants";
+import { Content, Wrapper } from "./styles";
 
 export default function VerifyRegister() {
   const navigate = useNavigate();
-  const [isErrorVerify, setIsErrorVerify] = useState<any>();
+  const [isErrorVerify, setIsErrorVerify] = useState<boolean>();
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    
     // hàm xác thực người dùng mới
     const handleVerifyToken = async () => {
       try {
-        await privateAxios.get(`/auth/verify/${searchParams.get("token")}`);
+        await verifytoken(searchParams);
         navigate("/sign-in");
-        message.success(
-          "You have successfully registered. Please log in to continue."
-        );
+        toast.success(SUCCESS_MESSAGE.SUCCESS_REGISTER);
       } catch (error) {
         setIsErrorVerify(true);
       }
@@ -31,11 +29,11 @@ export default function VerifyRegister() {
   return (
     <Wrapper>
       {isErrorVerify && (
-        <div>
+        <Content>
           Your link has expired. Please{" "}
           <span onClick={() => navigate("/register")}>Register</span> again from
           the beginning to get the new link again.
-        </div>
+        </Content>
       )}
     </Wrapper>
   );

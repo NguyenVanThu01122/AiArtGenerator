@@ -8,7 +8,7 @@ import icGif1 from "../../images/icon-gif1.gif";
 
 // import icDeleteRed from "../../images/ic-delete-red.jpg";
 import icDeleteBlue from "../../images/ic-delete-blue.png";
-import { privateAxios } from "../../service/axios";
+import { privateAxios } from "../../services/axios";
 import {
   BoxImage,
   ModalDeleteImg,
@@ -142,7 +142,7 @@ function MyAvatars() {
     const arrId = listResultImg.map((item: any) => item?.id);
     setListId(arrId);
   };
-  
+
   // hàm hủy bỏ item đã chọn
   const handleClickCancelAll = () => {
     setIsCheckbox(false);

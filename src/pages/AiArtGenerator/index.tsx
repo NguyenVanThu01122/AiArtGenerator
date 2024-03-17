@@ -15,16 +15,16 @@ import iconCancel from "../../images/icon-cancel.svg";
 import iconRotate from "../../images/icon-rotare.svg";
 import iconShow from "../../images/icon-show.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
-import { privateAxios } from "../../service/axios";
+import { privateAxios } from "../../services/axios";
 import {
   DEFAULT_ALPHA,
   DEFAULT_SCALE,
   DEFAULT_STEPS,
   FILE_FORMAT,
   MAX_SIZE_INBYTES,
-} from "../../utils/contanst";
+} from "../../utils/constants";
 import { useCheckLogin } from "../../utils/useCheckLogin";
-import { useGetInforUser } from "../../utils/useGetInforUser";
+import { useGetInfoUser } from "../../utils/useGetInfoUser";
 import {
   ModalNotificationLogin,
   ResultsItem,
@@ -63,7 +63,7 @@ function AiArtGenerator() {
   };
 
   const user = useSelector((state: any) => state.app.user);
-  const [getUser] = useGetInforUser();
+  const [getUser] = useGetInfoUser();
 
   // hàm lấy list image
   const handleGetListImage = async () => {
@@ -617,7 +617,7 @@ function AiArtGenerator() {
           />
         </div>
       )}
-      
+
       {isLoginNotification && (
         <ModalNotificationLogin
           open={isLoginNotification}

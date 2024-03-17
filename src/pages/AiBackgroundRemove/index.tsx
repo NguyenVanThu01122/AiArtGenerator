@@ -11,10 +11,9 @@ import iconRotate from "../../images/icon-rotare.svg";
 import iconStar from "../../images/icon-star.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
 import imgLoading from "../../images/img-loading1.gif";
-import { privateAxios } from "../../service/axios";
-import { FILE_FORMAT, MAX_SIZE_INBYTES } from "../../utils/contanst";
+import { privateAxios } from "../../services/axios";
 import { useCheckLogin } from "../../utils/useCheckLogin";
-import { useGetInforUser } from "../../utils/useGetInforUser";
+import { useGetInfoUser } from "../../utils/useGetInfoUser";
 import {
   BoxResult,
   BoxUpload,
@@ -29,7 +28,7 @@ function AiBackgroundRemove() {
   const [resultImage, setResultImage] = useState("");
   const [isloading, setIsloading] = useState(false);
   const [login, navigateLogin] = useCheckLogin();
-  const [getUser] = useGetInforUser();
+  const [getUser] = useGetInfoUser();
   const user = useSelector((state: any) => state.app.user);
   const navigate = useNavigate();
 

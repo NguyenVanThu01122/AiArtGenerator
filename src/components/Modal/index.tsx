@@ -1,7 +1,6 @@
 import { Button, Modal } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 export function ModalNotification() {
   const [isOpen, setIsOpen] = useState(true);
   const navigate = useNavigate();
