@@ -27,7 +27,7 @@ function AiBackgroundRemove() {
   const [uploadedImage, setUploadedImage] = useState<any>("");
   const [resultImage, setResultImage] = useState("");
   const [isloading, setIsloading] = useState(false);
-  const [login, navigateLogin] = useCheckLogin();
+  const [login, checkLogin] = useCheckLogin();
   const [getUser] = useGetInfoUser();
   const user = useSelector((state: any) => state.app.user);
   const navigate = useNavigate();
@@ -57,9 +57,8 @@ function AiBackgroundRemove() {
 
   // hàm xóa background
   const handleRemoveBackground = () => {
-    if (!login) {
-      navigateLogin();
-      return;
+    if (typeof checkLogin === "function") {
+      checkLogin();
     }
     if (user.credits < 3) {
       message.error("Your credits is not enable. Please purchase credits!");

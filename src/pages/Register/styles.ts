@@ -142,7 +142,11 @@ export const StyledFormControl = styled(FormControl)`
   .MuiOutlinedInput-input {
     color: white;
     padding: 14px;
-    background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%);
+    background: radial-gradient(
+      ellipse at bottom,
+      #1b2735 0%,
+      #12141d 100%
+    ) !important;
   }
   .custom-label {
     color: gray;
