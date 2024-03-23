@@ -107,9 +107,9 @@ export const BoxSignIn = styled.div`
 `;
 
 export const ContentSignIn = styled.div`
-  max-width: 600px;
+  width: 560px;
   max-height: 650px;
-  padding: 20px 40px;
+  padding: 20px;
   box-shadow: 0px 0px 20px 2px gray;
   border: 1px solid gray;
   @media screen and (max-width: 768px) {

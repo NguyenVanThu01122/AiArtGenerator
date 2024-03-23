@@ -205,7 +205,7 @@ function Pricing() {
   const [listPricing, setListPricing] = useState([]);
   const [selectPrice, setSelectPrice] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [login, navigateLogin] = useCheckLogin();
+  const [checkLogin] = useCheckLogin();
 
   const getListPricing = () => {
     privateAxios
@@ -218,9 +218,8 @@ function Pricing() {
 
   // hàm xử lý thanh toán credits
   const handleStripeOrder = (id: string) => {
-    if (!login) {
-      navigateLogin();
-      return;
+    if (typeof checkLogin === "function") {
+      checkLogin();
     }
     setIsLoading(true);
     setSelectPrice(id);

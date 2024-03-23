@@ -13,6 +13,10 @@ import { saveLogin, saveToken } from "../../redux/Actions/app";
 import { FormValues, login } from "../../services/auth";
 import { SUCCESS_MESSAGE } from "../../utils/constants";
 import {
+  saveRefreshTokenLocalStorage,
+  saveTokenLocalStorage,
+} from "../../utils/handleTokenUtils";
+import {
   imageDiscord,
   imageFacebook,
   imageLogin,
@@ -24,6 +28,7 @@ import {
 } from "../../utils/redirectToAuthProvider";
 import { validateEmail, validatePassword } from "../../utils/validationRules";
 import { DialogForgotPassword } from "./components/DialogForgotPassword";
+import PasswordVisibilityToggle from "./components/PasswordVisibilityToggle";
 import {
   BoxSignIn,
   ContentSignIn,
@@ -46,8 +51,11 @@ import {
 export function SignIn() {
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [isModalPassword, setIsModalPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const {
     handleSubmit,
     control,
@@ -68,8 +76,8 @@ export function SignIn() {
       .then((res) => {
         dispatch(saveLogin(true));
         dispatch(saveToken(res.data?.token));
-        localStorage.setItem("token", res.data?.token);
-        localStorage.setItem("refreshToken", res.data?.refreshToken);
+        saveTokenLocalStorage("token", res.data?.token);
+        saveRefreshTokenLocalStorage("token", res.data?.refreshToken);
         navigate("/");
         toast.error(SUCCESS_MESSAGE.SUCCESS_LOGIN);
         reset();
@@ -123,7 +131,7 @@ export function SignIn() {
           <StyledFormControl fullWidth>
             <StyledFormGroup>
               <TextFieldController
-                name="Email"
+                name="email"
                 type={TextFieldType.EMAIL}
                 control={control}
                 errors={errors}
@@ -135,8 +143,10 @@ export function SignIn() {
                 rules={validateEmail}
               />
               <TextFieldController
-                name="Password"
-                type={TextFieldType.PASSWORD}
+                name="password"
+                type={
+                  showPassword ? TextFieldType.TEXT : TextFieldType.PASSWORD
+                }
                 control={control}
                 errors={errors}
                 label="Password"
@@ -145,6 +155,14 @@ export function SignIn() {
                 defaultValue=""
                 variant="outlined"
                 rules={validatePassword}
+                InputProps={{
+                  endAdornment: (
+                    <PasswordVisibilityToggle
+                      showPassword={showPassword}
+                      setShowPassword={setShowPassword}
+                    />
+                  ),
+                }}
               />
             </StyledFormGroup>
             <OptionItem>
@@ -166,6 +184,7 @@ export function SignIn() {
                 <Register onClick={() => navigate("/register")}>
                   Register
                 </Register>
+                ForgotPassword
               </RedirectSignOut>
               <div>VisionLab., Inc</div>
             </SubmitItem>

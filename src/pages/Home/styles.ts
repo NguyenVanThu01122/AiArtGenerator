@@ -74,7 +74,7 @@ export const ItemCarousel = styled(Carousel)`
         }
       }
       .custom-btn {
-        width: 210px;
+        width: 280px;
         height: 48px;
         display: flex;
         padding: 8px 24px;
@@ -213,7 +213,7 @@ export const SectionContents = styled.div`
         }
         .btn-try-now {
           display: flex;
-          padding: 8px 12px;
+          padding: 5px 12px;
           justify-content: center;
           align-items: center;
           gap: 8px;

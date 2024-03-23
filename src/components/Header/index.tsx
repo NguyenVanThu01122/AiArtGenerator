@@ -1,33 +1,51 @@
-import { Button } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import imgAvatarDefault from "../../images/avatar-default.jpg";
-import icCredits1 from "../../images/ic_credits1.svg";
 import iconCloseSidebar from "../../images/icon-close-sidebar.svg";
 import iconOpenSidebar from "../../images/icon-open-sidebar.svg";
-import logoCreator from "../../images/iconLogin1.png";
 
 import {
   saveCloseMenu,
   saveLogin,
   saveToken,
   saveUser,
-} from "../../reduxToolkit/AppSlice";
-import { RootState } from "../../reduxToolkit/RootReducer";
-import { removeRefreshToken, removeToken } from "../../utils/handleTokenUtils";
+} from "../../reduxToolkit/Slices/AppSlice";
+import { RootState } from "../../reduxToolkit/Slices/RootReducer";
+import {
+  isAuthenticated,
+  removeRefreshToken,
+  removeToken,
+} from "../../utils/handleTokenUtils";
+import { LogoCreatorHub } from "../LogoCreatorHub";
+import ButtonGeneral from "../Ui/button";
+import ImageGeneral from "../Ui/image";
 import MobileMenu from "./components/MobileMenu";
-import { BoxProfile, WrapperHeader } from "./styles";
+import UserInfo from "./components/UserInfo";
+import {
+  BoxAccount,
+  BoxProfile,
+  ContainerProfile,
+  ContentUser,
+  DisPlayPathName,
+  MenuItem,
+  MobileLogoCreator,
+  PathNameItem,
+  PathNameProducts,
+  SelectItem,
+  WrapperHeader,
+} from "./styles";
 
 function Header() {
   const pathName = window.location.pathname;
   const [savePathName, setSavePathName] = useState("");
   const users = useSelector((state: RootState) => state.app?.user);
-
-  const closeMenu = useSelector((state: RootState) => state.app.closeMenu);
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
-  const [isBoxProfile, setIsBoxProfile] = useState(false);
+  const toggleVisibility = useSelector(
+    (state: RootState) => state.app.closeMenu
+  );
+  const [isShowBoxProfile, setIsShowBoxProfile] = useState(false);
   const profileRef = useRef<HTMLImageElement | null>(null);
+  const loggedIn = isAuthenticated();
 
   const filterListPathName = ["/", "/pricing", "/my-account", "/my-avatars"];
   const navigate = useNavigate();
@@ -72,16 +90,16 @@ function Header() {
     navigate("/sign-in");
   };
 
-  const handleOpenAndCloseMenu = () => dispatch(saveCloseMenu(!closeMenu));
   // hàm navigate chuyển hướng
   const handleRedirect = (url: string) => {
     navigate(url);
-    setIsOpenMenu(false);
-    setIsBoxProfile(false);
+    setIsShowBoxProfile(false);
   };
 
+  const toggleMenuVisibility = () => dispatch(saveCloseMenu(!toggleVisibility));
+
   // hàm chuyển đổi trạng thái của boxProfile
-  const toggleBoxProfile = () => setIsBoxProfile(!isBoxProfile);
+  const toggleBoxProfile = () => setIsShowBoxProfile(!isShowBoxProfile);
 
   useEffect(() => {
     handleFilterPathName();
@@ -91,114 +109,86 @@ function Header() {
   useEffect(() => {
     // Hàm xử lý khi click ra ngoài hộp profile
     const handleDocumentClick = (e: any) => {
-      const target = e.target;
+      const target = e.target; // Lấy phần tử mà người dùng đã click vào
       if (
-        isBoxProfile &&
+        isShowBoxProfile &&
         profileRef.current &&
-        !profileRef.current.contains(target)
+        !profileRef.current.contains(target) // Kiểm tra xem phần tử mà user đã click vào có nằm trong hộp profile hay không
       ) {
-        setIsBoxProfile(false); // Nếu click ra ngoài hộp menu, ẩn hộp profile
+        setIsShowBoxProfile(false); // Nếu click ra ngoài hộp menu, ẩn hộp profile
       }
     };
     document.addEventListener("click", handleDocumentClick); // Dòng này lắng nghe sự kiện click lên toàn bộ tài liệu (document). Khi một sự kiện click xảy ra bất kỳ nơi nào trên trang, handleDocumentClick sẽ được gọi.
-
-    return () => {
-      document.removeEventListener("click", handleDocumentClick); // Cleanup listener khi component unmount
-    };
-  }, [isBoxProfile]);
+    return () => document.removeEventListener("click", handleDocumentClick); // Cleanup listener khi component unmount
+  }, [isShowBoxProfile]);
 
   return (
     <WrapperHeader>
-      <div className="item-title">
-        {closeMenu ? (
-          <img
+      <DisPlayPathName>
+        {toggleVisibility ? (
+          <ImageGeneral
             className="ic-close"
-            onClick={handleOpenAndCloseMenu}
+            onClick={toggleMenuVisibility}
             src={iconOpenSidebar}
             alt=""
           />
         ) : (
-          <img
+          <ImageGeneral
             className="ic-close"
-            onClick={handleOpenAndCloseMenu}
+            onClick={toggleMenuVisibility}
             src={iconCloseSidebar}
             alt=""
           />
         )}
-        <div>
+        <PathNameItem>
           {filterListPathName.includes(pathName) ? (
             savePathName
           ) : (
-            <div>
+            <PathNameProducts>
               Products <span>{savePathName}</span>
-            </div>
+            </PathNameProducts>
           )}
-        </div>
-      </div>
-      <MobileMenu />
+        </PathNameItem>
+      </DisPlayPathName>
 
-      <div className="logo-creator" onClick={() => navigate("/")}>
-        <img src={logoCreator} alt="iconAiArt" />
-        <span>CreatorHub</span>
-      </div>
-      {users ? (
-        <div className="box-account">
-          <div className="account-information">
-            <div>
-              {users?.lastName} <span>{users?.firstName}</span>
-            </div>
-            <div>
-              {users?.credits}{" "}
-              {users?.credits && users?.credits > 1 ? "credits" : "credit"}
-            </div>
-          </div>
-          <div ref={profileRef}>
-            <img
+      <MobileMenu />
+      <MobileLogoCreator>
+        <LogoCreatorHub />
+      </MobileLogoCreator>
+
+      {loggedIn ? (
+        <BoxAccount>
+          <UserInfo />
+          <ContainerProfile ref={profileRef}>
+            <ImageGeneral
               className="avatar"
               onClick={toggleBoxProfile}
               src={users?.avatar || imgAvatarDefault}
-              alt=""
             />
-            {isBoxProfile && (
+            {isShowBoxProfile && (
               <BoxProfile>
-                <div className="detail-user">
-                  <img
+                <ContentUser>
+                  <ImageGeneral
                     className="avatar"
                     src={users?.avatar || imgAvatarDefault}
-                    alt=""
                   />
-                  <div className="content-user">
-                    <div className="name">
-                      {users?.lastName} <span>{users?.firstName}</span>
-                    </div>
-                    <div className="credits">
-                      <img src={icCredits1} alt="" />
-                      {users?.credits}{" "}
-                      {users?.credits && users?.credits > 1
-                        ? "credits"
-                        : "credit"}
-                    </div>
-                  </div>
-                </div>
-                <div className="option-container">
-                  <div
-                    onClick={() => handleRedirect("/my-account")}
-                    className="item-menu"
-                  >
+
+                  <UserInfo isShowBoxProfile={isShowBoxProfile} />
+                </ContentUser>
+                <SelectItem>
+                  <MenuItem onClick={() => handleRedirect("/my-account")}>
                     My Account
-                  </div>
-                  <div className="item-menu" onClick={handleLogout}>
-                    Logout
-                  </div>
-                </div>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </SelectItem>
               </BoxProfile>
             )}
-          </div>
-        </div>
+          </ContainerProfile>
+        </BoxAccount>
       ) : (
-        <Button onClick={() => navigate("/sign-in")} className="btn-login">
-          Đăng nhập
-        </Button>
+        <ButtonGeneral onClick={() => navigate("/sign-in")}>
+          Log In
+        </ButtonGeneral>
       )}
     </WrapperHeader>
   );
