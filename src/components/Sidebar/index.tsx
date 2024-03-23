@@ -12,8 +12,7 @@ import {
 } from "../../images/iconAiPhoto.svg";
 import iconHome from "../../images/iconHome.svg";
 import iconAiArt from "../../images/iconLogin1.png";
-
-import { RootState } from "../../reduxToolkit/RootReducer";
+import { RootState } from "../../reduxToolkit/Slices/RootReducer";
 import FollowSocialMedia from "../FollowSocialMedia";
 import {
   ContainerMenu,
@@ -25,13 +24,10 @@ import {
   WrapperMenu,
   WrapperSidebar,
 } from "./styles";
-interface SidebarProps {
-  boxProfileHide: () => void;
-}
 interface TypeMenuData {
   title: string;
   path: string;
-  icon: any;
+  icon: string;
 }
 
 export default function Sidebar() {
@@ -42,7 +38,6 @@ export default function Sidebar() {
   // hàm navigate chuyển hướng
   const handleRedirect = (url: string) => {
     navigate(url);
-    // boxProfileHide();
   };
 
   const MenuItem = ({ title, path, icon }: TypeMenuData) => (

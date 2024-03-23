@@ -13,9 +13,16 @@ export const validateEmail = {
 export const validatePassword = {
   required: "Please enter your password !",
   minLength: {
-    value: 8,
+    value: 6,
     message: "Password must be at least eight characters !",
   },
+};
+
+export const confirmPassword = (value: number, confirm: number) => {
+  if (value !== confirm) {
+    return "Passwords do not match !";
+  }
+  return true;
 };
 
 export const confirmPasswordValidation = (value: number, password: number) => {

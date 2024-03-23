@@ -2,27 +2,34 @@ import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
+import { RootState } from "../reduxToolkit/Slices/RootReducer";
+import {
+  BoxContent,
+  MainContent,
+  ParentContent,
+  WrapperLayout,
+} from "./styles";
 import { useGetInfoUser } from "../utils/useGetInfoUser";
-import { WrapperLayout } from "./styles";
+import { useEffect } from "react";
 
 export function Layout() {
-  useGetInfoUser();
-  const closeMenu = useSelector((state: any) => state.app.closeMenu);
-  // const [isBoxProfile, setIsBoxProfile] = useState(false);
-  // const toggleBoxProfile = () => {
-  //   setIsBoxProfile(!isBoxProfile);
-  // };
+  const closeMenu = useSelector((state: RootState) => state.app.closeMenu);
+  const [getUser] = useGetInfoUser();
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <WrapperLayout>
-      <div className="box-content">
+      <BoxContent>
         <Sidebar />
-        <div className={`main-content ${closeMenu && "close-box"}`}>
+        <MainContent className={`${closeMenu && "close-box"}`}>
           <Header />
-          <div className="parent-content">
+          <ParentContent>
             <Outlet />
-          </div>
-        </div>
-      </div>
+          </ParentContent>
+        </MainContent>
+      </BoxContent>
     </WrapperLayout>
   );
 }

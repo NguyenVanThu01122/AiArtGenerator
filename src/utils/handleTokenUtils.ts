@@ -1,3 +1,13 @@
+// lưu token
+export const saveTokenLocalStorage = (key: string, value: string) => {
+  return localStorage.setItem(key, value);
+};
+
+//lưu refresh token
+export const saveRefreshTokenLocalStorage = (key: string, value: string) => {
+  return localStorage.setItem(key, value);
+};
+
 // Lấy token từ localStorage
 export const getTokenLocalStorage = (): string | null => {
   return localStorage.getItem("token");

@@ -20,12 +20,11 @@ import {
   handleGoogleAuth,
 } from "../../utils/redirectToAuthProvider";
 import {
-  confirmPasswordValidation,
   validateEmail,
   validateFirstName,
   validateLastName,
-  validatePassword,
 } from "../../utils/validationRules";
+import PasswordVisibilityToggle from "../SignIn/components/PasswordVisibilityToggle";
 import {
   BoxContent,
   ContainerRegister,
@@ -44,13 +43,19 @@ import {
 export default function Register() {
   const navigate = useNavigate();
   const [openDialogSentEmail, setOpenDialogSentEmail] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
     control,
     handleSubmit,
     watch,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onChange",
+  });
+  const password = watch("password");
+  const confirm = watch("confirm");
 
   // hàm xử lý form register
   const handleOnFinishRegister = (value: RegisterType) => {
@@ -78,7 +83,6 @@ export default function Register() {
     <WrapperRegister>
       <AnimationStar />
       <SidebarImageLogin />
-
       {/* content Register */}
       <ContainerRegister>
         <BoxContent>
@@ -147,31 +151,57 @@ export default function Register() {
               name="password"
               control={control}
               defaultValue=""
-              type={TextFieldType.PASSWORD}
               label="Password"
               fullWidth
               margin="normal"
               variant="outlined"
-              rules={validatePassword}
               errors={errors}
+              type={showPassword ? TextFieldType.TEXT : TextFieldType.PASSWORD}
+              InputProps={{
+                endAdornment: (
+                  <PasswordVisibilityToggle
+                    showPassword={showPassword}
+                    setShowPassword={setShowPassword}
+                  />
+                ),
+              }}
+              rules={{
+                required: "Please enter your password!",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least eight characters!",
+                },
+                validate: (value: string) =>
+                  value === confirm || "Passwords do not match",
+              }}
             />
             <TextFieldController
               name="confirm"
               control={control}
               defaultValue=""
-              type={TextFieldType.PASSWORD}
-              label="ConfirmPassword"
+              label="Confirm Password"
               fullWidth
               margin="normal"
               variant="outlined"
-              rules={{
-                required: "Please confirm your password !",
-                validate: {
-                  matchesPassword: (value: number) =>
-                    confirmPasswordValidation(value, watch("password")),
-                },
-              }}
               errors={errors}
+              type={
+                showConfirmPassword
+                  ? TextFieldType.TEXT
+                  : TextFieldType.PASSWORD
+              }
+              InputProps={{
+                endAdornment: (
+                  <PasswordVisibilityToggle
+                    showPassword={showConfirmPassword}
+                    setShowPassword={setShowConfirmPassword}
+                  />
+                ),
+              }}
+              rules={{
+                required: "Please confirm your password!",
+                validate: (value: string) =>
+                  value === password || "Passwords do not match",
+              }}
             />
           </StyledFormControl>
           <OptionSubmit>

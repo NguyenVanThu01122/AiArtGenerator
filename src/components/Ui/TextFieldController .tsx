@@ -12,6 +12,7 @@ interface TextFieldControllerProps {
   margin?: TextFieldProps["margin"];
   fullWidth?: boolean;
   errors: Record<string, any>;
+  InputProps?: any;
 }
 const TextFieldController = ({
   name,
@@ -24,6 +25,7 @@ const TextFieldController = ({
   margin,
   fullWidth,
   errors,
+  InputProps,
 }: TextFieldControllerProps) => {
   return (
     <Controller
@@ -40,9 +42,9 @@ const TextFieldController = ({
           margin={margin}
           fullWidth={fullWidth}
           error={!!errors[name]}
-          InputProps={{ className: "white-text-input" }}
+          InputProps={{ className: "white-text-input", ...InputProps }}
           InputLabelProps={{
-            className: "custom-label",
+            className: "custom-label"
           }}
           helperText={
             errors[name]

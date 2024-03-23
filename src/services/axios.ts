@@ -23,29 +23,30 @@ privateAxios.interceptors.request.use(
 
 // Buoc 2: Gui api len backend
 // Buoc 3: Duoc chay sau khi nhan duoc phan hoi tu backend
-privateAxios.interceptors.response.use(
-  (response) => {
-    // lam cai gi do voi du lieu nhan duoc
-    return response;
-  },
-  (error) => {
-    if (error.response.status === 401) {
-      privateAxios
-        .post("/auth/generate-new-token")
-        .then((res) => {
-          localStorage.setItem("token", res.data?.token);
-          localStorage.setItem("refreshToken", res.data?.refreshToken);
-          window.location.reload();
-        })
-        .catch((error) => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("refreshToken");
-          window.location.assign("/sign-in");
-        });
-    }
+// privateAxios.interceptors.response.use(
+//   (response) => {
+//     // lam cai gi do voi du lieu nhan duoc
+//     return response;
+//   },
+//   (error) => {
+//     if (error.response.status === 401) {
+//       privateAxios
+//         .post("/auth/generate-new-token")
+//         .then((res) => {
+//           localStorage.setItem("token", res.data?.token);
+//           localStorage.setItem("refreshToken", res.data?.refreshToken);
+//           window.location.reload();
+//         })
+//         .catch((error) => {
+//           localStorage.removeItem("token");
+//           localStorage.removeItem("refreshToken");
+//           // toast.error("Token expired, please login again");
+//           // window.location.assign("/sign-in");
+//         });
+//     }
 
-    return Promise.reject(error);
-  }
-);
+//     return Promise.reject(error);
+//   }
+// );
 
 export { privateAxios };
