@@ -1,7 +1,8 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { ERROR_MESSAGES } from "../utils/constants";
-import { privateAxios } from "./axios";
+import { APIs } from "./configs/api";
+import { privateAxios } from "./configs/axios";
 interface ImageConfig {
   step: number;
   style: string;
@@ -15,26 +16,20 @@ interface ImageUploadData {
   config: ImageConfig;
 }
 
-export const getListImage = () =>
-  axios.get(
-    "https://style-management-api.dev.apero.vn/v2/styles?limit=1000000&page=1&project=Creatorhub_WEB"
-  );
+export const getListImage = () => axios.get(APIs.GET_STYLES);
 
 export const generateAiImage = (imageData: FormData) =>
-  axios.post(
-    "https://api-img-gen-wrapper.apero.vn/api/v2/image-ai",
-    imageData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      responseType: "arraybuffer",
-    }
-  );
+  axios.post(APIs.CREATE_IMAGE_AI, imageData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    responseType: "arraybuffer",
+  });
 
+// trừ credit khi sử dụng AI Art
 export const deductCreditsAiArt = async () => {
   try {
-    await privateAxios.get("/user/use-credits", {
+    await privateAxios.get(APIs.USE_CREDITS, {
       params: {
         type: "AI_ART",
       },
@@ -45,4 +40,4 @@ export const deductCreditsAiArt = async () => {
 };
 
 export const saveResultImageAi = (body: ImageUploadData) =>
-  privateAxios.post("/store/save-image", body);
+  privateAxios.post(APIs.SAVE_IMAGE_AI, body);

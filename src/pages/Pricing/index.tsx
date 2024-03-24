@@ -9,7 +9,7 @@ import imgSlider from "../../images/Pricing/icon-slider.svg";
 
 import { useEffect, useRef, useState } from "react";
 import Footer from "../../components/Footer";
-import { privateAxios } from "../../services/axios";
+import { privateAxios } from "../../services/configs/axios";
 
 import { useCheckLogin } from "../../utils/useCheckLogin";
 import {

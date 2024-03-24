@@ -14,7 +14,7 @@ import iconUploadImg from "../../images/icon-upload-img.svg";
 import imgPhoto from "../../images/image-photo.svg";
 import imgLoading from "../../images/img-loading1.gif";
 import { LoginNotification } from "../../redux/Actions/app";
-import { privateAxios } from "../../services/axios";
+import { privateAxios } from "../../services/configs/axios";
 import { FILE_FORMAT, MAX_SIZE_INBYTES } from "../../utils/constants";
 import { useCheckLogin } from "../../utils/useCheckLogin";
 import { useGetInfoUser } from "../../utils/useGetInfoUser";

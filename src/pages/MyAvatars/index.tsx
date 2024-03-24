@@ -8,7 +8,7 @@ import icGif1 from "../../images/icon-gif1.gif";
 
 // import icDeleteRed from "../../images/ic-delete-red.jpg";
 import icDeleteBlue from "../../images/ic-delete-blue.png";
-import { privateAxios } from "../../services/axios";
+import { privateAxios } from "../../services/configs/axios";
 import {
   BoxImage,
   ModalDeleteImg,
