@@ -11,7 +11,7 @@ import iconRotate from "../../images/icon-rotare.svg";
 import iconStar from "../../images/icon-star.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
 import imgLoading from "../../images/img-loading1.gif";
-import { privateAxios } from "../../services/axios";
+import { privateAxios } from "../../services/configs/axios";
 import { useCheckLogin } from "../../utils/useCheckLogin";
 import { useGetInfoUser } from "../../utils/useGetInfoUser";
 import {

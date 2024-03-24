@@ -1,0 +1,21 @@
+export const APIs = {
+  LOGIN: "/auth/login",
+  REGISTER: "/auth/register",
+  GET_USER: "/user",
+  AVATAR: "/avatar",
+  VERIFY: "/auth/verify",
+  GET_USER_PROFILE: "/user/profile",
+  VERIFY_REGISTER: "/auth/verify-register",
+  FORGET_PASSWORD: "/auth/forget-password",
+  GENERATE_NEW_TOKEN: "/auth/generate-new-token",
+  SAVE_IMAGE_AI: "/store/save-image",
+  GET_USER_INFO: "/auth/user-info",
+  CHANGE_PASSWORD: "/auth/change-password",
+  USE_CREDITS: "/user/use-credits",
+  GET_AVATAR_LIST: "/avatar/list",
+  GET_AVATAR_LIST_BY_USER: "/avatar/list-by-user",
+  GET_AVATAR_LIST_BY_STATUS: "/avatar/list-by-status",
+  CREATE_IMAGE_AI: "https://api-img-gen-wrapper.apero.vn/api/v2/image-ai",
+  GET_STYLES:
+    "https://style-management-api.dev.apero.vn/v2/styles?limit=1000000&page=1&project=Creatorhub_WEB",
+};

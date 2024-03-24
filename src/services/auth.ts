@@ -1,4 +1,5 @@
-import { privateAxios } from "./axios";
+import { APIs } from "./configs/api";
+import { privateAxios } from "./configs/axios";
 
 export interface RegisterType {
   firstName?: string;
@@ -19,13 +20,13 @@ export interface FormForgotPassword {
   redirectUrl: string;
 }
 export const register = (bodyRegister: RegisterType) =>
-  privateAxios.post("/auth/create", bodyRegister);
+  privateAxios.post(APIs.REGISTER, bodyRegister);
 
 export const login = (bodyLogin: FormValues) =>
-  privateAxios.post("/auth/login", bodyLogin);
+  privateAxios.post(APIs.LOGIN, bodyLogin);
 
 export const forgotPassword = (body: FormForgotPassword) =>
-  privateAxios.post("/auth/forget-password", body);
+  privateAxios.post(APIs.FORGET_PASSWORD, body);
 
 export const verifytoken = (searchParams: any) =>
-  privateAxios.get(`/auth/verify/${searchParams.get("token")}`);
+  privateAxios.get(`${APIs.VERIFY} ${searchParams.get("token")}`);
