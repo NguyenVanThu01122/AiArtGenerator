@@ -1,0 +1,16 @@
+export const ROUTES = {
+  HOME: "/",
+  SIGN_IN: "/sign-in",
+  REGISTER: "/register",
+  PRICING: "/pricing",
+  HOME_PAGE: "/home-page",
+  MY_AVATARS: "/my-avatars",
+  AI_ART_GENERATOR: "/ai-art-generator",
+  AI_PHOTO_ENHANCER: "/ai-photo-enhancer",
+  AI_BACKGROUND_REMOVE: "/ai-background-remove",
+  MY_ACCOUNT: "/my-account",
+  CHANGE_PASSWORD: "/change-password",
+  VERIFY_REGISTER: "/verify-register",
+  ACCOUNT_MANAGEMENT: "/account-management",
+  ERROR: "*",
+};

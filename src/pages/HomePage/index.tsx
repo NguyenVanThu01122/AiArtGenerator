@@ -5,7 +5,7 @@ import icRight from "../../images/HomeNew/icon-right.svg";
 // import icRight from "../../images/HomeNew/";
 import { BoxContents, Header, Wrapper } from "./styles";
 
-export function HomeNew() {
+export function HomePage() {
   return (
     <Wrapper>
       <Header>
