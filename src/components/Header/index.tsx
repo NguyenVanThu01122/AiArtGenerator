@@ -5,7 +5,7 @@ import imgAvatarDefault from "../../images/avatar-default.jpg";
 import iconCloseSidebar from "../../images/icon-close-sidebar.svg";
 import iconOpenSidebar from "../../images/icon-open-sidebar.svg";
 
-import { saveCloseMenu, saveUser } from "../../reduxToolkit/Slices/AppSlice";
+import { saveCloseMenu, saveLogin, saveUser } from "../../reduxToolkit/Slices/AppSlice";
 import { RootState } from "../../reduxToolkit/Slices/RootReducer";
 import {
   isAuthenticated,
@@ -80,7 +80,7 @@ function Header() {
     removeToken();
     removeRefreshToken();
     dispatch(saveUser(null));
-    // dispatch(saveLogin(false));
+    dispatch(saveLogin(false));
     navigate("/sign-in");
   };
 

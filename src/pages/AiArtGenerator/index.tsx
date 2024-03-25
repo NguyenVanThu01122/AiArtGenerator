@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { saveDialogLogin } from "../../reduxToolkit/Slices/AppSlice";
+import { RootState } from "../../reduxToolkit/Slices/RootReducer";
 import {
   deductCreditsAiArt,
   generateAiImage,
   getListImage,
   saveResultImageAi,
 } from "../../services/aiArtGenerator";
-import { checkLogin } from "../../utils/checkLogin";
 import {
   DEFAULT_ALPHA,
   DEFAULT_SCALE,
@@ -18,6 +16,8 @@ import {
 } from "../../utils/constants";
 import { useUploadFile } from "../../utils/handleUploadFile";
 import { convertImageToBase64 } from "../../utils/imageToBase64";
+import { useCheckCredit } from "../../utils/useCheckCredit";
+import { useCheckLogin } from "../../utils/useCheckLogin";
 import { useGetInfoUser } from "../../utils/useGetInfoUser";
 import ConfigAiArt from "./components/ConfigAiArt";
 import ImageUploader from "./components/ImageUploader";
@@ -39,11 +39,10 @@ function AiArtGenerator() {
   const [listStyle, setListStyle] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { fileUpload, setFileUpload, setUploadImage } = useUploadFile();
-  const user = useSelector((state: any) => state.app.user);
+  const { handleCheckCredit } = useCheckCredit();
+  const user = useSelector((state: RootState) => state.app.user);
   const [getUser] = useGetInfoUser();
-  const login = checkLogin();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { handleCheckLogin } = useCheckLogin();
 
   const getListImageAiArt = async () => {
     try {
@@ -162,14 +161,11 @@ function AiArtGenerator() {
   const handleGenerate = async () => {
     try {
       // Kiểm tra đăng nhập
-      if (!login) {
-        dispatch(saveDialogLogin(true));
+      if (handleCheckLogin()) {
         return;
       }
       // Kiểm tra số lượng credit
-      if (user?.credits < 5) {
-        toast.error("Your credits are not enough. Please purchase credits!");
-        navigate("/pricing");
+      if (handleCheckCredit(user?.credits ?? 0, 2)) {
         return;
       }
       setIsLoading(true);
@@ -187,7 +183,6 @@ function AiArtGenerator() {
   useEffect(() => {
     getListImageAiArt();
   }, []);
-
   return (
     <WrapperAiArtGenerator>
       {resultImage ? (

@@ -15,7 +15,6 @@ const ButtonGeneral = ({
     <Button
       className={`custom-button ${className}`}
       onClick={onClick}
-      // loading={loading}
       disabled={disabled}
       {...rest} //: Sử dụng rest parameter để chấp nhận tất cả các props khác mà không cần phải định nghĩa từng prop một.
     >

@@ -16,9 +16,10 @@ import {
 export function Layout() {
   const closeMenu = useSelector((state: RootState) => state.app.closeMenu);
   const dialogLogin = useSelector((state: RootState) => state.app.dialogLogin);
-  // const login = checkLogin();
+  //  const {handleCheckLogin} = useCheckLogin();
   const login = useSelector((state: any) => state.app.login);
   const [getUser] = useGetInfoUser();
+
   useEffect(() => {
     if (login) {
       getUser();

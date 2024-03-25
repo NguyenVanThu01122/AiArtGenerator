@@ -21,7 +21,6 @@ export const WrapperAIBackgroundChanger = styled.div`
       background: linear-gradient(217deg, #e250e5, #4b50e6);
     }
   }
-
   @media screen and (max-width: 768px) {
     padding: 15px;
   }
@@ -45,6 +44,7 @@ export const BoxResult = styled.div`
       filter: brightness(0.6);
     }
   }
+
   @media screen and (max-width: 768px) {
     .back {
       margin-bottom: 30px;
