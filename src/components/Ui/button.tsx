@@ -1,5 +1,4 @@
 import Button, { ButtonProps } from "@mui/material/Button";
-
 interface ButtonGeneralProps extends ButtonProps {
   className?: string;
   loading?: boolean;
