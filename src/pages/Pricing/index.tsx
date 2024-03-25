@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import Footer from "../../components/Footer";
 import { privateAxios } from "../../services/configs/axios";
 
-import { useCheckLogin } from "../../utils/useCheckLogin";
+import { checkLogin } from "../../utils/checkLogin";
 import {
   BlockContents,
   ItemCarousel,
@@ -205,7 +205,7 @@ function Pricing() {
   const [listPricing, setListPricing] = useState([]);
   const [selectPrice, setSelectPrice] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [checkLogin] = useCheckLogin();
+  const login = checkLogin();
 
   const getListPricing = () => {
     privateAxios
@@ -218,8 +218,8 @@ function Pricing() {
 
   // hàm xử lý thanh toán credits
   const handleStripeOrder = (id: string) => {
-    if (typeof checkLogin === "function") {
-      checkLogin();
+    if (!login) {
+      return;
     }
     setIsLoading(true);
     setSelectPrice(id);

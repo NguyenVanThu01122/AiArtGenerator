@@ -30,3 +30,6 @@ export const forgotPassword = (body: FormForgotPassword) =>
 
 export const verifytoken = (searchParams: any) =>
   privateAxios.get(`${APIs.VERIFY} ${searchParams.get("token")}`);
+
+export const generateNewToken = () =>
+  privateAxios.post(APIs.GENERATE_NEW_TOKEN);
