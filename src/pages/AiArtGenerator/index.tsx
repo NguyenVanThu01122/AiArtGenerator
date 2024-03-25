@@ -1,14 +1,15 @@
-import { Buffer } from "buffer";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { saveDialogLogin } from "../../reduxToolkit/Slices/AppSlice";
 import {
   deductCreditsAiArt,
   generateAiImage,
   getListImage,
   saveResultImageAi,
 } from "../../services/aiArtGenerator";
+import { checkLogin } from "../../utils/checkLogin";
 import {
   DEFAULT_ALPHA,
   DEFAULT_SCALE,
@@ -16,10 +17,9 @@ import {
   ERROR_MESSAGES,
 } from "../../utils/constants";
 import { useUploadFile } from "../../utils/handleUploadFile";
-import { useCheckLogin } from "../../utils/useCheckLogin";
+import { convertImageToBase64 } from "../../utils/imageToBase64";
 import { useGetInfoUser } from "../../utils/useGetInfoUser";
 import ConfigAiArt from "./components/ConfigAiArt";
-import DialogLoin from "./components/DialogLogin";
 import ImageUploader from "./components/ImageUploader";
 import Loading from "./components/Loading";
 import PromptInput from "./components/PromptInput";
@@ -39,11 +39,11 @@ function AiArtGenerator() {
   const [listStyle, setListStyle] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { fileUpload, setFileUpload, setUploadImage } = useUploadFile();
-  const [isLoginNotification, setIsLoginNotification] = useState(false);
   const user = useSelector((state: any) => state.app.user);
   const [getUser] = useGetInfoUser();
-  const [login] = useCheckLogin();
+  const login = checkLogin();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const getListImageAiArt = async () => {
     try {
@@ -134,14 +134,6 @@ function AiArtGenerator() {
     }
   };
 
-  // Chuyển đổi dữ liệu hình ảnh sang chuỗi base64
-  const convertImageToBase64 = (imageData: string) => {
-    return (
-      "data:image/png;base64," +
-      Buffer.from(imageData, "binary").toString("base64")
-    );
-  };
-
   // Trừ credits và lưu kết quả hình ảnh
   const deductCreditsAndSaveResult = async (base64ImageString: string) => {
     await deductCreditsAiArt();
@@ -171,7 +163,7 @@ function AiArtGenerator() {
     try {
       // Kiểm tra đăng nhập
       if (!login) {
-        setIsLoginNotification(true);
+        dispatch(saveDialogLogin(true));
         return;
       }
       // Kiểm tra số lượng credit
@@ -243,12 +235,6 @@ function AiArtGenerator() {
       )}
 
       {isLoading && <Loading />}
-      {isLoginNotification && (
-        <DialogLoin
-          isLoginNotification={isLoginNotification}
-          setIsLoginNotification={setIsLoginNotification}
-        />
-      )}
     </WrapperAiArtGenerator>
   );
 }

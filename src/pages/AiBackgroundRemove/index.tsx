@@ -1,221 +1,211 @@
-import { Button, message } from "antd";
-import axios from "axios";
-import { Buffer } from "buffer";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Footer from "../../components/Footer";
+import ButtonGeneral from "../../components/Ui/button";
+import ImageGeneral from "../../components/Ui/image";
+import imgRemove from "../../images/AiBackgroundRemove/ic_btn_bg_maker.23aa8314df7e0308d4a5a859e0710546.svg";
+import imgPhoto from "../../images/AiBackgroundRemove/image-photo.f0322254af0bf8d296f1926c692203a9.svg";
 import icBack from "../../images/ic-back.svg";
 import iconCancel from "../../images/icon-cancel.svg";
 import iconRotate from "../../images/icon-rotare.svg";
 import iconStar from "../../images/icon-star.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
 import imgLoading from "../../images/img-loading1.gif";
-import { privateAxios } from "../../services/configs/axios";
-import { useCheckLogin } from "../../utils/useCheckLogin";
+import { saveDialogLogin } from "../../reduxToolkit/Slices/AppSlice";
+import {
+  deductCreditsRemoveBackground,
+  removeBackground,
+} from "../../services/aiBackgroundRemove";
+import { checkLogin } from "../../utils/checkLogin";
+import { ERROR_MESSAGES, FILE_FORMAT } from "../../utils/constants";
+import { useUploadFile } from "../../utils/handleUploadFile";
+import { convertImageToBase64 } from "../../utils/imageToBase64";
+import { useDownloadUtils } from "../../utils/useDownloadUtils";
 import { useGetInfoUser } from "../../utils/useGetInfoUser";
 import {
+  AdditionalInfo,
+  BackGenerate,
+  BoxChange,
   BoxResult,
-  BoxUpload,
+  BoxUploadImage,
+  ChangeItem,
+  ChangePhoto,
+  ContentHeader,
+  FormatFile,
+  FormatInfo,
+  ImageResult,
+  InputFile,
+  ItemBack,
   ItemBackgroundChange,
   ItemImage,
+  ItemLoading,
+  NotUploaded,
+  SectionContent,
+  SectionUploadImage,
+  StyledButton,
+  TextChange,
+  TextContent,
+  TextFormat,
+  TitlePage,
+  Uploaded,
   WrapperAIBackgroundChanger,
 } from "./styles";
 
 function AiBackgroundRemove() {
-  const [fileUpload, setFileUpload] = useState();
-  const [uploadedImage, setUploadedImage] = useState<any>("");
   const [resultImage, setResultImage] = useState("");
-  const [isloading, setIsloading] = useState(false);
-  const [login, checkLogin] = useCheckLogin();
-  const [getUser] = useGetInfoUser();
+  const [loading, setLoading] = useState(false);
   const user = useSelector((state: any) => state.app.user);
+  const { handleDownloadImage } = useDownloadUtils();
+  const [getUser] = useGetInfoUser();
   const navigate = useNavigate();
+  const login = checkLogin();
+  const dispatch = useDispatch();
 
-  // hàm xử lý tải ảnh lên
-  const handleUploadImage = (e: any) => {
-    const file = e.target.files[0]; // Lấy giá trị file vừa tải lên và gắn vào biến file
-
-    // if (file.size > MAX_SIZE_INBYTES) {
-    //   message.error("File size exceeds the allowed limit.");
-    //   return; // Dừng các dòng code phía sau nếu vượt quá giới hạn
-    // } else if (FILE_FORMAT.includes(file.type) === false) {
-    //   message.error("Please upload type image jpeg, jpg, png");
-    //   return; // file.type === false dừng các dòng code phía sau
-    // }
-
-    setFileUpload(file);
-    const reader = new FileReader();
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-    reader.onloadend = () => {
-      const base64String = reader.result; // Lưu trữ giá trị base64 string của ảnh vào biến base64String
-      setUploadedImage(base64String); // Gắn giá trị base64 string thu được vào state image
-    };
-  };
+  const {
+    handleUploadImage,
+    fileUpload,
+    setFileUpload,
+    uploadImage,
+    setUploadImage,
+  } = useUploadFile();
 
   // hàm xóa background
   const handleRemoveBackground = () => {
-    if (typeof checkLogin === "function") {
-      checkLogin();
+    if (!login) {
+      dispatch(saveDialogLogin(true));
+      return;
     }
     if (user.credits < 3) {
-      message.error("Your credits is not enable. Please purchase credits!");
+      toast.error("Your credits is not enable. Please purchase credits!");
       navigate("/pricing");
       return;
     }
-    setIsloading(true);
-    const formData: any = new FormData();
-    formData.append("file", fileUpload);
-    axios
-      .post(
-        "https://bgrm-enhance-wrapper.apero.vn/api/v1/bg-remove",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data", // content-type đinh nghia  kiểu dữ liệu gửi lên
-          },
-          responseType: "arraybuffer", // responseType định nghĩa kiểu dữ liệi trả về.
-        }
-      )
+    setLoading(true);
+    const formData: FormData = new FormData();
+    formData.append("file", fileUpload as File);
+
+    removeBackground(formData)
       .then(async (res) => {
-        const base64ImageString =
-          "data:image/png;base64," +
-          Buffer.from(res.data, "binary").toString("base64");
+        const base64ImageString = convertImageToBase64(res.data);
         setResultImage(base64ImageString);
-        setIsloading(false);
-        // gọi api Trừ credits với các lần sử dụng
-        await privateAxios.get("/user/use-credits", {
-          params: {
-            type: "REMOVE_BACKGROUND",
-          },
-        });
-        getUser();
+        setLoading(false);
+        await deductCreditsRemoveBackground() // gọi api Trừ credits với các lần sử dụng
+          .then(() => getUser()) // cập nhật lại user khi trừ credits success
+          .catch(() => toast.error(ERROR_MESSAGES.CREDIT_DEDUCTION_FAILED));
       })
       .catch((error) => {
-        setIsloading(false);
-        message.error("Error server");
+        setLoading(false);
+        toast.error(ERROR_MESSAGES.SERVER_ERROR);
       });
   };
 
   const handleBack = () => {
     setResultImage("");
+    setUploadImage("");
     setFileUpload(undefined);
-    setUploadedImage("");
   };
 
-  // hàm download img
-  const handleDowndloadImage = () => {
-    const a = document.createElement("a");
-    a.href = resultImage;
-    a.download = "my-image.jpg";
-    a.click();
-  };
   return (
     <WrapperAIBackgroundChanger>
       {resultImage ? (
         <BoxResult>
-          <div className="back" onClick={handleBack}>
-            <img src={icBack} alt="" />
-            <div>Back to generate</div>
-          </div>
-          <div className="box-img">
-            <img className="img-result" src={resultImage} alt="" />
-          </div>
-          <Button className="btn-downdload" onClick={handleDowndloadImage}>
-            Downdload
-          </Button>
+          <ItemBack onClick={handleBack}>
+            <ImageGeneral src={icBack} alt="" />
+            <BackGenerate>Back to generate</BackGenerate>
+          </ItemBack>
+          <ImageResult>
+            <ImageGeneral className="img-result" src={resultImage} alt="" />
+          </ImageResult>
+          <ButtonGeneral
+            className="btn-download"
+            onClick={() => handleDownloadImage(resultImage, "my-image.jpg")}
+          >
+            Download
+          </ButtonGeneral>
         </BoxResult>
       ) : (
-        <BoxUpload>
+        <BoxUploadImage>
           <ItemBackgroundChange>
-            <div className="title-page">
-              <div>AI BACKGROUND REMOVE</div>
-              <div>
-                <div>
+            <SectionContent>
+              <TitlePage>AI BACKGROUND REMOVE</TitlePage>
+              <TextContent>
+                <ContentHeader>
                   Effortless Background Remove Made Possible by <span>AI</span>
-                  <img src={iconStar} alt="" />
-                  <img src={iconStar} alt="" />
-                </div>
-              </div>
-              <div>
+                  <ImageGeneral src={iconStar} alt="" />
+                  <ImageGeneral src={iconStar} alt="" />
+                </ContentHeader>
+              </TextContent>
+              <AdditionalInfo>
                 Add new outstanding background to your original photos using our
                 remove background and photo edit tool. Quickly improve your
                 photos for easy download or sharing on social media platforms.
-              </div>
-            </div>
-            <div className={`create-upload ${fileUpload && "active-boder"}`}>
+              </AdditionalInfo>
+            </SectionContent>
+            <SectionUploadImage fileUpload={fileUpload} loading={loading}>
               {fileUpload ? (
-                <div className="uploaded">
-                  <img className="img-uploaded" src={uploadedImage} alt="" />
-                  {isloading && (
-                    <div className="item-loading">
-                      <img className="img-loading" src={imgLoading} alt="" />
-                    </div>
+                <Uploaded>
+                  <ImageGeneral className="img-uploaded" src={uploadImage} />
+                  {loading && (
+                    <ItemLoading>
+                      <ImageGeneral className="img-loading" src={imgLoading} />
+                    </ItemLoading>
                   )}
-                  <div className="box-change">
-                    <img
+                  <BoxChange loading={loading}>
+                    <ImageGeneral
                       className="icon-cancel"
-                      onClick={() => setFileUpload(undefined)}
+                      onClick={() => handleBack()}
                       src={iconCancel}
-                      alt=""
                     />
-
-                    <div className="item-change">
-                      <div className="change-img">
-                        <img src={iconRotate} alt="" />
-                        <div>Change Photo</div>
-                      </div>
-                      <input
-                        className="input-upload"
+                    <ChangeItem>
+                      <TextChange>
+                        <ImageGeneral src={iconRotate} alt="" />
+                        <ChangePhoto>Change Photo</ChangePhoto>
+                      </TextChange>
+                      <InputFile
+                        name="file"
                         type="file"
-                        name="img"
-                        accept=".jpg,.jpeg,.png,.gif"
+                        accept={FILE_FORMAT.join(",")}
                         onChange={handleUploadImage}
                       />
-                    </div>
-                  </div>
-                </div>
+                    </ChangeItem>
+                  </BoxChange>
+                </Uploaded>
               ) : (
-                <div className="not-uploaded">
-                  <img src={iconUploadImg} alt="" />
-                  <div className="format-information">
-                    <div>Upload or drop file here or paste your image ULR</div>
-                    <div>
+                <NotUploaded>
+                  <ImageGeneral src={iconUploadImg} alt="" />
+                  <FormatInfo>
+                    <TextFormat>
+                      Upload or drop file here or paste your image ULR
+                    </TextFormat>
+                    <FormatFile>
                       Supported formats: PNG, JPEG, JPG, File size limit:5MB.
-                    </div>
-                  </div>
-                  <input
-                    className="input-upload"
+                    </FormatFile>
+                  </FormatInfo>
+                  <InputFile
+                    name="file"
                     type="file"
-                    name="img"
-                    accept=".jpg,.jpeg,.png,.gif"
+                    accept={FILE_FORMAT.join(",")}
                     onChange={handleUploadImage}
                   />
-                </div>
+                </NotUploaded>
               )}
-            </div>
-            <Button
-              className="btn-change"
+            </SectionUploadImage>
+            <StyledButton
+              fileUpload={fileUpload}
               onClick={handleRemoveBackground}
-              disabled={!uploadedImage}
-              loading={isloading}
+              disabled={!uploadImage && !fileUpload}
+              loading={loading}
             >
-              <img
-                src="https://creatorhub.ai/static/media/ic_btn_bg_maker.23aa8314df7e0308d4a5a859e0710546.svg"
-                alt=""
-              />
+              <ImageGeneral src={imgRemove} alt="" />
               Remove Background - 2 Credit
-            </Button>
+            </StyledButton>
           </ItemBackgroundChange>
           <ItemImage>
-            <img
-              src="https://creatorhub.ai/static/media/bg_background_maker_small.119c68722b2159d50e51.png"
-              alt=""
-            />
+            <ImageGeneral src={imgPhoto} />
           </ItemImage>
-        </BoxUpload>
+        </BoxUploadImage>
       )}
       <Footer />
     </WrapperAIBackgroundChanger>

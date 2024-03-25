@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  getTokenLocalStorage,
-  isAuthenticated,
-} from "../../../utils/handleTokenUtils";
+import { isAuthenticated } from "../../../utils/handleTokenUtils";
 
 export interface UserData {
   credits?: number;
@@ -14,20 +11,18 @@ export interface UserData {
 }
 interface State {
   user: UserData;
-  token: string;
   login: boolean;
   closeMenu: boolean;
   uploadFile: boolean;
+  dialogLogin: boolean;
 }
-
-const token = getTokenLocalStorage(); // Lấy token từ localStorage
 const loggedIn = isAuthenticated(); // Kiểm tra người dùng đã đăng nhập chưa
 const initialState: State = {
   user: {},
-  token: token ?? "",
   login: loggedIn,
   closeMenu: false,
   uploadFile: false,
+  dialogLogin: false,
 };
 
 export const appSlice = createSlice({
@@ -36,9 +31,6 @@ export const appSlice = createSlice({
   reducers: {
     saveUser: (state, action: PayloadAction<any>) => {
       state.user = action.payload;
-    },
-    saveToken: (state, action: PayloadAction<string>) => {
-      state.token = action.payload;
     },
     saveLogin: (state, action: PayloadAction<boolean>) => {
       state.login = action.payload;
@@ -49,10 +41,18 @@ export const appSlice = createSlice({
     uploadFile: (state, action: PayloadAction<boolean>) => {
       state.uploadFile = action.payload;
     },
+    saveDialogLogin: (state, action: PayloadAction<boolean>) => {
+      state.dialogLogin = action.payload;
+    },
   },
 });
 
-export const { saveUser, saveToken, saveLogin, saveCloseMenu, uploadFile } =
-  appSlice.actions;
+export const {
+  saveUser,
+  saveLogin,
+  saveCloseMenu,
+  uploadFile,
+  saveDialogLogin,
+} = appSlice.actions;
 
 export default appSlice.reducer;

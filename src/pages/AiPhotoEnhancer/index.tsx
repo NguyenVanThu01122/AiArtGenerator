@@ -15,8 +15,8 @@ import imgPhoto from "../../images/image-photo.svg";
 import imgLoading from "../../images/img-loading1.gif";
 import { LoginNotification } from "../../redux/Actions/app";
 import { privateAxios } from "../../services/configs/axios";
+import { checkLogin } from "../../utils/checkLogin";
 import { FILE_FORMAT, MAX_SIZE_INBYTES } from "../../utils/constants";
-import { useCheckLogin } from "../../utils/useCheckLogin";
 import { useGetInfoUser } from "../../utils/useGetInfoUser";
 import { PageAiPhotoEnhancer, SectionContents } from "./styles";
 
@@ -25,7 +25,7 @@ export function AiPhotoEnhancer() {
   const [fileUpload, setFileUpload] = useState();
   const [resultImage, setResultImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [login, navigateLogin] = useCheckLogin();
+  const login = checkLogin();
 
   const isLoginNotification = useSelector(
     (state: any) => state.app.LoginNotification
