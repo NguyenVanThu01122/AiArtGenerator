@@ -20,18 +20,18 @@ import {
   TextPrompt,
   TitlePage,
 } from "./styles";
+
 type AiArtResultProps = {
   resultImage: string;
   selectStyle: any;
-
   sliderValueSteps: number;
   sliderValueScale: number;
   sliderValueAlpha: number;
-
   prompt: string;
   negativePrompt: string;
   handleBack: () => void;
 };
+
 const AiArtResult = ({
   resultImage,
   selectStyle,

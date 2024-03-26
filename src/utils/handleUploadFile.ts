@@ -20,11 +20,13 @@ export const useUploadFile = () => {
       toast.error("Please upload type image jpeg, jpg, png");
       return;
     }
+
     setFileUpload(file);
-    const reader = new FileReader();
+    const reader = new FileReader(); //để đọc nội dung của tập tin được chọn từ máy tính của người dùng.
     if (file) {
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file); //Phương thức này chấp nhận một đối tượng File làm đối số và bắt đầu quá trình đọc dữ liệu từ tập tin.
     }
+    // Hàm này sẽ được gọi khi phương thức readAsDataURL() đã hoàn thành việc đọc tập tin.
     reader.onloadend = () => {
       const base64String = reader.result as string; // Lưu trữ giá trị base64 string của ảnh vào biến base64String
       if (base64String) {

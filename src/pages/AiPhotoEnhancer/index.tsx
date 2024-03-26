@@ -1,234 +1,227 @@
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, message } from "antd";
-import axios from "axios";
-import { Buffer } from "buffer";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import Footer from "../../components/Footer";
-import { ModalNotification } from "../../components/Modal";
+import ButtonGeneral from "../../components/Ui/button";
+import ImageGeneral from "../../components/Ui/image";
 import iconRotate from "../../images/icon-rotare.svg";
 import iconStar from "../../images/icon-star.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
 import imgPhoto from "../../images/image-photo.svg";
 import imgLoading from "../../images/img-loading1.gif";
-import { LoginNotification } from "../../redux/Actions/app";
-import { privateAxios } from "../../services/configs/axios";
-import { checkLogin } from "../../utils/checkLogin";
-import { FILE_FORMAT, MAX_SIZE_INBYTES } from "../../utils/constants";
+import { RootState } from "../../reduxToolkit/Slices/RootReducer";
+import {
+  deductCreditsAiEnhancer,
+  generateAiPhotoEnhancer,
+} from "../../services/aiPhotoEnhancer";
+import { ERROR_MESSAGES, FILE_FORMAT } from "../../utils/constants";
+import { useUploadFile } from "../../utils/handleUploadFile";
+import { convertImageToBase64 } from "../../utils/imageToBase64";
+import { useCheckCredit } from "../../utils/useCheckCredit";
+import { useCheckLogin } from "../../utils/useCheckLogin";
+import { useDownloadUtils } from "../../utils/useDownloadUtils";
 import { useGetInfoUser } from "../../utils/useGetInfoUser";
-import { PageAiPhotoEnhancer, SectionContents } from "./styles";
+import {
+  AiPhotoEnhancerText,
+  BackGenerate,
+  BoxMainContent,
+  BoxResult,
+  BoxUploadedImage,
+  ChangeItem,
+  ChangePhoto,
+  ChangePhotoItem,
+  ContentNotUploaded,
+  ContentText,
+  CreateUpload,
+  DescriptionEnhancer,
+  FormatUploadFile,
+  ImageItem,
+  ImagePhotoEnhancer,
+  ImageResult,
+  InputFile,
+  ItemBack,
+  LoadingItem,
+  NotUploaded,
+  PhotoEnhancer,
+  SectionContents,
+  TermsOfService,
+  TextContent,
+  TitlePage,
+  UploadImage,
+  UploadItem,
+  UploadText,
+  WrapperPhotoEnhancer,
+} from "./styles";
 
 export function AiPhotoEnhancer() {
-  const [uploadImage, setUploadImage] = useState<any>("");
-  const [fileUpload, setFileUpload] = useState();
   const [resultImage, setResultImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const login = checkLogin();
-
-  const isLoginNotification = useSelector(
-    (state: any) => state.app.LoginNotification
-  );
-  const user = useSelector((state: any) => state.app.user);
+  const user = useSelector((state: RootState) => state.app.user);
+  const { handleDownloadImage } = useDownloadUtils();
+  const { handleCheckCredit } = useCheckCredit();
   const [getUser] = useGetInfoUser();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const [is, setIs] = useState(false);
-  // hàm upload ảnh lên
-  const handleUploadImage = (e: any) => {
-    const file = e.target.files[0]; // Lấy giá trị file vừa tải lên và gắn vào biến file
-
-    if (file.size > MAX_SIZE_INBYTES) {
-      message.error("File size exceeds the allowed limit.");
-      return; // Dừng các dòng code phía sau nếu vượt quá giới hạn
-    } else if (FILE_FORMAT.includes(file.type) === false) {
-      message.error("Please upload type image jpeg, jpg, png");
-      return; // file.type === false dừng các dòng code phía sau
-    }
-    setFileUpload(file);
-    const reader = new FileReader();
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-    reader.onloadend = () => {
-      const base64String = reader.result; // Lưu trữ giá trị base64 string của ảnh vào biến base64String
-      setUploadImage(base64String); // Gắn giá trị base64 string thu được vào state image
-    };
-  };
+  const { handleCheckLogin } = useCheckLogin();
+  const {
+    fileUpload,
+    uploadImage,
+    setFileUpload,
+    setUploadImage,
+    handleUploadImage,
+  } = useUploadFile();
 
   // hàm generate ảnh
   const handleGenerateImage = () => {
-    if (!login) {
-      dispatch(LoginNotification(true));
-      setIs(!is);
-      // navigateLogin();
+    if (handleCheckLogin()) {
       return;
     }
-    if (user.credits < 4) {
-      message.error("Your credits is not enable. Please purchase credits!");
-      navigate("/pricing");
+    if (handleCheckCredit(user?.credits ?? 0, 1)) {
       return;
     }
     setIsLoading(true);
-    const formData: any = new FormData(); // tạo mới đối tượng formData
-    formData.append("file", fileUpload);
-    axios
-      .post("https://enhance-core.apero.vn/api/v1/image-enhance", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        responseType: "arraybuffer",
-      })
+    const formData = new FormData(); // tạo mới đối tượng formData
+    formData.append("file", fileUpload as File);
+    generateAiPhotoEnhancer(formData) // call api generate ảnh
       .then(async (res) => {
-        const base64ImageString =
-          "data:image/png;base64," +
-          Buffer.from(res.data, "binary").toString("base64");
+        const base64ImageString = convertImageToBase64(res.data);
         setResultImage(base64ImageString);
         setIsLoading(false);
-        // gọi api Trừ credits với các lần sử dụng
-        await privateAxios.get("/user/use-credits", {
-          params: {
-            type: "ENHANCE",
-          },
-        });
-        getUser();
+        await deductCreditsAiEnhancer() // call api Trừ credits với các lần sử dụng
+          .then(() => getUser()) // call user lại để cập nhật lại số credits
+          .catch((error) =>
+            toast.error(ERROR_MESSAGES.CREDIT_DEDUCTION_FAILED)
+          );
       })
       .catch((error) => {
         setIsLoading(false);
-        message.error("Error server");
+        toast.error(ERROR_MESSAGES.SERVER_ERROR);
       });
-  };
-
-  // hàm downdload ảnh
-  const handleDowndloadImage = () => {
-    const a = document.createElement("a");
-    a.href = resultImage;
-    a.download = "my-image.png";
-    a.click();
   };
 
   const handleBack = () => {
     setUploadImage("");
     setResultImage("");
     setFileUpload(undefined);
+    setIsLoading(false);
   };
 
   return (
-    <PageAiPhotoEnhancer>
+    <WrapperPhotoEnhancer>
       <SectionContents>
         {uploadImage ? (
-          <div className="box-upload">
-            <div className="item-back" onClick={handleBack}>
+          <BoxUploadedImage>
+            <ItemBack onClick={handleBack}>
               <FontAwesomeIcon className="icon-back" icon={faAngleLeft} />
-              <div>Back to Generate</div>
-            </div>
+              <BackGenerate>Back to Generate</BackGenerate>
+            </ItemBack>
             {resultImage ? (
-              <div className="box-result">
-                <div className="result-img">
-                  <img src={resultImage} alt="" />
-                </div>
-                <Button
-                  className="btn-downdload"
-                  onClick={handleDowndloadImage}
+              <BoxResult>
+                <ImageResult>
+                  <ImageGeneral src={resultImage} alt="" />
+                </ImageResult>
+                <ButtonGeneral
+                  className="btn-download"
+                  onClick={() => handleDownloadImage(resultImage, "")}
                 >
-                  Downdload
-                </Button>
-              </div>
+                  Download
+                </ButtonGeneral>
+              </BoxResult>
             ) : (
-              <div className="item-upload">
-                <div className="title-upload">
-                  <div className="ai-photo">
+              <NotUploaded>
+                <ContentNotUploaded>
+                  <TitlePage>
                     <span>AI</span>
-                    <div className="photo-enhance">
+                    <PhotoEnhancer>
                       Photo Enhancer
-                      <img className="icon-star" src={iconStar} alt="" />
-                    </div>
-                  </div>
-                  <div>
+                      <ImageGeneral className="icon-star" src={iconStar} />
+                    </PhotoEnhancer>
+                  </TitlePage>
+                  <TextContent>
                     Enhance colors, details, and sharpness effortlessly. Elevate
                     your images to new heights with our powerful AI Photo
                     Enhancer.
-                  </div>
-                </div>
-                <div className="create-upload">
-                  <div className="item-change">
-                    <img className="image-upload" src={uploadImage} alt="" />
+                  </TextContent>
+                </ContentNotUploaded>
+                <CreateUpload>
+                  <ChangeItem loading={isLoading}>
+                    <ImageGeneral className="image-upload" src={uploadImage} />
                     {isLoading && (
-                      <div className="item-loading">
-                        <img className="img-loading" src={imgLoading} alt="" />
-                      </div>
+                      <LoadingItem>
+                        <ImageGeneral
+                          className="img-loading"
+                          src={imgLoading}
+                        />
+                      </LoadingItem>
                     )}
-                    <div className="change-photo">
-                      <img src={iconRotate} alt="" />
-                      <div>Change Photo</div>
-                      <input
-                        className="input-upload"
+                    <ChangePhotoItem>
+                      <ImageGeneral src={iconRotate} alt="" />
+                      <ChangePhoto>Change Photo</ChangePhoto>
+                      <InputFile
+                        name="file"
                         type="file"
-                        name="img"
-                        accept=".jpg,.png,.jpeg"
+                        accept={FILE_FORMAT.join(",")}
                         onChange={handleUploadImage}
                       />
-                    </div>
-                  </div>
-                  <Button
+                    </ChangePhotoItem>
+                  </ChangeItem>
+                  <ButtonGeneral
                     className="btn-generate"
                     onClick={handleGenerateImage}
                     loading={isLoading}
+                    disabled={isLoading}
                   >
                     Enhance Image - 1 Credit
-                  </Button>
-                </div>
-              </div>
+                  </ButtonGeneral>
+                </CreateUpload>
+              </NotUploaded>
             )}
-          </div>
+          </BoxUploadedImage>
         ) : (
-          <div className="box-contents">
-            <div className="create-photo">
-              <img className="icon-star" src={iconStar} alt="" />
-              <div>
+          <BoxMainContent>
+            <ContentText>
+              <ImageGeneral className="icon-star" src={iconStar} alt="" />
+              <AiPhotoEnhancerText>
                 <span>AI</span>
                 Photo Enhancer
-              </div>
-              <div>
+              </AiPhotoEnhancerText>
+              <DescriptionEnhancer>
                 Enhance colors, details, and sharpness effortlessly. Elevate
                 your images to new heights with our powerful AI Photo Enhancer.
-              </div>
-              <div className="select-upload-image">
-                <div className="upload-image">
-                  <div className="image">
-                    <img src={iconUploadImg} alt="" />
-                  </div>
-                  <div>Upload or drop file here</div>
-                  <div>
+              </DescriptionEnhancer>
+              <UploadItem>
+                <UploadImage>
+                  <ImageItem>
+                    <ImageGeneral src={iconUploadImg} alt="" />
+                  </ImageItem>
+                  <UploadText>Upload or drop file here</UploadText>
+                  <FormatUploadFile>
                     Supported formats: PNG, JPEG, JPG, File size limit:5MB.
-                  </div>
-                  <input
-                    className="input-upload"
+                  </FormatUploadFile>
+                  <InputFile
+                    name="file"
                     type="file"
-                    name="img"
-                    accept="image/*"
+                    className="input-upload"
+                    accept={FILE_FORMAT.join(",")}
                     onChange={handleUploadImage}
                   />
-                </div>
-              </div>
-              <div>
+                </UploadImage>
+              </UploadItem>
+              <TermsOfService>
                 By continuing, you accept our Terms of Service and acknowledge
                 receipt of our Privacy and Cookie Policy.
-              </div>
-            </div>
-            <div className="image-ai">
-              <img src={imgPhoto} alt="" />
+              </TermsOfService>
+            </ContentText>
+            <ImagePhotoEnhancer>
+              <ImageGeneral src={imgPhoto} alt="" />
               <div></div>
               <div></div>
               <div></div>
-            </div>
-          </div>
+            </ImagePhotoEnhancer>
+          </BoxMainContent>
         )}
         <Footer />
       </SectionContents>
-      {is && <ModalNotification />}
-    </PageAiPhotoEnhancer>
+    </WrapperPhotoEnhancer>
   );
 }

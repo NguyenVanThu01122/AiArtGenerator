@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import DialogCommon from "../Ui/dialog";
-
 export const StyledDialogCommon = styled(DialogCommon)`
   .MuiDialog-paper {
     width: 450px;
