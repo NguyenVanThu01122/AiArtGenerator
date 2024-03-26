@@ -7,7 +7,9 @@ export const FILE_FORMAT = [
   "image/png",
   "image/gif",
 ];
-const ACCEPTED_IMAGE_FORMATS = ".jpg,.png,.jpeg";
+
+export const ACCEPTED_IMAGE_FORMATS = ".jpg,.png,.jpeg";
+
 export const MAX_SIZE_INBYTES = 10 * 1024 * 1024; // giới hạn dung lượng là 10MB, 1MB = 1 * 1024 * 1024 byte
 
 export const ERROR_MESSAGES = {
@@ -32,6 +34,9 @@ export const LOGOUT_MESSAGE = {
 };
 
 export const NOTIFICATION = "This feature is under development";
+
+export const INSUFFICIENT_CREDITS_MESSAGE =
+  "Your credits is not enable. Please purchase credits!";
 
 // export const ERROR_MESSAGES = {
 //   SERVER_ERROR: "Đã xảy ra lỗi từ máy chủ",

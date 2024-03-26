@@ -16,6 +16,7 @@ interface State {
   uploadFile: boolean;
   dialogLogin: boolean;
 }
+
 const loggedIn = isAuthenticated(); // Kiểm tra người dùng đã đăng nhập chưa
 const initialState: State = {
   user: {},

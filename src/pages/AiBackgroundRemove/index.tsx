@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Footer from "../../components/Footer";
 import ButtonGeneral from "../../components/Ui/button";
@@ -13,15 +12,16 @@ import iconRotate from "../../images/icon-rotare.svg";
 import iconStar from "../../images/icon-star.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
 import imgLoading from "../../images/img-loading1.gif";
-import { saveDialogLogin } from "../../reduxToolkit/Slices/AppSlice";
+import { RootState } from "../../reduxToolkit/Slices/RootReducer";
 import {
   deductCreditsRemoveBackground,
   removeBackground,
 } from "../../services/aiBackgroundRemove";
-import { checkLogin } from "../../utils/checkLogin";
 import { ERROR_MESSAGES, FILE_FORMAT } from "../../utils/constants";
 import { useUploadFile } from "../../utils/handleUploadFile";
 import { convertImageToBase64 } from "../../utils/imageToBase64";
+import { useCheckCredit } from "../../utils/useCheckCredit";
+import { useCheckLogin } from "../../utils/useCheckLogin";
 import { useDownloadUtils } from "../../utils/useDownloadUtils";
 import { useGetInfoUser } from "../../utils/useGetInfoUser";
 import {
@@ -56,12 +56,11 @@ import {
 function AiBackgroundRemove() {
   const [resultImage, setResultImage] = useState("");
   const [loading, setLoading] = useState(false);
-  const user = useSelector((state: any) => state.app.user);
+  const user = useSelector((state: RootState) => state.app.user);
   const { handleDownloadImage } = useDownloadUtils();
+  const { handleCheckCredit } = useCheckCredit();
+  const { handleCheckLogin } = useCheckLogin();
   const [getUser] = useGetInfoUser();
-  const navigate = useNavigate();
-  const login = checkLogin();
-  const dispatch = useDispatch();
 
   const {
     handleUploadImage,
@@ -73,17 +72,15 @@ function AiBackgroundRemove() {
 
   // hàm xóa background
   const handleRemoveBackground = () => {
-    if (!login) {
-      dispatch(saveDialogLogin(true));
+    if (handleCheckLogin()) {
       return;
     }
-    if (user.credits < 3) {
-      toast.error("Your credits is not enable. Please purchase credits!");
-      navigate("/pricing");
+    if (handleCheckCredit(user?.credits ?? 0, 2)) {
       return;
     }
+
     setLoading(true);
-    const formData: FormData = new FormData();
+    const formData = new FormData();
     formData.append("file", fileUpload as File);
 
     removeBackground(formData)

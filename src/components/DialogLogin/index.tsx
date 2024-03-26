@@ -6,7 +6,6 @@ import { Transition } from "../SentEmailDialog";
 import ButtonGeneral from "../Ui/button";
 import CloseButton from "../Ui/closeButton";
 import { StyledDialogCommon } from "./styles";
-
 export default function DialogLoin({ dialogLogin }: { dialogLogin: boolean }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
