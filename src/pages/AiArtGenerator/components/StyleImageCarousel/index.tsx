@@ -1,12 +1,15 @@
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { Grid } from "@mui/material";
-import { useEffect, useState } from "react";
 import ImageGeneral from "../../../../components/Ui/image";
 import iconNoStyle from "../../../../images/icon-no-style.svg";
+import useCarouselScroll from "../../../../utils/useCarouselScroll";
+import { StyleType } from "../../types";
 import {
   ChooseStyleTitle,
   CustomGrid,
   CustomPaper,
+  NameStyle,
+  None,
   StyledCarousel,
   StyledFontAwesomeIconLeft,
   StyledFontAwesomeIconRight,
@@ -15,7 +18,7 @@ import {
 } from "./styles";
 interface StyleImageCarouselProps {
   selectStyle: any;
-  listStyle: any[];
+  listStyle: StyleType[];
   handleClickNoneStyle: () => void;
   handleClickStyle: (item: any) => void;
 }
@@ -26,31 +29,8 @@ const StyleImageCarousel = ({
   handleClickNoneStyle,
   handleClickStyle,
 }: StyleImageCarouselProps) => {
-  const [isBeginning, setIsBeginning] = useState(true);
-  const [isEnd, setIsEnd] = useState(false);
-
-  const handleScrollCarousel = (distance: number) => {
-    const carousel = document.querySelector(".css-vj1n65-MuiGrid-root");
-    if (carousel) {
-      carousel.scrollBy({
-        left: distance, // khoảng cách cuộn theo chiều ngang
-        behavior: "smooth",
-      });
-    }
-  };
-
-  useEffect(() => {
-    const carousel = document.querySelector(".css-vj1n65-MuiGrid-root");
-    const handleCarouselScroll = () => {
-      if (carousel) {
-        const { scrollLeft, scrollWidth, clientWidth } = carousel;
-        setIsBeginning(scrollLeft === 0);
-        setIsEnd(scrollLeft === scrollWidth - clientWidth);
-      }
-    };
-    carousel?.addEventListener("scroll", handleCarouselScroll);
-    return () => carousel?.removeEventListener("scroll", handleCarouselScroll);
-  }, [isEnd, isBeginning]);
+  const { handleScrollCarousel, isScrollAtStart, isScrollAtEnd } =
+    useCarouselScroll(".css-vj1n65-MuiGrid-root");
 
   return (
     <Wrapper>
@@ -68,16 +48,16 @@ const StyleImageCarousel = ({
         animation="slide"
         PrevIcon={
           <StyledFontAwesomeIconLeft
-            onClick={() => handleScrollCarousel(-1000)}
+            onClick={() => handleScrollCarousel(-800)}
             icon={faAngleLeft}
-            style={{ display: isBeginning ? "none" : "block" }}
+            isScrollAtStart={isScrollAtStart}
           />
         }
         NextIcon={
           <StyledFontAwesomeIconRight
-            onClick={() => handleScrollCarousel(1000)}
+            onClick={() => handleScrollCarousel(800)}
             icon={faAngleRight}
-            style={{ display: isEnd ? "none" : "block" }}
+            isScrollAtEnd={isScrollAtEnd}
           />
         }
       >
@@ -87,18 +67,18 @@ const StyleImageCarousel = ({
             onClick={handleClickNoneStyle}
           >
             <ImageGeneral src={iconNoStyle} alt="" />
-            <div>None</div>
+            <None>None</None>
           </Grid>
           <Grid sx={{ display: "flex" }}>
-            {listStyle.map((item: any) => (
+            {listStyle.map((item: StyleType) => (
               <CustomPaper
                 variant="outlined"
                 square
-                className={`${item.id === selectStyle?.id && "active-style"}`}
+                className={`${item?.id === selectStyle?.id && "active-style"}`}
                 onClick={() => handleClickStyle(item)}
               >
                 <ImageGeneral className="image-ai" src={item?.image} />
-                <div className="name-style">{item?.name}</div>
+                <NameStyle>{item?.name}</NameStyle>
               </CustomPaper>
             ))}
           </Grid>

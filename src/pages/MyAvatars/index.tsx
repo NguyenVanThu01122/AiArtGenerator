@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { useClipboard } from "use-clipboard-copy";
 import icCopy from "../../images/ic-copy.svg";
 import icGif1 from "../../images/icon-gif1.gif";
-
 // import icDeleteRed from "../../images/ic-delete-red.jpg";
 import icDeleteBlue from "../../images/ic-delete-blue.png";
 import { privateAxios } from "../../services/configs/axios";
