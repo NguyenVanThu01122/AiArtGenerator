@@ -13,6 +13,7 @@ import icTabBar from "../../images/icon-tab-bar.png";
 import imgRemoval1 from "../../images/img-removal1.png";
 import imgRemoval2 from "../../images/img-removal2.png";
 import { saveLogin, saveToken } from "../../redux/Actions/app";
+import { ROUTES } from "../../routes/routes";
 import { NOTIFICATION } from "../../utils/constants";
 import {
   ListBenefitsType,
@@ -186,7 +187,7 @@ function Home() {
             Join thousands of content creators, entrepreneurs, and professionals
             who have already harnessed the power of our innovative solutions.
           </div>
-          <ButtonGeneral onClick={() => navigate("/pricing")}>
+          <ButtonGeneral onClick={() => navigate(ROUTES.AI_ART_GENERATOR)}>
             Get Started
           </ButtonGeneral>
         </div>
