@@ -29,12 +29,19 @@ export const StyledCarousel = styled(Carousel)`
     }
   }
 `;
-export const StyledFontAwesomeIconLeft = styled(FontAwesomeIcon)`
+export const StyledFontAwesomeIconLeft = styled(FontAwesomeIcon)<{
+  isScrollAtStart?: boolean;
+}>`
+  display: ${(props) => (props.isScrollAtStart ? "none" : "block")};
   @media screen and (max-width: 768px) {
     display: none !important;
   }
 `;
-export const StyledFontAwesomeIconRight = styled(FontAwesomeIcon)`
+
+export const StyledFontAwesomeIconRight = styled(FontAwesomeIcon)<{
+  isScrollAtEnd: boolean;
+}>`
+  display: ${(props) => (props.isScrollAtEnd ? "none" : "block")};
   @media screen and (max-width: 768px) {
     display: none !important;
   }
@@ -57,13 +64,6 @@ export const CustomGrid = styled(Grid)`
     & img {
       width: 70px;
       height: 70px;
-    }
-    & > div:last-child {
-      color: white;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 5px;
     }
   }
   .active-none {
@@ -102,6 +102,13 @@ export const CustomGrid = styled(Grid)`
   }
 `;
 
+export const None = styled.div`
+  color: white;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 5px;
+`;
 export const CustomPaper = styled(Paper)`
   width: 100px;
   height: 100px;
@@ -119,18 +126,19 @@ export const CustomPaper = styled(Paper)`
     border-radius: 12px;
     border: 0.5px solid gray;
   }
-  .name-style {
-    left: 0;
-    width: calc(100% - 10px);
-    /* right: 10px; */
-    z-index: 100;
-    color: white;
-    position: absolute;
-    bottom: 10px;
-    text-align: center;
-    font-weight: 700;
-    font-size: 12px;
-  }
+
   @media screen and (max-width: 768px) {
   }
+`;
+
+export const NameStyle = styled.div`
+  left: 0;
+  width: calc(100% - 10px);
+  z-index: 100;
+  color: white;
+  position: absolute;
+  bottom: 10px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 12px;
 `;

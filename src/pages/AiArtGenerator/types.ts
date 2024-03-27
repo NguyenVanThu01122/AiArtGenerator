@@ -35,3 +35,10 @@ export interface TypeListImgAiArt {
   name: string;
   config: TypeConfig[];
 }
+
+export interface StyleType {
+  id: string;
+  image: string;
+  name: string;
+  config: TypeConfig[];
+}
