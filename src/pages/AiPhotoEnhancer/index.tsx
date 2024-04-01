@@ -161,7 +161,7 @@ export function AiPhotoEnhancer() {
                         name="file"
                         type="file"
                         accept={FILE_FORMAT.join(",")}
-                        onChange={handleUploadImage}
+                        onChange={(e) => handleUploadImage(e)}
                       />
                     </ChangePhotoItem>
                   </ChangeItem>
@@ -203,7 +203,7 @@ export function AiPhotoEnhancer() {
                     type="file"
                     className="input-upload"
                     accept={FILE_FORMAT.join(",")}
-                    onChange={handleUploadImage}
+                    onChange={(e) => handleUploadImage(e)}
                   />
                 </UploadImage>
               </UploadItem>

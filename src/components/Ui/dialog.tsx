@@ -1,13 +1,20 @@
 import { Dialog } from "@mui/material";
-
+export enum DialogMaxWidth {
+  xs = "xs",
+  sm = "sm",
+  md = "md",
+  lg = "lg",
+  xl = "xl",
+}
 interface DialogProps {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
   TransitionComponent?: any;
   keepMounted?: boolean;
-  className?: any;
-  fullWidth?: any;
+  className?: string;
+  fullWidth?: boolean;
+  maxWidth?: DialogMaxWidth;
 }
 
 const DialogCommon = ({
@@ -15,10 +22,17 @@ const DialogCommon = ({
   onClose,
   children,
   fullWidth,
+  maxWidth,
   ...props
 }: DialogProps) => {
   return (
-    <Dialog open={open} fullWidth={fullWidth} onClose={onClose} {...props}>
+    <Dialog
+      open={open}
+      fullWidth={fullWidth}
+      onClose={onClose}
+      maxWidth={maxWidth}
+      {...props}
+    >
       {children}
     </Dialog>
   );

@@ -70,7 +70,7 @@ const StyleImageCarousel = ({
             <None>None</None>
           </Grid>
           <Grid sx={{ display: "flex" }}>
-            {listStyle.map((item: StyleType) => (
+            {listStyle?.map((item: StyleType) => (
               <CustomPaper
                 variant="outlined"
                 square

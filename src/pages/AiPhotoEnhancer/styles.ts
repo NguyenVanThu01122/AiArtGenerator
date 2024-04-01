@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const WrapperPhotoEnhancer = styled.div`
   width: 100%;
   height: 100%;
-  background-color: rgb(9, 9, 23);
+  /* background-color: rgb(9, 9, 23); */
   display: flex;
   flex-direction: column;
 `;
@@ -243,7 +243,7 @@ export const ChangeItem = styled.div<{ loading: boolean }>`
 
 export const LoadingItem = styled.div`
   width: 101%;
-  height: 100%;
+  height: 101%;
   position: absolute;
   top: 50%;
   left: 50%;

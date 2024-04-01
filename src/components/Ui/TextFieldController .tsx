@@ -13,6 +13,7 @@ interface TextFieldControllerProps {
   fullWidth?: boolean;
   errors: Record<string, any>;
   InputProps?: any;
+  onchange?: (e: any) => void;
 }
 const TextFieldController = ({
   name,
@@ -26,6 +27,7 @@ const TextFieldController = ({
   fullWidth,
   errors,
   InputProps,
+  onchange,
 }: TextFieldControllerProps) => {
   return (
     <Controller
@@ -42,9 +44,10 @@ const TextFieldController = ({
           margin={margin}
           fullWidth={fullWidth}
           error={!!errors[name]}
+          onChange={onchange}
           InputProps={{ className: "white-text-input", ...InputProps }}
           InputLabelProps={{
-            className: "custom-label"
+            className: "custom-label",
           }}
           helperText={
             errors[name]

@@ -13,7 +13,9 @@ import {
 import iconHome from "../../images/iconHome.svg";
 import iconAiArt from "../../images/iconLogin1.png";
 import { RootState } from "../../reduxToolkit/Slices/RootReducer";
+import { ROUTES } from "../../routes/routes";
 import FollowSocialMedia from "../FollowSocialMedia";
+import ImageGeneral from "../Ui/image";
 import {
   ContainerMenu,
   LogoCreator,
@@ -47,7 +49,7 @@ export default function Sidebar() {
         className={pathName === path ? "border" : ""}
         onClick={() => handleRedirect(path)}
       >
-        {icon && <img src={icon} alt={title} />}
+        {icon && <ImageGeneral src={icon} alt={title} />}
         {!icon && <FontAwesomeIcon className="ic-avatar" icon={faImage} />}
         <span>{title}</span>
       </WrapperMenu>
@@ -77,25 +79,30 @@ export default function Sidebar() {
       </LogoCreator>
 
       <ContainerMenu closeMenu={closeMenu}>
-        <MenuItem title="Home" path="/" icon={iconHome} />
-        <MenuItem title="Pricing" path="/pricing" icon={iconPricing} />
-        <MenuItem title="My Avatars" path="/my-avatars" icon={icAvatar} />
+        <MenuItem title="Home" path={ROUTES.HOME} icon={iconHome} />
+        <MenuItem title="Pricing" path={ROUTES.PRICING} icon={iconPricing} />
+        <MenuItem
+          title="Ai Image Results"
+          path={ROUTES.AI_IMAGE_RESULT}
+          icon={icAvatar}
+        />
+
         <MenuSectionProduct
           title="PRODUCTS"
           items={[
             {
               title: "Ai Art Generator",
-              path: "/ai-art-generator",
+              path: ROUTES.AI_ART_GENERATOR,
               icon: iconAiArtGenerator,
             },
             {
               title: "Ai Photo Enhancer",
-              path: "/ai-photo-enhancer",
+              path: ROUTES.AI_PHOTO_ENHANCER,
               icon: iconAiPhoto,
             },
             {
               title: "Ai Background Remove",
-              path: "/ai-background-remove",
+              path: ROUTES.AI_BACKGROUND_REMOVE,
               icon: iconAiBackgroundChange,
             },
           ]}

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const WrapperFooter = styled.div`
-  border-top: 1px solid var(--outline-stroke, #1a202f);
+  border-top: 1px solid #1a202f;
   margin-top: 70px;
   padding: 30px;
   display: flex;
@@ -10,7 +10,7 @@ export const WrapperFooter = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   & > div:first-child {
-    color: var(--text-secondary, #d2d2d2);
+    color: #d2d2d2;
     font-size: 13px;
   }
   @media screen and (max-width: 768px) {
@@ -27,7 +27,7 @@ export const GroupText = styled.div`
   display: flex;
   gap: 20px;
   div {
-    color: var(--text-secondary, #d2d2d2);
+    color: #d2d2d2;
     cursor: pointer;
     font-size: 13px;
   }

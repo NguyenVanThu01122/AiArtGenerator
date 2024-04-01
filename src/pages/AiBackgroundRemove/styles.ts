@@ -5,7 +5,7 @@ export const WrapperAIBackgroundChanger = styled.div`
   padding: 20px 20px 0px 20px;
   width: 100%;
   height: 100%;
-  background-color: rgb(9, 9, 23);
+  /* background-color: mode; */
   overflow-y: auto;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
