@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ImageGeneral from "../Ui/image";
 
 export const WrapperSidebar = styled.div<{ closeMenu: boolean }>`
-  background-color: rgb(9, 9, 23);
+  /* background-color: rgb(9, 9, 23); */
   width: ${(props) => (props?.closeMenu ? "120px" : "280px")};
   transition: 0.3s ease;
   height: 100%;
@@ -28,6 +28,7 @@ export const WrapperMenu = styled.div<{ closeMenu: boolean }>`
   padding: 10px;
   cursor: pointer;
   margin-bottom: 10px;
+  font-size: 17px;
   justify-content: ${(props: any) =>
     props.closeMenu ? "center" : "flex-start"} !important;
   span {
@@ -77,7 +78,7 @@ export const StyledImageGeneral = styled(ImageGeneral)`
 `;
 
 export const NameApp = styled.span<{ closeMenu: boolean }>`
-  display: ${(props: any) => (props.closeMenu ? "none" : "block")};
+  display: ${(props) => (props.closeMenu ? "none" : "block")};
   color: white;
   font-size: 24px;
   font-weight: 500;
@@ -102,4 +103,3 @@ export const ContainerMenu = styled.div<{ closeMenu: boolean }>`
     }
   }
 `;
-

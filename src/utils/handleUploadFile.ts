@@ -12,7 +12,6 @@ export const useUploadFile = () => {
   // hàm xử lý tải ảnh lên
   const handleUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]; // Lấy giá trị file vừa tải lên và gắn vào biến file
-
     if (file && file.size > MAX_SIZE_INBYTES) {
       toast.error("File size exceeds the allowed limit.");
       return;

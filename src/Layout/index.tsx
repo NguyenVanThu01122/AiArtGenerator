@@ -1,34 +1,32 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
+import { useTheme } from "styled-components";
 import DialogLoin from "../components/DialogLogin";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { RootState } from "../reduxToolkit/Slices/RootReducer";
 import { useGetInfoUser } from "../utils/useGetInfoUser";
-import {
-  BoxContent,
-  MainContent,
-  ParentContent,
-  WrapperLayout,
-} from "./styles";
+import { MainContent, ParentContent, StyledBox, WrapperLayout } from "./styles";
+import { useColorScheme } from "@mui/material";
 
 export function Layout() {
   const closeMenu = useSelector((state: RootState) => state.app.closeMenu);
   const dialogLogin = useSelector((state: RootState) => state.app.dialogLogin);
-  //  const {handleCheckLogin} = useCheckLogin();
-  const login = useSelector((state: any) => state.app.login);
   const [getUser] = useGetInfoUser();
+  const token = localStorage.getItem("token");
+  const { mode, setMode } = useColorScheme();
 
   useEffect(() => {
-    if (login) {
+    if (token) {
       getUser();
     }
-  }, [login]);
+  }, [token]);
 
   return (
     <WrapperLayout>
-      <BoxContent>
+      {/* <BoxContent> */}
+      <StyledBox mode={mode}>
         <Sidebar />
         <MainContent className={`${closeMenu && "close-box"}`}>
           <Header />
@@ -36,7 +34,9 @@ export function Layout() {
             <Outlet />
           </ParentContent>
         </MainContent>
-      </BoxContent>
+      </StyledBox>
+      {/* </BoxContent> */}
+
       {dialogLogin && <DialogLoin dialogLogin={dialogLogin} />}
     </WrapperLayout>
   );

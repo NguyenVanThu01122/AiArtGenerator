@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 
+import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { getPricing, stripeOder } from "../../services/pricing";
+import { RootState } from "../../reduxToolkit/Slices/RootReducer";
+import { fetchPricing } from "../../reduxToolkit/Thunks/GetPricing/fetchPricing";
+import { ROUTES } from "../../routes/routes";
+import { stripeOder } from "../../services/pricing";
 import { ERROR_MESSAGES } from "../../utils/constants";
 import { useCheckLogin } from "../../utils/useCheckLogin";
 import CreatorHubSection from "./components/CreatorHubSection";
@@ -11,17 +16,17 @@ import FrequentlyAskedQuestions from "./components/Questions";
 import { BoxContent, WrapperPricing } from "./styles";
 
 function Pricing() {
-  const [listPricing, setListPricing] = useState([]);
   const [selectPrice, setSelectPrice] = useState("");
   const { handleCheckLogin } = useCheckLogin();
+  const { listPricing } = useSelector(
+    (state: RootState) => state.getListPricingSlice
+  );
+  const dispatch =
+    useDispatch<ThunkDispatch<RootState, undefined, AnyAction>>();
 
-  const getListPricing = () => {
-    getPricing()
-      .then((res) => {
-        setListPricing(res.data);
-      })
-      .catch((error) => toast.error(ERROR_MESSAGES.SERVER_ERROR));
-  };
+  useEffect(() => {
+    dispatch(fetchPricing()); //lấy danh sách pricing
+  }, []);
 
   // hàm xử lý thanh toán credits
   const handleStripeOrder = (id: string) => {
@@ -31,7 +36,7 @@ function Pricing() {
     setSelectPrice(id);
     const body = {
       priceId: id,
-      redirectUrl: "http://localhost:3000",
+      redirectUrl: ROUTES.BASE_URL,
     };
     stripeOder(body)
       .then((res) => {
@@ -39,10 +44,6 @@ function Pricing() {
       })
       .catch((error) => toast.error(ERROR_MESSAGES.SERVER_ERROR));
   };
-
-  useEffect(() => {
-    getListPricing();
-  }, []);
 
   return (
     <WrapperPricing>

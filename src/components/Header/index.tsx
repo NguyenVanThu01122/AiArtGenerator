@@ -5,8 +5,9 @@ import imgAvatarDefault from "../../images/avatar-default.jpg";
 import iconCloseSidebar from "../../images/icon-close-sidebar.svg";
 import iconOpenSidebar from "../../images/icon-open-sidebar.svg";
 
-import { saveCloseMenu, saveLogin, saveUser } from "../../reduxToolkit/Slices/AppSlice";
+import { saveCloseMenu, saveUser } from "../../reduxToolkit/Slices/AppSlice";
 import { RootState } from "../../reduxToolkit/Slices/RootReducer";
+import { ROUTES } from "../../routes/routes";
 import {
   isAuthenticated,
   removeRefreshToken,
@@ -16,6 +17,7 @@ import { LogoCreatorHub } from "../LogoCreatorHub";
 import ButtonGeneral from "../Ui/button";
 import ImageGeneral from "../Ui/image";
 import MobileMenu from "./components/MobileMenu";
+import ModeToggle from "./components/ModeToggle";
 import UserInfo from "./components/UserInfo";
 import {
   BoxAccount,
@@ -34,41 +36,45 @@ import {
 function Header() {
   const pathName = window.location.pathname;
   const [savePathName, setSavePathName] = useState("");
-  const users = useSelector((state: RootState) => state.app?.user);
-  const toggleVisibility = useSelector(
-    (state: RootState) => state.app.closeMenu
-  );
+  const { user, closeMenu } = useSelector((state: RootState) => state.app);
+
   const [isShowBoxProfile, setIsShowBoxProfile] = useState(false);
   const profileRef = useRef<HTMLImageElement | null>(null);
   const loggedIn = isAuthenticated();
 
-  const filterListPathName = ["/", "/pricing", "/my-account", "/my-avatars"];
+  const filterListPathName = [
+    ROUTES.HOME,
+    ROUTES.PRICING,
+    ROUTES.MY_ACCOUNT,
+    ROUTES.AI_IMAGE_RESULT,
+  ];
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // hàm xử lý lọc pathName
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleFilterPathName = () => {
     switch (pathName) {
-      case "/":
+      case ROUTES.HOME:
         setSavePathName("Home");
         break;
-      case "/pricing":
+      case ROUTES.PRICING:
         setSavePathName("Pricing");
         break;
-      case "/my-avatars":
-        setSavePathName("My Avatars");
+      case ROUTES.AI_IMAGE_RESULT:
+        setSavePathName("AI Image Result");
         break;
-      case "/my-account":
+      case ROUTES.MY_ACCOUNT:
         setSavePathName("My Account");
         break;
-      case "/ai-art-generator":
-        setSavePathName("/ AI Art Generator");
+      case ROUTES.AI_ART_GENERATOR:
+        setSavePathName("AI Art Generator");
         break;
-      case "/ai-photo-enhancer":
-        setSavePathName("/ AI Photo Enhancer");
+      case ROUTES.AI_PHOTO_ENHANCER:
+        setSavePathName("AI Photo Enhancer");
         break;
-      case "/ai-background-remove":
-        setSavePathName("/ AI Background Remove");
+      case ROUTES.AI_BACKGROUND_REMOVE:
+        setSavePathName("AI Background Remove");
         break;
       default:
         setSavePathName("");
@@ -80,8 +86,7 @@ function Header() {
     removeToken();
     removeRefreshToken();
     dispatch(saveUser(null));
-    dispatch(saveLogin(false));
-    navigate("/sign-in");
+    navigate(ROUTES.SIGN_IN);
   };
 
   // hàm navigate chuyển hướng
@@ -90,14 +95,14 @@ function Header() {
     setIsShowBoxProfile(false);
   };
 
-  const toggleMenuVisibility = () => dispatch(saveCloseMenu(!toggleVisibility));
+  const toggleMenuVisibility = () => dispatch(saveCloseMenu(!closeMenu));
 
   // hàm chuyển đổi trạng thái của boxProfile
   const toggleBoxProfile = () => setIsShowBoxProfile(!isShowBoxProfile);
 
   useEffect(() => {
     handleFilterPathName();
-  }, [pathName]);
+  }, [handleFilterPathName, pathName]);
 
   // Sử dụng useEffect để theo dõi sự kiện click trên document
   useEffect(() => {
@@ -119,7 +124,7 @@ function Header() {
   return (
     <WrapperHeader>
       <DisPlayPathName>
-        {toggleVisibility ? (
+        {closeMenu ? (
           <ImageGeneral
             className="ic-close"
             onClick={toggleMenuVisibility}
@@ -139,7 +144,7 @@ function Header() {
             savePathName
           ) : (
             <PathNameProducts>
-              Products <span>{savePathName}</span>
+              Products /<span>{savePathName}</span>
             </PathNameProducts>
           )}
         </PathNameItem>
@@ -152,25 +157,26 @@ function Header() {
 
       {loggedIn ? (
         <BoxAccount>
+          <ModeToggle />
           <UserInfo />
           <ContainerProfile ref={profileRef}>
             <ImageGeneral
               className="avatar"
               onClick={toggleBoxProfile}
-              src={users?.avatar || imgAvatarDefault}
+              src={user?.avatar || imgAvatarDefault}
             />
             {isShowBoxProfile && (
               <BoxProfile>
                 <ContentUser>
                   <ImageGeneral
                     className="avatar"
-                    src={users?.avatar || imgAvatarDefault}
+                    src={user?.avatar || imgAvatarDefault}
                   />
 
                   <UserInfo isShowBoxProfile={isShowBoxProfile} />
                 </ContentUser>
                 <SelectItem>
-                  <MenuItem onClick={() => handleRedirect("/my-account")}>
+                  <MenuItem onClick={() => handleRedirect(ROUTES.MY_ACCOUNT)}>
                     My Account
                   </MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
@@ -180,7 +186,7 @@ function Header() {
           </ContainerProfile>
         </BoxAccount>
       ) : (
-        <ButtonGeneral onClick={() => navigate("/sign-in")}>
+        <ButtonGeneral onClick={() => navigate(ROUTES.SIGN_IN)}>
           Log In
         </ButtonGeneral>
       )}

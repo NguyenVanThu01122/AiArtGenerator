@@ -6,22 +6,22 @@ import { AiPhotoEnhancer } from "../pages/AiPhotoEnhancer";
 import ChangePassword from "../pages/ChangePassword";
 import Home from "../pages/Home";
 
+import AiImageResult from "../pages/AiImageResults";
 import { HomePage } from "../pages/HomePage";
 import { MyAccount } from "../pages/MyAccount";
-import MyAvatars from "../pages/MyAvatars";
+import NotFound from "../pages/NotFound";
 import Pricing from "../pages/Pricing";
 import Register from "../pages/Register";
 import { SignIn } from "../pages/SignIn";
 import VerifyRegister from "../pages/VerifyRegister";
 import { ROUTES } from "./routes";
-import NotFound from "../pages/NotFound";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path={ROUTES.HOME} element={<Home />} />
-          <Route path={ROUTES.MY_AVATARS} element={<MyAvatars />} />
+          <Route path={ROUTES.AI_IMAGE_RESULT} element={<AiImageResult />} />
           <Route path={ROUTES.AI_ART_GENERATOR} element={<AiArtGenerator />} />
           <Route
             path={ROUTES.AI_PHOTO_ENHANCER}

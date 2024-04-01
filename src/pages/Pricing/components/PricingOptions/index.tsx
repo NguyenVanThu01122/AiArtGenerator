@@ -26,7 +26,7 @@ interface PackageInfoType {
     benefits: string[];
   };
 }
-interface ListPricingType {
+export interface ListPricingType {
   id: string;
   name: string;
   price: number;

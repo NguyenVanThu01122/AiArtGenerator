@@ -1,11 +1,13 @@
+import { ThunkDispatch } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { AnyAction } from "redux";
 import { RootState } from "../../reduxToolkit/Slices/RootReducer";
+import { fetchListStyleAiImg } from "../../reduxToolkit/Thunks/GetStyleAiImages/fetchStyleAiImg";
 import {
   deductCreditsAiArt,
   generateAiImage,
-  getListImage,
   saveResultImageAi,
 } from "../../services/aiArtGenerator";
 import {
@@ -26,7 +28,7 @@ import PromptInput from "./components/PromptInput";
 import AiArtResult from "./components/ResultAiArt";
 import StyleImageCarousel from "./components/StyleImageCarousel";
 import { MainContent, SectionContents, WrapperAiArtGenerator } from "./styles";
-import { TypeConfig, TypeListImgAiArt } from "./types";
+import { TypeConfig } from "./types";
 
 function AiArtGenerator() {
   const [sliderValueAlpha, setSliderValueAlpha] = useState(DEFAULT_ALPHA);
@@ -35,33 +37,29 @@ function AiArtGenerator() {
   const [prompt, setPrompt] = useState("");
   const [resultImage, setResultImage] = useState("");
   const [negativePrompt, setNegativePrompt] = useState("");
-  const [selectStyle, setSelectStyle] = useState<any>();
-  const [listStyle, setListStyle] = useState([]);
+  const [selectStyle, setSelectStyle] = useState<any>({});
   const [isLoading, setIsLoading] = useState(false);
-  const { fileUpload, setFileUpload, setUploadImage } = useUploadFile();
+  const {
+    handleUploadImage,
+    fileUpload,
+    uploadImage,
+    setFileUpload,
+    setUploadImage,
+  } = useUploadFile();
+
   const { handleCheckCredit } = useCheckCredit();
   const user = useSelector((state: RootState) => state.app.user);
+  const { listStyle } = useSelector((state: RootState) => state.getListStyle);
   const [getUser] = useGetInfoUser();
   const { handleCheckLogin } = useCheckLogin();
+  const dispatch =
+    useDispatch<ThunkDispatch<RootState, undefined, AnyAction>>();
 
-  const getListImageAiArt = async () => {
-    try {
-      const res = await getListImage();
-      const result = res.data.data.items?.map((item: TypeListImgAiArt) => {
-        return {
-          id: item._id,
-          image: item.key,
-          name: item.name,
-          config: item.config,
-        };
-      });
-      setListStyle(result);
-    } catch (error) {
-      toast.error(ERROR_MESSAGES.SERVER_ERROR);
-    }
-  };
+  useEffect(() => {
+    dispatch(fetchListStyleAiImg()); //lấy danh sách style imageAiArt
+  }, []);
 
-  // hàm click image
+  // hàm click style imageAiArt
   const handleClickStyle = (style: { config: TypeConfig }) => {
     setSelectStyle(style);
     setSliderValueAlpha(style.config.alpha);
@@ -93,10 +91,10 @@ function AiArtGenerator() {
     if (fileUpload) {
       formData.append("file", fileUpload);
     }
-    appendPromptsToFormData(formData);
     if (selectStyle) {
       formData.append("style", selectStyle?.config?.style);
     }
+    appendPromptsToFormData(formData);
     formData.append("alpha", sliderValueAlpha.toString());
     formData.append("guidanceScale", sliderValueScale.toString());
     formData.append("numInferenceSteps", sliderValueSteps.toString());
@@ -135,20 +133,23 @@ function AiArtGenerator() {
 
   // Trừ credits và lưu kết quả hình ảnh
   const deductCreditsAndSaveResult = async (base64ImageString: string) => {
-    await deductCreditsAiArt();
-    getUser(); // cập nhật lại credits
-    const body = {
-      url: base64ImageString,
-      config: {
-        step: sliderValueSteps,
-        style: selectStyle?.name || "None",
-        alpha: sliderValueAlpha,
-        scale: sliderValueScale,
-        positivePrompt: prompt.trim() || "",
-        negativePrompt: negativePrompt.trim() || "",
-      },
-    };
-    await saveResultImageAi(body);
+    await deductCreditsAiArt()
+      .then(async () => {
+        getUser(); // cập nhật lại credit
+        const body = {
+          url: base64ImageString,
+          config: {
+            step: sliderValueSteps,
+            style: selectStyle?.name || "None",
+            alpha: sliderValueAlpha,
+            scale: sliderValueScale,
+            positivePrompt: prompt.trim() || "",
+            negativePrompt: negativePrompt.trim() || "",
+          },
+        };
+        await saveResultImageAi(body); // lưu kết quả hình ảnh
+      })
+      .catch(() => toast.error(ERROR_MESSAGES.SERVER_ERROR));
   };
 
   // Xử lý lỗi khi không thể tạo hình ảnh
@@ -160,7 +161,6 @@ function AiArtGenerator() {
   // hàm create Image AiArt
   const handleGenerate = async () => {
     try {
-      // Kiểm tra đăng nhập
       if (handleCheckLogin()) {
         return;
       }
@@ -170,19 +170,23 @@ function AiArtGenerator() {
       }
       setIsLoading(true);
       const formData = prepareFormData();
-      const res = await generateAiImage(formData); // create ImageAi
-      const base64ImageString = convertImageToBase64(res.data);
-      setResultImage(base64ImageString);
-      setIsLoading(false);
-      await deductCreditsAndSaveResult(base64ImageString); // Trừ credits và lưu kết quả hình ảnh
+      await generateAiImage(formData)
+        .then(async (res) => {
+          const base64ImageString = convertImageToBase64(res.data);
+          await deductCreditsAndSaveResult(base64ImageString); // Trừ credits và lưu kết quả hình ảnh
+          setResultImage(base64ImageString);
+          setIsLoading(false);
+          toast.success("Generate image successfully!");
+        })
+        .catch(() => {
+          toast.error("Error. Please try again.");
+          setIsLoading(false);
+        });
     } catch (error) {
       handleGenerateError();
     }
   };
 
-  useEffect(() => {
-    getListImageAiArt();
-  }, []);
   return (
     <WrapperAiArtGenerator>
       {resultImage ? (
@@ -205,7 +209,12 @@ function AiArtGenerator() {
               handleClickNoneStyle={handleClickNoneStyle}
               handleClickStyle={handleClickStyle}
             />
-            <ImageUploader />
+
+            <ImageUploader
+              uploadImage={uploadImage}
+              handleUploadImage={handleUploadImage}
+              setUploadImage={setUploadImage}
+            />
             <PromptInput
               prompt={prompt}
               setPrompt={setPrompt}

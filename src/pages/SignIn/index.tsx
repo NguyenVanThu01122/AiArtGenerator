@@ -1,7 +1,6 @@
 import { Checkbox } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AnimationStar from "../../components/AnimationStar";
@@ -9,7 +8,6 @@ import { SidebarImageLogin } from "../../components/SidebarImageLogin";
 import TextFieldController from "../../components/Ui/TextFieldController ";
 import ImageGeneral from "../../components/Ui/image";
 import { TextFieldType } from "../../components/Ui/textFieldCommon";
-import { saveLogin, saveToken } from "../../redux/Actions/app";
 import { FormValues, login } from "../../services/auth";
 import { SUCCESS_MESSAGE } from "../../utils/constants";
 import {
@@ -19,8 +17,8 @@ import {
 import {
   imageDiscord,
   imageFacebook,
+  imageGoogle,
   imageLogin,
-  imagegg,
 } from "../../utils/images";
 import {
   handleFacebookAuth,
@@ -52,9 +50,7 @@ export function SignIn() {
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [isModalPassword, setIsModalPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const {
     handleSubmit,
@@ -74,10 +70,9 @@ export function SignIn() {
     };
     login(bodyLogin)
       .then((res) => {
-        dispatch(saveLogin(true));
-        dispatch(saveToken(res.data?.token));
+        // dispatch(saveLogin(true));
         saveTokenLocalStorage("token", res.data?.token);
-        saveRefreshTokenLocalStorage("token", res.data?.refreshToken);
+        saveRefreshTokenLocalStorage("refreshToken", res.data?.refreshToken);
         navigate("/");
         toast.error(SUCCESS_MESSAGE.SUCCESS_LOGIN);
         reset();
@@ -105,19 +100,19 @@ export function SignIn() {
               <ImageGeneral
                 className="icon-google"
                 onClick={handleGoogleAuth}
-                src={imagegg}
-                alt=""
+                src={imageGoogle}
+                alt="imageGoogle"
               />
               <ImageGeneral
                 className="icon-discord"
                 src={imageDiscord}
-                alt=""
+                alt="imageDiscord"
               />
               <ImageGeneral
                 className="icon-facebook"
                 onClick={handleFacebookAuth}
                 src={imageFacebook}
-                alt=""
+                alt="imageFacebook"
               />
             </GroupImageGeneral>
             <GroupSpan>

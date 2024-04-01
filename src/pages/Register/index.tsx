@@ -12,8 +12,8 @@ import { RegisterType, register } from "../../services/auth";
 import {
   imageDiscord,
   imageFacebook,
+  imageGoogle,
   imageLogin,
-  imagegg,
 } from "../../utils/images";
 import {
   handleFacebookAuth,
@@ -93,7 +93,7 @@ export default function Register() {
               <ImageGeneral
                 className="icon-google"
                 onClick={handleGoogleAuth}
-                src={imagegg}
+                src={imageGoogle}
               />
               <ImageGeneral className="icon-discord" src={imageDiscord} />
               <ImageGeneral

@@ -6,7 +6,6 @@ import iconRotate from "../../../../images/icon-rotare.svg";
 import iconUploadImg from "../../../../images/icon-upload-img.svg";
 import { uploadFile } from "../../../../reduxToolkit/Slices/AppSlice";
 import { FILE_FORMAT } from "../../../../utils/constants";
-import { useUploadFile } from "../../../../utils/handleUploadFile";
 
 import {
   ChangeImage,
@@ -20,9 +19,17 @@ import {
   UploadedImage,
   Wrapper,
 } from "./styles";
+interface ImageUploaderProps {
+  handleUploadImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  uploadImage: string | null;
+  setUploadImage: React.Dispatch<React.SetStateAction<string | null>>;
+}
 
-function ImageUploader() {
-  const { handleUploadImage, uploadImage, setUploadImage } = useUploadFile();
+function ImageUploader({
+  uploadImage,
+  handleUploadImage,
+  setUploadImage,
+}: ImageUploaderProps) {
   const dispatch = useDispatch();
 
   const handleRemoveImage = () => {
@@ -49,7 +56,7 @@ function ImageUploader() {
                 className="input-upload"
                 type="file"
                 inputProps={{ accept: FILE_FORMAT }}
-                onChange={handleUploadImage}
+                onChange={(e) => handleUploadImage(e)}
               />
             </ChangeItem>
           </ChangeImage>

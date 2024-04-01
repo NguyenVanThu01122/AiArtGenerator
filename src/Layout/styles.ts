@@ -1,27 +1,15 @@
+import Box from "@mui/material/Box";
 import styled from "styled-components";
 
 export const WrapperLayout = styled.div`
-  background-color: rgb(9, 9, 23);
   width: 100vw;
   height: 100vh;
-  /* .item-loading {
-    z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img {
-      width: 300px;
-      height: 300px;
-      object-fit: contain;
-      border-radius: 10px;
-    }
-  } */
+`;
+
+export const StyledBox = styled(Box)<{ mode: any }>`
+  display: flex;
+  background-color: ${({ mode }) =>
+    mode === "dark" ? "rgb(9, 9, 23)" : "blue"};
 `;
 
 export const BoxContent = styled.div`
