@@ -1,5 +1,11 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import {
+  removeRefreshToken,
+  removeToken,
+  saveRefreshTokenLocalStorage,
+  saveTokenLocalStorage,
+} from "../../utils/handleTokenUtils";
 import { generateNewToken } from "../auth";
 
 const privateAxios = axios.create({
@@ -29,15 +35,15 @@ privateAxios.interceptors.response.use(
     if (error.response.status === 401) {
       generateNewToken()
         .then((res) => {
-          localStorage.setItem("token", res.data?.token);
-          localStorage.setItem("refreshToken", res.data?.refreshToken);
+          saveTokenLocalStorage("token", res.data?.token);
+          saveRefreshTokenLocalStorage("refreshToken", res.data?.refreshToken);
           window.location.reload();
         })
         .catch((error) => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("refreshToken");
+          removeToken();
+          removeRefreshToken();
           toast.error("Token expired, please login again");
-          // window.location.assign("/sign-in");
+          window.location.assign("/sign-in");
         });
     }
 

@@ -18,6 +18,7 @@ interface EmailSentDialogProps {
   onClose: () => void;
   handleTryAgain?: any;
 }
+
 export const Transition = forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement<any, any>;

@@ -4,18 +4,18 @@ import { RootState } from "../reduxToolkit/Slices/RootReducer";
 import { getTokenLocalStorage } from "./handleTokenUtils";
 
 export const useCheckLogin = () => {
-  const token =
+  const login =
     useSelector((state: RootState) => state.app.login) ||
     getTokenLocalStorage();
   const dispatch = useDispatch();
 
   const handleCheckLogin = () => {
-    if (!token) {
+    if (!login) {
       dispatch(saveDialogLogin(true));
       return true;
     } else {
       return false;
     }
   };
-  return { handleCheckLogin };
+  return { handleCheckLogin, login };
 };

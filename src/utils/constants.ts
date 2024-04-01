@@ -1,3 +1,9 @@
+export const DEFAULT_PAGE = 1;
+export const DEFAULT_LIMIT = 10;
+export const DEFAULT_SORT_DATE = "DEFAULT";
+export const DEFAULT_CURRENT = 0;
+export const DEFAULT_TOTAL = 0;
+
 export const DEFAULT_ALPHA = 0.9;
 export const DEFAULT_STEPS = 30;
 export const DEFAULT_SCALE = 10;
@@ -37,6 +43,35 @@ export const NOTIFICATION = "This feature is under development";
 
 export const INSUFFICIENT_CREDITS_MESSAGE =
   "Your credits is not enable. Please purchase credits!";
+
+export const SELECT_SORT_DATE = [
+  {
+    value: "DEFAULT",
+    label: "DEFAULT",
+  },
+  {
+    value: "INCREASE",
+    label: "INCREASE",
+  },
+  {
+    value: "DECREASE",
+    label: "DECREASE",
+  },
+];
+
+export const OPTION_LIMIT = [
+  { value: "5", label: "5" },
+  { value: "10", label: "10" },
+  { value: "15", label: "15" },
+  { value: "20", label: "20" },
+];
+
+// export const OPTION_LIMIT = [
+//   { value: 5, label: 5 },
+//   { value: 10, label: 10 },
+//   { value: 15, label: 15 },
+//   { value: 20, label: 20 },
+// ];
 
 // export const ERROR_MESSAGES = {
 //   SERVER_ERROR: "Đã xảy ra lỗi từ máy chủ",

@@ -2,11 +2,12 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { saveUser } from "../reduxToolkit/Slices/AppSlice";
+import { RootState } from "../reduxToolkit/Slices/RootReducer";
 import { getUsers } from "../services/user";
 import { ERROR_MESSAGES } from "./constants";
 
 export const useGetInfoUser = () => {
-  const login = useSelector((state: any) => state.app.login);
+  const login = useSelector((state: RootState) => state.app.login);
   const dispatch = useDispatch();
 
   // lấy user
@@ -22,7 +23,7 @@ export const useGetInfoUser = () => {
     if (login) {
       getUser();
     }
-  }, [login]);
+  }, []);
 
   return [getUser];
 };

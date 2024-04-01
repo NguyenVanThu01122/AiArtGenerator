@@ -1,7 +1,7 @@
 import styled from "styled-components";
 export const WrapperHeader = styled.div`
   position: relative;
-  background-color: rgb(9, 9, 23);
+  /* background-color: rgb(9, 9, 23); */
   height: 75px;
   padding: 0px 15px;
   display: flex;
@@ -50,7 +50,7 @@ export const DisPlayPathName = styled.div`
 `;
 
 export const PathNameItem = styled.div`
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 600;
   display: flex;
   gap: 10px;
@@ -58,7 +58,12 @@ export const PathNameItem = styled.div`
 
 export const PathNameProducts = styled.div`
   & span {
-    color: gray;
+    margin-left: 5px;
+    background: linear-gradient(90deg, #f23061 -7.43%, #faa227);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: bold;
+    font-size: 18px;
     &:hover {
       color: white;
       cursor: pointer;
