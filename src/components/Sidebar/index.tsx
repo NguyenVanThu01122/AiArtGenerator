@@ -1,5 +1,3 @@
-import { faImage } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "antd";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -30,6 +28,7 @@ interface TypeMenuData {
   title: string;
   path: string;
   icon: string;
+  iconType?: string;
 }
 
 export default function Sidebar() {
@@ -42,15 +41,14 @@ export default function Sidebar() {
     navigate(url);
   };
 
-  const MenuItem = ({ title, path, icon }: TypeMenuData) => (
-    <Tooltip placement="right" title={closeMenu && title}>
+  const MenuItem = ({ title, path, icon, iconType }: TypeMenuData) => (
+    <Tooltip arrow placement="right" title={closeMenu && title}>
       <WrapperMenu
         closeMenu={closeMenu}
         className={pathName === path ? "border" : ""}
         onClick={() => handleRedirect(path)}
       >
-        {icon && <ImageGeneral src={icon} alt={title} />}
-        {!icon && <FontAwesomeIcon className="ic-avatar" icon={faImage} />}
+        {icon && <ImageGeneral className="icon" src={icon} />}
         <span>{title}</span>
       </WrapperMenu>
     </Tooltip>
@@ -64,7 +62,7 @@ export default function Sidebar() {
     items: TypeMenuData[];
   }) => (
     <SectionProductMenu>
-      <TitleMenu>{title}</TitleMenu>
+      <TitleMenu closeMenu={closeMenu}>{title}</TitleMenu>
       {items.map((item: TypeMenuData, index: number) => (
         <MenuItem key={index} {...item} />
       ))}

@@ -171,8 +171,8 @@ export default function Register() {
                   value: 6,
                   message: "Password must be at least eight characters!",
                 },
-                validate: (value: string) =>
-                  value === confirm || "Passwords do not match",
+                // validate: (value: string) =>
+                //   value === watch("confirm") || "Passwords do not match",
               }}
             />
             <TextFieldController
@@ -200,7 +200,7 @@ export default function Register() {
               rules={{
                 required: "Please confirm your password!",
                 validate: (value: string) =>
-                  value === password || "Passwords do not match",
+                  value === watch("password") || "Passwords do not match",
               }}
             />
           </StyledFormControl>

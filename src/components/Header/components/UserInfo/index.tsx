@@ -18,7 +18,7 @@ export default function UserInfo({
       </NameUser>
       <CreditUser>
         <ImageGeneral src={icCredits1} alt="" />
-        {users?.credits}{" "}
+        <span>{users?.credits} </span>
         {users?.credits && users?.credits > 1 ? "credits" : "credit"}
       </CreditUser>
     </DetailUser>

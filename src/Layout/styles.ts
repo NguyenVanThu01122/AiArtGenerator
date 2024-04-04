@@ -6,13 +6,7 @@ export const WrapperLayout = styled.div`
   height: 100vh;
 `;
 
-export const StyledBox = styled(Box)<{ mode: any }>`
-  display: flex;
-  background-color: ${({ mode }) =>
-    mode === "dark" ? "rgb(9, 9, 23)" : "blue"};
-`;
-
-export const BoxContent = styled.div`
+export const BoxContent = styled(Box)`
   display: flex;
   width: 100%;
   height: 100%;
@@ -22,7 +16,7 @@ export const BoxContent = styled.div`
 `;
 
 export const MainContent = styled.div`
-  width: calc(100% - 280px);
+  width: calc(100% - 310px);
   @media screen and (max-width: 768px) {
     width: 100vw !important;
   }

@@ -215,6 +215,7 @@ function AiArtGenerator() {
               handleUploadImage={handleUploadImage}
               setUploadImage={setUploadImage}
             />
+            
             <PromptInput
               prompt={prompt}
               setPrompt={setPrompt}

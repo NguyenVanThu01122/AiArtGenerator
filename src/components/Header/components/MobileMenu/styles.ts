@@ -1,5 +1,5 @@
 // import { Drawer } from "antd";
-import { Drawer } from "@mui/material";
+import { Box, Drawer } from "@mui/material";
 import styled from "styled-components";
 
 export const WrapperMenu = styled.div`
@@ -7,8 +7,9 @@ export const WrapperMenu = styled.div`
     display: none;
     @media screen and (max-width: 768px) {
       display: block;
-      color: white;
-      font-size: 22px;
+      color: var(--text-color);
+      width: 28px;
+      height: 28px;
     }
   }
 `;
@@ -16,19 +17,25 @@ export const WrapperMenu = styled.div`
 export const ItemDrawer = styled(Drawer)`
   display: none;
   gap: 50px;
-  background-color: rgb(9, 9, 23) !important;
 
   @media screen and (max-width: 768px) {
     display: block;
   }
 `;
 
+export const StyledBox = styled(Box)`
+  height: 100vh;
+  padding: 20px;
+  background: var(--background-color);
+`;
+
 export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 30px;
   .icon-angles {
-    color: white;
+    color: var(--text-color);
     font-size: 20px;
   }
 `;
@@ -36,10 +43,11 @@ export const Header = styled.div`
 export const ContentSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 70px;
 `;
 
 export const SectionMenu = styled.div`
+  flex: 1;
   padding: 10px 0px 10px 0px;
   margin-top: 10px;
   .section-products {
@@ -54,9 +62,10 @@ export const SectionMenu = styled.div`
     }
   }
   .border-item {
-    background: rgb(36, 36, 60);
+    /* background: rgb(36, 36, 60); */
+    background-color: rgba(373, 169, 45, 0.09);
     border-radius: 5px;
-    box-shadow: 0 0 2px 1px violet;
+    color: orange !important;
   }
 `;
 
@@ -65,22 +74,12 @@ export const MenuItem = styled.div`
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
   font-size: 16px;
   &:hover {
-    background: rgb(36, 36, 60);
     border-radius: 5px;
   }
   img {
-    /* width: 35px; */
-    background: rgb(36, 36, 60);
-    border-radius: 50%;
-    padding: 10px;
-  }
-
-  .ic-avatar {
-    color: white;
-    font-size: 20px;
     background: rgb(36, 36, 60);
     border-radius: 50%;
     padding: 10px;
@@ -88,12 +87,15 @@ export const MenuItem = styled.div`
 `;
 
 export const ContentMenu = styled.span`
-  color: white;
+  color: var(--text-color);
+  font-size: large;
+  font-weight: bold;
 `;
 
 export const StyledDrawerMenu = styled(Drawer)`
   display: none;
   gap: 50px;
+  padding: 20px;
   .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
     background-color: rgb(9, 9, 23);
     padding: 30px 20px;

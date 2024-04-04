@@ -1,6 +1,6 @@
 export const APIs = {
   LOGIN: "/auth/login",
-  REGISTER: "/auth/register",
+  REGISTER: "/auth/create",
   GET_USER: "/user",
   AVATAR: "/avatar",
   VERIFY: "/auth/verify",

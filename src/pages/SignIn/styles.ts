@@ -287,8 +287,6 @@ export const RedirectSignOut = styled.div`
   }
   @media screen and (max-width: 768px) {
     margin: 20px 0px;
-    display: flex;
-    justify-content: space-between;
   }
 `;
 
