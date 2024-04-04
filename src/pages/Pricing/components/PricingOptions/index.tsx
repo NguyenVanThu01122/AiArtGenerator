@@ -84,7 +84,7 @@ export default function PricingOptions({
     }
   };
 
-  // Biến chứa thông tin chung cho các loại gói
+  //  chứa thông tin chung cho các loại gói
   const packageInfo: PackageInfoType = {
     Lite: {
       icon: icCheckGreen,
@@ -130,10 +130,19 @@ export default function PricingOptions({
 
       <ListPricing>
         {listPricing.map((item: ListPricingType) => (
-          <DetailPricing namePricing={item.name}>
+          <DetailPricing
+            sx={{
+              bgcolor: "common.background",
+            }}
+            namePricing={item.name}
+          >
             <InfoPricing>
               {item.name === "Basic" && (
-                <ItemPopular>
+                <ItemPopular
+                  sx={{
+                    bgcolor: "common.background",
+                  }}
+                >
                   <Popular>MOST POPULAR</Popular>
                 </ItemPopular>
               )}

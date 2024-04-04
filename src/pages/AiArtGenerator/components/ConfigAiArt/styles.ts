@@ -6,7 +6,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   width: 300px;
   border-left: 1px solid rgb(30, 36, 49);
-  border-top: 1px solid rgb(30, 36, 49);
   @media screen and (max-width: 768px) {
     width: 100%;
   }
@@ -16,6 +15,7 @@ export const ContentConfigs = styled.div`
   flex: 1;
   padding: 24px 16px;
   overflow-y: auto;
+
   &::-webkit-scrollbar-thumb {
     border-radius: 5px !important;
   }
@@ -37,20 +37,29 @@ export const AdvancedSettings = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 15px 0px;
-  .reverse-icon {
+  cursor: pointer;
+
+  .reverse-icon,
+  .reverse-initial {
+    width: 20px;
+    height: 20px;
     transition: all 0.2s ease 0s;
+    color: var(--text-color);
+  }
+
+  .reverse-icon {
     transform: rotate(180deg);
   }
+
   .reverse-initial {
     transform: rotate(0deg);
-    transition: all 0.2s ease 0s;
   }
 `;
 
 export const AdvancedSetting = styled.div`
-  color: white;
+  color: var(--text-color);
   margin: 10px 0px;
-  font-size: 14px;
+  font-weight: 600;
 `;
 
 export const BlockSettings = styled.div`
@@ -70,14 +79,14 @@ export const DetailConfigs = styled.div`
 `;
 
 export const TitleConfig = styled.div`
-  color: white;
+  color: var(--text-color);
   font-weight: bold;
   font-size: 14px;
 `;
 
 export const DescriptionConfig = styled.div`
   margin: 10px 0px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-color);
   font-size: 13px;
 `;
 
@@ -89,17 +98,13 @@ export const BoxSlider = styled.div`
 `;
 
 export const ValueConfig = styled.div`
-  color: white;
+  color: var(--text-color);
 `;
 
 export const CustomSlider = styled(Slider)`
-  .css-14pt78w-MuiSlider-rail {
-  }
   .css-1gv0vcd-MuiSlider-track {
-    background: var(
-      --linear,
-      linear-gradient(217deg, #e250e5 0%, #4b50e6 100%)
-    );
+    height: 50px;
+    background: linear-gradient(217deg, #e250e5 0%, #4b50e6 100%);
   }
   .MuiSlider-valueLabel {
     line-height: 1.2;
@@ -124,18 +129,12 @@ export const CustomSlider = styled(Slider)`
   }
   .MuiSlider-track {
     border: none;
-    background: var(
-      --linear,
-      linear-gradient(217deg, #e250e5 0%, #4b50e6 100%)
-    );
+    background: linear-gradient(217deg, #e250e5 0%, #4b50e6 100%);
   }
   .MuiSlider-thumb {
     height: 20px;
     width: 20px;
-    background: var(
-      --linear,
-      linear-gradient(217deg, #e250e5 0%, #4b50e6 100%)
-    );
+    background: linear-gradient(217deg, #e250e5 0%, #4b50e6 100%);
     &:focus,
     &:hover,
     &.Mui-active,

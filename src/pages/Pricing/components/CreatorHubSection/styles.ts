@@ -2,13 +2,14 @@ import { Box, Grid } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const StyledBox = styled(Box)`
   position: relative;
   width: 100%;
   border-radius: 12px;
-  background: #1c1c2c;
   padding: 0px 70px 70px;
-
+  /* background: #1c1c2c; */
+  /* background: rgb(33, 43, 54); */
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px 0px;
   @media screen and (max-width: 768px) {
     padding: 20px 12px;
   }
@@ -123,17 +124,17 @@ export const StyledGrid = styled(Grid)`
     margin: 0px 50px;
     width: 4px !important;
     height: 4px;
-    background-color: rgb(26, 29, 33);
+    /* background-color: rgb(26, 29, 33); */
   }
   &::-webkit-scrollbar-track {
     background-color: transparent !important; //Màu của vùng cuộn
   }
   &::-webkit-scrollbar-thumb {
     width: 350px;
-    background-color: #a0c9eb;
     border-radius: 8px;
+    /* background-color: #a0c9eb; */
     /* background: #24c6b2 !important; */
-    /* background: linear-gradient(217deg, #e250e5, #4b50e6) !important; */
+    background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
   }
   @media screen and (max-width: 768px) {
     &::-webkit-scrollbar-thumb {
@@ -146,7 +147,7 @@ export const StyledGrid = styled(Grid)`
 export const DetailFeedback = styled(Box)`
   padding-left: 50px;
   width: 300px;
-  background-color: #1c1c2c !important;
+  /* background-color: #1c1c2c !important; */
   img {
     width: 22px;
     height: 22px;

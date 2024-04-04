@@ -40,8 +40,8 @@ export const ItemBack = styled.div`
   padding: 30px 20px;
   cursor: pointer;
   .icon-back {
-    color: white;
-    font-size: 16px;
+    color: var(--text-color);
+    font-size: 18px;
   }
   @media screen and (max-width: 768px) {
     padding: 20px 0px;
@@ -50,7 +50,7 @@ export const ItemBack = styled.div`
 `;
 
 export const BackGenerate = styled.div`
-  color: white;
+  color: var(--text-color);
   font-weight: bold;
   pointer-events: all;
 `;
@@ -112,7 +112,7 @@ export const TitlePage = styled.div`
   display: flex;
   justify-content: center;
   gap: 10px;
-  color: rgb(255, 255, 255);
+  color: var(--text-color);
   font-size: 40px;
   font-weight: 700;
   line-height: 50px;
@@ -144,7 +144,8 @@ export const PhotoEnhancer = styled.div`
 
 export const TextContent = styled.div`
   text-align: center;
-  color: #d2d2d2;
+  /* color: #d2d2d2; */
+  color: var(--text-color);
   font-weight: 400;
   line-height: 150%;
   margin-bottom: 25px;
@@ -310,7 +311,7 @@ export const AiPhotoEnhancerText = styled.div`
   display: flex;
   justify-content: center;
   gap: 10px;
-  color: rgb(255, 255, 255);
+  color: var(--text-color);
   font-size: 40px;
   font-weight: 700;
   line-height: 50px;
@@ -332,7 +333,8 @@ export const AiPhotoEnhancerText = styled.div`
 
 export const DescriptionEnhancer = styled.div`
   text-align: center;
-  color: #d2d2d2;
+  color: var(--text-color);
+  /* color: #d2d2d2; */
   font-weight: 400;
   line-height: 150%;
   @media screen and (max-width: 768px) {
@@ -363,7 +365,7 @@ export const UploadImage = styled.div`
 export const ImageItem = styled.div`
   width: 50px;
   height: 50px;
-  background: var(--linear, linear-gradient(217deg, #e250e5 0%, #4b50e6 100%));
+  background: linear-gradient(217deg, #e250e5 0%, #4b50e6 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -372,20 +374,22 @@ export const ImageItem = styled.div`
 `;
 
 export const UploadText = styled.div`
-  color: white;
+  color: var(--text-color);
   font-weight: bold;
   margin: 8px 0px;
 `;
 
 export const FormatUploadFile = styled.div`
-  color: rgba(255, 255, 255, 0.5);
+  /* color: rgba(255, 255, 255, 0.5); */
+  color: var(--text-color);
   @media screen and (max-width: 768px) {
     font-size: 10px;
   }
 `;
 
 export const TermsOfService = styled.div`
-  color: #d2d2d2;
+  /* color: #d2d2d2; */
+  color: var(--text-color);
   font-weight: 400;
   line-height: 150%;
   @media screen and (max-width: 768px) {

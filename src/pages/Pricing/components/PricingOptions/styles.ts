@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import styled from "styled-components";
 
 export const Header = styled.div`
@@ -10,14 +11,14 @@ export const Header = styled.div`
 
 export const Pricing = styled.div`
   color: #b69aff;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 900;
   line-height: 150%; /* 21px */
   letter-spacing: 2px;
 `;
 
 export const PlansTitle = styled.div`
-  color: #fff;
+  color: var(--text-color);
   text-align: center;
   font-size: 40px;
   font-weight: 700;
@@ -25,7 +26,7 @@ export const PlansTitle = styled.div`
 `;
 
 export const PlansDescription = styled.div`
-  color: #fff;
+  color: var(--text-color);
   text-align: center;
   font-size: 16px;
   font-weight: 400;
@@ -38,13 +39,15 @@ export const ListPricing = styled.div`
   gap: 24px;
 `;
 
-export const DetailPricing = styled.div<{ namePricing: string }>`
+export const DetailPricing = styled(Box)<{ namePricing: string }>`
   width: 100%;
+  height: 550px;
   border-radius: 12px;
-  background: #10101f;
   padding: 25px;
   padding-top: 35px;
   position: relative;
+  /* background: #10101f; */
+  /* box-shadow: 0px 0px 20px 5px rgba(30, 14, 49, 0.63); */
   & {
     border: ${(props) =>
       props.namePricing === "Basic" ? "2px solid rgb(151, 80, 230)" : "none"};
@@ -93,7 +96,7 @@ export const DetailPricing = styled.div<{ namePricing: string }>`
   }
 `;
 
-export const ItemPopular = styled.div`
+export const ItemPopular = styled(Box)`
   position: absolute;
   border-top: 2px solid rgb(151, 80, 230);
   border-left: 2px solid rgb(151, 80, 230);
@@ -107,8 +110,15 @@ export const ItemPopular = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background: rgb(16, 16, 31);
   padding: 16px;
+  /* background: rgb(16, 16, 31); */
+  @media screen and (max-width: 768px) {
+    padding: 0px;
+    padding-top: 2px;
+    left: -1.5px;
+    right: -1.6px;
+    top: 0px;
+  }
 `;
 
 export const Popular = styled.div`
@@ -116,9 +126,8 @@ export const Popular = styled.div`
   background: rgba(182, 154, 255, 0.2);
   box-shadow: 0px 4.23407px 7.40962px 0px rgba(30, 14, 49, 0.63);
   color: #b69aff;
-  font-size: 12px;
   padding: 6px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 150%; //18px
 `;
 

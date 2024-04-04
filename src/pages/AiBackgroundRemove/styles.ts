@@ -2,10 +2,8 @@ import { LoadingButton } from "@mui/lab";
 import styled from "styled-components";
 
 export const WrapperAIBackgroundChanger = styled.div`
-  padding: 20px 20px 0px 20px;
   width: 100%;
   height: 100%;
-  /* background-color: mode; */
   overflow-y: auto;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
@@ -26,6 +24,9 @@ export const WrapperAIBackgroundChanger = styled.div`
   }
 `;
 
+export const ContainerContent = styled.div`
+  padding: 20px 20px 0px 20px;
+`;
 export const BoxResult = styled.div`
   .btn-download {
     width: 200px;
@@ -36,10 +37,7 @@ export const BoxResult = styled.div`
     color: white !important;
     font-weight: bold;
     font-size: large;
-    background: var(
-      --linear,
-      linear-gradient(182deg, #e250e5 0%, #4b50e6 100%)
-    );
+    background: linear-gradient(182deg, #e250e5 0%, #4b50e6 100%);
     &:hover {
       filter: brightness(0.6);
     }
@@ -86,7 +84,7 @@ export const ImageResult = styled.div`
 `;
 
 export const BackGenerate = styled.div`
-  color: white;
+  color: var(--text-color);
   font-weight: bold;
   font-size: 18px;
   @media screen and (max-width: 768px) {
@@ -129,10 +127,17 @@ export const SectionContent = styled.div`
 `;
 
 export const TitlePage = styled.div`
-  color: rgb(182, 154, 255);
+  background: linear-gradient(
+    190deg,
+    rgb(252, 128, 255) 0%,
+    rgb(123, 127, 255) 100%
+  );
+  -webkit-background-clip: text; /* Sử dụng tiền tố -webkit- cho trình duyệt Safari */
+  background-clip: text;
+  color: transparent; /* Đặt màu chữ thành trong suốt */
   font-family: "GT Walsheim Pro", sans-serif;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 600;
   line-height: 150%;
   letter-spacing: 1.4px;
   text-transform: uppercase;
@@ -148,7 +153,7 @@ export const TextContent = styled.div`
 `;
 
 export const ContentHeader = styled.div`
-  color: rgb(255, 255, 255);
+  color: var(--text-color);
   font-family: "GT Walsheim Pro", san, sans-serif;
   font-size: 40px;
   font-weight: 700;
@@ -160,6 +165,7 @@ export const ContentHeader = styled.div`
       rgb(123, 127, 255) 100%
     );
     -webkit-background-clip: text; /* Sử dụng tiền tố -webkit- cho trình duyệt Safari */
+    background-clip: text;
     color: transparent; /* Đặt màu chữ thành trong suốt */
   }
   img {
@@ -170,7 +176,7 @@ export const ContentHeader = styled.div`
 `;
 
 export const AdditionalInfo = styled.div`
-  color: #d2d2d2;
+  color: var(--text-color);
   font-size: 16px;
   font-weight: 400;
   line-height: 150%;
@@ -322,10 +328,7 @@ export const NotUploaded = styled.div`
     margin-bottom: 10px;
     border-radius: 50%;
     padding: 18px;
-    background: var(
-      --linear,
-      linear-gradient(217deg, #e250e5 0%, #4b50e6 100%)
-    );
+    background: linear-gradient(217deg, #e250e5 0%, #4b50e6 100%);
   }
   @media screen and (max-width: 768px) {
     height: 100px;
@@ -343,7 +346,7 @@ export const FormatInfo = styled.div``;
 export const TextFormat = styled.div`
   margin-bottom: 6px;
   font-weight: bold;
-  color: white;
+  color: var(--text-color);
   font-size: 18px;
   @media screen and (max-width: 768px) {
     font-size: 12px;
@@ -353,7 +356,7 @@ export const TextFormat = styled.div`
 
 export const FormatFile = styled.div`
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-color);
   @media screen and (max-width: 768px) {
     font-size: 10px;
   }
@@ -371,7 +374,7 @@ export const StyledButton = styled(LoadingButton)<{ fileUpload: any }>`
   gap: 10px;
   cursor: pointer;
   margin-top: 20px !important;
-  background: var(--linear, linear-gradient(182deg, #e250e5 0%, #4b50e6 100%));
+  background: linear-gradient(182deg, #e250e5 0%, #4b50e6 100%);
   color: var(--status-white, #fff) !important;
   font-size: 16px !important;
   font-weight: 600 !important;

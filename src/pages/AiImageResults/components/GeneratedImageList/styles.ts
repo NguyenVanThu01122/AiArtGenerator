@@ -7,9 +7,9 @@ export const ContainerImage = styled.div`
   padding: 0px 10px;
   margin: 20px 0px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
-  height: 550px;
+  height: 520px;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px !important;
   }
@@ -23,14 +23,16 @@ export const ContainerImage = styled.div`
     background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
   }
   @media screen and (max-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
-    height: 560px;
+    grid-template-columns: repeat(2, 1fr);
+    height: 100%;
   }
 `;
 export const StyledImageGeneral = styled(ImageGeneral)`
-  width: 100%;
-  height: 250px;
+  width: 95%;
+  height: 95%;
   object-fit: cover;
+  position: relative;
+  border-radius: 10px;
   &:hover {
     cursor: pointer;
     filter: brightness(0.4);
@@ -39,27 +41,24 @@ export const StyledImageGeneral = styled(ImageGeneral)`
     }
   }
   @media screen and (max-width: 768px) {
-    height: 120px;
   }
 `;
 
 export const ClickToView = styled.div`
-  width: 100%;
   color: white;
   opacity: 0;
   font-weight: bold;
   position: absolute;
   left: 50%;
   top: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   text-align: center;
   transition: opacity 0.3s ease;
   transform: translate(-50%, -50%);
   background: linear-gradient(90deg, #f23061 -7.43%, #faa227);
   -webkit-background-clip: text;
   color: transparent;
+  font-weight: bold;
+  width: 90%;
   &:hover {
     cursor: pointer;
     opacity: 1;
@@ -71,6 +70,8 @@ export const ClickToView = styled.div`
 
 export const ResultImage = styled.div`
   position: relative;
+  width: 100%;
+  height: 100%;
 `;
 
 export const SelectItem = styled.div`

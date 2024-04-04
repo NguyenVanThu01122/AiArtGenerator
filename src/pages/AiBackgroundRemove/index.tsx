@@ -32,6 +32,7 @@ import {
   BoxUploadImage,
   ChangeItem,
   ChangePhoto,
+  ContainerContent,
   ContentHeader,
   FormatFile,
   FormatInfo,
@@ -106,104 +107,112 @@ function AiBackgroundRemove() {
 
   return (
     <WrapperAIBackgroundChanger>
-      {resultImage ? (
-        <BoxResult>
-          <ItemBack onClick={handleBack}>
-            <ImageGeneral src={icBack} alt="" />
-            <BackGenerate>Back to generate</BackGenerate>
-          </ItemBack>
-          <ImageResult>
-            <ImageGeneral className="img-result" src={resultImage} alt="" />
-          </ImageResult>
-          <ButtonGeneral
-            className="btn-download"
-            onClick={() => handleDownloadImage(resultImage, "my-image.jpg")}
-          >
-            Download
-          </ButtonGeneral>
-        </BoxResult>
-      ) : (
-        <BoxUploadImage>
-          <ItemBackgroundChange>
-            <SectionContent>
-              <TitlePage>AI BACKGROUND REMOVE</TitlePage>
-              <TextContent>
-                <ContentHeader>
-                  Effortless Background Remove Made Possible by <span>AI</span>
-                  <ImageGeneral src={iconStar} alt="" />
-                  <ImageGeneral src={iconStar} alt="" />
-                </ContentHeader>
-              </TextContent>
-              <AdditionalInfo>
-                Add new outstanding background to your original photos using our
-                remove background and photo edit tool. Quickly improve your
-                photos for easy download or sharing on social media platforms.
-              </AdditionalInfo>
-            </SectionContent>
-            <SectionUploadImage fileUpload={fileUpload} loading={loading}>
-              {fileUpload ? (
-                <Uploaded>
-                  <ImageGeneral className="img-uploaded" src={uploadImage} />
-                  {loading && (
-                    <ItemLoading>
-                      <ImageGeneral className="img-loading" src={imgLoading} />
-                    </ItemLoading>
-                  )}
-                  <BoxChange loading={loading}>
-                    <ImageGeneral
-                      className="icon-cancel"
-                      onClick={() => handleBack()}
-                      src={iconCancel}
-                    />
-                    <ChangeItem>
-                      <TextChange>
-                        <ImageGeneral src={iconRotate} alt="" />
-                        <ChangePhoto>Change Photo</ChangePhoto>
-                      </TextChange>
-                      <InputFile
-                        name="file"
-                        type="file"
-                        accept={FILE_FORMAT.join(",")}
-                        onChange={handleUploadImage}
-                      />
-                    </ChangeItem>
-                  </BoxChange>
-                </Uploaded>
-              ) : (
-                <NotUploaded>
-                  <ImageGeneral src={iconUploadImg} alt="" />
-                  <FormatInfo>
-                    <TextFormat>
-                      Upload or drop file here or paste your image ULR
-                    </TextFormat>
-                    <FormatFile>
-                      Supported formats: PNG, JPEG, JPG, File size limit:5MB.
-                    </FormatFile>
-                  </FormatInfo>
-                  <InputFile
-                    name="file"
-                    type="file"
-                    accept={FILE_FORMAT.join(",")}
-                    onChange={handleUploadImage}
-                  />
-                </NotUploaded>
-              )}
-            </SectionUploadImage>
-            <StyledButton
-              fileUpload={fileUpload}
-              onClick={handleRemoveBackground}
-              disabled={!uploadImage && !fileUpload}
-              loading={loading}
+      <ContainerContent>
+        {resultImage ? (
+          <BoxResult>
+            <ItemBack onClick={handleBack}>
+              <ImageGeneral src={icBack} alt="" />
+              <BackGenerate>Back to generate</BackGenerate>
+            </ItemBack>
+            <ImageResult>
+              <ImageGeneral className="img-result" src={resultImage} alt="" />
+            </ImageResult>
+            <ButtonGeneral
+              className="btn-download"
+              onClick={() => handleDownloadImage(resultImage, "my-image.jpg")}
             >
-              <ImageGeneral src={imgRemove} alt="" />
-              Remove Background - 2 Credit
-            </StyledButton>
-          </ItemBackgroundChange>
-          <ItemImage>
-            <ImageGeneral src={imgPhoto} />
-          </ItemImage>
-        </BoxUploadImage>
-      )}
+              Download
+            </ButtonGeneral>
+          </BoxResult>
+        ) : (
+          <BoxUploadImage>
+            <ItemBackgroundChange>
+              <SectionContent>
+                <TitlePage>AI BACKGROUND REMOVE</TitlePage>
+                <TextContent>
+                  <ContentHeader>
+                    Effortless Background Remove Made Possible by{" "}
+                    <span>AI</span>
+                    <ImageGeneral src={iconStar} alt="" />
+                    <ImageGeneral src={iconStar} alt="" />
+                  </ContentHeader>
+                </TextContent>
+                <AdditionalInfo>
+                  Add new outstanding background to your original photos using
+                  our remove background and photo edit tool. Quickly improve
+                  your photos for easy download or sharing on social media
+                  platforms.
+                </AdditionalInfo>
+              </SectionContent>
+              <SectionUploadImage fileUpload={fileUpload} loading={loading}>
+                {fileUpload ? (
+                  <Uploaded>
+                    <ImageGeneral className="img-uploaded" src={uploadImage} />
+                    {loading && (
+                      <ItemLoading>
+                        <ImageGeneral
+                          className="img-loading"
+                          src={imgLoading}
+                        />
+                      </ItemLoading>
+                    )}
+                    <BoxChange loading={loading}>
+                      <ImageGeneral
+                        className="icon-cancel"
+                        onClick={() => handleBack()}
+                        src={iconCancel}
+                      />
+                      <ChangeItem>
+                        <TextChange>
+                          <ImageGeneral src={iconRotate} alt="" />
+                          <ChangePhoto>Change Photo</ChangePhoto>
+                        </TextChange>
+                        <InputFile
+                          name="file"
+                          type="file"
+                          accept={FILE_FORMAT.join(",")}
+                          onChange={handleUploadImage}
+                        />
+                      </ChangeItem>
+                    </BoxChange>
+                  </Uploaded>
+                ) : (
+                  <NotUploaded>
+                    <ImageGeneral src={iconUploadImg} alt="" />
+                    <FormatInfo>
+                      <TextFormat>
+                        Upload or drop file here or paste your image ULR
+                      </TextFormat>
+                      <FormatFile>
+                        Supported formats: PNG, JPEG, JPG, File size limit:5MB.
+                      </FormatFile>
+                    </FormatInfo>
+                    <InputFile
+                      name="file"
+                      type="file"
+                      accept={FILE_FORMAT.join(",")}
+                      onChange={handleUploadImage}
+                    />
+                  </NotUploaded>
+                )}
+              </SectionUploadImage>
+              <StyledButton
+                fileUpload={fileUpload}
+                onClick={handleRemoveBackground}
+                disabled={!uploadImage && !fileUpload}
+                loading={loading}
+              >
+                <ImageGeneral src={imgRemove} alt="" />
+                Remove Background - 2 Credit
+              </StyledButton>
+            </ItemBackgroundChange>
+            <ItemImage>
+              <ImageGeneral src={imgPhoto} />
+            </ItemImage>
+          </BoxUploadImage>
+        )}
+      </ContainerContent>
+
       <Footer />
     </WrapperAIBackgroundChanger>
   );

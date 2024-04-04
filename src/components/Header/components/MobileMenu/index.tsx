@@ -1,6 +1,5 @@
 import { faAnglesLeft, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box } from "@mui/material";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import iconAiBackgroundChange from "../../../../images/ic-ai-background-chage.svg";
@@ -8,15 +7,18 @@ import iconPricing from "../../../../images/ic-pricing.svg";
 import iconAiArtGenerator from "../../../../images/iconAiArtGenerator.svg";
 import iconAiPhoto from "../../../../images/iconAiPhoto.svg";
 import iconHome from "../../../../images/iconHome.svg";
+import { ROUTES } from "../../../../routes/routes";
 import FollowSocialMedia from "../../../FollowSocialMedia";
 import { LogoCreatorHub } from "../../../LogoCreatorHub";
 import ImageGeneral from "../../../Ui/image";
+import ModeToggle from "../ModeToggle";
 import {
   ContentMenu,
   ContentSection,
   Header,
   MenuItem,
   SectionMenu,
+  StyledBox,
   StyledDrawerMenu,
   WrapperMenu,
 } from "./styles";
@@ -26,21 +28,21 @@ interface TypeMenuItems {
   icon: any;
 }
 const menuItems = [
-  { path: "/", text: "Home", icon: iconHome },
-  { path: "/pricing", text: "Pricing", icon: iconPricing },
-  { path: "/my-avatars", text: "My Avatars", icon: iconAiPhoto },
+  { path: ROUTES.HOME, text: "Home", icon: iconHome },
+  { path: ROUTES.PRICING, text: "Pricing", icon: iconPricing },
+  { path: ROUTES.AI_IMAGE_RESULT, text: "My Avatars", icon: iconAiPhoto },
   {
-    path: "/ai-art-generator",
+    path: ROUTES.AI_ART_GENERATOR,
     text: "AI Art Generator",
     icon: iconAiArtGenerator,
   },
   {
-    path: "/ai-photo-enhancer",
+    path: ROUTES.AI_PHOTO_ENHANCER,
     text: "AI Photo Enhancer",
     icon: iconAiPhoto,
   },
   {
-    path: "/ai-background-remove",
+    path: ROUTES.AI_BACKGROUND_REMOVE,
     text: "AI Background Remove",
     icon: iconAiBackgroundChange,
   },
@@ -59,14 +61,13 @@ const MobileMenu = () => {
   const handleRedirect = (url: string) => {
     navigate(url);
     setIsOpenMenu(false);
-    // setIsBoxProfile(false);
   };
 
   return (
     <WrapperMenu>
       <FontAwesomeIcon className="ic-menu" icon={faBars} onClick={showMenu} />
       <StyledDrawerMenu open={isOpenMenu} onClose={handleCloseMenu}>
-        <Box sx={{ width: 260 }}>
+        <StyledBox sx={{ width: 300 }}>
           <Header>
             <LogoCreatorHub />
             <FontAwesomeIcon
@@ -75,6 +76,7 @@ const MobileMenu = () => {
               icon={faAnglesLeft}
             />
           </Header>
+          <ModeToggle />
           <ContentSection>
             <SectionMenu>
               {menuItems.map((item: TypeMenuItems, index: number) => (
@@ -88,11 +90,10 @@ const MobileMenu = () => {
                 </MenuItem>
               ))}
             </SectionMenu>
-
             {/* Mục Follow Us */}
             <FollowSocialMedia />
           </ContentSection>
-        </Box>
+        </StyledBox>
       </StyledDrawerMenu>
     </WrapperMenu>
   );

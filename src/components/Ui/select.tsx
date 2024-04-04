@@ -8,12 +8,14 @@ export default function SelectGeneral({
   disabled,
   onChange,
   labelId,
+  color,
 }: {
   className?: string;
   value?: number | String;
   disabled?: boolean;
   labelId?: string;
   onChange?: (e: any) => void;
+  color?: "primary" | "secondary";
   options: { value: String | any; label: String }[];
 }) {
   return (
@@ -23,9 +25,16 @@ export default function SelectGeneral({
       disabled={disabled}
       onChange={onChange}
       labelId={labelId}
+      color={color}
       sx={{
+        "& .MuiSelect-select": {
+          // bgcolor: "primary.main",
+          color: "primary.main",
+        },
+
         "& .MuiSelect-icon": {
-          color: "white",
+          color: "primary.main",
+          // bgcolor: "primary.main",
         },
       }}
     >

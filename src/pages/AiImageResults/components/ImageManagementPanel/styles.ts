@@ -7,8 +7,9 @@ export const BoxOptions = styled.div`
   .select-date {
     width: 200px;
     height: 40px;
-    color: white;
-    background: #242c3d;
+    background-color: rgba(97, 243, 243, 0.2);
+    /* color: white; */
+    /* background: #242c3d; */
   }
 `;
 
@@ -44,7 +45,7 @@ export const GroupButton = styled.div`
 export const ListPhoto = styled.div`
   font-weight: bold;
   font-size: 22px;
-  color: white;
+  color: var(--text-color);
 `;
 
 export const Wrapper = styled.div`
@@ -58,17 +59,17 @@ export const Wrapper = styled.div`
       margin-bottom: 20px;
     }
     ${BoxOptions} {
-      display: flex;
-      justify-content: space-between;
-      .select-sort-date {
-        .select-date {
-          width: 120px;
-        }
+      gap: 10px;
+      .select-date {
+        width: 150px;
       }
-      ${SelectImage} {
-        button {
-          font-size: 14px;
-        }
+    }
+
+    ${SelectImage} {
+      gap: 5px;
+      button {
+        font-size: 14px;
+        height: 40px;
       }
     }
   }

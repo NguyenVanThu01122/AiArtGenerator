@@ -1,21 +1,23 @@
 import { Accordion } from "@mui/material";
 import styled from "styled-components";
+
 export const BoxQuestions = styled.div`
   width: 100%;
   .css-15v22id-MuiAccordionDetails-root {
     padding-top: 0px;
   }
   .MuiAccordionSummary-expandIcon {
-    color: white !important;
+    color: var(--text-color) !important;
   }
 `;
 
 export const HeaderQuestions = styled.div`
-  color: white;
+  color: var(--text-color);
 `;
 
 export const TitleQuestion = styled.div`
-  color: #fff;
+  /* color: rgb(121, 57, 8); */
+  color: var(--text-color);
   text-align: center;
   font-size: 40px;
   font-weight: 700;
@@ -27,7 +29,7 @@ export const TitleQuestion = styled.div`
 `;
 
 export const DescriptionText = styled.div`
-  color: #d2d2d2;
+  color: var(--text-color);
   text-align: center;
   font-size: 16px;
   font-weight: 400;
@@ -39,37 +41,38 @@ export const DescriptionText = styled.div`
   }
 `;
 
-export const StyledAccordion = styled(Accordion)`
-  background: rgb(9, 9, 23) !important;
-  border: 1px solid #1a202f;
-  margin-bottom: 15px;
-  border-radius: 10px;
+export const StyledSpan = styled.span`
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 15px;
+  color: var(--text-color);
+`;
+
+export const Answer = styled.div`
+  font-size: 12px;
+  color: var(--text-color);
+  padding-left: 40px;
+  font-weight: bold;
+  @media screen and (max-width: 768px) {
+    font-weight: 400;
+    padding-left: 10px;
+  }
 `;
 
 export const Question = styled.div`
   display: flex;
   align-items: center;
-  color: white;
+  font-weight: bold;
+
   @media screen and (max-width: 768px) {
     font-size: 12px;
     font-weight: 500;
   }
 `;
 
-export const StyledSpan = styled.span`
-  font-size: 18px;
-  font-weight: 500;
-  margin-right: 15px;
-  color: white;
-`;
-
-export const Answer = styled.div`
-  font-size: 12px;
-  color: white;
-  background: rgb(9, 9, 23);
-  padding-left: 40px;
-  @media screen and (max-width: 768px) {
-    font-weight: 400;
-    padding-left: 10px;
-  }
+export const StyledAccordion = styled(Accordion)`
+  margin-bottom: 15px;
+  border-radius: 10px;
+  font-weight: bold;
+ 
 `;

@@ -1,7 +1,6 @@
+import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import ImageGeneral from "../../../../components/Ui/image";
-import iconShow from "../../../../images/icon-show.svg";
-
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../reduxToolkit/Slices/RootReducer";
 import {
@@ -46,12 +45,12 @@ export default function ConfigAiArt({
   isLoading,
   sliderValueAlpha,
   sliderValueScale,
+  negativePrompt,
   sliderValueSteps,
   setSliderValueAlpha,
   setSliderValueSteps,
   setSliderValueScale,
   handleGenerate,
-  negativePrompt,
 }: ConfigAiArtProps) {
   const [focusIcon, setFocusIcon] = useState(false);
   const uploadFile = useSelector((state: RootState) => state.app.uploadFile);
@@ -92,9 +91,9 @@ export default function ConfigAiArt({
       <ContentConfigs>
         <AdvancedSettings onClick={() => setFocusIcon(!focusIcon)}>
           <AdvancedSetting>ADVANCED SETTINGS</AdvancedSetting>
-          <ImageGeneral
+          <FontAwesomeIcon
             className={`${focusIcon ? "reverse-icon" : "reverse-initial"}`}
-            src={iconShow}
+            icon={faChevronUp}
           />
         </AdvancedSettings>
         {!focusIcon && (
@@ -113,7 +112,9 @@ export default function ConfigAiArt({
                     }
                     value={item.value}
                     valueLabelDisplay="auto"
+                    color="info"
                   />
+
                   <ValueConfig>{item.value}</ValueConfig>
                 </BoxSlider>
               </DetailConfigs>

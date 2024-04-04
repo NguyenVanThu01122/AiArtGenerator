@@ -57,6 +57,7 @@ export default function ImageManagementPanel({
           options={SELECT_SORT_DATE}
           className="select-date"
           disabled={isCheckbox}
+          color="primary"
         />
 
         <SelectImage>

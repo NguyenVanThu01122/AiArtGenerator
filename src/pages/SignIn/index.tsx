@@ -107,6 +107,9 @@ export function SignIn() {
                 className="icon-discord"
                 src={imageDiscord}
                 alt="imageDiscord"
+                onClick={() => {
+                  toast.warning("Discord is not available now");
+                }}
               />
               <ImageGeneral
                 className="icon-facebook"
@@ -179,7 +182,6 @@ export function SignIn() {
                 <Register onClick={() => navigate("/register")}>
                   Register
                 </Register>
-                ForgotPassword
               </RedirectSignOut>
               <div>VisionLab., Inc</div>
             </SubmitItem>

@@ -1,4 +1,3 @@
-import Pagination from "@mui/material/Pagination";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import React, { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +25,7 @@ import {
   MessageNoPhoto,
   NoPhoto,
   SectionPagination,
+  StyledPagination,
   WrapperMyAvatars,
 } from "./styles";
 import { ImageType } from "./types";
@@ -124,7 +124,7 @@ function AiImageResult() {
           />
 
           {/* list image Ai */}
-          {!loading && listResultImg?.length ? (
+          {!loading && listResultImg?.length && (
             <GeneratedImagesList
               listId={listId}
               isCheckbox={isCheckbox}
@@ -132,19 +132,25 @@ function AiImageResult() {
               showModalImage={showModalImage}
               clickCheckbox={clickCheckbox}
             />
-          ) : (
-            loadingCommon
           )}
 
           {/* Pagination */}
           <SectionPagination>
-            <Pagination
+            <StyledPagination
               page={page}
               count={totalPage}
               variant="outlined"
               shape="rounded"
               color="secondary"
+              defaultPage={6}
+              boundaryCount={2} // số lượng hiển thị ở 2 đầu
+              siblingCount={1} // số lượng hiển thị ở giữa
               onChange={(event, value) => handleChangePage(value)}
+              sx={{
+                "& .MuiPaginationItem-root": {
+                  color: "primary.main",
+                },
+              }}
             />
             <DisplayTotalImage>
               Displayed from {indexStart} to {indexEnd} out of {total} photos
@@ -152,6 +158,7 @@ function AiImageResult() {
                 value={limit}
                 options={OPTION_LIMIT}
                 className="select-limit"
+                color="primary"
                 onChange={(e) => handleChangeLimit(e.target.value)}
               />
               on 1 page.

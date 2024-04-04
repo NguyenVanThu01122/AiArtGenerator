@@ -7,9 +7,8 @@ export const FollowOptions = styled.div`
 `;
 
 export const TitleFollow = styled.div`
-  color: white;
-  font-size: 15px;
-  font-weight: 600;
+  color: var(--text-color);
+  font-weight: 900;
   @media screen and (max-width: 768px) {
     margin-bottom: 30px;
   }

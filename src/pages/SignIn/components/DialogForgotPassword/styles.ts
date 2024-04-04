@@ -2,15 +2,13 @@ import styled from "styled-components";
 import DialogCommon from "../../../../components/Ui/dialog";
 
 export const DialogPasswordForgot = styled(DialogCommon)`
-  .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+  .css-ploc9f-MuiPaper-root-MuiDialog-paper {
     padding: 20px;
     background-color: rgb(9, 9, 23);
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%);
+    margin: 0px;
   }
   @media screen and (max-width: 768px) {
-    .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
-      padding: 20px 0px;
-    }
   }
 `;
 
