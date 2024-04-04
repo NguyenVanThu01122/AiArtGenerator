@@ -6,6 +6,7 @@ interface FormControlProps {
   fullWidth?: boolean;
   margin?: "none" | "dense" | "normal";
   required?: boolean;
+  size?: "small" | "medium";
 }
 // Component FormControl
 export default function FormControlCommon({
@@ -15,6 +16,7 @@ export default function FormControlCommon({
   fullWidth,
   margin,
   required,
+  size,
 }: FormControlProps) {
   return (
     <FormControl
@@ -23,7 +25,7 @@ export default function FormControlCommon({
       fullWidth={fullWidth}
       margin={margin}
       required={required}
-      
+      size={size}
     >
       {children}
     </FormControl>

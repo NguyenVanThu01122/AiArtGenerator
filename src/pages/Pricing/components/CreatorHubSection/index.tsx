@@ -20,10 +20,10 @@ import {
   ItemImage,
   JobUser,
   NameUser,
+  StyledBox,
   StyledCarousel,
   StyledGrid,
   Title,
-  Wrapper,
 } from "./styles";
 interface CommentType {
   id: number;
@@ -81,7 +81,11 @@ function CreatorHubSection() {
     useCarouselScroll(".css-vj1n65-MuiGrid-root");
 
   return (
-    <Wrapper>
+    <StyledBox
+      sx={{
+        bgcolor: "common.background",
+      }}
+    >
       <HeaderCreator>
         <ContentHeader>
           <CreatorHub>CREATORHUB</CreatorHub>
@@ -132,7 +136,7 @@ function CreatorHubSection() {
           </StyledGrid>
         </StyledCarousel>
       </CarouselItem>
-    </Wrapper>
+    </StyledBox>
   );
 }
 

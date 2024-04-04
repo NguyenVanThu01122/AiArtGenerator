@@ -124,7 +124,7 @@ export const UploadImage = styled.div`
 export const IconUpload = styled.div`
   width: 50px;
   height: 50px;
-  background: var(--linear, linear-gradient(217deg, #e250e5 0%, #4b50e6 100%));
+  background: linear-gradient(217deg, #e250e5 0%, #4b50e6 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -133,13 +133,13 @@ export const IconUpload = styled.div`
 `;
 
 export const ContentUpload = styled.div`
-  color: white;
+  color: var(--text-color);
   font-weight: bold;
   margin: 8px 0px;
 `;
 
 export const FormatFile = styled.div`
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-color);
   @media screen and (max-width: 768px) {
     font-size: 10px;
   }
@@ -154,4 +154,5 @@ export const CustomInput = styled.input`
   height: 100%;
   opacity: 0;
   z-index: 10000;
+  background-color: rgb(33, 43, 54);
 `;

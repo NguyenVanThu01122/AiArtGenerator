@@ -71,6 +71,7 @@ export const DialogForgotPassword = ({
     <DialogPasswordForgot
       open={isModalPassword}
       onClose={CancelModalForgotPassword}
+      sx={{}}
     >
       <CloseButton handleClose={CancelModalForgotPassword} />
       {isForgotPassword ? (

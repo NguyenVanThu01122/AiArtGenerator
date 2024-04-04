@@ -7,6 +7,7 @@ export enum DialogMaxWidth {
   xl = "xl",
 }
 interface DialogProps {
+  sx?: any;
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
@@ -18,6 +19,7 @@ interface DialogProps {
 }
 
 const DialogCommon = ({
+  sx,
   open,
   onClose,
   children,
@@ -31,6 +33,7 @@ const DialogCommon = ({
       fullWidth={fullWidth}
       onClose={onClose}
       maxWidth={maxWidth}
+      sx={sx}
       {...props}
     >
       {children}

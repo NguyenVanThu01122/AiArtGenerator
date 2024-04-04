@@ -1,21 +1,32 @@
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import SystemModeIcon from "@mui/icons-material/SystemUpdateAlt";
-import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useColorScheme } from "@mui/material/styles/CssVarsProvider";
+import { StyledBox, StyledFormControl } from "./styles";
+type Mode = "dark" | "light" | "system";
+
 export default function ModeToggle() {
   const { mode, setMode } = useColorScheme();
-  const handleChangeMode = (event: any) => {
-    setMode(event.target.value);
+
+  const handleChangeMode = (event: SelectChangeEvent<Mode>) => {
+    const valueMode = event.target.value as Mode;
+    setMode(valueMode);
   };
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-      <InputLabel id="label-select-dark-light-mode">Mode</InputLabel>
+    <StyledFormControl size="small">
+      <InputLabel
+        sx={{
+          color: "primary.main",
+        }}
+        id="label-select-dark-light-mode"
+        color="secondary"
+      >
+        Mode
+      </InputLabel>
       <Select
         labelId="label-select-dark-light-mode"
         id="select-dark-light-mode"
@@ -23,42 +34,31 @@ export default function ModeToggle() {
         label="Mode"
         color="secondary"
         onChange={handleChangeMode}
+        sx={{
+          color: "primary.main",
+        }}
       >
         <MenuItem value="light">
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
-            }}
-          >
-            <LightModeIcon />
+          <StyledBox>
+            <LightModeIcon
+              sx={{
+                color: "primary.main",
+              }}
+            />
             Light
-          </Box>
+          </StyledBox>
         </MenuItem>
         <MenuItem value="dark">
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
-            }}
-          >
+          <StyledBox>
             <DarkModeIcon /> Dark
-          </Box>
+          </StyledBox>
         </MenuItem>
         <MenuItem value="system">
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
-            }}
-          >
+          <StyledBox>
             <SystemModeIcon /> System
-          </Box>
+          </StyledBox>
         </MenuItem>
       </Select>
-    </FormControl>
+    </StyledFormControl>
   );
 }

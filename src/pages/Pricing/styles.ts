@@ -21,7 +21,7 @@ export const WrapperPricing = styled.div`
 
 export const BoxContent = styled.div`
   margin: auto;
-  max-width: 1024px;
+  max-width: 1250px !important;
   display: flex;
   flex-direction: column;
   align-items: center;

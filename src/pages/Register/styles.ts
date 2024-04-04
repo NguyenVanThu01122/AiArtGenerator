@@ -57,7 +57,8 @@ export const BoxContent = styled.div`
   box-shadow: 0px 0px 20px 2px gray;
   border: 1px solid gray;
   @media screen and (max-width: 768px) {
-    padding: 20px 0px;
+    padding: 10px;
+    width: 100%;
   }
 `;
 

@@ -1,10 +1,11 @@
+import { useColorScheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ButtonGeneral from "../../components/Ui/button";
 import ImageGeneral from "../../components/Ui/image";
+import iconAvatar from "../../images/MyAccount/avatar_25.jpg";
 import icCredits from "../../images/MyAccount/icon-credit.svg";
 import icEmail from "../../images/MyAccount/icon-email.svg";
-import imgAvatarDefault from "../../images/avatar-default.jpg";
 import { RootState } from "../../reduxToolkit/Slices/RootReducer";
 import {
   AddressWrapper,
@@ -29,15 +30,16 @@ import {
   UserName,
   Wrapper,
 } from "./styles";
-
+export type TypeMode = "light" | "dark" | "system";
 export function MyAccount() {
   const users = useSelector((state: RootState) => state.app.user);
   const navigate = useNavigate();
+  const { mode } = useColorScheme();
 
   return (
     <Wrapper>
-      <ContentUsers>
-        <ImageAvatar src={users?.avatar || imgAvatarDefault} alt="avatar" />
+      <ContentUsers sx={{ bgcolor: "info.main" }}>
+        <ImageAvatar src={users?.avatar || iconAvatar} alt="avatar" />
         <InformationUsers>
           <UserName>
             <LastName>{users?.lastName}</LastName>
@@ -56,7 +58,8 @@ export function MyAccount() {
           </AddressWrapper>
         </InformationUsers>
       </ContentUsers>
-      <SectionProfile>
+
+      <SectionProfile sx={{ bgcolor: "info.main" }}>
         <ProfileDetail>Profile Details</ProfileDetail>
         <ContentProfile>
           <LabelProfile>

@@ -1,6 +1,11 @@
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import {
+  AccordionDetails,
+  AccordionSummary,
+  Typography,
+  useColorScheme,
+} from "@mui/material";
 import { useState } from "react";
 import {
   Answer,
@@ -15,6 +20,7 @@ import {
 
 function FrequentlyAskedQuestions() {
   const [expanded, setExpanded] = useState(0);
+  const { mode } = useColorScheme();
 
   const handleChange =
     (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -136,6 +142,9 @@ function FrequentlyAskedQuestions() {
           expanded={expanded === index + 1} //expanded xác định xem Accordion có được mở hay không
           onChange={handleChange(index + 1)}
           key={item.key}
+          sx={{
+            bgcolor: "info.main",
+          }}
         >
           <AccordionSummary
             expandIcon={
@@ -146,10 +155,22 @@ function FrequentlyAskedQuestions() {
               )
             }
           >
-            <Typography>{item.label}</Typography>
+            <Typography
+              sx={{
+                color: "text.primary",
+              }}
+            >
+              {item.label}
+            </Typography>
           </AccordionSummary>
-          <AccordionDetails>
-            <Typography>{item.children}</Typography>
+          <AccordionDetails color="text.primary">
+            <Typography
+              sx={{
+                color: "text.primary",
+              }}
+            >
+              {item.children}
+            </Typography>
           </AccordionDetails>
         </StyledAccordion>
       ))}

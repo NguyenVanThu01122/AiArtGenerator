@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import imgAvatarDefault from "../../images/avatar-default.jpg";
+import iconAvatar from "../../images/MyAccount/avatar_25.jpg";
 import iconCloseSidebar from "../../images/icon-close-sidebar.svg";
 import iconOpenSidebar from "../../images/icon-open-sidebar.svg";
 
@@ -25,6 +25,7 @@ import {
   ContainerProfile,
   ContentUser,
   DisPlayPathName,
+  ItemModeToggle,
   MenuItem,
   MobileLogoCreator,
   PathNameItem,
@@ -157,20 +158,26 @@ function Header() {
 
       {loggedIn ? (
         <BoxAccount>
-          <ModeToggle />
+          <ItemModeToggle>
+            <ModeToggle />
+          </ItemModeToggle>
           <UserInfo />
           <ContainerProfile ref={profileRef}>
             <ImageGeneral
               className="avatar"
               onClick={toggleBoxProfile}
-              src={user?.avatar || imgAvatarDefault}
+              src={user?.avatar || iconAvatar}
             />
             {isShowBoxProfile && (
-              <BoxProfile>
+              <BoxProfile
+                sx={{
+                  bgcolor: "background.default",
+                }}
+              >
                 <ContentUser>
                   <ImageGeneral
                     className="avatar"
-                    src={user?.avatar || imgAvatarDefault}
+                    src={user?.avatar || iconAvatar}
                   />
 
                   <UserInfo isShowBoxProfile={isShowBoxProfile} />

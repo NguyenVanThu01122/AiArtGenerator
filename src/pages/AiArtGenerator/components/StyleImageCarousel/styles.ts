@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 `;
 
 export const ChooseStyleTitle = styled.div`
-  color: white;
+  color: var(--text-color);
   font-weight: 800;
   font-size: 17px;
 `;
@@ -109,6 +109,7 @@ export const None = styled.div`
   transform: translateX(-50%);
   bottom: 5px;
 `;
+
 export const CustomPaper = styled(Paper)`
   width: 100px;
   height: 100px;
