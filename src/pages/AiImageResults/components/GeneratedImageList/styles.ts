@@ -51,7 +51,6 @@ export const ClickToView = styled.div`
   position: absolute;
   left: 50%;
   top: 50%;
-  text-align: center;
   transition: opacity 0.3s ease;
   transform: translate(-50%, -50%);
   background: linear-gradient(90deg, #f23061 -7.43%, #faa227);

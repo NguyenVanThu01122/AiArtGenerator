@@ -1,10 +1,3 @@
-// Chuyển đổi dữ liệu hình ảnh sang chuỗi base64
-//export const convertImageToBase64 = (imageData: string) => {
-//return (
-//  "data:image/png;base64," +
-//   Buffer.from(imageData, "binary").toString("base64")
-// );
-//};
 
 // Chuyển đổi dữ liệu hình ảnh sang chuỗi base64
 export const convertImageToBase64 = (file: File): Promise<string> => {
@@ -15,3 +8,10 @@ export const convertImageToBase64 = (file: File): Promise<string> => {
     reader.readAsDataURL(file); // Phương thức này chấp nhận một đối tượng File làm đối số và bắt đầu quá trình đọc dữ liệu từ tập tin.
   });
 };
+// Chuyển đổi dữ liệu hình ảnh sang chuỗi base64
+//export const convertImageToBase64 = (imageData: string) => {
+//return (
+//  "data:image/png;base64," +
+//   Buffer.from(imageData, "binary").toString("base64")
+// );
+//};

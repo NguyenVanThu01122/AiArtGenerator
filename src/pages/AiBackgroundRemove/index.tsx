@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Footer from "../../components/Footer";
@@ -55,6 +56,7 @@ import {
 } from "./styles";
 
 function AiBackgroundRemove() {
+  const { t } = useTranslation();
   const [resultImage, setResultImage] = useState("");
   const [loading, setLoading] = useState(false);
   const user = useSelector((state: RootState) => state.app.user);
@@ -112,37 +114,31 @@ function AiBackgroundRemove() {
           <BoxResult>
             <ItemBack onClick={handleBack}>
               <ImageGeneral src={icBack} alt="" />
-              <BackGenerate>Back to generate</BackGenerate>
+              <BackGenerate>{t("backToGenerate")}</BackGenerate>
             </ItemBack>
             <ImageResult>
               <ImageGeneral className="img-result" src={resultImage} alt="" />
             </ImageResult>
             <ButtonGeneral
+              i18nKey="Download"
               className="btn-download"
               onClick={() => handleDownloadImage(resultImage, "my-image.jpg")}
-            >
-              Download
-            </ButtonGeneral>
+            />
           </BoxResult>
         ) : (
           <BoxUploadImage>
             <ItemBackgroundChange>
               <SectionContent>
-                <TitlePage>AI BACKGROUND REMOVE</TitlePage>
+                <TitlePage> {t("AI BACKGROUND REMOVE")}</TitlePage>
                 <TextContent>
                   <ContentHeader>
-                    Effortless Background Remove Made Possible by{" "}
-                    <span>AI</span>
+                    {t("Effortless Background Remove Made Possible by")}
+                    <span>{t("AI")}</span>
                     <ImageGeneral src={iconStar} alt="" />
                     <ImageGeneral src={iconStar} alt="" />
                   </ContentHeader>
                 </TextContent>
-                <AdditionalInfo>
-                  Add new outstanding background to your original photos using
-                  our remove background and photo edit tool. Quickly improve
-                  your photos for easy download or sharing on social media
-                  platforms.
-                </AdditionalInfo>
+                <AdditionalInfo>{t("Content Additional Info")}</AdditionalInfo>
               </SectionContent>
               <SectionUploadImage fileUpload={fileUpload} loading={loading}>
                 {fileUpload ? (
@@ -165,7 +161,7 @@ function AiBackgroundRemove() {
                       <ChangeItem>
                         <TextChange>
                           <ImageGeneral src={iconRotate} alt="" />
-                          <ChangePhoto>Change Photo</ChangePhoto>
+                          <ChangePhoto>{t("changePhoto")}</ChangePhoto>
                         </TextChange>
                         <InputFile
                           name="file"
@@ -180,12 +176,8 @@ function AiBackgroundRemove() {
                   <NotUploaded>
                     <ImageGeneral src={iconUploadImg} alt="" />
                     <FormatInfo>
-                      <TextFormat>
-                        Upload or drop file here or paste your image ULR
-                      </TextFormat>
-                      <FormatFile>
-                        Supported formats: PNG, JPEG, JPG, File size limit:5MB.
-                      </FormatFile>
+                      <TextFormat>{t("uploadOrDrop")}</TextFormat>
+                      <FormatFile>{t("supportedFormats")}</FormatFile>
                     </FormatInfo>
                     <InputFile
                       name="file"
@@ -203,7 +195,7 @@ function AiBackgroundRemove() {
                 loading={loading}
               >
                 <ImageGeneral src={imgRemove} alt="" />
-                Remove Background - 2 Credit
+                {t("Remove Background - 2 Credit")}
               </StyledButton>
             </ItemBackgroundChange>
             <ItemImage>

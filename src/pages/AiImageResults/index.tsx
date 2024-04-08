@@ -1,5 +1,6 @@
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import React, { Suspense, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import ImageGeneral from "../../components/Ui/image";
 import SelectGeneral from "../../components/Ui/select";
@@ -38,6 +39,7 @@ const BoxDetailImageAiLazy = React.lazy(
 );
 
 function AiImageResult() {
+  const { t } = useTranslation();
   const [page, setPage] = useState(DEFAULT_PAGE);
   const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const [sortDate, setSortDate] = useState(DEFAULT_SORT_DATE);
@@ -153,7 +155,8 @@ function AiImageResult() {
               }}
             />
             <DisplayTotalImage>
-              Displayed from {indexStart} to {indexEnd} out of {total} photos
+              {t("Displayed from")} {indexStart} {t("to")} {indexEnd}{" "}
+              {t("out of")} {total} {t("photos")}
               <SelectGeneral
                 value={limit}
                 options={OPTION_LIMIT}
@@ -161,7 +164,7 @@ function AiImageResult() {
                 color="primary"
                 onChange={(e) => handleChangeLimit(e.target.value)}
               />
-              on 1 page.
+              {t("on 1 page.")}
             </DisplayTotalImage>
           </SectionPagination>
 
@@ -195,7 +198,7 @@ function AiImageResult() {
       {login && !loading && !listResultImg?.length && (
         <MessageNoPhoto>
           <ImageGeneral src={icGif1} alt="" />
-          <NoPhoto>No photos saved!</NoPhoto>
+          <NoPhoto>{t("No photos saved!")}</NoPhoto>
         </MessageNoPhoto>
       )}
     </WrapperMyAvatars>

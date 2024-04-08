@@ -1,6 +1,7 @@
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Footer from "../../components/Footer";
@@ -56,6 +57,7 @@ import {
 } from "./styles";
 
 export function AiPhotoEnhancer() {
+  const { t } = useTranslation();
   const [resultImage, setResultImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state: RootState) => state.app.user);
@@ -76,7 +78,7 @@ export function AiPhotoEnhancer() {
     if (handleCheckLogin()) {
       return;
     }
-    if (handleCheckCredit(user?.credits ?? 0, 1)) {
+    if (handleCheckCredit(user?.credits ?? 0, 4)) {
       return;
     }
     setIsLoading(true);
@@ -87,11 +89,10 @@ export function AiPhotoEnhancer() {
         const base64ImageString = convertImageToBase64(res.data);
         setResultImage(await base64ImageString);
         setIsLoading(false);
+        toast.success(res.data.message ?? "Generate success!");
         await deductCreditsAiEnhancer() // call api Trừ credits với các lần sử dụng
           .then(() => getUser()) // call user lại để cập nhật lại số credits
-          .catch((error) =>
-            toast.error(ERROR_MESSAGES.CREDIT_DEDUCTION_FAILED)
-          );
+          .catch(() => toast.error(ERROR_MESSAGES.SERVER_ERROR));
       })
       .catch((error) => {
         setIsLoading(false);
@@ -113,7 +114,7 @@ export function AiPhotoEnhancer() {
           <BoxUploadedImage>
             <ItemBack onClick={handleBack}>
               <FontAwesomeIcon className="icon-back" icon={faAngleLeft} />
-              <BackGenerate>Back to Generate</BackGenerate>
+              <BackGenerate>{t("Back to Generate")}</BackGenerate>
             </ItemBack>
             {resultImage ? (
               <BoxResult>
@@ -121,27 +122,22 @@ export function AiPhotoEnhancer() {
                   <ImageGeneral src={resultImage} alt="" />
                 </ImageResult>
                 <ButtonGeneral
+                  i18nKey="Download"
                   className="btn-download"
                   onClick={() => handleDownloadImage(resultImage, "")}
-                >
-                  Download
-                </ButtonGeneral>
+                />
               </BoxResult>
             ) : (
               <NotUploaded>
                 <ContentNotUploaded>
                   <TitlePage>
-                    <span>AI</span>
+                    <span>{t("AI")}</span>
                     <PhotoEnhancer>
-                      Photo Enhancer
+                      {t("PhotoEnhancer")}
                       <ImageGeneral className="icon-star" src={iconStar} />
                     </PhotoEnhancer>
                   </TitlePage>
-                  <TextContent>
-                    Enhance colors, details, and sharpness effortlessly. Elevate
-                    your images to new heights with our powerful AI Photo
-                    Enhancer.
-                  </TextContent>
+                  <TextContent>{t("TextContent")}</TextContent>
                 </ContentNotUploaded>
                 <CreateUpload>
                   <ChangeItem loading={isLoading}>
@@ -156,7 +152,7 @@ export function AiPhotoEnhancer() {
                     )}
                     <ChangePhotoItem>
                       <ImageGeneral src={iconRotate} alt="" />
-                      <ChangePhoto>Change Photo</ChangePhoto>
+                      <ChangePhoto>{t("changePhoto")}</ChangePhoto>
                       <InputFile
                         name="file"
                         type="file"
@@ -170,9 +166,8 @@ export function AiPhotoEnhancer() {
                     onClick={handleGenerateImage}
                     loading={isLoading}
                     disabled={isLoading}
-                  >
-                    Enhance Image - 1 Credit
-                  </ButtonGeneral>
+                    i18nKey="Enhance Image - 4 Credits"
+                  />
                 </CreateUpload>
               </NotUploaded>
             )}
@@ -182,22 +177,19 @@ export function AiPhotoEnhancer() {
             <ContentText>
               <ImageGeneral className="icon-star" src={iconStar} alt="" />
               <AiPhotoEnhancerText>
-                <span>AI</span>
-                Photo Enhancer
+                <span>{t("AI")}</span>
+                {t("PhotoEnhancer")}
               </AiPhotoEnhancerText>
               <DescriptionEnhancer>
-                Enhance colors, details, and sharpness effortlessly. Elevate
-                your images to new heights with our powerful AI Photo Enhancer.
+                {t("enhanceDescription")}
               </DescriptionEnhancer>
               <UploadItem>
                 <UploadImage>
                   <ImageItem>
                     <ImageGeneral src={iconUploadImg} alt="" />
                   </ImageItem>
-                  <UploadText>Upload or drop file here</UploadText>
-                  <FormatUploadFile>
-                    Supported formats: PNG, JPEG, JPG, File size limit:5MB.
-                  </FormatUploadFile>
+                  <UploadText>{t("uploadOrDrop")}</UploadText>
+                  <FormatUploadFile>{t("supportedFormats")}</FormatUploadFile>
                   <InputFile
                     name="file"
                     type="file"
@@ -207,10 +199,7 @@ export function AiPhotoEnhancer() {
                   />
                 </UploadImage>
               </UploadItem>
-              <TermsOfService>
-                By continuing, you accept our Terms of Service and acknowledge
-                receipt of our Privacy and Cookie Policy.
-              </TermsOfService>
+              <TermsOfService>{t("termsOfService")}</TermsOfService>
             </ContentText>
             <ImagePhotoEnhancer>
               <ImageGeneral src={imgPhoto} alt="" />

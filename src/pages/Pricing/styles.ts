@@ -4,7 +4,7 @@ export const WrapperPricing = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  padding: 15px;
+  padding: 20px;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px !important;
   }
@@ -21,7 +21,7 @@ export const WrapperPricing = styled.div`
 
 export const BoxContent = styled.div`
   margin: auto;
-  max-width: 1250px !important;
+  max-width: 1150px !important;
   display: flex;
   flex-direction: column;
   align-items: center;

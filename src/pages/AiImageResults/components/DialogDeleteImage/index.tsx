@@ -1,4 +1,5 @@
 import DialogContent from "@mui/material/DialogContent/DialogContent";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { Transition } from "../../../../components/SentEmailDialog";
 import ButtonGeneral from "../../../../components/Ui/button";
@@ -28,6 +29,7 @@ export default function DialogDeleteImage({
   setListId: (value: string[]) => void;
   getListResultImage: () => void;
 }) {
+  const { t } = useTranslation();
   const cancelDeleteImg = () => {
     setIsModalDelete(false);
     setListId([]);
@@ -55,7 +57,9 @@ export default function DialogDeleteImage({
       <DialogContent>
         <ConfirmText>
           <ImageGeneral src={icDeleteBlue} alt="" />
-          <MessageText>Are you sure you want to delete the photo?</MessageText>
+          <MessageText>
+            {t("Are you sure you want to delete the photo?")}
+          </MessageText>
         </ConfirmText>
       </DialogContent>
       <StyledDialogActions>
@@ -63,16 +67,15 @@ export default function DialogDeleteImage({
           className="btn-cancel"
           onClick={cancelDeleteImg}
           color="primary"
-        >
-          Cancel
-        </ButtonGeneral>
+          i18nKey="Cancel"
+        />
+
         <ButtonGeneral
           className="btn-delete"
           onClick={handleDeleteImg}
           color="primary"
-        >
-          Delete
-        </ButtonGeneral>
+          i18nKey="Delete"
+        />
       </StyledDialogActions>
     </StyledDialogDelete>
   );

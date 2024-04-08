@@ -1,3 +1,4 @@
+import { APIs } from "./configs/api";
 import { privateAxios } from "./configs/axios";
 
 export interface stripeOderType {
@@ -7,4 +8,4 @@ export interface stripeOderType {
 export const getPricing = () => privateAxios.get("/stripe/prices");
 
 export const stripeOder = (body: stripeOderType) =>
-  privateAxios.post("/stripe/order", body);
+  privateAxios.post(APIs.STRIPE_ORDER, body);

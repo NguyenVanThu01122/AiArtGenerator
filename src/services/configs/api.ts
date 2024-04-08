@@ -4,6 +4,7 @@ export const APIs = {
   GET_USER: "/user",
   AVATAR: "/avatar",
   VERIFY: "/auth/verify",
+  STRIPE_ORDER: "/stripe/order",
   GET_USER_PROFILE: "/user/profile",
   VERIFY_REGISTER: "/auth/verify-register",
   FORGET_PASSWORD: "/auth/forget-password",
@@ -16,6 +17,7 @@ export const APIs = {
   GET_AVATAR_LIST_BY_USER: "/avatar/list-by-user",
   GET_AVATAR_LIST_BY_STATUS: "/avatar/list-by-status",
   CREATE_IMAGE_AI: "https://api-img-gen-wrapper.apero.vn/api/v2/image-ai",
+  REMOVE_BACKGROUND: "https://bgrm-enhance-wrapper.apero.vn/api/v1/bg-remove",
   GET_STYLES:
     "https://style-management-api.dev.apero.vn/v2/styles?limit=1000000&page=1&project=Creatorhub_WEB",
 };

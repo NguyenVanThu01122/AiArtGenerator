@@ -41,7 +41,7 @@ export default function Sidebar() {
     navigate(url);
   };
 
-  const MenuItem = ({ title, path, icon, iconType }: TypeMenuData) => (
+  const MenuItem = ({ title, path, icon }: TypeMenuData) => (
     <Tooltip arrow placement="right" title={closeMenu && title}>
       <WrapperMenu
         closeMenu={closeMenu}

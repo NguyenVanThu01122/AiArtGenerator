@@ -1,6 +1,7 @@
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../reduxToolkit/Slices/RootReducer";
 import {
@@ -52,14 +53,14 @@ export default function ConfigAiArt({
   setSliderValueScale,
   handleGenerate,
 }: ConfigAiArtProps) {
+  const { t } = useTranslation();
   const [focusIcon, setFocusIcon] = useState(false);
   const uploadFile = useSelector((state: RootState) => state.app.uploadFile);
 
   const configData: ConfigData[] = [
     {
       title: "Alpha",
-      description:
-        "Adjust the level of control over output specificity. Higher values provide more specific output control, lower values allow for greater variation and creativity.",
+      description: "DESCRIPTION_ALPHA",
       value: sliderValueAlpha,
       onChange: setSliderValueAlpha,
       min: 0,
@@ -67,18 +68,16 @@ export default function ConfigAiArt({
       step: 0.1,
     },
     {
-      title: "Steps",
-      description:
-        "Determine the level of iteration for text generation. Higher values refine output, lower values increase diversity.",
+      title: "STEPS",
+      description: "DESCRIPTION_STEPS",
       value: sliderValueSteps,
       onChange: setSliderValueSteps,
       min: 10,
       max: 50,
     },
     {
-      title: "Scale",
-      description:
-        "Control the balance between creativity and control in text generation. Higher values increase control, lower values enhance creativity.",
+      title: "SCALE",
+      description: "DESCRIPTION_SCALE",
       value: sliderValueScale,
       onChange: setSliderValueScale,
       min: 0,
@@ -90,7 +89,7 @@ export default function ConfigAiArt({
     <Wrapper>
       <ContentConfigs>
         <AdvancedSettings onClick={() => setFocusIcon(!focusIcon)}>
-          <AdvancedSetting>ADVANCED SETTINGS</AdvancedSetting>
+          <AdvancedSetting>{t("ADVANCED SETTINGS")}</AdvancedSetting>
           <FontAwesomeIcon
             className={`${focusIcon ? "reverse-icon" : "reverse-initial"}`}
             icon={faChevronUp}
@@ -100,8 +99,10 @@ export default function ConfigAiArt({
           <BlockSettings>
             {configData.map((item: ConfigData, index: number) => (
               <DetailConfigs key={index}>
-                <TitleConfig>{item.title}</TitleConfig>
-                <DescriptionConfig>{item.description}</DescriptionConfig>
+                <TitleConfig>{t(item.title as string)}</TitleConfig>
+                <DescriptionConfig>
+                  {t(item.description as string)}
+                </DescriptionConfig>
                 <BoxSlider>
                   <CustomSlider
                     min={item.min}
@@ -128,7 +129,7 @@ export default function ConfigAiArt({
           loading={isLoading}
           disabled={!uploadFile && !prompt.trim() && !negativePrompt.trim()}
         >
-          <span>Generate - 2 credits</span>
+          <span>{t("Generate - 5 credits")}</span>
         </CustomLoadingButton>
       </ItemBtnGenerate>
     </Wrapper>

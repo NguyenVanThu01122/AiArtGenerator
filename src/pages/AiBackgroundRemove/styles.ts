@@ -155,10 +155,11 @@ export const TextContent = styled.div`
 export const ContentHeader = styled.div`
   color: var(--text-color);
   font-family: "GT Walsheim Pro", san, sans-serif;
-  font-size: 40px;
+  font-size: 35px;
   font-weight: 700;
   line-height: 120%;
   span {
+    margin-left: 6px;
     background: linear-gradient(
       190deg,
       rgb(252, 128, 255) 0%,
@@ -347,7 +348,6 @@ export const TextFormat = styled.div`
   margin-bottom: 6px;
   font-weight: bold;
   color: var(--text-color);
-  font-size: 18px;
   @media screen and (max-width: 768px) {
     font-size: 12px;
     font-weight: 900;
@@ -363,7 +363,7 @@ export const FormatFile = styled.div`
 `;
 
 export const StyledButton = styled(LoadingButton)<{ fileUpload: any }>`
-  height: 50px;
+  height: 45px;
   border: none;
   outline: 0px;
   border-radius: 8px;

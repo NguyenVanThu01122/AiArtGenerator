@@ -19,7 +19,7 @@ export const TitleQuestion = styled.div`
   /* color: rgb(121, 57, 8); */
   color: var(--text-color);
   text-align: center;
-  font-size: 40px;
+  font-size: 35px;
   font-weight: 700;
   line-height: 120%; /* 48px */
   letter-spacing: -1px;
@@ -42,7 +42,6 @@ export const DescriptionText = styled.div`
 `;
 
 export const StyledSpan = styled.span`
-  font-size: 18px;
   font-weight: bold;
   margin-right: 15px;
   color: var(--text-color);
@@ -74,5 +73,4 @@ export const StyledAccordion = styled(Accordion)`
   margin-bottom: 15px;
   border-radius: 10px;
   font-weight: bold;
- 
 `;

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import ImageGeneral from "../../../../components/Ui/image";
 import TextAreaGeneral from "../../../../components/Ui/textArea";
 import icHistory from "../../../../images/ic-history.svg";
@@ -25,37 +26,40 @@ const PromptInput: React.FC<PromptInputProps> = ({
   negativePrompt,
   setNegativePrompt,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Wrapper>
       <BoxPrompt>
         <HeaderPrompt>
-          <TitleHeader>Create your prompt</TitleHeader>
+          <TitleHeader>{t("Create your prompt")}</TitleHeader>
           <GroupTool>
             <ImageGeneral src={icHistory} alt="" />
             <ImageGeneral src={icRandom} alt="" />
           </GroupTool>
         </HeaderPrompt>
         <ContentPrompt>
-          Describe whatever you want or directly click the Suggestion icon to
-          quickly generate AI art.
+          {t(
+            "Describe whatever you want or directly click the Suggestion icon to quickly generate AI art."
+          )}
         </ContentPrompt>
-        <PromptTitle>Prompt</PromptTitle>
+        <PromptTitle>{t("Prompt")}</PromptTitle>
         <TextAreaGeneral
           style={{ resize: "none" }}
           className="custom-textarea"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Enter prompt..."
+          placeholder={t("Enter prompt...")}
         />
       </BoxPrompt>
       <PromptNegative>
-        <TitleNegative>Negative Prompt</TitleNegative>
+        <TitleNegative>{t("Negative Prompt")}</TitleNegative>
         <TextAreaGeneral
           style={{ resize: "none" }}
           className="custom-textarea"
           value={negativePrompt}
           onChange={(e) => setNegativePrompt(e.target.value)}
-          placeholder="Enter negative prompt (optional)"
+          placeholder={t("Enter negative prompt (optional)")}
         />
       </PromptNegative>
     </Wrapper>

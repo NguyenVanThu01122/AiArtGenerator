@@ -1,5 +1,6 @@
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { AnyAction } from "redux";
@@ -10,7 +11,6 @@ import {
   generateAiImage,
   saveResultImageAi,
 } from "../../services/aiArtGenerator";
-import { deductCreditsRemoveBackground } from "../../services/aiBackgroundRemove";
 import {
   DEFAULT_ALPHA,
   DEFAULT_SCALE,
@@ -32,6 +32,7 @@ import { MainContent, SectionContents, WrapperAiArtGenerator } from "./styles";
 import { TypeConfig } from "./types";
 
 function AiArtGenerator() {
+  const { t } = useTranslation();
   const [sliderValueAlpha, setSliderValueAlpha] = useState(DEFAULT_ALPHA);
   const [sliderValueSteps, setSliderValueSteps] = useState(DEFAULT_STEPS);
   const [sliderValueScale, setSliderValueScale] = useState(DEFAULT_SCALE);
@@ -134,8 +135,9 @@ function AiArtGenerator() {
 
   // Trừ credits và lưu kết quả hình ảnh
   const deductCreditsAndSaveResult = async (base64ImageString: string) => {
-    await deductCreditsAiArt()
-      .then(async () => {
+    deductCreditsAiArt()
+      .then(async (res) => {
+        toast.success(res.data.message || "Success!");
         getUser(); // cập nhật lại credit
         const body = {
           url: base64ImageString,
@@ -150,16 +152,20 @@ function AiArtGenerator() {
         };
         await saveResultImageAi(body); // lưu kết quả hình ảnh
       })
-      .catch(() => toast.error(ERROR_MESSAGES.SERVER_ERROR));
+      .catch((error) => {
+        toast.error(
+          error.response?.data?.message || ERROR_MESSAGES.SERVER_ERROR
+        );
+      });
   };
-  
+
   // hàm create Image AiArt
   const handleGenerate = async () => {
     if (handleCheckLogin()) {
       return;
     }
     // Kiểm tra số lượng credit
-    if (handleCheckCredit(user?.credits ?? 0, 2)) {
+    if (handleCheckCredit(user?.credits ?? 0, 5)) {
       return;
     }
     setIsLoading(true);
@@ -169,9 +175,7 @@ function AiArtGenerator() {
         const base64ImageString = await convertImageToBase64(res.data);
         setResultImage(base64ImageString);
         setIsLoading(false);
-        await deductCreditsRemoveBackground() // gọi api Trừ credits với các lần sử dụng
-          .then(() => getUser()); // cập nhật thông tin user
-        toast.success("Generate image successfully!");
+        deductCreditsAndSaveResult(base64ImageString); // Trừ credits và lưu kết quả hình ảnh
       });
     } catch (error) {
       toast.error("Error. Please try again.");

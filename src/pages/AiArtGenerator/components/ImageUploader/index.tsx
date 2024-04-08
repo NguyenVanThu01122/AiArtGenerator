@@ -7,6 +7,7 @@ import iconUploadImg from "../../../../images/icon-upload-img.svg";
 import { uploadFile } from "../../../../reduxToolkit/Slices/AppSlice";
 import { FILE_FORMAT } from "../../../../utils/constants";
 
+import { useTranslation } from "react-i18next";
 import {
   ChangeImage,
   ChangeItem,
@@ -30,6 +31,7 @@ function ImageUploader({
   handleUploadImage,
   setUploadImage,
 }: ImageUploaderProps) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const handleRemoveImage = () => {
@@ -51,7 +53,7 @@ function ImageUploader({
             />
             <ChangeItem>
               <ImageGeneral src={iconRotate} alt="" />
-              <ChangePhoto>Change Photo</ChangePhoto>
+              <ChangePhoto>{t("changePhoto")}</ChangePhoto>
               <InputGeneral
                 className="input-upload"
                 type="file"
@@ -66,10 +68,8 @@ function ImageUploader({
           <IconUpload>
             <ImageGeneral src={iconUploadImg} alt="" />
           </IconUpload>
-          <ContentUpload>Upload or drop file here</ContentUpload>
-          <FormatFile>
-            Supported formats: PNG, JPEG, JPG, File size limit:5MB.
-          </FormatFile>
+          <ContentUpload>{t("uploadOrDrop")}</ContentUpload>
+          <FormatFile>{t("supportedFormats")}</FormatFile>
           <CustomInput
             type="file"
             onChange={handleUploadImage}

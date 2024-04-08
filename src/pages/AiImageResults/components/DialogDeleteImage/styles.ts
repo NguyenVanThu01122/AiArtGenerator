@@ -6,6 +6,9 @@ export const StyledDialogDelete = styled(DialogCommon)`
   .css-ypiqx9-MuiDialogContent-root {
     padding: 0px 30px;
   }
+  .css-ploc9f-MuiPaper-root-MuiDialog-paper {
+    background-color: #f5f5f5;
+  }
   .css-knqc4i-MuiDialogActions-root {
     padding: 20px;
   }
@@ -31,6 +34,7 @@ export const ConfirmText = styled.div`
 export const MessageText = styled.div`
   font-weight: bold;
   font-size: 20px;
+  color: black;
 `;
 
 export const StyledDialogActions = styled(DialogActions)`
