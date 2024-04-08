@@ -1,4 +1,5 @@
 import axios from "axios";
+import { APIs } from "./configs/api";
 import { privateAxios } from "./configs/axios";
 
 export const removeBackground = (formData: FormData) =>
@@ -9,13 +10,13 @@ export const removeBackground = (formData: FormData) =>
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      responseType: "arraybuffer",
+      responseType: "blob",
     }
   );
 
 // trừ credit khi sử dụng AI Art
 export const deductCreditsRemoveBackground = () =>
-  privateAxios.get("/user/use-credits", {
+  privateAxios.get(APIs.USE_CREDITS, {
     params: {
       type: "REMOVE_BACKGROUND",
     },

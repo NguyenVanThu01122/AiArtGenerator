@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 270px;
   border-left: 1px solid rgb(30, 36, 49);
   @media screen and (max-width: 768px) {
     width: 100%;
@@ -87,7 +87,7 @@ export const TitleConfig = styled.div`
 export const DescriptionConfig = styled.div`
   margin: 10px 0px;
   color: var(--text-color);
-  font-size: 13px;
+  font-size: 12px;
 `;
 
 export const BoxSlider = styled.div`
@@ -148,7 +148,7 @@ export const CustomSlider = styled(Slider)`
 `;
 
 export const CustomLoadingButton = styled(LoadingButton)`
-  height: 50px;
+  height: 45px;
   width: 100%;
   margin-bottom: 20px;
   color: white !important;

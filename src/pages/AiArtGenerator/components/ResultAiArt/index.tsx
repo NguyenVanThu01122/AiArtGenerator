@@ -1,8 +1,13 @@
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import { useClipboard } from "use-clipboard-copy";
 import ButtonGeneral from "../../../../components/Ui/button";
 import ImageGeneral from "../../../../components/Ui/image";
 import icCopy from "../../../../images/ic-copy.svg";
 import { useDownloadUtils } from "../../../../utils/useDownloadUtils";
+
 import {
   BackItem,
   BackToGenerate,
@@ -41,7 +46,9 @@ const AiArtResult = ({
   negativePrompt,
   handleBack,
 }: AiArtResultProps) => {
-  const { handleCopyText, handleDownloadImage } = useDownloadUtils();
+  const { t } = useTranslation();
+  const { handleDownloadImage } = useDownloadUtils();
+  const clipboard = useClipboard();
 
   const detailParameters = [
     {
@@ -74,40 +81,56 @@ const AiArtResult = ({
     },
   ];
 
+  const [textToCopyRef] = useState<any>(null);
+
+  const handleCopyText = () => {
+    clipboard.copy(textToCopyRef);
+    toast.success("Copy successfully");
+  };
+
+  useEffect(() => {
+    const negativePromptItem = detailParameters.find(
+      (item) => item.title === "NEGATIVE_PROMPT"
+    );
+    if (negativePromptItem) {
+      textToCopyRef.current = negativePromptItem.content;
+    }
+  }, []);
+
   return (
     <ResultsItem>
       <BackItem onClick={handleBack}>
         <IconBack icon={faAngleLeft} />
-        <BackToGenerate>Back to Generate</BackToGenerate>
+        <BackToGenerate>{t("Back to Generate")}</BackToGenerate>
       </BackItem>
       <BoxResult>
         <DisplayImage>
           <ImageResult src={resultImage} />
         </DisplayImage>
         <SectionParameter>
-          <TitlePage>AI Art Result</TitlePage>
+          <TitlePage>{t("AI Art Result")}</TitlePage>
           <InfoParameter>
             {detailParameters.map((item, index) => (
               <ContentText key={index}>
-                <TitleParameter>{item.title}</TitleParameter>
+                <TitleParameter>{t(item.title)}</TitleParameter>
                 <Content>{item.content}</Content>
               </ContentText>
             ))}
           </InfoParameter>
           <ButtonGroup>
             <ButtonGeneral
+              i18nKey="Copy Prompt"
               className="copy-button"
-              //onClick={() => handleCopyText(negativePrompt.trim())}
+              onClick={() => handleCopyText()}
+              sx={{ bgcolor: "primary.main" }}
             >
               <ImageGeneral src={icCopy} />
-              Copy Prompt
             </ButtonGeneral>
             <ButtonGeneral
+              i18nKey="Download"
               className="download-button"
               onClick={() => handleDownloadImage(resultImage, "img.jpg")}
-            >
-              Download - 1 Credit
-            </ButtonGeneral>
+            />
           </ButtonGroup>
         </SectionParameter>
       </BoxResult>

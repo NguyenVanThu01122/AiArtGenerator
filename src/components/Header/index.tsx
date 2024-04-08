@@ -50,7 +50,6 @@ function Header() {
   const loggedIn = isAuthenticated();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { t } = useTranslation();
 
   const filterListPathName = [
@@ -65,25 +64,25 @@ function Header() {
   const handleFilterPathName = () => {
     switch (pathName) {
       case ROUTES.HOME:
-        setSavePathName("Home");
+        setSavePathName("HOME");
         break;
       case ROUTES.PRICING:
-        setSavePathName("Pricing");
+        setSavePathName("PRICING");
         break;
       case ROUTES.AI_IMAGE_RESULT:
-        setSavePathName("AI Image Result");
+        setSavePathName("AI_IMAGE_RESULT");
         break;
       case ROUTES.MY_ACCOUNT:
-        setSavePathName("My Account");
+        setSavePathName("MY_ACCOUNT");
         break;
       case ROUTES.AI_ART_GENERATOR:
-        setSavePathName("AI Art Generator");
+        setSavePathName("AI_ART_GENERATOR");
         break;
       case ROUTES.AI_PHOTO_ENHANCER:
-        setSavePathName("AI Photo Enhancer");
+        setSavePathName("AI_PHOTO_ENHANCER");
         break;
       case ROUTES.AI_BACKGROUND_REMOVE:
-        setSavePathName("AI Background Remove");
+        setSavePathName("AI_BACKGROUND_REMOVE");
         break;
       default:
         setSavePathName("");
@@ -149,10 +148,11 @@ function Header() {
         )}
         <PathNameItem>
           {filterListPathName.includes(pathName) ? (
-            savePathName
+            t(savePathName)
           ) : (
             <PathNameProducts>
-              Products /<span>{savePathName}</span>
+              {t("Products /")}
+              <span>{t(savePathName)}</span>
             </PathNameProducts>
           )}
         </PathNameItem>
@@ -196,18 +196,20 @@ function Header() {
                   </ContentUser>
                   <SelectItem>
                     <ItemMenu onClick={() => handleRedirect(ROUTES.MY_ACCOUNT)}>
-                      My Account
+                      {t("MY_ACCOUNT")}
                     </ItemMenu>
-                    <ItemMenu onClick={handleLogout}>Logout</ItemMenu>
+                    <ItemMenu onClick={handleLogout}>{t("lOG_OUT")}</ItemMenu>
                   </SelectItem>
                 </BoxProfile>
               )}
             </ContainerProfile>
           </BoxAccount>
         ) : (
-          <ButtonGeneral onClick={() => navigate(ROUTES.SIGN_IN)}>
-            Log in
-          </ButtonGeneral>
+          <ButtonGeneral
+            i18nKey="LOG_IN"
+            className="btn-login"
+            onClick={() => navigate(ROUTES.SIGN_IN)}
+          />
         )}
       </BoxContent>
     </WrapperHeader>

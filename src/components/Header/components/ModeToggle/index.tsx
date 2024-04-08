@@ -5,11 +5,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useColorScheme } from "@mui/material/styles/CssVarsProvider";
+import { useTranslation } from "react-i18next";
 import { StyledBox, StyledFormControl } from "./styles";
 type Mode = "dark" | "light" | "system";
 
 export default function ModeToggle() {
   const { mode, setMode } = useColorScheme();
+  const { t } = useTranslation();
 
   const handleChangeMode = (event: SelectChangeEvent<Mode>) => {
     const valueMode = event.target.value as Mode;
@@ -25,7 +27,7 @@ export default function ModeToggle() {
           color: "primary.main",
         }}
       >
-        Mode
+        {t("Mode")}
       </InputLabel>
       <Select
         labelId="label-select-dark-light-mode"
@@ -34,8 +36,9 @@ export default function ModeToggle() {
         label="Mode"
         color="secondary"
         onChange={handleChangeMode}
+        className="select-mode"
         sx={{
-          width: "130px",
+          width: "145px",
           color: "primary.main",
         }}
       >
@@ -46,17 +49,19 @@ export default function ModeToggle() {
                 color: "primary.main",
               }}
             />
-            Light
+            {t("Light")}
           </StyledBox>
         </MenuItem>
         <MenuItem value="dark">
           <StyledBox>
-            <DarkModeIcon /> Dark
+            <DarkModeIcon />
+            {t("Dark")}
           </StyledBox>
         </MenuItem>
         <MenuItem value="system">
           <StyledBox>
-            <SystemModeIcon /> System
+            <SystemModeIcon />
+            {t("System")}
           </StyledBox>
         </MenuItem>
       </Select>

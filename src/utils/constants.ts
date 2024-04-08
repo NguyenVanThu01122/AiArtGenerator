@@ -1,3 +1,5 @@
+import i18n from "../i18n/i18n";
+
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_LIMIT = 10;
 export const DEFAULT_SORT_DATE = "DEFAULT";
@@ -44,20 +46,22 @@ export const NOTIFICATION = "This feature is under development";
 export const INSUFFICIENT_CREDITS_MESSAGE =
   "Your credits is not enable. Please purchase credits!";
 
-export const SELECT_SORT_DATE = [
-  {
-    value: "DEFAULT",
-    label: "DEFAULT",
-  },
-  {
-    value: "INCREASE",
-    label: "INCREASE",
-  },
-  {
-    value: "DECREASE",
-    label: "DECREASE",
-  },
-];
+export function getSelectSortDateOptions() {
+  return [
+    {
+      value: "DEFAULT",
+      label: i18n.t("DEFAULT"),
+    },
+    {
+      value: "INCREASE",
+      label: i18n.t("INCREASE"),
+    },
+    {
+      value: "DECREASE",
+      label: i18n.t("DECREASE"),
+    },
+  ];
+}
 
 export const OPTION_LIMIT = [
   { value: "5", label: "5" },

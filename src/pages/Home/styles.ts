@@ -103,7 +103,7 @@ export const ItemCarousel = styled(Carousel)`
       }
       & > div:nth-child(2) {
         color: var(--text-color);
-        font-size: 40px;
+        font-size: 35px;
         font-weight: 700;
         line-height: 120%; /* 48px */
       }
@@ -209,7 +209,7 @@ export const SectionContents = styled.div`
     }
     & > div:nth-child(2) {
       color: var(--text-color);
-      font-size: 40px;
+      font-size: 35px;
       font-weight: 700;
       line-height: 120%; /* 48px */
     }
@@ -349,7 +349,7 @@ export const ContainerBenefits = styled(Box)`
     }
     & > div:nth-child(2) {
       color: white;
-      font-size: 40px;
+      font-size: 35px;
       font-weight: 700;
       line-height: 120%; /* 48px */
     }
@@ -507,7 +507,7 @@ export const LastItem = styled.div`
     text-align: center;
     & > div:first-child {
       color: #fff;
-      font-size: 40px;
+      font-size: 35px;
       font-weight: 700;
       line-height: 120%; /* 48px */
     }
