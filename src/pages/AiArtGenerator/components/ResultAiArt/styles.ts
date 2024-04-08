@@ -57,13 +57,14 @@ export const BackItem = styled.div`
   }
 `;
 export const IconBack = styled(FontAwesomeIcon)`
-  color: white;
-  font-size: 18px;
+  color: var(--text-color);
+  font-size: 20px;
   margin-right: 6px;
+  font-weight: bold;
 `;
 
-export const ContentBack = styled.div`
-  color: white;
+export const BackToGenerate = styled.div`
+  color: var(--text-color);
   font-weight: bold;
 `;
 
@@ -92,6 +93,7 @@ export const BoxResult = styled.div`
   @media screen and (max-width: 768px) {
     gap: 0px;
     flex-direction: column;
+    padding: 0px 18px;
   }
 `;
 
@@ -104,11 +106,10 @@ export const DisplayImage = styled.div`
   }
 `;
 export const TitlePage = styled.div`
-  color: #fff;
+  color: var(--text-color);
   font-size: 32px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%;
 `;
 
 export const ImageResult = styled(ImageGeneral)`
@@ -125,7 +126,7 @@ export const SectionParameter = styled.div`
   display: flex;
   flex-direction: column;
   gap: 32px;
-  color: white;
+  color: var(--text-color);
   overflow-y: auto;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
@@ -160,50 +161,48 @@ export const SectionParameter = styled.div`
   }
 `;
 
-export const InformationResult = styled.div`
-  display: flex;
-  gap: 150px;
+export const InfoParameter = styled.div`
+  height: 500px;
+  border: 1px solid #e250e5;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  padding: 20px;
+  @media screen and (max-width: 768px) {
+  }
 `;
 
-export const DetailResult = styled.div``;
-
-export const TextGroup = styled.div`
+export const ContentText = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
   margin-bottom: 22px;
-  & > div:first-child {
-    font-weight: bold;
-  }
-  & > div:last-child {
-    color: #ffffffcc;
-  }
 `;
 
-export const ItemPrompt = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  .text-prompt {
-    & > div:first-child {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    & > div:last-child {
-      color: #ffffffcc;
-    }
-    div {
-      word-break: break-all; // chữ sẽ tự động xuống dòng khi vượt quá chiều dài mẹ
-    }
-  }
-  img {
-    background-color: white;
-  }
+export const TitleParameter = styled.div`
+  font-weight: 600;
 `;
 
-export const TextPrompt = styled.div`
-  /* styles for text-prompt */
+export const Content = styled.div`
+  width: 200px;
+  overflow: auto;
+  color: var(--text-color);
+  overflow-y: auto;
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar {
+    width: 1px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent; //Màu của vùng cuộn
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(217deg, #e250e5, #4b50e6);
+    }
+  }
 `;
 
 export const ButtonGroup = styled.div`
@@ -241,7 +240,7 @@ export const ButtonGroup = styled.div`
     margin: 10px 0px;
     .copy-button,
     .download-button {
-      padding: 10px 8px;
+      padding: 10px 0px;
       width: 100%;
       font-size: 10px;
     }

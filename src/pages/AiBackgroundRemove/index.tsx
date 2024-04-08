@@ -87,7 +87,7 @@ function AiBackgroundRemove() {
     removeBackground(formData)
       .then(async (res) => {
         const base64ImageString = convertImageToBase64(res.data);
-        setResultImage(base64ImageString);
+        setResultImage(await base64ImageString);
         setLoading(false);
         await deductCreditsRemoveBackground() // gọi api Trừ credits với các lần sử dụng
           .then(() => getUser()) // cập nhật lại user khi trừ credits success

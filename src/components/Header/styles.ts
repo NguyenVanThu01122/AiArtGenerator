@@ -1,10 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, Select } from "@mui/material";
 import styled from "styled-components";
 import { movingGradient } from "../Sidebar/styles";
 export const WrapperHeader = styled.div`
   position: relative;
   height: 75px;
-  padding: 0px 15px;
+  padding: 0px 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -93,10 +93,29 @@ export const PathNameProducts = styled.div`
   }
 `;
 
+export const BoxContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 22px;
+`;
+
 export const BoxAccount = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+`;
+
+export const OptionItem = styled.div`
+  display: flex;
+  gap: 10px;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const SelectLanguage = styled(Select)`
+  width: 140px;
+  height: 40px;
 `;
 
 export const ItemModeToggle = styled.div`
@@ -182,7 +201,7 @@ export const SelectItem = styled.div`
   border-top: 1px solid rgb(30, 36, 49);
 `;
 
-export const MenuItem = styled.div`
+export const ItemMenu = styled.div`
   padding: 10px;
   font-weight: bold;
   color: var(--text-color);

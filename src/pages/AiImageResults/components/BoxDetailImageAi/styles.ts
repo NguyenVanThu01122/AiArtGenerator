@@ -132,13 +132,17 @@ export const ProductParameters = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  gap: 50px;
+  gap: 10px;
 `;
 
-export const HeadParameter = styled.div``;
+export const HeadParameter = styled.div`
+  width: 30%;
+`;
 
 export const DetailParameter = styled.div`
   margin-bottom: 20px;
+  width: 100%;
+  /* height: 200px;   */
 `;
 
 export const Label = styled.div`
@@ -147,14 +151,14 @@ export const Label = styled.div`
 
 export const Value = styled.div`
   color: gray;
-  height: 50px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  height: 60px;
+  overflow: auto;
+  word-break: break-all; // Tự động ngắt dòng khi vượt quá chiều rộng
   &::-webkit-scrollbar-thumb {
-    border-radius: 5px !important;
+    border-radius: 5px;
   }
   &::-webkit-scrollbar {
-    width: 4px !important;
+    width: 2px !important;
   }
   &::-webkit-scrollbar-track {
     background-color: transparent !important; //Màu của vùng cuộn
@@ -164,4 +168,6 @@ export const Value = styled.div`
   }
 `;
 
-export const EndParameter = styled.div``;
+export const EndParameter = styled.div`
+  width: 70%;
+`;

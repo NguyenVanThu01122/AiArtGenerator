@@ -85,7 +85,7 @@ export function AiPhotoEnhancer() {
     generateAiPhotoEnhancer(formData) // call api generate ảnh
       .then(async (res) => {
         const base64ImageString = convertImageToBase64(res.data);
-        setResultImage(base64ImageString);
+        setResultImage(await base64ImageString);
         setIsLoading(false);
         await deductCreditsAiEnhancer() // call api Trừ credits với các lần sử dụng
           .then(() => getUser()) // call user lại để cập nhật lại số credits

@@ -10,6 +10,7 @@ import {
   generateAiImage,
   saveResultImageAi,
 } from "../../services/aiArtGenerator";
+import { deductCreditsRemoveBackground } from "../../services/aiBackgroundRemove";
 import {
   DEFAULT_ALPHA,
   DEFAULT_SCALE,
@@ -151,39 +152,30 @@ function AiArtGenerator() {
       })
       .catch(() => toast.error(ERROR_MESSAGES.SERVER_ERROR));
   };
-
-  // Xử lý lỗi khi không thể tạo hình ảnh
-  const handleGenerateError = () => {
-    setIsLoading(false);
-    toast.error("Error. Please try again.");
-  };
-
+  
   // hàm create Image AiArt
   const handleGenerate = async () => {
+    if (handleCheckLogin()) {
+      return;
+    }
+    // Kiểm tra số lượng credit
+    if (handleCheckCredit(user?.credits ?? 0, 2)) {
+      return;
+    }
+    setIsLoading(true);
+    const formData = prepareFormData();
     try {
-      if (handleCheckLogin()) {
-        return;
-      }
-      // Kiểm tra số lượng credit
-      if (handleCheckCredit(user?.credits ?? 0, 2)) {
-        return;
-      }
-      setIsLoading(true);
-      const formData = prepareFormData();
-      await generateAiImage(formData)
-        .then(async (res) => {
-          const base64ImageString = convertImageToBase64(res.data);
-          await deductCreditsAndSaveResult(base64ImageString); // Trừ credits và lưu kết quả hình ảnh
-          setResultImage(base64ImageString);
-          setIsLoading(false);
-          toast.success("Generate image successfully!");
-        })
-        .catch(() => {
-          toast.error("Error. Please try again.");
-          setIsLoading(false);
-        });
+      generateAiImage(formData).then(async (res) => {
+        const base64ImageString = await convertImageToBase64(res.data);
+        setResultImage(base64ImageString);
+        setIsLoading(false);
+        await deductCreditsRemoveBackground() // gọi api Trừ credits với các lần sử dụng
+          .then(() => getUser()); // cập nhật thông tin user
+        toast.success("Generate image successfully!");
+      });
     } catch (error) {
-      handleGenerateError();
+      toast.error("Error. Please try again.");
+      setIsLoading(false);
     }
   };
 
@@ -215,7 +207,7 @@ function AiArtGenerator() {
               handleUploadImage={handleUploadImage}
               setUploadImage={setUploadImage}
             />
-            
+
             <PromptInput
               prompt={prompt}
               setPrompt={setPrompt}
