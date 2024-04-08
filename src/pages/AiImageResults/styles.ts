@@ -7,7 +7,7 @@ export const WrapperMyAvatars = styled.div`
   padding: 20px;
   position: relative;
   @media screen and (max-width: 768px) {
-    padding: 20px 5px 0px 5px;
+    padding: 12px 5px 0px 5px;
   }
 `;
 
@@ -79,6 +79,7 @@ export const SectionPagination = styled(Box)`
   @media screen and (max-width: 768px) {
     flex-direction: column;
     gap: 0px;
+    padding: 6px;
   }
 `;
 

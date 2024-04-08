@@ -1,12 +1,8 @@
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {
-  AccordionDetails,
-  AccordionSummary,
-  Typography,
-  useColorScheme,
-} from "@mui/material";
+import { AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Answer,
   BoxQuestions,
@@ -20,119 +16,83 @@ import {
 
 function FrequentlyAskedQuestions() {
   const [expanded, setExpanded] = useState(0);
-  const { mode } = useColorScheme();
-
+  const { t } = useTranslation();
   const handleChange =
     (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : 0);
     };
+
   const items = [
     {
       key: "1",
       label: (
         <Question>
           <StyledSpan>01</StyledSpan>
-          <div>Can I try before signing up?</div>
+          <div>{t("QUESTION_1_KEY")}</div>
         </Question>
       ),
-      children: (
-        <Answer>
-          As a free user, you have access to all our tools with 25 credits, and
-          once you run out of credits, you'll be limited. By upgrading to a Paid
-          Account, you'll have access to more credits.
-        </Answer>
-      ),
+      children: <Answer>{t("ANSWER_1_KEY")}</Answer>,
     },
     {
       key: "2",
       label: (
         <Question>
           <StyledSpan>02</StyledSpan>
-          <div>
-            I want to purchase the yearly package. Will I get a discount?
-          </div>
+          <div>{t("QUESTION_2_KEY")}</div>
         </Question>
       ),
-      children: (
-        <Answer>
-          CreatorHub already offers very affordable pricing. Currently, we only
-          provide a 20% discount for annual membership compared to the monthly
-          price.
-        </Answer>
-      ),
+      children: <Answer>{t("ANSWER_2_KEY")}</Answer>,
     },
     {
       key: "3",
       label: (
         <Question>
           <StyledSpan>03</StyledSpan>
-          Can I cancel my paid subscription?
+          <div>{t("QUESTION_3_KEY")}</div>
         </Question>
       ),
-      children: (
-        <Answer>
-          Yes, you can pay with one credit card for multiple accounts. Just
-          provide the email addresses of the members in your group, and your
-          paid package will be automatically upgraded.
-        </Answer>
-      ),
+      children: <Answer>{t("ANSWER_3_KEY")}</Answer>,
     },
     {
       key: "4",
       label: (
         <Question>
           <StyledSpan>04</StyledSpan>
-          Can I cancel my paid subscription?
+          <div>{t("QUESTION_4_KEY")}</div>
         </Question>
       ),
-      children: (
-        <Answer>
-          Absolutely! If our service doesn't meet your needs, you can cancel
-          your subscription at any time.
-        </Answer>
-      ),
+      children: <Answer>{t("ANSWER_4_KEY")}</Answer>,
     },
     {
       key: "5",
       label: (
         <Question>
           <StyledSpan>05</StyledSpan>
-          <div>What if I want to change my paid package in the middle?</div>
+          <div>{t("QUESTION_5_KEY")}</div>
         </Question>
       ),
-      children: (
-        <Answer>
-          You can purchase and cancel a paid package as needed from your
-          Account. Similarly, you can upgrade your paid package, and we'll
-          automatically adjust the fee accordingly.
-        </Answer>
-      ),
+      children: <Answer>{t("ANSWER_5_KEY")}</Answer>,
     },
     {
       key: "6",
       label: (
         <Question>
           <StyledSpan>06</StyledSpan>
-          Will I own the images I make?
+          <div>{t("QUESTION_6_KEY")}</div>
         </Question>
       ),
-      children: (
-        <Answer>
-          Yes, you own all the content you generate using the platform and can
-          use it for commercial purposes. This includes any images or assets
-          that are generated based on the input prompts you provide.
-        </Answer>
-      ),
+      children: <Answer>{t("ANSWER_6_KEY")}</Answer>,
     },
   ];
 
   return (
     <BoxQuestions>
       <HeaderQuestions>
-        <TitleQuestion>Frequently Asked Questions</TitleQuestion>
+        <TitleQuestion>{t("Frequently Asked Questions")}</TitleQuestion>
         <DescriptionText>
-          Check out our frequently asked questions below to find answers to
-          common inquiries.
+          {t(
+            "Check out our frequently asked questions below to find answers to common inquiries."
+          )}
         </DescriptionText>
       </HeaderQuestions>
 

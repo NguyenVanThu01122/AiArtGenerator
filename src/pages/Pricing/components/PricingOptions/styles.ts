@@ -20,7 +20,7 @@ export const Pricing = styled.div`
 export const PlansTitle = styled.div`
   color: var(--text-color);
   text-align: center;
-  font-size: 40px;
+  font-size: 36px;
   font-weight: 700;
   line-height: 120%; /* 48px */
 `;
@@ -110,7 +110,7 @@ export const ItemPopular = styled(Box)`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 16px;
+  padding: 12px;
   /* background: rgb(16, 16, 31); */
   @media screen and (max-width: 768px) {
     padding: 0px;

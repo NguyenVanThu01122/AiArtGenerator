@@ -1,10 +1,12 @@
 import { useColorScheme, useMediaQuery } from "@mui/material";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { Outlet, useSearchParams } from "react-router-dom";
 import DialogLoin from "../components/DialogLogin";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
+import { saveLogin } from "../reduxToolkit/Slices/AppSlice";
 import { RootState } from "../reduxToolkit/Slices/RootReducer";
 import { useGetInfoUser } from "../utils/useGetInfoUser";
 import {
@@ -15,18 +17,34 @@ import {
 } from "./styles";
 
 export function Layout() {
+  const { i18n } = useTranslation();
+  const dispatch = useDispatch();
+  const [searchParam, setSearchParam] = useSearchParams();
   const closeMenu = useSelector((state: RootState) => state.app.closeMenu);
   const dialogLogin = useSelector((state: RootState) => state.app.dialogLogin);
   const systemDarkMode = useMediaQuery("(prefers-color-scheme: dark)"); // lấy giá trị dark ,light của hệ thống máy người dùng
-  const [getUser] = useGetInfoUser();
-  const token = localStorage.getItem("token");
   const { mode } = useColorScheme();
+  const [getUser] = useGetInfoUser();
 
   useEffect(() => {
-    if (token) {
-      getUser();
+    // lưu lại token và refresh token khi đăng nhập hoặc đăng ký bằng google và facebook thành công
+    const token = searchParam.get("token");
+    const refreshToken = searchParam.get("refresh_token");
+    if (token && refreshToken) {
+      localStorage.setItem("token", searchParam.get("token") || "");
+      localStorage.setItem(
+        "refreshToken",
+        searchParam.get("refresh_token") || ""
+      );
+      getUser(); // lấy thông tin user
+      dispatch(saveLogin(true));
+      setSearchParam({});
     }
-  }, [getUser, token]);
+  }, [searchParam]);
+
+  useEffect(() => {
+    i18n.changeLanguage(localStorage.getItem("LANG_STORAGE_KEY") || "eng");
+  }, [i18n]);
 
   useEffect(() => {
     if (mode === "dark") {

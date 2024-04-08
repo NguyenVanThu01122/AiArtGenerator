@@ -3,8 +3,8 @@ import DialogCommon from "../Ui/dialog";
 export const StyledDialogCommon = styled(DialogCommon)`
   .MuiDialog-paper {
     width: 450px;
-    background-color: rgba(20, 20, 50, 57);
     padding: 10px;
+    background-color: rgba(20, 20, 50, 57);
   }
   .MuiDialogTitle-root {
     color: white;

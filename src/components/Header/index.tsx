@@ -5,8 +5,12 @@ import iconAvatar from "../../images/MyAccount/avatar_25.jpg";
 import iconCloseSidebar from "../../images/icon-close-sidebar.svg";
 import iconOpenSidebar from "../../images/icon-open-sidebar.svg";
 
-import { saveCloseMenu, saveUser } from "../../reduxToolkit/Slices/AppSlice";
-import { RootState } from "../../reduxToolkit/Slices/RootReducer";
+import { useTranslation } from "react-i18next";
+import {
+  saveCloseMenu,
+  saveLogin,
+  saveUser,
+} from "../../reduxToolkit/Slices/AppSlice";
 import { ROUTES } from "../../routes/routes";
 import {
   isAuthenticated,
@@ -16,18 +20,21 @@ import {
 import { LogoCreatorHub } from "../LogoCreatorHub";
 import ButtonGeneral from "../Ui/button";
 import ImageGeneral from "../Ui/image";
+import LanguageSelection from "./components/LanguageSelection";
 import MobileMenu from "./components/MobileMenu";
 import ModeToggle from "./components/ModeToggle";
 import UserInfo from "./components/UserInfo";
 import {
   BoxAccount,
+  BoxContent,
   BoxProfile,
   ContainerProfile,
   ContentUser,
   DisPlayPathName,
+  ItemMenu,
   ItemModeToggle,
-  MenuItem,
   MobileLogoCreator,
+  OptionItem,
   PathNameItem,
   PathNameProducts,
   SelectItem,
@@ -37,11 +44,14 @@ import {
 function Header() {
   const pathName = window.location.pathname;
   const [savePathName, setSavePathName] = useState("");
-  const { user, closeMenu } = useSelector((state: RootState) => state.app);
-
+  const { user, closeMenu } = useSelector((state: any) => state.app);
   const [isShowBoxProfile, setIsShowBoxProfile] = useState(false);
   const profileRef = useRef<HTMLImageElement | null>(null);
   const loggedIn = isAuthenticated();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { t } = useTranslation();
 
   const filterListPathName = [
     ROUTES.HOME,
@@ -49,8 +59,6 @@ function Header() {
     ROUTES.MY_ACCOUNT,
     ROUTES.AI_IMAGE_RESULT,
   ];
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   // hàm xử lý lọc pathName
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -86,6 +94,7 @@ function Header() {
   const handleLogout = () => {
     removeToken();
     removeRefreshToken();
+    dispatch(saveLogin(false));
     dispatch(saveUser(null));
     navigate(ROUTES.SIGN_IN);
   };
@@ -130,14 +139,12 @@ function Header() {
             className="ic-close"
             onClick={toggleMenuVisibility}
             src={iconOpenSidebar}
-            alt=""
           />
         ) : (
           <ImageGeneral
             className="ic-close"
             onClick={toggleMenuVisibility}
             src={iconCloseSidebar}
-            alt=""
           />
         )}
         <PathNameItem>
@@ -150,53 +157,59 @@ function Header() {
           )}
         </PathNameItem>
       </DisPlayPathName>
-
       <MobileMenu />
+
       <MobileLogoCreator>
         <LogoCreatorHub />
       </MobileLogoCreator>
 
-      {loggedIn ? (
-        <BoxAccount>
+      <BoxContent>
+        <OptionItem>
+          <LanguageSelection />
           <ItemModeToggle>
             <ModeToggle />
           </ItemModeToggle>
-          <UserInfo />
-          <ContainerProfile ref={profileRef}>
-            <ImageGeneral
-              className="avatar"
-              onClick={toggleBoxProfile}
-              src={user?.avatar || iconAvatar}
-            />
-            {isShowBoxProfile && (
-              <BoxProfile
-                sx={{
-                  bgcolor: "background.default",
-                }}
-              >
-                <ContentUser>
-                  <ImageGeneral
-                    className="avatar"
-                    src={user?.avatar || iconAvatar}
-                  />
+        </OptionItem>
 
-                  <UserInfo isShowBoxProfile={isShowBoxProfile} />
-                </ContentUser>
-                <SelectItem>
-                  <MenuItem onClick={() => handleRedirect(ROUTES.MY_ACCOUNT)}>
-                    My Account
-                  </MenuItem>
-                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                </SelectItem>
-              </BoxProfile>
-            )}
-          </ContainerProfile>
-        </BoxAccount>
-      ) : (
-        <ButtonGeneral onClick={() => navigate(ROUTES.SIGN_IN)}>
-          Log In
-        </ButtonGeneral>
-      )}
+        {loggedIn ? (
+          <BoxAccount>
+            <UserInfo />
+            <ContainerProfile ref={profileRef}>
+              <ImageGeneral
+                className="avatar"
+                onClick={toggleBoxProfile}
+                src={user?.avatar || iconAvatar}
+              />
+              {isShowBoxProfile && (
+                <BoxProfile
+                  sx={{
+                    bgcolor: "background.default",
+                  }}
+                >
+                  <ContentUser>
+                    <ImageGeneral
+                      className="avatar"
+                      src={user?.avatar || iconAvatar}
+                    />
+
+                    <UserInfo isShowBoxProfile={isShowBoxProfile} />
+                  </ContentUser>
+                  <SelectItem>
+                    <ItemMenu onClick={() => handleRedirect(ROUTES.MY_ACCOUNT)}>
+                      My Account
+                    </ItemMenu>
+                    <ItemMenu onClick={handleLogout}>Logout</ItemMenu>
+                  </SelectItem>
+                </BoxProfile>
+              )}
+            </ContainerProfile>
+          </BoxAccount>
+        ) : (
+          <ButtonGeneral onClick={() => navigate(ROUTES.SIGN_IN)}>
+            Log in
+          </ButtonGeneral>
+        )}
+      </BoxContent>
     </WrapperHeader>
   );
 }

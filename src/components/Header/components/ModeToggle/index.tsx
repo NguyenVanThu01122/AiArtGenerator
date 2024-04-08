@@ -19,11 +19,11 @@ export default function ModeToggle() {
   return (
     <StyledFormControl size="small">
       <InputLabel
+        id="label-select-dark-light-mode"
+        color="secondary"
         sx={{
           color: "primary.main",
         }}
-        id="label-select-dark-light-mode"
-        color="secondary"
       >
         Mode
       </InputLabel>
@@ -35,6 +35,7 @@ export default function ModeToggle() {
         color="secondary"
         onChange={handleChangeMode}
         sx={{
+          width: "130px",
           color: "primary.main",
         }}
       >

@@ -5,20 +5,19 @@ import icCopy from "../../../../images/ic-copy.svg";
 import { useDownloadUtils } from "../../../../utils/useDownloadUtils";
 import {
   BackItem,
+  BackToGenerate,
   BoxResult,
   ButtonGroup,
-  ContentBack,
-  DetailResult,
+  Content,
+  ContentText,
   DisplayImage,
   IconBack,
   ImageResult,
-  InformationResult,
-  ItemPrompt,
+  InfoParameter,
   ResultsItem,
   SectionParameter,
-  TextGroup,
-  TextPrompt,
   TitlePage,
+  TitleParameter,
 } from "./styles";
 
 type AiArtResultProps = {
@@ -42,64 +41,65 @@ const AiArtResult = ({
   negativePrompt,
   handleBack,
 }: AiArtResultProps) => {
-  const { handleCopyText, handleDownloadImage, textToCopyRef } =
-    useDownloadUtils();
+  const { handleCopyText, handleDownloadImage } = useDownloadUtils();
+
+  const detailParameters = [
+    {
+      title: "Style",
+      content: selectStyle ? selectStyle.name : "-",
+    },
+    {
+      title: "Step",
+      content: sliderValueSteps,
+    },
+    {
+      title: "Created",
+      content: new Date().toDateString(),
+    },
+    {
+      title: "Guidance Scale",
+      content: sliderValueScale,
+    },
+    {
+      title: "Alpha",
+      content: sliderValueAlpha,
+    },
+    {
+      title: "Prompt",
+      content: prompt.trim() ? prompt.trim() : "-",
+    },
+    {
+      title: "Negative Prompt",
+      content: negativePrompt.trim() ? negativePrompt.trim() : "-",
+    },
+  ];
 
   return (
     <ResultsItem>
       <BackItem onClick={handleBack}>
         <IconBack icon={faAngleLeft} />
-        <ContentBack>Back to Generate</ContentBack>
+        <BackToGenerate>Back to Generate</BackToGenerate>
       </BackItem>
       <BoxResult>
         <DisplayImage>
-          <ImageResult src={resultImage} alt="" />
+          <ImageResult src={resultImage} />
         </DisplayImage>
         <SectionParameter>
           <TitlePage>AI Art Result</TitlePage>
-          <InformationResult>
-            <DetailResult>
-              <TextGroup>
-                <div>Style</div>
-                <div>{selectStyle ? selectStyle.name : "-"}</div>
-              </TextGroup>
-              <TextGroup>
-                <div>Step</div>
-                <div>{sliderValueSteps}</div>
-              </TextGroup>
-            </DetailResult>
-            <DetailResult>
-              <TextGroup>
-                <div>Created</div>
-                <div>{new Date().toDateString()}</div>
-              </TextGroup>
-              <TextGroup>
-                <div>Guidance Scale</div>
-                <div>{sliderValueScale}</div>
-              </TextGroup>
-            </DetailResult>
-            <DetailResult>
-              <TextGroup>
-                <div>Alpha</div>
-                <div>{sliderValueAlpha}</div>
-              </TextGroup>
-            </DetailResult>
-          </InformationResult>
-          <ItemPrompt>
-            <TextPrompt>
-              <div>Prompt</div>
-              <div ref={textToCopyRef}>
-                {prompt.trim() ? prompt.trim() : "-"}
-              </div>
-            </TextPrompt>
-            <TextPrompt>
-              <div>Negative Prompt</div>
-              <div>{negativePrompt.trim() ? negativePrompt.trim() : "-"}</div>
-            </TextPrompt>
-          </ItemPrompt>
+          <InfoParameter>
+            {detailParameters.map((item, index) => (
+              <ContentText key={index}>
+                <TitleParameter>{item.title}</TitleParameter>
+                <Content>{item.content}</Content>
+              </ContentText>
+            ))}
+          </InfoParameter>
           <ButtonGroup>
-            <ButtonGeneral className="copy-button" onClick={handleCopyText}>
-              <ImageGeneral src={icCopy} alt="" />
+            <ButtonGeneral
+              className="copy-button"
+              //onClick={() => handleCopyText(negativePrompt.trim())}
+            >
+              <ImageGeneral src={icCopy} />
               Copy Prompt
             </ButtonGeneral>
             <ButtonGeneral

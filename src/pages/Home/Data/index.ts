@@ -12,6 +12,7 @@ import imgProduct3 from "../../../images/Home/img-product3.png";
 import imgProduct4 from "../../../images/Home/img-product4.png";
 import imgProduct5 from "../../../images/Home/img-product5.png";
 import imgProduct6 from "../../../images/Home/img-product6.png";
+
 export interface ListProductType {
   id?: number;
   image?: string;
@@ -39,98 +40,96 @@ export const listProduct = [
     id: 1,
     image: imgProduct1,
     title: "AI Art Generator",
-    text: "Transform photos into stunning artistic pieces or create original artwork effortlessly.",
+    text: "AI_ART_GENERATOR_TEXT_KEY",
     url: "/ai-art-generator",
   },
   {
     id: 2,
     image: imgProduct2,
-    title: "AI Background Remove",
-    text: "Effortlessly remove backgrounds from your images using our AI-powered Background Remover.",
+    title: "AI_BACKGROUND_REMOVE_KEY",
+    text: "AI_BACKGROUND_REMOVE_TEXT_KEY",
     url: "/ai-background-remove",
   },
   {
     id: 3,
     image: imgProduct3,
-    title: "AI Photo Enhancer",
-    text: " Enhance sharpness, clarity, colors, and reduce noise to give your images a professional touch.",
+    title: "AI_PHOTO_ENHANCER_KEY",
+    text: "AI_PHOTO_ENHANCER_TEXT_KEY",
     url: "/ai-photo-enhancer",
   },
   {
     id: 4,
     image: imgProduct4,
-    title: "AI Social Posts Generator",
-    text: "Easily generate social media posts with spectacular by AI in one minute.",
+    title: "AI_SOCIAL_POSTS_GENERATOR_KEY",
+    text: "AI_SOCIAL_POSTS_GENERATOR_TEXT_KEY",
   },
   {
     id: 5,
     image: imgProduct5,
-    title: "AI Writing Assistant",
-    text: " AI Writing Assistant - your creative, fast, and flexible tool to elevate every word.",
+    title: "AI_WRITING_ASSISTANT_KEY",
+    text: "AI_WRITING_ASSISTANT_TEXT_KEY",
   },
   {
     id: 6,
     image: imgProduct6,
-    title: "New Features are coming!",
-    text: "Magical thing by our AI service is about to show up!Can’t wait to suprise you guys.",
+    title: "NEW_FEATURES_COMING_KEY",
+    text: "NEW_FEATURES_COMING_TEXT_KEY",
   },
 ];
+
 export const listBenefits = [
   {
     id: 1,
     image: imgbenefits1,
-    title: "Higher Efficiency",
-    text: "Save time & effort with AI-powered editing.",
+    title: "HIGHER_EFFICIENCY_KEY",
+    text: "HIGHER_EFFICIENCY_TEXT_KEY",
   },
   {
     id: 2,
     image: imgbenefits2,
-    title: "Limitless Creative",
-    text: "Unleash creativity with inspiring content ideas.",
+    title: "LIMITLESS_CREATIVE_KEY",
+    text: "LIMITLESS_CREATIVE_TEXT_KEY",
   },
   {
     id: 3,
     image: imgbenefits3,
-    title: "Faster Productivity",
-    text: "Boost efficiency for engaging content creation.",
+    title: "FASTER_PRODUCTIVITY_KEY",
+    text: "FASTER_PRODUCTIVITY_TEXT_KEY",
   },
   {
     id: 4,
     image: imgbenefits4,
-    title: "Professional Results",
-    text: " Achieve professional quality without extensive editing skills.",
+    title: "PROFESSIONAL_RESULTS_KEY",
+    text: "PROFESSIONAL_RESULTS_TEXT_KEY",
   },
 ];
+
 export const listTestimonials = [
   {
     id: 1,
     image: imgPeople1,
-    content:
-      '"The AI Social Post Generator is a game-changer! It saved me hours of work and boosted our engagement rates. Highly recommended!"',
+    content: "TESTIMONIAL_1_CONTENT",
     name: "Danny",
     job: "Marketing Manager",
   },
   {
     id: 2,
     image: imgPeople2,
-    content:
-      '"The AI Writing Assistant elevated my content quality. Correcting grammar and suggesting creative ideas, it`s a must-have for creators!"',
+    content: "TESTIMONIAL_2_CONTENT",
     name: "Sarah",
     job: "Content Creator",
   },
   {
     id: 3,
     image: imgPeople3,
-    content:
-      '"The AI Background Changer saved my time and enhanced product visuals. An essential tool for any entrepreneur!"',
+    content: "TESTIMONIAL_3_CONTENT",
     name: "Michael",
     job: "Social Media Manager",
   },
   {
     id: 4,
     image: imgPeople4,
-    content:
-      '"The AI Background Changer saved my time and enhanced product visuals. An essential tool for any entrepreneur!"',
+    content: "TESTIMONIAL_4_CONTENT",
     name: "Emily",
     job: "Social Media Manager",
   },
