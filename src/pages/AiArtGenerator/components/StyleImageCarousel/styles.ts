@@ -32,6 +32,8 @@ export const StyledCarousel = styled(Carousel)`
 export const StyledFontAwesomeIconLeft = styled(FontAwesomeIcon)<{
   isScrollAtStart?: boolean;
 }>`
+  font-size: 25px;
+  font-weight: bold;
   display: ${(props) => (props.isScrollAtStart ? "none" : "block")};
   @media screen and (max-width: 768px) {
     display: none !important;
@@ -41,6 +43,8 @@ export const StyledFontAwesomeIconLeft = styled(FontAwesomeIcon)<{
 export const StyledFontAwesomeIconRight = styled(FontAwesomeIcon)<{
   isScrollAtEnd: boolean;
 }>`
+  font-weight: bold;
+  font-size: 25px;
   display: ${(props) => (props.isScrollAtEnd ? "none" : "block")};
   @media screen and (max-width: 768px) {
     display: none !important;

@@ -1,6 +1,7 @@
+import { useTranslation } from "react-i18next";
 import ButtonGeneral from "../../../../components/Ui/button";
 import SelectGeneral from "../../../../components/Ui/select";
-import { SELECT_SORT_DATE } from "../../../../utils/constants";
+import { getSelectSortDateOptions } from "../../../../utils/constants";
 import { ImageType } from "../../types";
 import {
   BoxOptions,
@@ -29,6 +30,7 @@ export default function ImageManagementPanel({
   setSortDate: (value: string) => void;
   setIsModalDelete: (value: boolean) => void;
 }) {
+  const { t } = useTranslation();
   // hàm hủy bỏ item đã chọn
   const handleClickCancelAll = () => {
     if (listId.length) {
@@ -49,12 +51,12 @@ export default function ImageManagementPanel({
 
   return (
     <Wrapper>
-      <ListPhoto>List of saved photos</ListPhoto>
+      <ListPhoto>{t("List of saved photos")}</ListPhoto>
       <BoxOptions>
         <SelectGeneral
           value={sortDate}
           onChange={(e) => setSortDate(e.target.value)}
-          options={SELECT_SORT_DATE}
+          options={getSelectSortDateOptions()}
           className="select-date"
           disabled={isCheckbox}
           color="primary"
@@ -65,28 +67,30 @@ export default function ImageManagementPanel({
             <GroupButton>
               {!listId?.length && (
                 <ButtonGeneral
+                  i18nKey="SELECT_All"
                   className="btn-select-all"
                   onClick={handleClickSelectAll}
-                >
-                  Select All
-                </ButtonGeneral>
+                />
               )}
               <ButtonGeneral
+                i18nKey="Cancel"
                 className="btn-cancel-all"
                 onClick={handleClickCancelAll}
-              >
-                Cancel
-              </ButtonGeneral>
+              />
             </GroupButton>
           ) : (
-            <ButtonGeneral className="btn-select" onClick={handleClickSelect}>
-              Select
-            </ButtonGeneral>
+            <ButtonGeneral
+              i18nKey="Select"
+              className="btn-select"
+              onClick={handleClickSelect}
+            />
           )}
           {listId.length > 0 && (
-            <ButtonGeneral className="btn-delete" onClick={showModalDeleteImg}>
-              Delete
-            </ButtonGeneral>
+            <ButtonGeneral
+              i18nKey="Delete"
+              className="btn-delete"
+              onClick={showModalDeleteImg}
+            />
           )}
         </SelectImage>
       </BoxOptions>

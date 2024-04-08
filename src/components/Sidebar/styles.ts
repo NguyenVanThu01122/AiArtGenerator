@@ -3,7 +3,7 @@ import ImageGeneral from "../Ui/image";
 
 export const WrapperSidebar = styled.div<{ closeMenu: boolean }>`
   /* background-color: rgb(9, 9, 23); */
-  width: ${(props) => (props?.closeMenu ? "120px" : "310px")};
+  width: ${(props) => (props?.closeMenu ? "120px" : "270px")};
   transition: 0.3s ease;
   height: 100%;
   border-right: 1px solid rgb(30, 36, 49);
@@ -27,8 +27,7 @@ export const WrapperMenu = styled.div<{ closeMenu: boolean }>`
   gap: 10px;
   padding: 10px 8px;
   cursor: pointer;
-  margin-bottom: 14px;
-  font-size: 17px;
+  margin-bottom: 10px;
   font-weight: bold;
   justify-content: ${(props) => (props.closeMenu ? "center" : "flex-start")};
   span {

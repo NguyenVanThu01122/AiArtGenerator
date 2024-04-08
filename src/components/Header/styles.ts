@@ -10,8 +10,8 @@ export const WrapperHeader = styled.div`
   align-items: center;
   gap: 10px;
   border-bottom: 1px solid rgb(30, 36, 49);
-  .custom-button {
-    width: 10%;
+  .btn-login {
+    width: 100%;
     color: white !important;
     background: linear-gradient(
       190deg,
@@ -26,7 +26,8 @@ export const WrapperHeader = styled.div`
   }
   @media screen and (max-width: 768px) {
     .custom-button {
-      font-size: 12px;
+      font-size: 7px;
+      height: 35px;
     }
     background: radial-gradient(black, transparent);
   }

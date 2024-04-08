@@ -113,10 +113,11 @@ export const TitlePage = styled.div`
   justify-content: center;
   gap: 10px;
   color: var(--text-color);
-  font-size: 40px;
-  font-weight: 700;
+  font-size: 35px;
+  font-weight: 900;
   line-height: 50px;
   margin-bottom: 25px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Tạo bóng cho văn bản */
   & > span {
     background: linear-gradient(
       190deg,
@@ -128,8 +129,11 @@ export const TitlePage = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    font-size: 25px;
     margin-bottom: 0px;
+    font-size: 20px;
+    font-weight: 700;
+    span {
+    }
   }
 `;
 
@@ -143,6 +147,8 @@ export const PhotoEnhancer = styled.div`
 `;
 
 export const TextContent = styled.div`
+  width: 60%;
+  margin: auto;
   text-align: center;
   /* color: #d2d2d2; */
   color: var(--text-color);
@@ -151,6 +157,7 @@ export const TextContent = styled.div`
   margin-bottom: 25px;
   @media screen and (max-width: 768px) {
     font-size: 14px;
+    width: 100%;
   }
 `;
 
@@ -164,7 +171,7 @@ export const CreateUpload = styled.div`
   .btn-generate {
     width: 30%;
     border: none;
-    height: 50px;
+    height: 45px;
     color: white;
     background: linear-gradient(
       190deg,
@@ -288,6 +295,9 @@ export const BoxMainContent = styled.div`
     padding: 15px;
     display: block;
   }
+  @media screen and (max-width: 1500px) {
+    gap: 50px;
+  }
 `;
 
 export const ContentText = styled.div`
@@ -312,10 +322,11 @@ export const AiPhotoEnhancerText = styled.div`
   justify-content: center;
   gap: 10px;
   color: var(--text-color);
-  font-size: 40px;
-  font-weight: 700;
+  font-size: 35px;
+  font-weight: 900;
   line-height: 50px;
-  margin-bottom: 25px;
+  margin-bottom: 40px;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0003); // Tạo đổ bóng cho văn bản
   & > span {
     background: linear-gradient(
       190deg,
@@ -325,9 +336,20 @@ export const AiPhotoEnhancerText = styled.div`
     -webkit-background-clip: text; /* Sử dụng tiền tố -webkit- cho trình duyệt Safari */
     color: transparent; /* Đặt màu chữ thành trong suốt */
   }
-  @media screen and (max-width: 768px) {
-    font-size: 25px;
+  @media screen and (max-width: 1500px) {
+    display: block;
+    text-align: center;
     margin-bottom: 0px;
+    & > span {
+      margin-right: 8px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 0px;
+    -webkit-box-reflect: none !important;
   }
 `;
 
@@ -337,9 +359,7 @@ export const DescriptionEnhancer = styled.div`
   /* color: #d2d2d2; */
   font-weight: 400;
   line-height: 150%;
-  @media screen and (max-width: 768px) {
-    font-size: 15px;
-  }
+  font-size: 15px;
 `;
 
 export const UploadItem = styled.div`
@@ -382,6 +402,8 @@ export const UploadText = styled.div`
 export const FormatUploadFile = styled.div`
   /* color: rgba(255, 255, 255, 0.5); */
   color: var(--text-color);
+  text-align: center;
+  font-size: 15px;
   @media screen and (max-width: 768px) {
     font-size: 10px;
   }
@@ -392,6 +414,7 @@ export const TermsOfService = styled.div`
   color: var(--text-color);
   font-weight: 400;
   line-height: 150%;
+  font-size: 15px;
   @media screen and (max-width: 768px) {
     text-align: center;
   }

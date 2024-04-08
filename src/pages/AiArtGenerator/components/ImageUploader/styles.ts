@@ -139,6 +139,8 @@ export const ContentUpload = styled.div`
 
 export const FormatFile = styled.div`
   color: var(--text-color);
+  text-align: center;
+  font-size: 15px;
   @media screen and (max-width: 768px) {
     font-size: 10px;
   }

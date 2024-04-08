@@ -20,7 +20,7 @@ export const Pricing = styled.div`
 export const PlansTitle = styled.div`
   color: var(--text-color);
   text-align: center;
-  font-size: 36px;
+  font-size: 35px;
   font-weight: 700;
   line-height: 120%; /* 48px */
 `;
@@ -41,7 +41,7 @@ export const ListPricing = styled.div`
 
 export const DetailPricing = styled(Box)<{ namePricing: string }>`
   width: 100%;
-  height: 550px;
+  height: 530px;
   border-radius: 12px;
   padding: 25px;
   padding-top: 35px;

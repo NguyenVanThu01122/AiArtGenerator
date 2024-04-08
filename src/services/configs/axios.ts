@@ -11,7 +11,6 @@ import { generateNewToken } from "../auth";
 const privateAxios = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   timeout: 4000,
-  // baseURL: "http://localhost:9090",
   // headers: {
   //   Authorization: `Bearer ${localStorage.getItem("token")}`,
   // },

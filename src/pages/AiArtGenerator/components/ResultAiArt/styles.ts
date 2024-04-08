@@ -107,9 +107,12 @@ export const DisplayImage = styled.div`
 `;
 export const TitlePage = styled.div`
   color: var(--text-color);
-  font-size: 32px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 600;
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 export const ImageResult = styled(ImageGeneral)`
@@ -125,14 +128,14 @@ export const SectionParameter = styled.div`
   width: 60%;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 20px;
   color: var(--text-color);
   overflow-y: auto;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
   }
   &::-webkit-scrollbar {
-    width: 4px;
+    width: 2px !important;
   }
   &::-webkit-scrollbar-track {
     background-color: transparent; //Màu của vùng cuộn
@@ -162,13 +165,14 @@ export const SectionParameter = styled.div`
 `;
 
 export const InfoParameter = styled.div`
-  height: 500px;
+  height: 350px;
   border: 1px solid #e250e5;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 30px;
+  gap: 10px;
   padding: 20px;
   @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
   }
 `;
 
@@ -178,17 +182,22 @@ export const ContentText = styled.div`
   align-items: flex-start;
   gap: 8px;
   margin-bottom: 22px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 `;
 
 export const TitleParameter = styled.div`
-  font-weight: 600;
+  font-weight: 800;
+  font-size: 15px;
 `;
 
 export const Content = styled.div`
-  width: 200px;
+  width: 100%;
+  height: 100%;
   overflow: auto;
   color: var(--text-color);
-  overflow-y: auto;
+  word-break: break-all;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
   }
@@ -215,8 +224,6 @@ export const ButtonGroup = styled.div`
     align-items: center;
     gap: 8px;
     border-radius: 8px;
-    border: 1px solid #e250e5;
-    background: #101010;
     color: white;
     height: 45px;
     font-weight: bold;

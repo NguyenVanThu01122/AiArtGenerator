@@ -2,9 +2,12 @@ import { Box, FormControl } from "@mui/material";
 import styled from "styled-components";
 
 export const StyledFormControl = styled(FormControl)`
-  width: 135px;
+  .select-mode {
+    width: "145px";
+  }
   @media screen and (max-width: 768px) {
     /* display: none !important; */
+    
   }
 `;
 

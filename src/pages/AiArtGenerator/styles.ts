@@ -31,7 +31,7 @@ export const SectionContents = styled.div`
 
 export const MainContent = styled.div`
   flex: 1;
-  padding: 24px 16px;
+  padding: 22px;
   overflow-y: auto;
   &::-webkit-scrollbar-thumb {
     border-radius: 5px !important;
@@ -46,5 +46,8 @@ export const MainContent = styled.div`
     &::-webkit-scrollbar-thumb {
       background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
     }
+  }
+  @media screen and (max-width: 768px) {
+    padding: 16px;
   }
 `;

@@ -21,7 +21,7 @@ export const generateAiImage = (formData: FormData) =>
     headers: {
       "Content-Type": "multipart/form-data",
     },
-    responseType: 'blob',
+    responseType: "blob",
   });
 
 // trừ credit khi sử dụng AI Art

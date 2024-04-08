@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { ImageType } from "../../types";
 import {
   ClickToView,
@@ -21,13 +22,16 @@ export default function GeneratedImagesList({
   clickCheckbox: (id: string) => void;
   showModalImage: (item: ImageType, index: number) => void;
 }) {
+  const { t } = useTranslation();
   const handleClickItemCheckbox = (e: React.MouseEvent) => e.stopPropagation(); // ngăn chạn lan truyền sự kiện click từ con lên mẹ.
   return (
     <ContainerImage>
       {listResultImg.map((item: ImageType, index: number) => (
         <ResultImage key={item?.id} onClick={() => showModalImage(item, index)}>
           <StyledImageGeneral src={item?.url} alt="" />
-          <ClickToView>Please click on the photo to see details</ClickToView>
+          <ClickToView>
+            {t("Please click on the photo to see details")}
+          </ClickToView>
           {isCheckbox && (
             <SelectItem onClick={(e) => handleClickItemCheckbox(e)}>
               <StyledInputCheckbox

@@ -1,6 +1,7 @@
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import ButtonGeneral from "../../../../components/Ui/button";
 import CloseButton from "../../../../components/Ui/closeButton";
 import ImageGeneral from "../../../../components/Ui/image";
@@ -48,6 +49,7 @@ export default function BoxDetailImageAi({
   setIsModal: (value: boolean) => void;
   setDetailPhoto: (value: ImageType) => void;
 }) {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(DEFAULT_CURRENT);
   const { handleDownloadImage, handleCopyText, textToCopyRef } =
     useDownloadUtils();
@@ -77,20 +79,19 @@ export default function BoxDetailImageAi({
   const cancelModalImage = () => setIsModal(false);
 
   const parameters: ParameterType[] = [
-    { label: "Alpha", value: detailPhoto?.config?.alpha },
-    { label: "Scale", value: detailPhoto?.config?.scale },
-    { label: "Step", value: detailPhoto?.config?.step },
-    { label: "Style", value: detailPhoto?.config?.style || "-" },
+    { label: "LABEL_ALPHA", value: detailPhoto?.config?.alpha },
+    { label: "LABEL_SCALE", value: detailPhoto?.config?.scale },
+    { label: "LABEL_STEP", value: detailPhoto?.config?.step },
+    { label: "LABEL_STYLE", value: detailPhoto?.config?.style || "-" },
     {
-      label: "NegativePrompt",
+      label: "LABEL_NEGATIVE_PROMPT",
       value: detailPhoto?.config?.negativePrompt || "-",
     },
     {
-      label: "PositivePrompt",
+      label: "LABEL_POSITIVE_PROMPT",
       value: detailPhoto?.config?.positivePrompt || "-",
     },
   ];
-
   return (
     <DialogDetailImage fullWidth open={isModal} onClose={cancelModalImage}>
       <CloseButton handleClose={cancelModalImage} />
@@ -103,16 +104,16 @@ export default function BoxDetailImageAi({
             <HeadParameter>
               {parameters.slice(0, 3).map((item: ParameterType) => (
                 <DetailParameter key={item.label}>
-                  <Label>{item.label}</Label>
-                  <Value>{item.value}</Value>
+                  <Label>{t(item.label)}</Label>
+                  <Value>{t(item.value as string)}</Value>
                 </DetailParameter>
               ))}
             </HeadParameter>
             <EndParameter>
               {parameters.slice(3).map((item: ParameterType) => (
                 <DetailParameter key={item.label}>
-                  <Label>{item.label}</Label>
-                  <Value ref={textToCopyRef}>{item.value}</Value>
+                  <Label>{t(item.label)}</Label>
+                  <Value ref={textToCopyRef}>{t(item.value as string)}</Value>
                 </DetailParameter>
               ))}
             </EndParameter>
@@ -120,13 +121,16 @@ export default function BoxDetailImageAi({
           <StyledDialogActions>
             <ButtonGeneral
               className="download"
+              i18nKey="Download"
               onClick={() => handleDownloadImage(imageAi, "my-image")}
+            />
+
+            <ButtonGeneral
+              i18nKey="Copy"
+              className="copy"
+              onClick={handleCopyText}
             >
-              Download
-            </ButtonGeneral>
-            <ButtonGeneral className="copy" onClick={handleCopyText}>
               <ImageGeneral src={icCopy} alt="" />
-              Copy
             </ButtonGeneral>
           </StyledDialogActions>
         </ContainerParameter>

@@ -1,5 +1,6 @@
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { Grid } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import ImageGeneral from "../../../../components/Ui/image";
 import iconNoStyle from "../../../../images/icon-no-style.svg";
 import useCarouselScroll from "../../../../utils/useCarouselScroll";
@@ -29,14 +30,15 @@ const StyleImageCarousel = ({
   handleClickNoneStyle,
   handleClickStyle,
 }: StyleImageCarouselProps) => {
+  const { t } = useTranslation();
   const { handleScrollCarousel, isScrollAtStart, isScrollAtEnd } =
     useCarouselScroll(".css-vj1n65-MuiGrid-root");
 
   return (
     <Wrapper>
-      <ChooseStyleTitle>Choose your style</ChooseStyleTitle>
+      <ChooseStyleTitle>{t("Choose your style")}</ChooseStyleTitle>
       <TextContent>
-        We will adjust the image options to the optimal settings.
+        {t("We will adjust the image options to the optimal settings.")}
       </TextContent>
       <StyledCarousel
         navButtonsAlwaysVisible={true}

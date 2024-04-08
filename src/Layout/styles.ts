@@ -16,7 +16,7 @@ export const BoxContent = styled(Box)`
 `;
 
 export const MainContent = styled.div`
-  width: calc(100% - 310px);
+  width: calc(100% - 270px);
   @media screen and (max-width: 768px) {
     width: 100vw !important;
   }
