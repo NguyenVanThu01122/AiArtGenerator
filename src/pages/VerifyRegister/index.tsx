@@ -8,13 +8,14 @@ import { Content, Wrapper } from "./styles";
 export default function VerifyRegister() {
   const navigate = useNavigate();
   const [isErrorVerify, setIsErrorVerify] = useState<boolean>();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     // hàm xác thực người dùng mới
     const handleVerifyToken = async () => {
       try {
-        await verifytoken(searchParams);
+        const token = searchParams.get("token");
+        await verifytoken(token ?? "");
         navigate("/sign-in");
         toast.success(SUCCESS_MESSAGE.SUCCESS_REGISTER);
       } catch (error) {

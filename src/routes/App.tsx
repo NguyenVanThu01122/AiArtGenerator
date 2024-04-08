@@ -34,8 +34,8 @@ function App() {
           />
           <Route path={ROUTES.MY_ACCOUNT} element={<MyAccount />} />
         </Route>
-        <Route path={ROUTES.ERROR} element={<NotFound />} />
         <Route path={ROUTES.HOME_PAGE} element={<HomePage />}></Route>
+        <Route path={ROUTES.ERROR} element={<NotFound />} />
         <Route path={ROUTES.CHANGE_PASSWORD} element={<ChangePassword />} />
         <Route path={ROUTES.VERIFY_REGISTER} element={<VerifyRegister />} />
         <Route path={ROUTES.SIGN_IN} element={<SignIn />} />

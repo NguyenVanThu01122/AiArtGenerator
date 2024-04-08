@@ -1,6 +1,5 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AnimationStar from "../../components/AnimationStar";
 import Footer from "../../components/Footer";
@@ -12,7 +11,6 @@ import icTabBar1 from "../../images/icTabBar1.png";
 import icTabBar from "../../images/icon-tab-bar.png";
 import imgRemoval1 from "../../images/img-removal1.png";
 import imgRemoval2 from "../../images/img-removal2.png";
-import { saveLogin, saveToken } from "../../redux/Actions/app";
 import { ROUTES } from "../../routes/routes";
 import { NOTIFICATION } from "../../utils/constants";
 import {
@@ -36,27 +34,8 @@ import {
 } from "./styles";
 
 function Home() {
-  const [searchParam, setSearchParam] = useSearchParams();
-  const dispatch = useDispatch();
+  const { t } = useTranslation();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = searchParam.get("token");
-    const refreshToken = searchParam.get("refresh_token");
-    if (token && refreshToken) {
-      localStorage.setItem("token", searchParam.get("token") || "");
-      localStorage.setItem(
-        "refreshToken",
-        searchParam.get("refresh_token") || ""
-      );
-      // lưu lại token và refresh token khi đăng nhập hoặc đăng ký bằng google và facebook thành công
-      dispatch(saveLogin(true));
-      dispatch(saveToken(searchParam.get("token") || ""));
-      // set lại login và token vào redux
-      setSearchParam({});
-    }
-  }, [searchParam]);
-
   const handleNotification = () => toast.success(NOTIFICATION);
 
   return (
@@ -66,17 +45,19 @@ function Home() {
         <ItemCarousel slidesToShow={1} dots={true} autoplay>
           <div className="introduce-item">
             <div className="contents">
-              <div>EXCLUSIVE OFFER</div>
-              <div>Essential AI Toolkit for Content Creators </div>
+              <div>{t("EXCLUSIVE OFFER")}</div>
+              <div>{t("Essential AI Toolkit for Content Creators")}</div>
               <div>
-                We empower content creators like you to unleash their full
-                creative potential. Our essential AI Toolkit is designed to
-                revolutionize your content creation process and help you stand
-                out from the crowd.
+                {t(
+                  "We empower content creators like you to unleash their full creative potential."
+                )}
+                {t(
+                  "Our essential AI Toolkit is designed to revolutionize your content creation process and help you stand out from the crowd."
+                )}
               </div>
               <ButtonGeneral className="custom-btn">
                 <ImageGeneral src={icTabBar} alt="" />
-                <span>Explore All Tools</span>
+                <span>{t("Explore All Tools")}</span>
               </ButtonGeneral>
             </div>
             <div className="item-img">
@@ -85,16 +66,18 @@ function Home() {
           </div>
           <div className="introduce-item">
             <div className="contents">
-              <div>EXCLUSIVE OFFER</div>
-              <div>X2 Credits for the First 100 subscribers</div>
+              <div>{t("EXCLUSIVE OFFER")}</div>
+              <div>{t("X2 Credits for the First 100 subscribers")}</div>
               <div>
-                Use code <span>EARLY100</span> at checkout for x2 credits.
-                Limited to the first 100 subscribers only. Unlock turbocharged
-                content creation with our essential AI toolkit.
+                {t("Use code")}{" "}
+                <span style={{ margin: "0px 5px" }}>EARLY100</span>
+                {t(
+                  "at checkout for x2 credits. Limited to the first 100 subscribers only. Unlock turbocharged content creation with our essential AI toolkit."
+                )}
               </div>
               <ButtonGeneral className="custom-btn">
                 <ImageGeneral src={icTabBar1} alt="" />
-                <span>Claim Your Discount</span>
+                <span>{t("Claim Your Discount")}</span>
               </ButtonGeneral>
             </div>
             <div className="item-img">
@@ -105,12 +88,12 @@ function Home() {
         <SectionContents>
           <ContainerProducts>
             <div className="title">
-              <div>PRODUCTS</div>
-              <div>One solution, countless content possibilities</div>
+              <div>{t("PRODUCTS")}</div>
+              <div>{t("One solution, countless content possibilities")}</div>
               <div>
-                Empower your creativity with Creatorhub: The essential AI
-                toolkit for content creators. Elevate your content to new
-                heights for all your business needs.
+                {t(
+                  "Empower your creativity with Creatorhub The essential AI Toolkit for content creators. Elevate your content to new heights for all your business needs."
+                )}
               </div>
             </div>
             <div className="list-products">
@@ -120,8 +103,8 @@ function Home() {
                     <ImageGeneral src={item?.image ?? ""} alt="" />
                   </div>
                   <div className="contents-products">
-                    <div>{item?.title}</div>
-                    <div>{item?.text}</div>
+                    <div>{t(item?.title as string)}</div>
+                    <div>{t(item?.text as string)}</div>
                   </div>
                   <ButtonGeneral
                     className="btn-try-now"
@@ -129,7 +112,7 @@ function Home() {
                       item?.url ? navigate(item?.url) : handleNotification()
                     }
                   >
-                    <span>Try Now</span>
+                    <span>{t("Try Now")}</span>
                     <ImageGeneral src={icArrow} alt="" />
                   </ButtonGeneral>
                 </div>
@@ -143,11 +126,12 @@ function Home() {
             }}
           >
             <div className="title">
-              <div>BENEFITS</div>
-              <div>Achieve more with less effort</div>
+              <div>{t("BENEFITS")}</div>
+              <div>{t("Achieve more with less effort")}</div>
               <div>
-                Simplify complex tasks, streamline workflows, and amplify your
-                creativity without breaking a sweat.
+                {t(
+                  "Simplify complex tasks, streamline workflows, and amplify your creativity without breaking a sweat."
+                )}
               </div>
             </div>
             <div className="box-benefits">
@@ -158,8 +142,8 @@ function Home() {
                     <ImageGeneral src={item?.image ?? ""} alt="" />
                   </div>
                   <div className="contents">
-                    <div>{item?.title}</div>
-                    <div>{item?.text}</div>
+                    <div>{t(item?.title ?? "")}</div>
+                    <div>{t(item?.text ?? "")}</div>
                   </div>
                 </div>
               ))}
@@ -168,11 +152,12 @@ function Home() {
 
           <ContainerTestimonials>
             <div className="title">
-              <div>TESTIMONIALS </div>
-              <div>Don't just take our word for it</div>
+              <div>{t("TESTIMONIALS")}</div>
+              <div>{t("Don't just take our word for it")}</div>
               <div>
-                From content creators to entrepreneurs, our solutions have
-                revolutionized the way they work and create.
+                {t(
+                  "From content creators to entrepreneurs, our solutions have revolutionized the way they work and create."
+                )}
               </div>
             </div>
             <div className="list-testimonials">
@@ -183,13 +168,9 @@ function Home() {
                     bgcolor: "common.background",
                   }}
                 >
-                  <ImageGeneral
-                    className="img-user"
-                    src={item?.image ?? ""}
-                    alt=""
-                  />
+                  <ImageGeneral className="img-user" src={item?.image ?? ""} />
                   <ImageGeneral className="img-quote" src={iconQuote} alt="" />
-                  <div className="contents">{item?.content}</div>
+                  <div className="contents">{t(item?.content)}</div>
                   <div className="information-user">
                     <div>{item?.name}</div>
                     <div>{item?.job}</div>
@@ -201,17 +182,14 @@ function Home() {
         </SectionContents>
         <LastItem>
           <div className="header">
-            <div>Ready to Elevate Your Creativity?</div>
+            <div>{t("Ready to Elevate Your Creativity?")}</div>
             <div>
-              Don't settle for the ordinary – take the leap into extraordinary
-              possibilities.
-              <br />
-              Join thousands of content creators, entrepreneurs, and
-              professionals who have already harnessed the power of our
-              innovative solutions.
+              {t(
+                "Don't settle for the ordinary – take the leap into extraordinary possibilities. Join thousands of content creators, entrepreneurs, and professionals who have already harnessed the power of our innovative solutions."
+              )}
             </div>
             <ButtonGeneral onClick={() => navigate(ROUTES.AI_ART_GENERATOR)}>
-              Get Started
+              {t("Get Started")}
             </ButtonGeneral>
           </div>
         </LastItem>

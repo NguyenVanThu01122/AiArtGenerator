@@ -1,4 +1,5 @@
 import CircularProgress from "@mui/material/CircularProgress";
+import { useTranslation } from "react-i18next";
 import ImageGeneral from "../../../../components/Ui/image";
 import { LoadingButtonGeneral } from "../../../../components/Ui/loadingButton";
 import icCheckBlue from "../../../../images/Pricing/ic-check-blue.png";
@@ -46,6 +47,7 @@ export default function PricingOptions({
   selectPrice,
   handleStripeOrder,
 }: PricingOptionsProps) {
+  const { t } = useTranslation();
   const getButtonClassName = (name: string) => {
     const classNames: ClassNameType = {
       Lite: "btn-eco",
@@ -76,11 +78,11 @@ export default function PricingOptions({
   const getDescription = (name: string) => {
     switch (name) {
       case "Lite":
-        return " Suitable for those who want to discover the potential of AI through our essential toolkit.";
+        return t("DESCRIPTION_LITE_KEY");
       case "Basic":
-        return "Ideal for individual users who need to create 2-5 social media posts or 6-20 images using AI per day.";
+        return t("DESCRIPTION_BASIC_KEY");
       default:
-        return "Perfect for professional users who require generating 6-15 social media posts or 12-60 images using AI per day.";
+        return t("DESCRIPTION_PROFESSIONAL_KEY");
     }
   };
 
@@ -89,28 +91,28 @@ export default function PricingOptions({
     Lite: {
       icon: icCheckGreen,
       benefits: [
-        "No advertisement",
-        "Long-form content length and medium resolution download quality",
-        "Access to premium art styles",
-        "Remove Watermark",
+        t("BENEFIT_NO_ADVERTISEMENT_KEY"),
+        t("BENEFIT_LONG_FORM_CONTENT_KEY"),
+        t("BENEFIT_ACCESS_TO_PREMIUM_STYLES_KEY"),
+        t("BENEFIT_REMOVE_WATERMARK_KEY"),
       ],
     },
     Basic: {
       icon: icCheckViolet,
       benefits: [
-        "No advertisement",
-        "Long-form content length and medium resolution download quality",
-        "Access to premium art styles",
-        "Remove Watermark",
+        t("BENEFIT_NO_ADVERTISEMENT_KEY"),
+        t("BENEFIT_LONG_FORM_CONTENT_KEY"),
+        t("BENEFIT_ACCESS_TO_PREMIUM_STYLES_KEY"),
+        t("BENEFIT_REMOVE_WATERMARK_KEY"),
       ],
     },
     Premium: {
       icon: icCheckBlue,
       benefits: [
-        "Brand management",
-        "Unlimited content length and high resolution download quality",
-        "Priority support",
-        "Beta access to new feature",
+        t("BENEFIT_BRAND_MANAGEMENT_KEY"),
+        t("BENEFIT_UNLIMITED_CONTENT_LENGTH_KEY"),
+        t("BENEFIT_PRIORITY_SUPPORT_KEY"),
+        t("BENEFIT_BETA_ACCESS_KEY"),
       ],
     },
   };
@@ -118,13 +120,15 @@ export default function PricingOptions({
   return (
     <WrapperPricing>
       <Header>
-        <Pricing>PRICING</Pricing>
+        <Pricing>{t("PRICING")}</Pricing>
         <PlansTitle>
-          Explore Flexible Pricing Plans for AI-Powered Creativity
+          {t("Explore Flexible Pricing Plans for AI-Powered Creativity")}
         </PlansTitle>
         <PlansDescription>
-          Choose your suitable plans and access a world of AI-powered tools
-          designed to elevate your content creation.
+          {t(
+            "Choose your suitable plans and access a world of AI-powered tools"
+          )}
+          {t("designed to elevate your content creation.")}
         </PlansDescription>
       </Header>
 
@@ -163,7 +167,7 @@ export default function PricingOptions({
                 )
               }
             >
-              Payment
+              {t("Payment")}
             </LoadingButtonGeneral>
             {Object.keys(packageInfo).map(
               (packageName: string) =>
@@ -171,8 +175,8 @@ export default function PricingOptions({
                   <ListBenefit key={packageName}>
                     <TitleBenefit>
                       {packageName === "Premium"
-                        ? "All the greatness of Plus, and:"
-                        : "All the basic features, include:"}
+                        ? t("All the greatness of Plus, and:")
+                        : t("All the basic features, include:")}
                     </TitleBenefit>
                     {packageInfo[packageName].benefits.map(
                       (benefit: string, index: number) => (

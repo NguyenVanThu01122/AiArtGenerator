@@ -1,5 +1,6 @@
 import { faAnglesLeft, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Box from "@mui/material/Box";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import iconAiBackgroundChange from "../../../../images/ic-ai-background-chage.svg";
@@ -11,6 +12,7 @@ import { ROUTES } from "../../../../routes/routes";
 import FollowSocialMedia from "../../../FollowSocialMedia";
 import { LogoCreatorHub } from "../../../LogoCreatorHub";
 import ImageGeneral from "../../../Ui/image";
+import LanguageSelection from "../LanguageSelection";
 import ModeToggle from "../ModeToggle";
 import {
   ContentMenu,
@@ -22,15 +24,15 @@ import {
   StyledDrawerMenu,
   WrapperMenu,
 } from "./styles";
-interface TypeMenuItems {
+export interface TypeMenuItems {
   path: string;
   text: string;
-  icon: any;
+  icon: string;
 }
 const menuItems = [
   { path: ROUTES.HOME, text: "Home", icon: iconHome },
   { path: ROUTES.PRICING, text: "Pricing", icon: iconPricing },
-  { path: ROUTES.AI_IMAGE_RESULT, text: "My Avatars", icon: iconAiPhoto },
+  { path: ROUTES.AI_IMAGE_RESULT, text: "Ai Result Image", icon: iconAiPhoto },
   {
     path: ROUTES.AI_ART_GENERATOR,
     text: "AI Art Generator",
@@ -67,7 +69,7 @@ const MobileMenu = () => {
     <WrapperMenu>
       <FontAwesomeIcon className="ic-menu" icon={faBars} onClick={showMenu} />
       <StyledDrawerMenu open={isOpenMenu} onClose={handleCloseMenu}>
-        <StyledBox sx={{ width: 300 }}>
+        <StyledBox sx={{ width: 310 }}>
           <Header>
             <LogoCreatorHub />
             <FontAwesomeIcon
@@ -76,7 +78,12 @@ const MobileMenu = () => {
               icon={faAnglesLeft}
             />
           </Header>
-          <ModeToggle />
+
+          <Box sx={{ display: "flex", gap: "8px" }}>
+            <ModeToggle />
+            <LanguageSelection />
+          </Box>
+
           <ContentSection>
             <SectionMenu>
               {menuItems.map((item: TypeMenuItems, index: number) => (

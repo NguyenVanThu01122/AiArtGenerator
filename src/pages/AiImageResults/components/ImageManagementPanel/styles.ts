@@ -40,6 +40,8 @@ export const GroupButton = styled.div`
     background: linear-gradient(90deg, #f23061 -7.43%, #faa227);
     color: white;
   }
+  @media screen and (max-width: 768px) {
+  }
 `;
 
 export const ListPhoto = styled.div`
@@ -56,7 +58,7 @@ export const Wrapper = styled.div`
   @media screen and (max-width: 768px) {
     display: block;
     ${ListPhoto} {
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
     ${BoxOptions} {
       gap: 10px;

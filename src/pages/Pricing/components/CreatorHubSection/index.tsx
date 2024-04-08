@@ -1,5 +1,6 @@
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import Grid from "@mui/material/Grid";
+import { useTranslation } from "react-i18next";
 import ImageGeneral from "../../../../components/Ui/image";
 import icPack from "../../../../images/Pricing/icon-pack.svg";
 import imgSlider from "../../../../images/Pricing/icon-slider.svg";
@@ -31,46 +32,41 @@ interface CommentType {
   name: string;
   job: string;
 }
+
 export const listComment = [
   {
     id: 1,
-    comment:
-      '"The AI Social Post Generator is a game-changer! It saved me hours of work and boosted our engagement rates. Highly recommended!"',
+    comment: "COMMENT_KEY",
     name: "Danny",
     job: "Marketing Manager",
   },
   {
     id: 2,
-    comment:
-      '"The AI Social Post Generator is a game-changer! It saved me hours of work and boosted our engagement rates. Highly recommended!"',
+    comment: "COMMENT_KEY",
     name: "Danny",
     job: "Marketing Manager",
   },
   {
     id: 3,
-    comment:
-      '"The AI Social Post Generator is a game-changer! It saved me hours of work and boosted our engagement rates. Highly recommended!"',
+    comment: "COMMENT_KEY",
     name: "Danny",
     job: "Marketing Manager",
   },
   {
     id: 4,
-    comment:
-      '"The AI Social Post Generator is a game-changer! It saved me hours of work and boosted our engagement rates. Highly recommended!"',
+    comment: "COMMENT_KEY",
     name: "Danny",
     job: "Marketing Manager",
   },
   {
     id: 5,
-    comment:
-      '"The AI Social Post Generator is a game-changer! It saved me hours of work and boosted our engagement rates. Highly recommended!"',
+    comment: "COMMENT_KEY",
     name: "Danny",
     job: "Marketing Manager",
   },
   {
     id: 6,
-    comment:
-      '"The AI Social Post Generator is a game-changer! It saved me hours of work and boosted our engagement rates. Highly recommended!"',
+    comment: "COMMENT_KEY",
     name: "Danny",
     job: "Marketing Manager",
   },
@@ -79,6 +75,7 @@ export const listComment = [
 function CreatorHubSection() {
   const { handleScrollCarousel, isScrollAtStart, isScrollAtEnd } =
     useCarouselScroll(".css-vj1n65-MuiGrid-root");
+  const { t } = useTranslation();
 
   return (
     <StyledBox
@@ -88,12 +85,15 @@ function CreatorHubSection() {
     >
       <HeaderCreator>
         <ContentHeader>
-          <CreatorHub>CREATORHUB</CreatorHub>
-          <Title>A trusted choice of thousands worldwide</Title>
+          <CreatorHub>{t("CREATORHUB")}</CreatorHub>
+          <Title>{t("A trusted choice of thousands worldwide")}</Title>
           <DescriptionText>
-            No matter the plan you select, you'll benefit from our top-notch
-            customer support, regular updates, and continuous improvements to
-            ensure an exceptional experience throughout your creative endeavors.
+            {t(
+              "No matter the plan you select, you'll benefit from our top-notch customer support, regular updates,"
+            )}
+            {t(
+              "and continuous improvements to ensure an exceptional experience throughout your creative endeavors."
+            )}
           </DescriptionText>
         </ContentHeader>
         <ItemImage>
@@ -125,7 +125,7 @@ function CreatorHubSection() {
               <Grid container spacing={2} sx={{ marginRight: "10px" }}>
                 <DetailFeedback key={item.id}>
                   <ImageGeneral src={icPack} alt="" />
-                  <CommentItem>{item?.comment}</CommentItem>
+                  <CommentItem>{`"${t(item?.comment)}"`}</CommentItem>
                   <InfoUser>
                     <NameUser>{item?.name}</NameUser>
                     <JobUser>{item?.job}</JobUser>

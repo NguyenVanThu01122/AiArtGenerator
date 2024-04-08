@@ -1,6 +1,7 @@
 import { Checkbox } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AnimationStar from "../../components/AnimationStar";
@@ -8,6 +9,7 @@ import { SidebarImageLogin } from "../../components/SidebarImageLogin";
 import TextFieldController from "../../components/Ui/TextFieldController ";
 import ImageGeneral from "../../components/Ui/image";
 import { TextFieldType } from "../../components/Ui/textFieldCommon";
+import { saveLogin } from "../../reduxToolkit/Slices/AppSlice";
 import { FormValues, login } from "../../services/auth";
 import { SUCCESS_MESSAGE } from "../../utils/constants";
 import {
@@ -51,7 +53,7 @@ export function SignIn() {
   const [isModalPassword, setIsModalPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const {
     handleSubmit,
     control,
@@ -70,11 +72,11 @@ export function SignIn() {
     };
     login(bodyLogin)
       .then((res) => {
-        // dispatch(saveLogin(true));
+        dispatch(saveLogin(true));
         saveTokenLocalStorage("token", res.data?.token);
         saveRefreshTokenLocalStorage("refreshToken", res.data?.refreshToken);
         navigate("/");
-        toast.error(SUCCESS_MESSAGE.SUCCESS_LOGIN);
+        toast.success(SUCCESS_MESSAGE.SUCCESS_LOGIN);
         reset();
       })
       .catch((error) => toast.error(error.response?.data?.message));

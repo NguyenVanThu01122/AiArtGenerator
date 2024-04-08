@@ -135,7 +135,7 @@ function AiImageResult() {
           )}
 
           {/* Pagination */}
-          <SectionPagination>
+          <SectionPagination sx={{ bgcolor: "background.default" }}>
             <StyledPagination
               page={page}
               count={totalPage}

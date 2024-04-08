@@ -52,7 +52,7 @@ export const WrapperHome = styled.div`
     padding: 5px;
     cursor: pointer;
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 768pcustom-btnx) {
     gap: 90px;
   }
 `;
@@ -121,10 +121,10 @@ export const ItemCarousel = styled(Carousel)`
         }
       }
       .custom-btn {
-        width: 280px;
+        width: 60%;
         height: 48px;
         display: flex;
-        padding: 8px 24px;
+        padding: 8px 16px;
         justify-content: center;
         align-items: center;
         gap: 8px;
@@ -142,7 +142,6 @@ export const ItemCarousel = styled(Carousel)`
         }
         span {
           color: white !important;
-          font-size: 16px;
           font-weight: 600;
           line-height: 100%; /* 16px */
         }
@@ -178,6 +177,10 @@ export const ItemCarousel = styled(Carousel)`
         }
         & > div:nth-child(2) {
           font-size: 25px;
+        }
+        .custom-btn {
+          width: 100%;
+          height: 46px;
         }
       }
     }
@@ -302,16 +305,25 @@ export const ContainerProducts = styled.div`
         }
         &:hover {
           filter: brightness(0.5);
-          /* transform: rotate(360deg); */
+        }
+        @media screen and (max-width: 768px) {
+          width: 100%;
         }
       }
     }
   }
+
   @media screen and (max-width: 768px) {
     .list-products {
       display: flex;
       flex-direction: column;
       gap: 20px;
+      .detail-Product {
+        .btn-try-now {
+          border: 1px solid red;
+          width: 100% !important;
+        }
+      }
     }
   }
 `;
@@ -409,6 +421,9 @@ export const ContainerBenefits = styled(Box)`
         }
       }
     }
+  }
+  @media screen and (max-width: 1500px) {
+    padding: 15px;
   }
   @media screen and (max-width: 768px) {
     padding: 16px;

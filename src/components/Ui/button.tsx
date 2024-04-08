@@ -1,4 +1,5 @@
 import Button, { ButtonProps } from "@mui/material/Button";
+import { useTranslation } from "react-i18next";
 interface ButtonGeneralProps extends ButtonProps {
   className?: string;
   loading?: boolean;
@@ -11,6 +12,7 @@ const ButtonGeneral = ({
   loading,
   ...rest
 }: ButtonGeneralProps) => {
+  const { t } = useTranslation();
   return (
     <Button
       className={`custom-button ${className}`}
