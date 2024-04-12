@@ -3,7 +3,7 @@ export const validateFirstName = { required: "First name is required !" };
 export const validateLastName = { required: "Last name is required !" };
 
 export const validateEmail = {
-  required: "Please enter a valid email address !",
+  required: "Please enter email address !",
   pattern: {
     value: /\S+@\S+\.\S+/,
     message: "Please enter a valid email address !",
@@ -14,7 +14,7 @@ export const validatePassword = {
   required: "Please enter your password !",
   minLength: {
     value: 6,
-    message: "Password must be at least eight characters !",
+    message: "Password must be at least six characters !",
   },
 };
 

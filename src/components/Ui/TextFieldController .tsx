@@ -1,18 +1,21 @@
 import { TextFieldProps } from "@mui/material";
 import { Control, Controller, FieldValues } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import TextFieldCommon, { TextFieldType } from "./textFieldCommon";
 interface TextFieldControllerProps {
+  sx?: any;
   name: string;
   control: Control<FieldValues>;
   defaultValue?: string;
   rules?: Object;
-  label: string;
+  label?: string;
   type?: TextFieldType;
   variant?: TextFieldProps["variant"];
   margin?: TextFieldProps["margin"];
   fullWidth?: boolean;
   errors: Record<string, any>;
   InputProps?: any;
+  InputLabelProps?: any;
   onchange?: (e: any) => void;
 }
 const TextFieldController = ({
@@ -28,13 +31,16 @@ const TextFieldController = ({
   errors,
   InputProps,
   onchange,
+  sx,
 }: TextFieldControllerProps) => {
+  const { t } = useTranslation();
   return (
     <Controller
       name={name}
       control={control}
       defaultValue={defaultValue}
       rules={rules}
+      // render ra TextFieldCommon
       render={({ field }) => (
         <TextFieldCommon
           field={field}
@@ -45,14 +51,14 @@ const TextFieldController = ({
           fullWidth={fullWidth}
           error={!!errors[name]}
           onChange={onchange}
-          InputProps={{ className: "white-text-input", ...InputProps }}
+          InputProps={{ className: "custom-text-field", ...InputProps }}
           InputLabelProps={{
             className: "custom-label",
           }}
           helperText={
             errors[name]
               ? typeof errors[name].message === "string"
-                ? errors[name].message
+                ? t(errors[name].message)
                 : ""
               : undefined
           }

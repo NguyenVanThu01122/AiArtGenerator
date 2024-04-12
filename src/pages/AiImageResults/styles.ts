@@ -85,7 +85,7 @@ export const SectionPagination = styled(Box)`
 
 export const StyledPagination = styled(Pagination)`
   & .MuiPaginationItem-root {
-    width: 45px;
+    width: 35px;
     height: 35px;
     font-size: 1.4rem;
     font-weight: bold;

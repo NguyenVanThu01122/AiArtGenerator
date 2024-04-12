@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import i18n from "../../../i18n/i18n";
 import { getListImageAi, paramsType } from "../../../services/aiImageResult";
 import { ERROR_MESSAGES } from "../../../utils/constants";
 
@@ -12,7 +13,7 @@ export const fetchResultImageAi = createAsyncThunk(
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({
-        errorMessage: toast.error(ERROR_MESSAGES.SERVER_ERROR),
+        errorMessage: toast.error(i18n.t(ERROR_MESSAGES.SERVER_ERROR)),
       });
     }
   }

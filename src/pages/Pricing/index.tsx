@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { RootState } from "../../reduxToolkit/Slices/RootReducer";
@@ -16,6 +17,7 @@ import FrequentlyAskedQuestions from "./components/Questions";
 import { BoxContent, WrapperPricing } from "./styles";
 
 function Pricing() {
+  const { t } = useTranslation();
   const [selectPrice, setSelectPrice] = useState("");
   const { handleCheckLogin } = useCheckLogin();
   const { listPricing } = useSelector(
@@ -42,7 +44,7 @@ function Pricing() {
       .then((res) => {
         window.location.assign(res.data?.url);
       })
-      .catch((error) => toast.error(ERROR_MESSAGES.SERVER_ERROR));
+      .catch((error) => toast.error(t(ERROR_MESSAGES.SERVER_ERROR)));
   };
 
   return (

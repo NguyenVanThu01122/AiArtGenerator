@@ -92,11 +92,11 @@ export function AiPhotoEnhancer() {
         toast.success(res.data.message ?? "Generate success!");
         await deductCreditsAiEnhancer() // call api Trừ credits với các lần sử dụng
           .then(() => getUser()) // call user lại để cập nhật lại số credits
-          .catch(() => toast.error(ERROR_MESSAGES.SERVER_ERROR));
+          .catch(() => toast.error(t(ERROR_MESSAGES.SERVER_ERROR)));
       })
       .catch((error) => {
         setIsLoading(false);
-        toast.error(ERROR_MESSAGES.SERVER_ERROR);
+        toast.error(t(ERROR_MESSAGES.SERVER_ERROR));
       });
   };
 

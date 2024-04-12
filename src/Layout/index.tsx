@@ -1,6 +1,4 @@
-import { useColorScheme, useMediaQuery } from "@mui/material";
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useSearchParams } from "react-router-dom";
 import DialogLoin from "../components/DialogLogin";
@@ -8,7 +6,9 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { saveLogin } from "../reduxToolkit/Slices/AppSlice";
 import { RootState } from "../reduxToolkit/Slices/RootReducer";
+import { useChangeLanguage } from "../utils/useChangeLanguage";
 import { useGetInfoUser } from "../utils/useGetInfoUser";
+import { useThemeModeStyles } from "../utils/useThemeModeStyles";
 import {
   BoxContent,
   MainContent,
@@ -17,14 +17,13 @@ import {
 } from "./styles";
 
 export function Layout() {
-  const { i18n } = useTranslation();
   const dispatch = useDispatch();
   const [searchParam, setSearchParam] = useSearchParams();
   const closeMenu = useSelector((state: RootState) => state.app.closeMenu);
   const dialogLogin = useSelector((state: RootState) => state.app.dialogLogin);
-  const systemDarkMode = useMediaQuery("(prefers-color-scheme: dark)"); // lấy giá trị dark ,light của hệ thống máy người dùng
-  const { mode } = useColorScheme();
   const [getUser] = useGetInfoUser();
+  useChangeLanguage(); // custom hook này sẽ tự động save language khi user f5
+  useThemeModeStyles(); // hook thay đổi theme màu text
 
   useEffect(() => {
     // lưu lại token và refresh token khi đăng nhập hoặc đăng ký bằng google và facebook thành công
@@ -41,20 +40,6 @@ export function Layout() {
       setSearchParam({});
     }
   }, [searchParam]);
-
-  useEffect(() => {
-    i18n.changeLanguage(localStorage.getItem("LANG_STORAGE_KEY") || "eng");
-  }, [i18n]);
-
-  useEffect(() => {
-    if (mode === "dark") {
-      document.documentElement.style.setProperty("--text-color", "white"); //style.setProperty thiết lập giá trị của một thuộc tính trên một phần tử
-    } else if (mode === "system" && systemDarkMode) {
-      document.documentElement.style.setProperty("--text-color", "white");
-    } else {
-      document.documentElement.style.setProperty("--text-color", "black");
-    }
-  }, [mode, systemDarkMode]);
 
   return (
     <WrapperLayout>

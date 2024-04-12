@@ -45,7 +45,7 @@ export const StyledImageGeneral = styled(ImageGeneral)`
 `;
 
 export const ClickToView = styled.div`
-  color: white;
+  font-size: 14px;
   opacity: 0;
   font-weight: bold;
   position: absolute;
@@ -58,6 +58,7 @@ export const ClickToView = styled.div`
   color: transparent;
   font-weight: bold;
   width: 90%;
+  text-align: center;
   &:hover {
     cursor: pointer;
     opacity: 1;

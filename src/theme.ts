@@ -49,22 +49,3 @@ export const theme = extendTheme({
     },
   },
 });
-
-// Create a theme instance.
-// const theme = createTheme({
-//   palette: {
-//     mode: "light",
-//     primary: {
-//       main: "#556cd6",
-//     },
-//     secondary: {
-//       main: "#19857b",
-//     },
-//     error: {
-//       main: red.A400,
-//     },
-//     text: {
-//       secondary: orange[500],
-//     },
-//   },
-// });

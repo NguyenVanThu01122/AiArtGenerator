@@ -6,10 +6,8 @@ export const BoxOptions = styled.div`
   gap: 30px;
   .select-date {
     width: 200px;
-    height: 40px;
+    height: 36px;
     background-color: rgba(97, 243, 243, 0.2);
-    /* color: white; */
-    /* background: #242c3d; */
   }
 `;
 
@@ -19,9 +17,9 @@ export const SelectImage = styled.div`
   gap: 8px;
   color: white;
   Button {
+    height: 35px;
     border: none;
     color: white;
-    font-weight: bold;
   }
   .btn-select-all,
   .btn-select {
@@ -30,6 +28,8 @@ export const SelectImage = styled.div`
   }
   .btn-delete {
     background-color: red !important;
+  }
+  @media screen and (max-width: 768px) {
   }
 `;
 
@@ -64,14 +64,15 @@ export const Wrapper = styled.div`
       gap: 10px;
       .select-date {
         width: 150px;
+        height: 35px;
       }
     }
 
     ${SelectImage} {
       gap: 5px;
       button {
-        font-size: 14px;
-        height: 40px;
+        height: 35px;
+        font-size: 11px;
       }
     }
   }
