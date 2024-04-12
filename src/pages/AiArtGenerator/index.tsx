@@ -32,6 +32,7 @@ import { MainContent, SectionContents, WrapperAiArtGenerator } from "./styles";
 import { TypeConfig } from "./types";
 
 function AiArtGenerator() {
+  const abc = [1, 2, 3,]
   const { t } = useTranslation();
   const [sliderValueAlpha, setSliderValueAlpha] = useState(DEFAULT_ALPHA);
   const [sliderValueSteps, setSliderValueSteps] = useState(DEFAULT_STEPS);
@@ -71,7 +72,7 @@ function AiArtGenerator() {
 
   // hàm click item none
   const handleClickNoneStyle = () => {
-    setSelectStyle("");
+    setSelectStyle('');
     setSliderValueAlpha(DEFAULT_ALPHA);
     setSliderValueSteps(DEFAULT_STEPS);
     setSliderValueScale(DEFAULT_SCALE);
@@ -81,6 +82,9 @@ function AiArtGenerator() {
   const handleBack = () => {
     setFileUpload(undefined);
     setResultImage("");
+
+
+
     setUploadImage("");
     setNegativePrompt("");
     setPrompt("");
@@ -154,7 +158,7 @@ function AiArtGenerator() {
       })
       .catch((error) => {
         toast.error(
-          error.response?.data?.message || ERROR_MESSAGES.SERVER_ERROR
+          error.response?.data?.message || t(ERROR_MESSAGES.SERVER_ERROR)
         );
       });
   };

@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import SentEmailDialog from "../../../../components/SentEmailDialog";
 import TextFieldController from "../../../../components/Ui/TextFieldController ";
@@ -35,12 +36,15 @@ export const DialogForgotPassword = ({
   setIsModalPassword: (value: boolean) => void;
   setIsForgotPassword: (value: boolean) => void;
 }) => {
+  const { t } = useTranslation();
   const {
     handleSubmit,
     control,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onChange",
+  });
 
   const handleResetPassword = (value: FormData) => {
     const email = value.Email as string | undefined;
@@ -49,7 +53,7 @@ export const DialogForgotPassword = ({
     }
     const body = {
       email,
-      redirectUrl: "http://localhost:3000/change-password",
+      redirectUrl: "http://localhost:3000/change-password", // link reset password
     };
     forgotPassword(body)
       .then((res) => {
@@ -71,18 +75,19 @@ export const DialogForgotPassword = ({
     <DialogPasswordForgot
       open={isModalPassword}
       onClose={CancelModalForgotPassword}
-      sx={{}}
     >
       <CloseButton handleClose={CancelModalForgotPassword} />
       {isForgotPassword ? (
         <ContentForgotPassword>
           <ItemHeader>
             <ImageGeneral src={iconLogin} alt="" />
-            <TitleForgot>Forgot your password?</TitleForgot>
+            <TitleForgot>{t("Forgot your password?")}</TitleForgot>
           </ItemHeader>
           <PasswordReset>
             <ContentText>
-              Enter your email and we'll send you a link to reset your password
+              {t(
+                "Enter your email and we'll send you a link to reset your password"
+              )}
             </ContentText>
             <TextFieldController
               name="Email"
@@ -94,18 +99,18 @@ export const DialogForgotPassword = ({
               defaultValue=""
               variant="outlined"
               rules={validateEmail}
-              label="Please enter email address"
+              label={t("Please enter email address")}
             />
             <ButtonGeneral
               className="custom-button"
               onClick={handleSubmit(handleResetPassword)}
             >
-              Request Password Reset
+              {t("Request Password Reset")}
             </ButtonGeneral>
           </PasswordReset>
           <ItemBack onClick={CancelModalForgotPassword}>
             <ImageGeneral src={iconBack} alt="" />
-            <BackToSignIn>Back to sign in</BackToSignIn>
+            <BackToSignIn>{t("Back to sign in")}</BackToSignIn>
           </ItemBack>
         </ContentForgotPassword>
       ) : (

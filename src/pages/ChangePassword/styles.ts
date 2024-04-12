@@ -1,4 +1,4 @@
-import { Form } from "antd";
+import { FormControl, FormGroup } from "@mui/material";
 import styled from "styled-components";
 
 export const WrapperChangePassword = styled.div`
@@ -23,38 +23,47 @@ export const ItemImage = styled.div`
   img {
     width: 65%;
   }
-  .contents {
-    padding: 0px 50px;
-    & > div:first-child {
-      color: var(--noble-black-0, #fff);
-      font-size: 24px;
-      font-weight: 500;
-      line-height: 150%;
-      margin: 24px 0px;
-    }
-    .last-content {
-      & > div:first-child {
-        color: var(--noble-black-0, #fff);
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 100%;
-        margin-bottom: 8px;
-      }
-      & > div:last-child {
-        color: rgb(194, 255, 234);
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 100%;
-        letter-spacing: 0.122px;
-      }
-    }
-  }
+
   @media screen and (max-width: 768px) {
     display: none;
   }
 `;
 
-export const FormChangePassword = styled(Form)`
+export const ContentImage = styled.div`
+  padding: 0px 50px;
+`;
+
+export const TextContent = styled.div`
+  color: #fff;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 150%;
+  margin: 24px 0px;
+`;
+
+export const ItemIfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+export const Youtube = styled.div`
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 100%;
+  margin-bottom: 8px;
+`;
+
+export const LouisTomlin = styled.div`
+  color: rgb(194, 255, 234);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0.122px;
+`;
+
+export const FormChangePassword = styled(FormControl)`
   color: white;
   width: 50%;
   display: flex;
@@ -66,78 +75,75 @@ export const FormChangePassword = styled(Form)`
   @media screen and (max-width: 768px) {
     width: 100%;
   }
-  .parent-form {
-    width: 500px;
-    .form-title {
-      margin-bottom: 20px;
-      text-align: center;
-      div {
-        font-size: 40px;
-        font-weight: bold;
-      }
-    }
-    .title-input {
-      /* color: var(--noble-black-300, #9b9c9e); */
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 20px;
-      letter-spacing: 0.15px;
-      margin-bottom: 16px;
-    }
-    .input {
-      height: 46px;
-      color: white;
-      border: none;
-      background-color: #1c1c2c;
-      &::placeholder {
-        color: gray;
-        font-style: italic;
-      }
-      &:hover {
-        outline: 1px solid violet;
-      }
-      &:focus {
-        outline: 1px solid skyblue;
-      }
-    }
-    .btn {
-      width: 100%;
-      color: white !important;
-      font-weight: bold;
-      font-size: large;
-      border: none;
-      height: 46px;
-      background: linear-gradient(
-        217deg,
-        rgb(226, 80, 229) 0%,
-        rgb(75, 80, 230) 100%
-      );
-      &:hover {
-        filter: brightness(0.6);
-      }
-    }
-    .item-back {
-      width: max-content;
-      margin: auto;
-      margin-top: 50px;
-      display: flex;
-      gap: 15px;
-      cursor: pointer;
-      div {
-        font-weight: bold;
-      }
-    }
-    .visionlab {
-      position: absolute;
-      bottom: 0px;
-      right: 0px;
-      width: 100%;
-      font-size: 16px;
-      font-style: italic;
-      font-weight: 400;
-      line-height: 20px;
-      text-align: center;
-      color: rgb(102, 112, 133);
+`;
+
+export const ContentForm = styled.div`
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  .btn {
+    width: 100%;
+    color: white !important;
+    font-weight: bold;
+    font-size: large;
+    border: none;
+    height: 46px;
+    background: linear-gradient(
+      217deg,
+      rgb(226, 80, 229) 0%,
+      rgb(75, 80, 230) 100%
+    );
+    &:hover {
+      filter: brightness(0.6);
     }
   }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    padding: 20px;
+  }
+`;
+
+export const TitleForm = styled.div`
+  margin-bottom: 20px;
+  text-align: center;
+`;
+
+export const StyledFormGroup = styled(FormGroup)`
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+`;
+
+export const SetNewPassword = styled.div`
+  font-size: 35px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.15px;
+  margin-bottom: 16px;
+  @media screen and (max-width: 768px) {
+  }
+`;
+
+export const ItemBack = styled.div`
+  width: max-content;
+  margin: auto;
+  margin-top: 50px;
+  display: flex;
+  gap: 15px;
+  cursor: pointer;
+  div {
+    font-weight: bold;
+  }
+`;
+
+export const BackToSigIn = styled.div``;
+
+export const VisionLab = styled.div`
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: center;
+  color: rgb(102, 112, 133);
 `;

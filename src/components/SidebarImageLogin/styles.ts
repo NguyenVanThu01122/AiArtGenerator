@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const WrapperSidebarImage = styled.div`
-  width: 53%;
+  width: 100%;
   height: 100vh;
   background-color: rgb(13, 18, 32);
   /* background-image: url('https://melkior-nguyen.github.io/Portfolio/static/media/bg2.e6fe0abcb2a72bd51eee.jpg');
@@ -9,11 +9,7 @@ export const WrapperSidebarImage = styled.div`
   background-size: cover; */
   /* background-color: black; */
   /* background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%); */
-
   border-radius: 8px;
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
   .ant-carousel .slick-dots li {
     position: relative;
     top: -20px !important;

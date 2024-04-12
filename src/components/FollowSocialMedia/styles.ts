@@ -11,6 +11,7 @@ export const TitleFollow = styled.div`
   font-weight: 900;
   @media screen and (max-width: 768px) {
     margin-bottom: 30px;
+    
   }
 `;
 

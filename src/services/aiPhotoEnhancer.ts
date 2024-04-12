@@ -1,9 +1,9 @@
 import axios from "axios";
-import { privateAxios } from "./configs/axios";
 import { APIs } from "./configs/api";
+import { privateAxios } from "./configs/axios";
 
 export const generateAiPhotoEnhancer = (formData: FormData) =>
-  axios.post("https://enhance-core.apero.vn/api/v1/image-enhance", formData, {
+  axios.post(APIs.GENERATE_ENHANCE_AI, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

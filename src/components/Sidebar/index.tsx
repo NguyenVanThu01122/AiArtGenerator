@@ -1,20 +1,19 @@
-import { Tooltip } from "antd";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import iconAiBackgroundChange from "../../images/ic-ai-background-chage.svg";
-import iconPricing from "../../images/ic-pricing.svg";
-import iconAiArtGenerator from "../../images/iconAiArtGenerator.svg";
+import { Tooltip } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import iconAiBackgroundChange from '../../images/ic-ai-background-chage.svg'
+import iconPricing from '../../images/ic-pricing.svg'
+import iconAiArtGenerator from '../../images/iconAiArtGenerator.svg'
+import { default as icAvatar, default as iconAiPhoto } from '../../images/iconAiPhoto.svg'
+import iconHome from '../../images/iconHome.svg'
+import iconAiArt from '../../images/iconLogin1.png'
+import { RootState } from '../../reduxToolkit/Slices/RootReducer'
+import { ROUTES } from '../../routes/routes'
+import FollowSocialMedia from '../FollowSocialMedia'
+import ImageGeneral from '../Ui/image'
 import {
-  default as icAvatar,
-  default as iconAiPhoto,
-} from "../../images/iconAiPhoto.svg";
-import iconHome from "../../images/iconHome.svg";
-import iconAiArt from "../../images/iconLogin1.png";
-import { RootState } from "../../reduxToolkit/Slices/RootReducer";
-import { ROUTES } from "../../routes/routes";
-import FollowSocialMedia from "../FollowSocialMedia";
-import ImageGeneral from "../Ui/image";
-import {
+  BoxSocialMedia,
   ContainerMenu,
   LogoCreator,
   NameApp,
@@ -22,93 +21,86 @@ import {
   StyledImageGeneral,
   TitleMenu,
   WrapperMenu,
-  WrapperSidebar,
-} from "./styles";
+  WrapperSidebar
+} from './styles'
 interface TypeMenuData {
-  title: string;
-  path: string;
-  icon: string;
-  iconType?: string;
+  title: string
+  path: string
+  icon: string
+  iconType?: string
 }
 
 export default function Sidebar() {
-  const navigate = useNavigate();
-  const pathName = window.location.pathname;
-  const closeMenu = useSelector((state: RootState) => state.app.closeMenu);
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const pathName = window.location.pathname
+  const closeMenu = useSelector((state: RootState) => state.app.closeMenu)
 
   // hàm navigate chuyển hướng
   const handleRedirect = (url: string) => {
-    navigate(url);
-  };
+    navigate(url)
+  }
 
   const MenuItem = ({ title, path, icon }: TypeMenuData) => (
-    <Tooltip arrow placement="right" title={closeMenu && title}>
+    <Tooltip arrow placement='right' title={closeMenu && t(title)}>
       <WrapperMenu
         closeMenu={closeMenu}
-        className={pathName === path ? "border" : ""}
+        className={pathName === path ? 'border' : ''}
         onClick={() => handleRedirect(path)}
       >
-        {icon && <ImageGeneral className="icon" src={icon} />}
-        <span>{title}</span>
+        {icon && <ImageGeneral className='icon' src={icon} />}
+        <span>{t(title)}</span>
       </WrapperMenu>
     </Tooltip>
-  );
+  )
 
-  const MenuSectionProduct = ({
-    title,
-    items,
-  }: {
-    title: string;
-    items: TypeMenuData[];
-  }) => (
+  const MenuSectionProduct = ({ title, items }: { title: string; items: TypeMenuData[] }) => (
     <SectionProductMenu>
-      <TitleMenu closeMenu={closeMenu}>{title}</TitleMenu>
+      <TitleMenu closeMenu={closeMenu}>{t(title)}</TitleMenu>
       {items.map((item: TypeMenuData, index: number) => (
         <MenuItem key={index} {...item} />
       ))}
     </SectionProductMenu>
-  );
+  )
 
   return (
     <WrapperSidebar closeMenu={closeMenu}>
-      <LogoCreator onClick={() => navigate("/")}>
-        <StyledImageGeneral src={iconAiArt} alt="iconAiArt" />
+      <LogoCreator onClick={() => navigate('/')}>
+        <StyledImageGeneral src={iconAiArt} alt='iconAiArt' />
         <NameApp closeMenu={closeMenu}>CreatorHub</NameApp>
       </LogoCreator>
 
       <ContainerMenu closeMenu={closeMenu}>
-        <MenuItem title="Home" path={ROUTES.HOME} icon={iconHome} />
-        <MenuItem title="Pricing" path={ROUTES.PRICING} icon={iconPricing} />
-        <MenuItem
-          title="Ai Image Results"
-          path={ROUTES.AI_IMAGE_RESULT}
-          icon={icAvatar}
-        />
+        <MenuItem title='HOME' path={ROUTES.HOME} icon={iconHome} />
+        <MenuItem title='PRICING' path={ROUTES.PRICING} icon={iconPricing} />
+        <MenuItem title='AI_IMAGE_RESULT' path={ROUTES.AI_IMAGE_RESULT} icon={icAvatar} />
 
         <MenuSectionProduct
-          title="PRODUCTS"
+          title='PRODUCTS'
           items={[
             {
-              title: "Ai Art Generator",
+              title: 'AI_ART_GENERATOR',
               path: ROUTES.AI_ART_GENERATOR,
-              icon: iconAiArtGenerator,
+              icon: iconAiArtGenerator
             },
             {
-              title: "Ai Photo Enhancer",
+              title: 'AI_PHOTO_ENHANCER',
               path: ROUTES.AI_PHOTO_ENHANCER,
-              icon: iconAiPhoto,
+              icon: iconAiPhoto
             },
             {
-              title: "Ai Background Remove",
+              title: 'AI_BACKGROUND_REMOVE',
               path: ROUTES.AI_BACKGROUND_REMOVE,
-              icon: iconAiBackgroundChange,
-            },
+              icon: iconAiBackgroundChange
+            }
           ]}
         />
       </ContainerMenu>
 
       {/* item socialMedia */}
-      <FollowSocialMedia />
+      <BoxSocialMedia closeMenu={closeMenu}>
+        <FollowSocialMedia />
+      </BoxSocialMedia>
     </WrapperSidebar>
-  );
+  )
 }

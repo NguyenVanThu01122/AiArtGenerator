@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import faDiscord from "../../images/iconDiscordAiArt.svg";
@@ -33,11 +34,12 @@ const socialMediaLinks = [
 ];
 
 export default function FollowSocialMedia() {
+  const { t } = useTranslation();
   const closeMenu = useSelector((state: RootState) => state.app.closeMenu);
 
   return (
     <FollowOptions>
-      <TitleFollow>FOLLOW US ON</TitleFollow>
+      <TitleFollow>{t("FOLLOW US ON")}</TitleFollow>
       <SelectSocialMedia closeMenu={closeMenu}>
         {socialMediaLinks.map((item: any, index: number) => (
           <ImageGeneral
@@ -47,7 +49,7 @@ export default function FollowSocialMedia() {
             onClick={() =>
               item?.link
                 ? window.location.assign(item?.link)
-                : toast.error(NOTIFICATION)
+                : toast.error(t(NOTIFICATION))
             }
           />
         ))}

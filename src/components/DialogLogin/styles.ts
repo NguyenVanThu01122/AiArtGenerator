@@ -8,7 +8,7 @@ export const StyledDialogCommon = styled(DialogCommon)`
   }
   .MuiDialogTitle-root {
     color: white;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     text-align: center;
   }

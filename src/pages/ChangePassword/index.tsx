@@ -1,113 +1,139 @@
-import { Button, Form, Input, message } from "antd";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import TextFieldController from "../../components/Ui/TextFieldController ";
+import ButtonGeneral from "../../components/Ui/button";
+import ImageGeneral from "../../components/Ui/image";
+import { TextFieldType } from "../../components/Ui/textFieldCommon";
+import iconBack from "../../images/ic-back.svg";
 import logo from "../../images/iconLogin.png";
-import { privateAxios } from "../../services/configs/axios";
-import { FormChangePassword, ItemImage, WrapperChangePassword } from "./styles";
-function ChangePassword() {
-  const [form] = Form.useForm();
-  const navigate = useNavigate();
-  const [searchParam, setSeachPram] = useSearchParams();
+import imgChangePassword from "../../images/imageLogin4.png";
+import { changePassword } from "../../services/changePassword";
+import { validatePassword } from "../../utils/validationRules";
+import PasswordVisibilityToggle from "../SignIn/components/PasswordVisibilityToggle";
+import {
+  BackToSigIn,
+  ContentForm,
+  ContentImage,
+  FormChangePassword,
+  ItemBack,
+  ItemIfo,
+  ItemImage,
+  LouisTomlin,
+  SetNewPassword,
+  StyledFormGroup,
+  TextContent,
+  TitleForm,
+  VisionLab,
+  WrapperChangePassword,
+  Youtube,
+} from "./styles";
 
-  const handleFinish = async (values: any) => {
+function ChangePassword() {
+  const navigate = useNavigate();
+  const [searchParam] = useSearchParams();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const {
+    control,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+  });
+
+  const submitForm = async (values: any) => {
     try {
       const body = {
-        token: searchParam.get("token"),
+        token: searchParam.get("token") as string,
         password: values.password,
       };
-      await privateAxios.post("/auth/create-new-password", body);
+      await changePassword(body);
       navigate("/sign-in");
-      message.success("Change password successfully!");
+      toast.success("Change password successfully!");
+      reset();
     } catch (error: any) {
-      message.error(error.response.data?.message);
+      toast.error(error.response.data.message || "Change password failed!");
     }
   };
 
-  const handleSubmit = () => {
-    form.submit();
-  };
   return (
     <WrapperChangePassword>
       <ItemImage>
-        <img
-          src="https://creatorhub.ai/static/media/login-background-mockup.3b0cd4f90070554f6218.png"
-          alt=""
-        />
-        <div className="contents">
-          <div>
+        <ImageGeneral src={imgChangePassword} alt="" />
+        <ContentImage>
+          <TextContent>
             "The AI-powered tools are incredibly user-friendly and have saved us
             countless hours of work."
-          </div>
-          <div className="last-content">
-            <div>Louis Tomlinson</div>
-            <div>Youtober</div>
-          </div>
-        </div>
+          </TextContent>
+          <ItemIfo>
+            <LouisTomlin>Louis Tomlin</LouisTomlin>
+            <Youtube>Youtube</Youtube>
+          </ItemIfo>
+        </ContentImage>
       </ItemImage>
 
-      <FormChangePassword onFinish={handleFinish} form={form} layout="vertical">
-        <div className="parent-form">
-          <div className="form-title">
-            <img src={logo} alt="" />
-            <div>Set new password</div>
-          </div>
-          <div className="title-input">New password</div>
-          <Form.Item
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input new password!",
-              },
-              {
-                min: 8,
-                message: "Password at least eight characters!",
-              },
-            ]}
-          >
-            <Input placeholder="New password" className="input" />
-          </Form.Item>
-          <div className="title-input">Comfirm new password</div>
-          <Form.Item
-            name="repeat-password"
-            rules={[
-              {
-                required: true,
-                message: "Please input repeat new password!",
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value: string) {
-                  if (value === "") {
-                    return Promise.resolve();
-                  }
-                  if (value.length < 8) {
-                    return Promise.reject(
-                      new Error("Password at least eight characters!")
-                    );
-                  } else if (getFieldValue("password") !== value) {
-                    return Promise.reject(
-                      new Error("The re-entered password does not match!")
-                    );
-                  } else {
-                    return Promise.resolve();
-                  }
-                },
-              }),
-            ]}
-          >
-            <Input className="input" placeholder="Comfirm new password" />
-          </Form.Item>
-          <Button className="btn" onClick={handleSubmit}>
-            Set new password
-          </Button>
-          <div className="item-back">
-            <img
-              src="https://creatorhub.ai/static/media/ic_back_to_login.3ec73c33f21abdcfc8ca17859bc90f95.svg"
-              alt=""
+      <FormChangePassword>
+        <ContentForm>
+          <TitleForm>
+            <ImageGeneral src={logo} alt="" />
+            <SetNewPassword>Set new password</SetNewPassword>
+          </TitleForm>
+          <StyledFormGroup>
+            <TextFieldController
+              fullWidth
+              errors={errors}
+              name="password"
+              control={control}
+              rules={validatePassword}
+              variant="filled"
+              label="New password"
+              type={showPassword ? TextFieldType.TEXT : TextFieldType.PASSWORD}
+              InputProps={{
+                endAdornment: (
+                  <PasswordVisibilityToggle
+                    showPassword={showPassword}
+                    setShowPassword={setShowPassword}
+                  />
+                ),
+              }}
             />
-            <div onClick={() => navigate("/sign-in")}>Back to signin</div>
-          </div>
-          <div className="visionlab">VisionLab., Inc</div>
-        </div>
+            <TextFieldController
+              fullWidth
+              errors={errors}
+              name="confirm"
+              control={control}
+              type={showConfirm ? TextFieldType.TEXT : TextFieldType.PASSWORD}
+              rules={{
+                required: "Please enter your password!",
+                validate: (value: string) =>
+                  value === watch("password") || "Passwords do not match",
+              }}
+              variant="filled"
+              label="Confirm new password"
+              InputProps={{
+                endAdornment: (
+                  <PasswordVisibilityToggle
+                    showPassword={showConfirm}
+                    setShowPassword={setShowConfirm}
+                  />
+                ),
+              }}
+            />
+          </StyledFormGroup>
+
+          <ButtonGeneral onClick={handleSubmit(submitForm)} className="btn">
+            Set new password
+          </ButtonGeneral>
+          <ItemBack onClick={() => navigate("/sign-in")}>
+            <ImageGeneral src={iconBack} alt="" />
+            <BackToSigIn>Back to sign In</BackToSigIn>
+          </ItemBack>
+          <VisionLab>VisionLab., Inc</VisionLab>
+        </ContentForm>
       </FormChangePassword>
     </WrapperChangePassword>
   );

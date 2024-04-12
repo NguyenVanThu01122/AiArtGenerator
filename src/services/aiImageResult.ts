@@ -1,3 +1,4 @@
+import { APIs } from "./configs/api";
 import { privateAxios } from "./configs/axios";
 
 export interface paramsType {
@@ -6,12 +7,12 @@ export interface paramsType {
   sortDate: string;
 }
 export const getListImageAi = (params: paramsType) =>
-  privateAxios.get("/store", {
+  privateAxios.get(APIs.STORE, {
     params,
   });
 
 export const deleteImageAi = (listId: string) =>
-  privateAxios.delete("/store", {
+  privateAxios.delete(APIs.STORE, {
     params: {
       idArr: listId,
     },
