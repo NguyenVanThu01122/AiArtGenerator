@@ -1,6 +1,6 @@
-import { Box } from "@mui/material";
-import { Carousel } from "antd";
-import styled from "styled-components";
+import { Box } from '@mui/material'
+import { Carousel } from 'antd'
+import styled from 'styled-components'
 
 export const WrapperHome = styled.div`
   width: 100%;
@@ -55,7 +55,7 @@ export const WrapperHome = styled.div`
   @media screen and (max-width: 768pcustom-btnx) {
     gap: 90px;
   }
-`;
+`
 
 export const BoxContent = styled.div`
   padding: 20px 20px 0px 20px;
@@ -66,7 +66,7 @@ export const BoxContent = styled.div`
     gap: 60px;
     padding: 15px 15px 0px 15px;
   }
-`;
+`
 
 export const ItemCarousel = styled(Carousel)`
   width: 100%;
@@ -185,10 +185,10 @@ export const ItemCarousel = styled(Carousel)`
       }
     }
   }
-`;
+`
 
 export const SectionContents = styled.div`
-  width: 90%;
+  width: 94%;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -242,7 +242,7 @@ export const SectionContents = styled.div`
       }
     }
   }
-`;
+`
 
 export const ContainerProducts = styled.div`
   .list-products {
@@ -269,7 +269,21 @@ export const ContainerProducts = styled.div`
         }
       }
       .contents-products {
+        height: 80px;
         margin: 15px 0px;
+        overflow-y: auto;
+        &::-webkit-scrollbar-thumb {
+          border-radius: 5px;
+        }
+        &::-webkit-scrollbar {
+          width: 1px;
+        }
+        &::-webkit-scrollbar-track {
+          background-color: transparent; //Màu của vùng cuộn
+        }
+        &::-webkit-scrollbar-thumb {
+          background: linear-gradient(217deg, #e250e5, #4b50e6);
+        }
         & > div:first-child {
           color: var(--text-color);
           font-size: 17px;
@@ -326,12 +340,12 @@ export const ContainerProducts = styled.div`
       }
     }
   }
-`;
+`
 
-export const TitleItem = styled.div``;
+export const TitleItem = styled.div``
 
 export const ContainerBenefits = styled(Box)`
-  padding: 50px;
+  padding: 40px 20px;
   border-radius: 10px;
   .title {
     width: 80%;
@@ -369,7 +383,7 @@ export const ContainerBenefits = styled(Box)`
     .detail-benefit {
       position: relative;
       border-radius: 12px;
-      padding: 24px;
+      padding: 20px;
       cursor: pointer;
       background: #141420;
       .empty-box {
@@ -409,14 +423,11 @@ export const ContainerBenefits = styled(Box)`
         & > div:first-child {
           margin: 10px 0px 16px 0px;
           color: #fff;
-          font-size: 18px;
           font-weight: 700;
           line-height: 24px; /* 133.333% */
         }
         & > div:last-child {
           color: #d2d2d2;
-          font-size: 16px;
-          font-weight: 400;
           line-height: 24px; /* 150% */
         }
       }
@@ -441,7 +452,7 @@ export const ContainerBenefits = styled(Box)`
       gap: 20px;
     }
   }
-`;
+`
 
 export const ContainerTestimonials = styled.div`
   .list-testimonials {
@@ -457,7 +468,7 @@ export const ContainerTestimonials = styled.div`
       gap: 20px;
     }
   }
-`;
+`
 
 export const TestimonialBox = styled(Box)`
   border-radius: 10px;
@@ -494,10 +505,10 @@ export const TestimonialBox = styled(Box)`
       line-height: 150%; /* 18px */
     }
   }
-`;
+`
 
 export const LastItem = styled.div`
-  background-image: url("https://creatorhub.ai/static/media/ready-start-bg.c80579052a6e6eeee38e.png");
+  background-image: url('https://creatorhub.ai/static/media/ready-start-bg.c80579052a6e6eeee38e.png');
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
@@ -553,4 +564,4 @@ export const LastItem = styled.div`
       width: 100% !important;
     }
   }
-`;
+`

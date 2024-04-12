@@ -61,7 +61,6 @@ function AiImageResult() {
     limit,
     total
   );
-
   const getListResultImage = () => {
     if (handleCheckLogin()) return;
     const params: paramsType = {

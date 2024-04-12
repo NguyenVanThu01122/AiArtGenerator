@@ -1,4 +1,4 @@
-import { useColorScheme } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ButtonGeneral from "../../components/Ui/button";
@@ -34,7 +34,7 @@ export type TypeMode = "light" | "dark" | "system";
 export function MyAccount() {
   const users = useSelector((state: RootState) => state.app.user);
   const navigate = useNavigate();
-  const { mode } = useColorScheme();
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
@@ -60,11 +60,11 @@ export function MyAccount() {
       </ContentUsers>
 
       <SectionProfile sx={{ bgcolor: "info.main" }}>
-        <ProfileDetail>Profile Details</ProfileDetail>
+        <ProfileDetail>{t("Profile Detail")}</ProfileDetail>
         <ContentProfile>
           <LabelProfile>
-            <FullName>Full Name</FullName>
-            <EmailLabel>Email</EmailLabel>
+            <FullName>{t("Full Name")}</FullName>
+            <EmailLabel>{t("Email")}</EmailLabel>
           </LabelProfile>
           <GroupInfoName>
             <NameText>
@@ -76,11 +76,10 @@ export function MyAccount() {
         </ContentProfile>
       </SectionProfile>
       <ButtonGeneral
+        i18nKey="SIGN_OUT"
         className="btn-signOut"
         onClick={() => navigate("/sign-in")}
-      >
-        Sign Out
-      </ButtonGeneral>
+      />
     </Wrapper>
   );
 }

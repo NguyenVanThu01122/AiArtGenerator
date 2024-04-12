@@ -1,5 +1,5 @@
-import { LoadingButton } from "@mui/lab";
-import styled from "styled-components";
+import { LoadingButton } from '@mui/lab'
+import styled from 'styled-components'
 
 export const WrapperAIBackgroundChanger = styled.div`
   width: 100%;
@@ -22,11 +22,14 @@ export const WrapperAIBackgroundChanger = styled.div`
   @media screen and (max-width: 768px) {
     padding: 15px;
   }
-`;
+`
 
 export const ContainerContent = styled.div`
   padding: 20px 20px 0px 20px;
-`;
+  @media screen and (max-width: 768px) {
+    padding: 20px 0px;
+  }
+`
 export const BoxResult = styled.div`
   .btn-download {
     width: 200px;
@@ -55,7 +58,7 @@ export const BoxResult = styled.div`
       width: 100%;
     }
   }
-`;
+`
 
 export const ItemBack = styled.div`
   display: flex;
@@ -68,20 +71,20 @@ export const ItemBack = styled.div`
   @media screen and (max-width: 768px) {
     margin-bottom: 30px;
   }
-`;
+`
 
 export const ImageResult = styled.div`
   border: 1px solid white;
   margin: auto;
   max-width: 450px;
-  background-image: url("https://t3.ftcdn.net/jpg/03/76/74/78/360_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg");
+  background-image: url('https://t3.ftcdn.net/jpg/03/76/74/78/360_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   .img-result {
     width: 100%;
     margin-bottom: -5px;
   }
-`;
+`
 
 export const BackGenerate = styled.div`
   color: var(--text-color);
@@ -90,7 +93,7 @@ export const BackGenerate = styled.div`
   @media screen and (max-width: 768px) {
     font-size: 14px !important;
   }
-`;
+`
 
 export const BoxUploadImage = styled.div`
   display: flex;
@@ -99,7 +102,7 @@ export const BoxUploadImage = styled.div`
     flex-direction: column;
     gap: 10px;
   }
-`;
+`
 
 export const ItemBackgroundChange = styled.div`
   width: 56%;
@@ -112,7 +115,7 @@ export const ItemBackgroundChange = styled.div`
     width: 100%;
     padding: 0px;
   }
-`;
+`
 
 export const SectionContent = styled.div`
   padding: 13px;
@@ -124,18 +127,14 @@ export const SectionContent = styled.div`
     padding: 0px;
     padding-top: 10px;
   }
-`;
+`
 
 export const TitlePage = styled.div`
-  background: linear-gradient(
-    190deg,
-    rgb(252, 128, 255) 0%,
-    rgb(123, 127, 255) 100%
-  );
+  background: linear-gradient(190deg, rgb(252, 128, 255) 0%, rgb(123, 127, 255) 100%);
   -webkit-background-clip: text; /* Sử dụng tiền tố -webkit- cho trình duyệt Safari */
   background-clip: text;
   color: transparent; /* Đặt màu chữ thành trong suốt */
-  font-family: "GT Walsheim Pro", sans-serif;
+  font-family: 'GT Walsheim Pro', sans-serif;
   font-size: 20px;
   font-weight: 600;
   line-height: 150%;
@@ -146,25 +145,21 @@ export const TitlePage = styled.div`
       font-size: 21px;
     }
   }
-`;
+`
 
 export const TextContent = styled.div`
   position: relative;
-`;
+`
 
 export const ContentHeader = styled.div`
   color: var(--text-color);
-  font-family: "GT Walsheim Pro", san, sans-serif;
+  font-family: 'GT Walsheim Pro', san, sans-serif;
   font-size: 35px;
   font-weight: 700;
   line-height: 120%;
   span {
     margin-left: 6px;
-    background: linear-gradient(
-      190deg,
-      rgb(252, 128, 255) 0%,
-      rgb(123, 127, 255) 100%
-    );
+    background: linear-gradient(190deg, rgb(252, 128, 255) 0%, rgb(123, 127, 255) 100%);
     -webkit-background-clip: text; /* Sử dụng tiền tố -webkit- cho trình duyệt Safari */
     background-clip: text;
     color: transparent; /* Đặt màu chữ thành trong suốt */
@@ -174,7 +169,7 @@ export const ContentHeader = styled.div`
     top: -15px;
     left: 55%;
   }
-`;
+`
 
 export const AdditionalInfo = styled.div`
   color: var(--text-color);
@@ -184,7 +179,7 @@ export const AdditionalInfo = styled.div`
   @media screen and (max-width: 768px) {
     font-size: 14px;
   }
-`;
+`
 
 export const ChangeItem = styled.div`
   width: 25%;
@@ -201,38 +196,33 @@ export const ChangeItem = styled.div`
   @media screen and (max-width: 768px) {
     width: 130px;
   }
-`;
+`
 
 export const SectionUploadImage = styled.div<{
-  fileUpload: any;
-  loading: boolean;
+  fileUpload: any
+  loading: boolean
 }>`
   height: 195px;
   position: relative;
   text-align: center;
   border-radius: 12px;
-  background: linear-gradient(
-    225deg,
-    rgba(108, 63, 164, 0.25) 0%,
-    rgba(246, 238, 255, 0.05) 100%
-  );
-  padding: ${(props) => (props.fileUpload ? "0px" : "35px")};
+  background: linear-gradient(225deg, rgba(108, 63, 164, 0.25) 0%, rgba(246, 238, 255, 0.05) 100%);
+  padding: ${(props) => (props.fileUpload ? '0px' : '35px')};
   border: ${(props) =>
     props.loading && props.fileUpload
-      ? "none"
+      ? 'none'
       : props.fileUpload
-      ? "2px solid rgb(164, 120, 219)"
-      : "2px dashed rgb(164, 120, 219)"};
+        ? '2px solid rgb(164, 120, 219)'
+        : '2px dashed rgb(164, 120, 219)'};
   &:hover {
-    filter: ${(props) => props.fileUpload && "brightness(0.6)"};
-    background-color: ${(props) =>
-      props.fileUpload ? "rgba(108, 63, 164, 0.25)" : "transparent"};
+    filter: ${(props) => props.fileUpload && 'brightness(0.6)'};
+    background-color: ${(props) => (props.fileUpload ? 'rgba(108, 63, 164, 0.25)' : 'transparent')};
   }
   @media screen and (max-width: 768px) {
     height: 140px;
-    padding: ${(props) => (props.fileUpload ? "0px" : "15px")};
+    padding: ${(props) => (props.fileUpload ? '0px' : '15px')};
   }
-`;
+`
 
 export const Uploaded = styled.div`
   position: relative;
@@ -253,7 +243,7 @@ export const Uploaded = styled.div`
       height: 100%;
     }
   }
-`;
+`
 
 export const ItemLoading = styled.div`
   height: 100%;
@@ -273,10 +263,10 @@ export const ItemLoading = styled.div`
     margin: auto;
     object-fit: cover;
   }
-`;
+`
 
 export const BoxChange = styled.div<{ loading: boolean }>`
-  display: ${(props) => props.loading && "none"} !important;
+  display: ${(props) => props.loading && 'none'} !important;
   .icon-cancel {
     cursor: pointer;
     position: absolute;
@@ -293,7 +283,7 @@ export const BoxChange = styled.div<{ loading: boolean }>`
       width: 30px;
     }
   }
-`;
+`
 
 export const InputFile = styled.input`
   opacity: 0;
@@ -303,7 +293,7 @@ export const InputFile = styled.input`
   width: 100%;
   height: 100%;
   cursor: pointer;
-`;
+`
 
 export const TextChange = styled.div`
   padding: 10px;
@@ -319,9 +309,9 @@ export const TextChange = styled.div`
       font-size: 12px;
     }
   }
-`;
+`
 
-export const ChangePhoto = styled.div``;
+export const ChangePhoto = styled.div``
 
 export const NotUploaded = styled.div`
   img {
@@ -340,19 +330,19 @@ export const NotUploaded = styled.div`
       object-fit: contain;
     }
   }
-`;
+`
 
-export const FormatInfo = styled.div``;
+export const FormatInfo = styled.div``
 
 export const TextFormat = styled.div`
   margin-bottom: 6px;
   font-weight: bold;
   color: var(--text-color);
   @media screen and (max-width: 768px) {
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 900;
   }
-`;
+`
 
 export const FormatFile = styled.div`
   font-size: 14px;
@@ -360,7 +350,7 @@ export const FormatFile = styled.div`
   @media screen and (max-width: 768px) {
     font-size: 10px;
   }
-`;
+`
 
 export const StyledButton = styled(LoadingButton)<{ fileUpload: any }>`
   height: 45px;
@@ -379,7 +369,7 @@ export const StyledButton = styled(LoadingButton)<{ fileUpload: any }>`
   font-size: 16px !important;
   font-weight: 600 !important;
   line-height: 100% !important;
-  filter: ${(props) => !props.fileUpload && "brightness(0.5)"};
+  filter: ${(props) => !props.fileUpload && 'brightness(0.5)'};
   &:hover {
     filter: brightness(0.7);
   }
@@ -395,7 +385,7 @@ export const StyledButton = styled(LoadingButton)<{ fileUpload: any }>`
     margin-bottom: 12px;
     gap: 10px;
   }
-`;
+`
 
 export const ItemImage = styled.div`
   width: 44%;
@@ -407,4 +397,4 @@ export const ItemImage = styled.div`
   @media screen and (max-width: 768px) {
     width: 100%;
   }
-`;
+`

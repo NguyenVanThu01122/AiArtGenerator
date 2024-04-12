@@ -1,9 +1,11 @@
 // import icRight from "../../images/HomePage/";
-import { faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useLocation, useNavigate } from "react-router-dom";
-import FollowSocialMedia from "../../../../components/FollowSocialMedia";
-import { TypeMenuItems } from "../../../../components/Header/components/MobileMenu";
+import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useTranslation } from 'react-i18next'
+import { useLocation, useNavigate } from 'react-router-dom'
+import FollowSocialMedia from '../../../../components/FollowSocialMedia'
+import LanguageSelection from '../../../../components/Header/components/LanguageSelection'
+import { TypeMenuItems } from '../../../../components/Header/components/MobileMenu'
 import {
   ContentMenu,
   ContentSection,
@@ -11,40 +13,41 @@ import {
   MenuItem,
   SectionMenu,
   StyledBox,
-  StyledDrawerMenu,
-} from "../../../../components/Header/components/MobileMenu/styles";
-import ModeToggle from "../../../../components/Header/components/ModeToggle";
-import { LogoCreatorHub } from "../../../../components/LogoCreatorHub";
-import ButtonGeneral from "../../../../components/Ui/button";
-import ImageGeneral from "../../../../components/Ui/image";
-import iconPricing from "../../../../images/ic-pricing.svg";
-import iconHome from "../../../../images/iconHome.svg";
-import { ROUTES } from "../../../../routes/routes";
-import { BoxLogo, GridItem, StyledGrid } from "./styles";
+  StyledDrawerMenu
+} from '../../../../components/Header/components/MobileMenu/styles'
+import ModeToggle from '../../../../components/Header/components/ModeToggle'
+import { LogoCreatorHub } from '../../../../components/LogoCreatorHub'
+import ButtonGeneral from '../../../../components/Ui/button'
+import ImageGeneral from '../../../../components/Ui/image'
+import iconPricing from '../../../../images/ic-pricing.svg'
+import iconHome from '../../../../images/iconHome.svg'
+import { ROUTES } from '../../../../routes/routes'
+import { BoxLogo, GridItem, StyledGrid } from './styles'
 
 export default function HeaderHomePage({
   isOpenMenu,
-  setIsOpenMenu,
+  setIsOpenMenu
 }: {
-  isOpenMenu: boolean;
-  setIsOpenMenu: (value: boolean) => void;
+  isOpenMenu: boolean
+  setIsOpenMenu: (value: boolean) => void
 }) {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const pathName = location.pathname;
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const pathName = location.pathname
 
   // hàm navigate chuyển hướng
   const handleRedirect = (url: string) => {
-    navigate(url);
-    setIsOpenMenu(false);
-  };
+    navigate(url)
+    setIsOpenMenu(false)
+  }
 
-  const handleCloseMenu = () => setIsOpenMenu(false);
+  const handleCloseMenu = () => setIsOpenMenu(false)
 
   const menuItems = [
-    { path: ROUTES.HOME, text: "Home", icon: iconHome },
-    { path: ROUTES.PRICING, text: "Pricing", icon: iconPricing },
-  ];
+    { path: ROUTES.HOME, text: 'HOME', icon: iconHome },
+    { path: ROUTES.PRICING, text: 'PRICING', icon: iconPricing }
+  ]
 
   return (
     <StyledGrid container>
@@ -52,11 +55,7 @@ export default function HeaderHomePage({
         <StyledBox sx={{ width: 300 }}>
           <Header>
             <LogoCreatorHub />
-            <FontAwesomeIcon
-              className="icon-angles"
-              onClick={handleCloseMenu}
-              icon={faAnglesLeft}
-            />
+            <FontAwesomeIcon className='icon-angles' onClick={handleCloseMenu} icon={faAnglesLeft} />
           </Header>
           <ModeToggle />
           <ContentSection>
@@ -64,11 +63,11 @@ export default function HeaderHomePage({
               {menuItems.map((item: TypeMenuItems, index: number) => (
                 <MenuItem
                   key={index}
-                  className={` ${pathName === item.path && "border-item"}`}
+                  className={` ${pathName === item.path && 'border-item'}`}
                   onClick={() => handleRedirect(item.path)}
                 >
                   <ImageGeneral src={item?.icon} />
-                  <ContentMenu>{item?.text}</ContentMenu>
+                  <ContentMenu>{t(item?.text)}</ContentMenu>
                 </MenuItem>
               ))}
             </SectionMenu>
@@ -81,24 +80,21 @@ export default function HeaderHomePage({
         <LogoCreatorHub />
       </BoxLogo>
       <GridItem item>
-        <ButtonGeneral variant="outlined" color="primary">
-          Home
-        </ButtonGeneral>
+        <ButtonGeneral i18nKey='HOME' variant='outlined' color='primary' />
         <ButtonGeneral
+          i18nKey='PRICING'
           onClick={() => handleRedirect(ROUTES.PRICING)}
-          sx={{ marginLeft: "16px" }}
-          color="inherit"
-        >
-          Pricing
-        </ButtonGeneral>
+          sx={{ marginLeft: '16px' }}
+          color='inherit'
+        />
       </GridItem>
+      <LanguageSelection />
       <ButtonGeneral
+        i18nKey='Sign up for free'
         onClick={() => handleRedirect(ROUTES.REGISTER)}
-        variant="contained"
-        color="primary"
-      >
-        Sign up for free
-      </ButtonGeneral>
+        variant='contained'
+        color='primary'
+      />
     </StyledGrid>
-  );
+  )
 }

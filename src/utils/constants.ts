@@ -23,12 +23,12 @@ export const MAX_SIZE_INBYTES = 10 * 1024 * 1024; // giới hạn dung lượng 
 export const ERROR_MESSAGES = {
   SERVER_ERROR: "Server error occurred",
   NETWORK_ERROR: "Unable to connect to the server",
+  CREDIT_DEDUCTION_FAILED: "Credit deduction failed",
   NOTIFICATION_PlEASE_CHOOSE_ANOTHER_PRODUCT:
     "The product is already in the cart. Please choose another product",
   NOTIFICATION_ERROR: "You have no products to delete!",
   PLEASE_ENTER_NOTE: "Please enter a note",
   PLEASE_ENTER_COMPLETE_INFORMATION: "Please enter complete information!",
-  CREDIT_DEDUCTION_FAILED: "Credit deduction failed",
 };
 
 export const SUCCESS_MESSAGE = {
@@ -70,29 +70,4 @@ export const OPTION_LIMIT = [
   { value: "20", label: "20" },
 ];
 
-// export const OPTION_LIMIT = [
-//   { value: 5, label: 5 },
-//   { value: 10, label: 10 },
-//   { value: 15, label: 15 },
-//   { value: 20, label: 20 },
-// ];
 
-// export const ERROR_MESSAGES = {
-//   SERVER_ERROR: "Đã xảy ra lỗi từ máy chủ",
-//   NETWORK_ERROR: "Không thể kết nối đến máy chủ",
-//   NOTIFICATION_PlEASE_CHOOSE_ANOTHER_PRODUCT:
-//     "Sản phẩm đã có trong giỏ hàng. Vui lòng chọn sản phẩm khác",
-//   NOTIFICATION_ERROR: "Bạn không có sản phẩm nào để xóa !",
-//   PLEASE_ENTER_NOTE: "x Vui lòng nhập ghi chú",
-//   PLEASE_ENTER_COMPLETE_INFORMATION: "Vui lòng nhập đầy đủ thông tin !",
-// };
-
-// export const SUCCESS_MESSAGE = {
-//   SUCCESS_LOGIN: "Đăng nhập thành công",
-// };
-
-// export const LOGOUT_MESSAGE = {
-//   LOGOUT_AUTHENTICATION_MESSAGE: "Bạn có chắc chắn muốn đăng xuất không ?",
-// };
-
-// export const NOTIFICATION = "Tính  năng này đang phát triển";

@@ -25,30 +25,12 @@ export const PasswordReset = styled.div`
   .custom-label {
     color: gray;
   }
+
   .MuiOutlinedInput-input {
     color: white;
-    height: 20px;
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%);
   }
-  .custom-input {
-    width: 100%;
-    color: white;
-    padding: 10px;
-    height: 46px;
-    border: none;
-    border-radius: 5px;
-    background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%);
-    &:hover {
-      outline: 1px solid skyblue;
-    }
-    &:focus {
-      outline: 1px solid violet;
-    }
-    &::placeholder {
-      color: gray;
-      font-style: italic;
-    }
-  }
+
   .custom-button {
     margin-top: 20px;
     width: 100%;

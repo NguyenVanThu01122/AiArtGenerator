@@ -11,7 +11,8 @@ export const WrapperHeader = styled.div`
   gap: 10px;
   border-bottom: 1px solid rgb(30, 36, 49);
   .btn-login {
-    width: 100%;
+    width: 110px;
+    height: 36px;
     color: white !important;
     background: linear-gradient(
       190deg,
@@ -25,8 +26,11 @@ export const WrapperHeader = styled.div`
     }
   }
   @media screen and (max-width: 768px) {
-    .custom-button {
-      font-size: 7px;
+    gap: 5px;
+    padding: 0px 8px;
+    .btn-login {
+      font-size: 10px;
+      width: 100%;
       height: 35px;
     }
     background: radial-gradient(black, transparent);
@@ -149,18 +153,14 @@ export const CreditUser = styled.div`
 export const ContainerProfile = styled.div`
   .avatar {
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     object-fit: contain;
     padding: 3px;
     border: 2px solid var(--text-color);
     color: transparent;
     cursor: pointer;
     @media screen and (max-width: 768px) {
-      width: 40px;
-      height: 40px;
-      .avatar {
-      }
     }
   }
 `;

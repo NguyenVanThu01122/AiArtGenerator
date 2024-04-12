@@ -15,9 +15,16 @@ export const WrapperRegister = styled.div`
   }
 `;
 
+export const ItemSidebar = styled.div`
+  width: 53%;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
 export const ContainerRegister = styled.div`
   height: 100%;
-  width: 100%;
+  width: 47%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,6 +45,7 @@ export const ContainerRegister = styled.div`
   }
 
   @media screen and (max-width: 768px) {
+    width: 100%;
     padding: 15px;
     .submit-register {
       margin-top: 0px;
@@ -52,10 +60,26 @@ export const ContainerRegister = styled.div`
 `;
 
 export const BoxContent = styled.div`
-  max-width: 600px;
+  width: 560px;
+  height: 650px;
   padding: 20px;
   box-shadow: 0px 0px 20px 2px gray;
   border: 1px solid gray;
+  overflow-y: auto;
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px !important;
+  }
+  &::-webkit-scrollbar {
+    width: 3px !important;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent !important; //Màu của vùng cuộn
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
+    }
+  }
   @media screen and (max-width: 768px) {
     padding: 10px;
     width: 100%;
@@ -67,23 +91,14 @@ export const SignUpOptions = styled.div`
   }
 `;
 
-export const TitleForm = styled.div`
-  font-size: 45px;
-  font-weight: bold;
-  color: white;
-  @media screen and (max-width: 768px) {
-    font-size: 24px;
-  }
-`;
-
 export const GroupImageGeneral = styled.div`
   display: flex;
   justify-content: center;
   gap: 20px;
   margin: 20px 0px;
   & img {
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     padding: 10px;
     cursor: pointer;
     border-radius: 50%;
@@ -108,28 +123,6 @@ export const GroupImageGeneral = styled.div`
   .icon-facebook {
     background-color: rgb(24, 119, 242);
     box-shadow: 0 0 20px 5px rgb(24, 119, 242);
-  }
-`;
-
-export const GroupSpan = styled.span`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding: 0px 10px;
-  & span {
-    display: block;
-  }
-  & > span:first-child {
-    border-bottom: 1px solid gray;
-    width: 100%;
-  }
-  & > span:nth-child(2) {
-    color: white;
-  }
-  & > span:last-child {
-    border-bottom: 1px solid gray;
-    width: 100%;
   }
 `;
 

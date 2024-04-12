@@ -39,6 +39,7 @@ export default function ModeToggle() {
         className="select-mode"
         sx={{
           width: "145px",
+          height: "38px",
           color: "primary.main",
         }}
       >

@@ -1,6 +1,7 @@
-import FormControl from "@mui/material/FormControl";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import styled from "styled-components";
+import FormControl from '@mui/material/FormControl'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import styled from 'styled-components'
+import { movingGradient } from '../../components/Sidebar/styles'
 
 export const WrapperSignIn = styled.div`
   height: 100vh;
@@ -19,25 +20,19 @@ export const WrapperSignIn = styled.div`
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 100;
   }
-`;
+`
 
 export const BoxSignIn = styled.div`
   height: 100%;
-  width: 100%;
+  width: 47%;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("https://melkior-nguyen.github.io/Portfolio/static/media/bg2.e6fe0abcb2a72bd51eee.jpg");
+  background-image: url('https://melkior-nguyen.github.io/Portfolio/static/media/bg2.e6fe0abcb2a72bd51eee.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   animation: signInAnimation 1s linear;
-
-  & > div:nth-child(2) {
-    font-size: 45px;
-    font-weight: bold;
-    color: white;
-  }
   .group-img {
     display: flex;
     justify-content: center;
@@ -53,7 +48,10 @@ export const BoxSignIn = styled.div`
       &:hover {
         transform: scale(1.2);
         background-color: #03e9f4;
-        box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+        box-shadow:
+          0 0 5px #03e9f4,
+          0 0 25px #03e9f4,
+          0 0 50px #03e9f4,
           0 0 600px #03e9f4;
         -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
         //-webkit-box-reflect: dùng để định nghĩa hiệu ứng phản chiếu
@@ -97,6 +95,7 @@ export const BoxSignIn = styled.div`
   }
   @media screen and (max-width: 768px) {
     padding: 15px;
+    width: 100%;
     .group-img {
       img {
         width: 50px;
@@ -104,29 +103,56 @@ export const BoxSignIn = styled.div`
       }
     }
   }
-`;
+`
 
 export const ContentSignIn = styled.div`
   width: 560px;
-  max-height: 650px;
+  height: 650px;
   padding: 20px;
   box-shadow: 0px 0px 20px 2px gray;
   border: 1px solid gray;
+  overflow-y: auto;
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px !important;
+  }
+  &::-webkit-scrollbar {
+    width: 3px !important;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent !important; //Màu của vùng cuộn
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(217deg, #e250e5, #4b50e6) !important;
+    }
+  }
   @media screen and (max-width: 768px) {
     padding: 20px 10px;
   }
-`;
+`
 
-export const SignInOptions = styled.div``;
+export const SignInOptions = styled.div``
 
 export const TitleForm = styled.div`
-  font-size: 45px;
-  font-weight: bold;
-  color: white;
+  font-size: 35px;
+  font-weight: 800;
+  -webkit-text-fill-color: transparent; //Chữ trong suốt
+  font-family: Barlow, sans-serif;
+  animation: ${movingGradient} 10s linear infinite;
+  background: -webkit-linear-gradient(
+      300deg,
+      rgb(0, 167, 111) 0%,
+      rgb(255, 171, 0) 25%,
+      rgb(0, 167, 111) 50%,
+      rgb(255, 171, 0) 75%,
+      rgb(0, 167, 111) 100%
+    )
+    0% 0% / 400% text; //Màu chữ
+
   @media screen and (max-width: 768px) {
     font-size: 25px;
   }
-`;
+`
 
 export const GroupImageGeneral = styled.div`
   display: flex;
@@ -134,8 +160,8 @@ export const GroupImageGeneral = styled.div`
   gap: 20px;
   margin: 20px 0px;
   & img {
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     padding: 10px;
     cursor: pointer;
     border-radius: 50%;
@@ -144,7 +170,10 @@ export const GroupImageGeneral = styled.div`
       /* box-shadow: 0 0 20px 5px violet; */
       transform: scale(1.2);
       background-color: #03e9f4;
-      box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+      box-shadow:
+        0 0 5px #03e9f4,
+        0 0 25px #03e9f4,
+        0 0 50px #03e9f4,
         0 0 600px #03e9f4;
       -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
     }
@@ -161,7 +190,7 @@ export const GroupImageGeneral = styled.div`
     background-color: rgb(24, 119, 242);
     box-shadow: 0 0 20px 5px rgb(24, 119, 242);
   }
-`;
+`
 
 export const GroupSpan = styled.span`
   display: flex;
@@ -178,12 +207,13 @@ export const GroupSpan = styled.span`
   }
   & > span:nth-child(2) {
     color: white;
+    width: 120px;
   }
   & > span:last-child {
     border-bottom: 1px solid gray;
     width: 100%;
   }
-`;
+`
 
 export const StyledFormControl = styled(FormControl)`
   padding: 0px 10px;
@@ -195,18 +225,14 @@ export const StyledFormControl = styled(FormControl)`
   .MuiOutlinedInput-input {
     color: white;
     padding: 14px;
-    background: radial-gradient(
-      ellipse at bottom,
-      #1b2735 0%,
-      #12141d 100%
-    ) !important;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%) !important;
   }
   /* Thêm class custom */
   .custom-label {
     color: gray;
     font-style: italic;
   }
-`;
+`
 
 export const StyledFormGroup = styled.div`
   height: 180px;
@@ -222,7 +248,7 @@ export const StyledFormGroup = styled.div`
   &::-webkit-scrollbar-track {
     /* background-color: #cccccc; Màu của vùng cuộn */
   }
-`;
+`
 
 export const OptionItem = styled.div`
   display: flex;
@@ -232,7 +258,7 @@ export const OptionItem = styled.div`
   border: 1px dashed gray;
   @media screen and (max-width: 768px) {
   }
-`;
+`
 
 export const ForgotPassword = styled.div`
   font-size: 17px;
@@ -245,7 +271,7 @@ export const ForgotPassword = styled.div`
   @media screen and (max-width: 768px) {
     font-size: 14px;
   }
-`;
+`
 
 export const SubmitItem = styled.div`
   margin-top: 20px;
@@ -253,7 +279,7 @@ export const SubmitItem = styled.div`
   & > div:last-child {
     color: gray;
   }
-`;
+`
 
 export const SubmitSignIn = styled.div`
   height: 50px;
@@ -269,11 +295,14 @@ export const SubmitSignIn = styled.div`
     transform: scale(0.9);
     color: #12141d;
     background-color: #03e9f4;
-    box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+    box-shadow:
+      0 0 5px #03e9f4,
+      0 0 25px #03e9f4,
+      0 0 50px #03e9f4,
       0 0 600px #03e9f4;
     -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
   }
-`;
+`
 
 export const RedirectSignOut = styled.div`
   display: flex;
@@ -288,7 +317,7 @@ export const RedirectSignOut = styled.div`
   @media screen and (max-width: 768px) {
     margin: 20px 0px;
   }
-`;
+`
 
 export const Register = styled.div`
   color: blueviolet;
@@ -299,7 +328,7 @@ export const Register = styled.div`
   &:hover {
     color: red;
   }
-`;
+`
 
 export const StyledFormControlLabel = styled(FormControlLabel)`
   .MuiFormControlLabel-label {
@@ -321,4 +350,4 @@ export const StyledFormControlLabel = styled(FormControlLabel)`
       color: gray;
     }
   }
-`;
+`
