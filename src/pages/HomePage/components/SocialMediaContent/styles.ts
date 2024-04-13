@@ -1,6 +1,10 @@
 import { Box, styled } from '@mui/material'
 
-export const Wrapper = styled('div')(({ theme }) => ({}))
+export const Wrapper = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    marginTop: '50px'
+  }
+}))
 
 export const TitleSocial = styled('div')(({ theme }) => ({
   margin: 'auto',

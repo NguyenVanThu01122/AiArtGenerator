@@ -15,6 +15,7 @@ import {
   ContainerTestimonials,
   ContentGrid,
   CustomImgTestimonial,
+  StyledBox,
   StyledCarousel,
   TestimonialAuthor,
   TestimonialText,
@@ -97,7 +98,7 @@ export function UserTestimonial() {
     }
   }, [])
   return (
-    <Box>
+    <StyledBox>
       <ContainerTestimonials>
         <TitleTestimonial>{t('What Our Users Are Saying')}</TitleTestimonial>
         <ImageGeneral className='quotation' src={quotation} />
@@ -144,6 +145,6 @@ export function UserTestimonial() {
           </Box>
         ))}
       </StyledCarousel>
-    </Box>
+    </StyledBox>
   )
 }

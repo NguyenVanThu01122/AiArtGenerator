@@ -19,7 +19,6 @@ import SocialMediaContent from './components/SocialMediaContent'
 import { UserTestimonial } from './components/UserTestimonial'
 import {
   Address,
-  BoxContent,
   CreatorHup,
   Describe,
   Email,
@@ -30,6 +29,7 @@ import {
   InfoAboutUs,
   InfoMy,
   ItemSocialMedia,
+  MainContent,
   ProjectName,
   ReadyText,
   StyledContainer,
@@ -46,7 +46,7 @@ export function HomePage() {
 
   return (
     <StyledContainer>
-      <BoxContent>
+      <MainContent>
         <HeaderPage>
           <FontAwesomeIcon className='ic-menu' icon={faBars} onClick={showMenu} />
           <HeaderHomePage isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} />
@@ -67,7 +67,7 @@ export function HomePage() {
             />
           </TextFinal>
         </Finalcontent>
-      </BoxContent>
+      </MainContent>
       <InfoAboutUs>
         <ProjectName>
           <ImageGeneral src={logoCreator} />
