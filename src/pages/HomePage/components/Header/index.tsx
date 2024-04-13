@@ -1,6 +1,7 @@
 // import icRight from "../../images/HomePage/";
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Grid from '@mui/material/Grid'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 import FollowSocialMedia from '../../../../components/FollowSocialMedia'
@@ -15,14 +16,13 @@ import {
   StyledBox,
   StyledDrawerMenu
 } from '../../../../components/Header/components/MobileMenu/styles'
-import ModeToggle from '../../../../components/Header/components/ModeToggle'
 import { LogoCreatorHub } from '../../../../components/LogoCreatorHub'
 import ButtonGeneral from '../../../../components/Ui/button'
 import ImageGeneral from '../../../../components/Ui/image'
 import iconPricing from '../../../../images/ic-pricing.svg'
 import iconHome from '../../../../images/iconHome.svg'
 import { ROUTES } from '../../../../routes/routes'
-import { BoxLogo, GridItem, StyledGrid } from './styles'
+import { BoxLanguage, BoxLogo, GridItem, StyledGrid } from './styles'
 
 export default function HeaderHomePage({
   isOpenMenu,
@@ -57,7 +57,7 @@ export default function HeaderHomePage({
             <LogoCreatorHub />
             <FontAwesomeIcon className='icon-angles' onClick={handleCloseMenu} icon={faAnglesLeft} />
           </Header>
-          <ModeToggle />
+          <LanguageSelection />
           <ContentSection>
             <SectionMenu>
               {menuItems.map((item: TypeMenuItems, index: number) => (
@@ -88,13 +88,18 @@ export default function HeaderHomePage({
           color='inherit'
         />
       </GridItem>
-      <LanguageSelection />
-      <ButtonGeneral
-        i18nKey='Sign up for free'
-        onClick={() => handleRedirect(ROUTES.REGISTER)}
-        variant='contained'
-        color='primary'
-      />
+      <Grid item sx={{ display: 'flex', gap: '12px' }}>
+        <BoxLanguage>
+          <LanguageSelection />
+        </BoxLanguage>
+        <ButtonGeneral
+          i18nKey='Sign up for free'
+          onClick={() => handleRedirect(ROUTES.REGISTER)}
+          variant='contained'
+          color='primary'
+          className='btn-sign-up'
+        />
+      </Grid>
     </StyledGrid>
   )
 }

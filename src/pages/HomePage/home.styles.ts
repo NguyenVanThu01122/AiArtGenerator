@@ -29,7 +29,7 @@ export const StyledContainer = styled(Box)(({ theme }) => ({
   }
 }))
 
-export const BoxContent = styled(Box)(({ theme }) => ({
+export const MainContent = styled(Box)(({ theme }) => ({
   padding: ' 25px 20px',
   display: 'flex',
   flexDirection: 'column',
@@ -45,6 +45,7 @@ export const BoxContent = styled(Box)(({ theme }) => ({
 
   [theme.breakpoints.down('sm')]: {
     padding: '0px',
+    gap: '0px',
     '.ic-menu': {
       display: 'block !important'
     }
@@ -67,6 +68,7 @@ export const Finalcontent = styled(Box)(({ theme }) => ({
   backgroundRepeat: 'no-repeat',
   backgroundImage: `url("https://creatorhub.ai/static/media/readyv2.98204507bfb1f69096f6.png?fbclid=IwAR12qB2ly0x9bQxwbvJYpQTG4N02xK5nIFahSqLZLyE7itlJmXWyisZqOs4_aem_AZqQc7MWKnFmPXzoFS-c8LUo8EpAkeeI3uyEiFEx_tATOAeNOdb1iSBpIoobIDDKlXKZ_EBV_0q_BGGiInMm3RWO")`,
   [theme.breakpoints.down('sm')]: {
+    height: '100%',
     padding: '100px 20px',
     paddingBottom: '320px',
     backgroundPositionX: 'center',
@@ -146,15 +148,18 @@ export const CreatorHup = styled('div')({
   letterSpacing: '2px'
 })
 
-export const Address = styled('div')({
+export const Address = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: '10px',
   img: {
     width: '30px',
     height: '30px'
+  },
+  [theme.breakpoints.down('sm')]: {
+    justifyCenter: 'space-between'
   }
-})
+}))
 
 export const Email = styled('div')({
   color: 'white'
