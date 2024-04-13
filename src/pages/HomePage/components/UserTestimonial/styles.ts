@@ -1,6 +1,11 @@
 import { Box, Grid, Typography, styled } from '@mui/material'
 import Carousel from 'react-material-ui-carousel'
 import ImageGeneral from '../../../../components/Ui/image'
+export const StyledBox = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    marginTop: '50px'
+  }
+}))
 
 export const ContainerTestimonials = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -10,6 +15,7 @@ export const ContainerTestimonials = styled(Box)(({ theme }) => ({
     height: '50px'
   },
   [theme.breakpoints.down('sm')]: {
+    marginTop: '500px',
     display: 'none'
   }
 }))

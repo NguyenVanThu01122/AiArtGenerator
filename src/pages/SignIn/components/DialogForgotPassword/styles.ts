@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import DialogCommon from "../../../../components/Ui/dialog";
+import styled from 'styled-components'
+import DialogCommon from '../../../../components/Ui/dialog'
 
 export const DialogPasswordForgot = styled(DialogCommon)`
   .css-ploc9f-MuiPaper-root-MuiDialog-paper {
@@ -9,16 +9,19 @@ export const DialogPasswordForgot = styled(DialogCommon)`
     margin: 0px;
   }
   @media screen and (max-width: 768px) {
+    .css-ploc9f-MuiPaper-root-MuiDialog-paper {
+      padding: 40px 20px;
+    }
   }
-`;
+`
 
 export const ContentForgotPassword = styled.div`
   width: 80%;
   margin: auto;
   @media screen and (max-width: 768px) {
-    width: 90%;
+    width: 100%;
   }
-`;
+`
 
 export const PasswordReset = styled.div`
   margin: 40px 0px;
@@ -39,11 +42,7 @@ export const PasswordReset = styled.div`
     color: white;
     font-weight: bold;
     font-size: 18px;
-    background: linear-gradient(
-      217deg,
-      rgb(226, 80, 229) 0%,
-      rgb(75, 80, 230) 100%
-    );
+    background: linear-gradient(217deg, rgb(226, 80, 229) 0%, rgb(75, 80, 230) 100%);
     &:hover {
       filter: brightness(0.6);
     }
@@ -58,7 +57,7 @@ export const PasswordReset = styled.div`
       font-size: 14px;
     }
   }
-`;
+`
 
 export const ContentText = styled.div`
   color: white;
@@ -68,11 +67,11 @@ export const ContentText = styled.div`
     margin: 0px;
     font-size: 16px;
   }
-`;
+`
 
 export const ItemHeader = styled.div`
   text-align: center;
-`;
+`
 
 export const TitleForgot = styled.div`
   font-weight: bold;
@@ -81,7 +80,7 @@ export const TitleForgot = styled.div`
   @media screen and (max-width: 768px) {
     font-size: 20px;
   }
-`;
+`
 
 export const ItemBack = styled.div`
   cursor: pointer;
@@ -91,13 +90,13 @@ export const ItemBack = styled.div`
   &:hover {
     filter: brightness(0.5);
   }
-`;
+`
 
 export const BackToSignIn = styled.div`
   color: white;
   font-size: 18px;
   font-weight: bold;
-`;
+`
 
 export const ItemVerifyEmail = styled.div`
   margin: 40px 0px;
@@ -139,9 +138,9 @@ export const ItemVerifyEmail = styled.div`
     padding-bottom: 5px;
     border-bottom: 1px solid gray;
   }
-`;
+`
 
 export const SentEmail = styled.div`
   font-size: 40px;
   font-weight: bold;
-`;
+`

@@ -1,10 +1,10 @@
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { Grid } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import ImageGeneral from "../../../../components/Ui/image";
-import iconNoStyle from "../../../../images/icon-no-style.svg";
-import useCarouselScroll from "../../../../utils/useCarouselScroll";
-import { StyleType } from "../../types";
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { Grid } from '@mui/material'
+import Translations from '../../../../components/Translations'
+import ImageGeneral from '../../../../components/Ui/image'
+import iconNoStyle from '../../../../images/icon-no-style.svg'
+import useCarouselScroll from '../../../../utils/useCarouselScroll'
+import { StyleType } from '../../types'
 import {
   ChooseStyleTitle,
   CustomGrid,
@@ -15,30 +15,30 @@ import {
   StyledFontAwesomeIconLeft,
   StyledFontAwesomeIconRight,
   TextContent,
-  Wrapper,
-} from "./styles";
+  Wrapper
+} from './styles'
 interface StyleImageCarouselProps {
-  selectStyle: any;
-  listStyle: StyleType[];
-  handleClickNoneStyle: () => void;
-  handleClickStyle: (item: any) => void;
+  selectStyle: any
+  listStyle: StyleType[]
+  handleClickNoneStyle: () => void
+  handleClickStyle: (item: any) => void
 }
 
 const StyleImageCarousel = ({
   listStyle,
   selectStyle,
   handleClickNoneStyle,
-  handleClickStyle,
+  handleClickStyle
 }: StyleImageCarouselProps) => {
-  const { t } = useTranslation();
-  const { handleScrollCarousel, isScrollAtStart, isScrollAtEnd } =
-    useCarouselScroll(".css-vj1n65-MuiGrid-root");
+  const { handleScrollCarousel, isScrollAtStart, isScrollAtEnd } = useCarouselScroll('.css-vj1n65-MuiGrid-root')
 
   return (
     <Wrapper>
-      <ChooseStyleTitle>{t("Choose your style")}</ChooseStyleTitle>
+      <ChooseStyleTitle>
+        <Translations text={'Choose your style'} />
+      </ChooseStyleTitle>
       <TextContent>
-        {t("We will adjust the image options to the optimal settings.")}
+        <Translations text={'We will adjust the image options to the optimal settings.'} />
       </TextContent>
       <StyledCarousel
         navButtonsAlwaysVisible={true}
@@ -47,7 +47,7 @@ const StyleImageCarousel = ({
         indicators={false}
         autoPlay
         cycleNavigation
-        animation="slide"
+        animation='slide'
         PrevIcon={
           <StyledFontAwesomeIconLeft
             onClick={() => handleScrollCarousel(-800)}
@@ -64,22 +64,19 @@ const StyleImageCarousel = ({
         }
       >
         <CustomGrid>
-          <Grid
-            className={`item-none ${selectStyle === "" && "active-none"}`}
-            onClick={handleClickNoneStyle}
-          >
-            <ImageGeneral src={iconNoStyle} alt="" />
+          <Grid className={`item-none ${selectStyle === '' && 'active-none'}`} onClick={handleClickNoneStyle}>
+            <ImageGeneral src={iconNoStyle} alt='' />
             <None>None</None>
           </Grid>
-          <Grid sx={{ display: "flex" }}>
+          <Grid sx={{ display: 'flex' }}>
             {listStyle?.map((item: StyleType) => (
               <CustomPaper
-                variant="outlined"
+                variant='outlined'
                 square
-                className={`${item?.id === selectStyle?.id && "active-style"}`}
+                className={`${item?.id === selectStyle?.id && 'active-style'}`}
                 onClick={() => handleClickStyle(item)}
               >
-                <ImageGeneral className="image-ai" src={item?.image} />
+                <ImageGeneral className='image-ai' src={item?.image} />
                 <NameStyle>{item?.name}</NameStyle>
               </CustomPaper>
             ))}
@@ -87,7 +84,7 @@ const StyleImageCarousel = ({
         </CustomGrid>
       </StyledCarousel>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default StyleImageCarousel;
+export default StyleImageCarousel

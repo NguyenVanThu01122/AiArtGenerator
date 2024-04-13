@@ -65,7 +65,8 @@ export const StyledGridContent = styled(Grid)(({ theme }) => ({
   justifyContent: 'space-between',
   marginTop: '50px',
   [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    height: '700px'
   }
 }))
 

@@ -1,12 +1,12 @@
-import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import ButtonGeneral from "../../components/Ui/button";
-import ImageGeneral from "../../components/Ui/image";
-import iconAvatar from "../../images/MyAccount/avatar_25.jpg";
-import icCredits from "../../images/MyAccount/icon-credit.svg";
-import icEmail from "../../images/MyAccount/icon-email.svg";
-import { RootState } from "../../reduxToolkit/Slices/RootReducer";
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import ButtonGeneral from '../../components/Ui/button'
+import ImageGeneral from '../../components/Ui/image'
+import iconAvatar from '../../images/MyAccount/avatar_25.jpg'
+import icCredits from '../../images/MyAccount/icon-credit.svg'
+import icEmail from '../../images/MyAccount/icon-email.svg'
+import { RootState } from '../../reduxToolkit/Slices/RootReducer'
+import { useLogout } from '../../utils/useLogout'
 import {
   AddressWrapper,
   ContentCredits,
@@ -28,18 +28,18 @@ import {
   ProfileDetail,
   SectionProfile,
   UserName,
-  Wrapper,
-} from "./styles";
-export type TypeMode = "light" | "dark" | "system";
+  Wrapper
+} from './styles'
+export type TypeMode = 'light' | 'dark' | 'system'
 export function MyAccount() {
-  const users = useSelector((state: RootState) => state.app.user);
-  const navigate = useNavigate();
-  const { t } = useTranslation();
+  const users = useSelector((state: RootState) => state.app.user)
+  const handleLogout = useLogout()
+  const { t } = useTranslation()
 
   return (
     <Wrapper>
-      <ContentUsers sx={{ bgcolor: "info.main" }}>
-        <ImageAvatar src={users?.avatar || iconAvatar} alt="avatar" />
+      <ContentUsers sx={{ bgcolor: 'info.main' }}>
+        <ImageAvatar src={users?.avatar || iconAvatar} alt='avatar' />
         <InformationUsers>
           <UserName>
             <LastName>{users?.lastName}</LastName>
@@ -47,11 +47,11 @@ export function MyAccount() {
           </UserName>
           <AddressWrapper>
             <ContentEmail>
-              <ImageGeneral src={icEmail} alt="" />
+              <ImageGeneral src={icEmail} alt='' />
               <EmailUser>{users?.email}</EmailUser>
             </ContentEmail>
             <ContentCredits>
-              <ImageGeneral src={icCredits} alt="" />
+              <ImageGeneral src={icCredits} alt='' />
               <CreditsNumber>{users?.credits}</CreditsNumber>
               <CreditsText>Credits</CreditsText>
             </ContentCredits>
@@ -59,12 +59,12 @@ export function MyAccount() {
         </InformationUsers>
       </ContentUsers>
 
-      <SectionProfile sx={{ bgcolor: "info.main" }}>
-        <ProfileDetail>{t("Profile Detail")}</ProfileDetail>
+      <SectionProfile sx={{ bgcolor: 'info.main' }}>
+        <ProfileDetail>{t('Profile Detail')}</ProfileDetail>
         <ContentProfile>
           <LabelProfile>
-            <FullName>{t("Full Name")}</FullName>
-            <EmailLabel>{t("Email")}</EmailLabel>
+            <FullName>{t('Full Name')}</FullName>
+            <EmailLabel>{t('Email')}</EmailLabel>
           </LabelProfile>
           <GroupInfoName>
             <NameText>
@@ -75,11 +75,7 @@ export function MyAccount() {
           </GroupInfoName>
         </ContentProfile>
       </SectionProfile>
-      <ButtonGeneral
-        i18nKey="SIGN_OUT"
-        className="btn-signOut"
-        onClick={() => navigate("/sign-in")}
-      />
+      <ButtonGeneral i18nKey='SIGN_OUT' className='btn-signOut' onClick={handleLogout} />
     </Wrapper>
-  );
+  )
 }

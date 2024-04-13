@@ -1,16 +1,16 @@
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import SentEmailDialog from "../../../../components/SentEmailDialog";
-import TextFieldController from "../../../../components/Ui/TextFieldController ";
-import ButtonGeneral from "../../../../components/Ui/button";
-import CloseButton from "../../../../components/Ui/closeButton";
-import ImageGeneral from "../../../../components/Ui/image";
-import { TextFieldType } from "../../../../components/Ui/textFieldCommon";
-import iconBack from "../../../../images/ic-back.svg";
-import iconLogin from "../../../../images/iconLogin.png";
-import { forgotPassword } from "../../../../services/auth";
-import { validateEmail } from "../../../../utils/validationRules";
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
+import SentEmailDialog from '../../../../components/SentEmailDialog'
+import TextFieldController from '../../../../components/Ui/TextFieldController '
+import ButtonGeneral from '../../../../components/Ui/button'
+import CloseButton from '../../../../components/Ui/closeButton'
+import ImageGeneral from '../../../../components/Ui/image'
+import { TextFieldType } from '../../../../components/Ui/textFieldCommon'
+import iconBack from '../../../../images/ic-back.svg'
+import iconLogin from '../../../../images/iconLogin.png'
+import { forgotPassword } from '../../../../services/auth'
+import { validateEmail } from '../../../../utils/validationRules'
 import {
   BackToSignIn,
   ContentForgotPassword,
@@ -19,107 +19,93 @@ import {
   ItemBack,
   ItemHeader,
   PasswordReset,
-  TitleForgot,
-} from "./styles";
+  TitleForgot
+} from './styles'
 interface FormData {
-  Email?: string;
+  Email?: string
 }
 
 export const DialogForgotPassword = ({
   setIsModalPassword,
   isModalPassword,
   setIsForgotPassword,
-  isForgotPassword,
+  isForgotPassword
 }: {
-  isForgotPassword: boolean;
-  isModalPassword: boolean;
-  setIsModalPassword: (value: boolean) => void;
-  setIsForgotPassword: (value: boolean) => void;
+  isForgotPassword: boolean
+  isModalPassword: boolean
+  setIsModalPassword: (value: boolean) => void
+  setIsForgotPassword: (value: boolean) => void
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const {
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
-    mode: "onChange",
-  });
+    mode: 'onChange'
+  })
 
   const handleResetPassword = (value: FormData) => {
-    const email = value.Email as string | undefined;
+    const email = value.Email as string | undefined
     if (!email) {
-      return;
+      return
     }
     const body = {
       email,
-      redirectUrl: "http://localhost:3000/change-password", // link reset password
-    };
+      redirectUrl: 'http://localhost:3000/change-password' // link reset password
+    }
     forgotPassword(body)
       .then((res) => {
-        setIsForgotPassword(false);
+        setIsForgotPassword(false)
       })
-      .catch((error) => toast.error(error.response.data?.message));
-  };
+      .catch((error) => toast.error(error.response.data?.message))
+  }
 
   // hủy bỏ modal quên password
   const CancelModalForgotPassword = () => {
-    setIsModalPassword(false);
-    setIsForgotPassword(false);
-    reset();
-  };
+    setIsModalPassword(false)
+    setIsForgotPassword(false)
+    reset()
+  }
 
-  const handleTryAgain = () => setIsForgotPassword(true);
+  const handleTryAgain = () => setIsForgotPassword(true)
 
   return (
-    <DialogPasswordForgot
-      open={isModalPassword}
-      onClose={CancelModalForgotPassword}
-    >
+    <DialogPasswordForgot open={isModalPassword} onClose={CancelModalForgotPassword}>
       <CloseButton handleClose={CancelModalForgotPassword} />
       {isForgotPassword ? (
         <ContentForgotPassword>
           <ItemHeader>
-            <ImageGeneral src={iconLogin} alt="" />
-            <TitleForgot>{t("Forgot your password?")}</TitleForgot>
+            <ImageGeneral src={iconLogin} alt='' />
+            <TitleForgot>{t('Forgot your password?')}</TitleForgot>
           </ItemHeader>
           <PasswordReset>
-            <ContentText>
-              {t(
-                "Enter your email and we'll send you a link to reset your password"
-              )}
-            </ContentText>
+            <ContentText>{t("Enter your email and we'll send you a link to reset your password")}</ContentText>
             <TextFieldController
-              name="Email"
+              name='Email'
               type={TextFieldType.EMAIL}
               control={control}
               errors={errors}
               fullWidth
-              margin="normal"
-              defaultValue=""
-              variant="outlined"
+              margin='normal'
+              defaultValue=''
+              variant='outlined'
               rules={validateEmail}
-              label={t("Please enter email address")}
+              label={t('Please enter email address')}
             />
-            <ButtonGeneral
-              className="custom-button"
-              onClick={handleSubmit(handleResetPassword)}
-            >
-              {t("Request Password Reset")}
+            <ButtonGeneral className='custom-button' onClick={handleSubmit(handleResetPassword)}>
+              {t('Request Password Reset')}
             </ButtonGeneral>
           </PasswordReset>
           <ItemBack onClick={CancelModalForgotPassword}>
-            <ImageGeneral src={iconBack} alt="" />
-            <BackToSignIn>{t("Back to sign in")}</BackToSignIn>
+            <ImageGeneral src={iconBack} alt='' />
+            <BackToSignIn>{t('Back to sign in')}</BackToSignIn>
           </ItemBack>
         </ContentForgotPassword>
       ) : (
-        <SentEmailDialog
-          open={isModalPassword}
-          onClose={CancelModalForgotPassword}
-          handleTryAgain={handleTryAgain}
-        />
+        <SentEmailDialog open={isModalPassword} onClose={CancelModalForgotPassword} handleTryAgain={handleTryAgain} />
       )}
     </DialogPasswordForgot>
-  );
-};
+  )
+}
