@@ -1,5 +1,5 @@
 import { ThunkDispatch } from '@reduxjs/toolkit'
-import { Suspense, lazy, useEffect, useState } from 'react'
+import { Suspense, lazy, useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { AnyAction } from 'redux'
@@ -31,7 +31,7 @@ function AiArtGenerator() {
   const [prompt, setPrompt] = useState('')
   const [resultImage, setResultImage] = useState('')
   const [negativePrompt, setNegativePrompt] = useState('')
-  const [selectStyle, setSelectStyle] = useState<any>({})
+  const [selectStyle, setSelectStyle] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(false)
   const { handleUploadImage, fileUpload, uploadImage, setFileUpload, setUploadImage } = useUploadFile()
 
@@ -47,23 +47,23 @@ function AiArtGenerator() {
   }, [])
 
   // hàm click style imageAiArt
-  const handleClickStyle = (style: { config: TypeConfig }) => {
+  const handleClickStyle = useCallback((style: { config: TypeConfig }) => {
     setSelectStyle(style)
     setSliderValueAlpha(style.config.alpha)
     setSliderValueSteps(style.config.numInferenceSteps)
     setSliderValueScale(style.config.guidanceScale)
-  }
+  }, [])
 
   // hàm click item none
-  const handleClickNoneStyle = () => {
-    setSelectStyle('')
+  const handleClickNoneStyle = useCallback(() => {
+    setSelectStyle(null)
     setSliderValueAlpha(DEFAULT_ALPHA)
     setSliderValueSteps(DEFAULT_STEPS)
     setSliderValueScale(DEFAULT_SCALE)
-  }
+  }, [])
 
   // hàm back
-  const handleBack = () => {
+  const handleBack = useCallback(() => {
     dispatch(uploadFile(false))
     setFileUpload(undefined)
     setResultImage('')
@@ -71,10 +71,38 @@ function AiArtGenerator() {
     setNegativePrompt('')
     setPrompt('')
     handleClickNoneStyle()
-  }
+  }, [dispatch, handleClickNoneStyle, setFileUpload, setUploadImage])
+
+  // Thêm các thông điệp vào formData
+  const appendPromptsToFormData = useCallback(
+    (formData: FormData) => {
+      if (prompt.trim()) {
+        formData.append(
+          'positivePrompt',
+          selectStyle ? prompt.trim() + ',' + selectStyle?.config?.positivePrompt : prompt.trim()
+        )
+      } else {
+        if (selectStyle) {
+          formData.append('positivePrompt', selectStyle?.config?.positivePrompt)
+        }
+      }
+      if (negativePrompt.trim()) {
+        if (selectStyle) {
+          formData.append('negativePrompt', negativePrompt.trim() + ', ' + selectStyle?.config?.negativePrompt)
+        } else {
+          formData.append('negativePrompt', negativePrompt.trim())
+        }
+      } else {
+        if (selectStyle) {
+          formData.append('negativePrompt', selectStyle?.config?.negativePrompt)
+        }
+      }
+    },
+    [prompt, negativePrompt, selectStyle]
+  )
 
   // Chuẩn bị dữ liệu form để gửi lên server
-  const prepareFormData = () => {
+  const prepareFormData = useCallback(() => {
     const formData = new FormData()
     if (fileUpload) {
       formData.append('file', fileUpload)
@@ -87,37 +115,13 @@ function AiArtGenerator() {
     formData.append('guidanceScale', sliderValueScale.toString())
     formData.append('numInferenceSteps', sliderValueSteps.toString())
     return formData
-  }
-
-  // Thêm các thông điệp vào formData
-  const appendPromptsToFormData = (formData: FormData) => {
-    if (prompt.trim()) {
-      formData.append(
-        'positivePrompt',
-        selectStyle ? prompt.trim() + ',' + selectStyle?.config?.positivePrompt : prompt.trim()
-      )
-    } else {
-      if (selectStyle) {
-        formData.append('positivePrompt', selectStyle?.config?.positivePrompt)
-      }
-    }
-    if (negativePrompt.trim()) {
-      if (selectStyle) {
-        formData.append('negativePrompt', negativePrompt.trim() + ', ' + selectStyle?.config?.negativePrompt)
-      } else {
-        formData.append('negativePrompt', negativePrompt.trim())
-      }
-    } else {
-      if (selectStyle) {
-        formData.append('negativePrompt', selectStyle?.config?.negativePrompt)
-      }
-    }
-  }
+  }, [fileUpload, selectStyle, appendPromptsToFormData, sliderValueAlpha, sliderValueScale, sliderValueSteps])
 
   // Trừ credits và lưu kết quả hình ảnh
-  const deductCreditsAndSaveResult = async (base64ImageString: string) => {
-    deductCreditsAiArt()
-      .then(async (res) => {
+  const deductCreditsAndSaveResult = useCallback(
+    async (base64ImageString: string) => {
+      try {
+        const res = await deductCreditsAiArt()
         toast.success(res.data.message || 'Success!')
         getUser() // cập nhật lại credit
         const body = {
@@ -132,14 +136,15 @@ function AiArtGenerator() {
           }
         }
         await saveResultImageAi(body) // lưu kết quả hình ảnh
-      })
-      .catch((error) => {
+      } catch (error: any) {
         toast.error(error.response?.data?.message || <Translations text={ERROR_MESSAGES.SERVER_ERROR} />)
-      })
-  }
+      }
+    },
+    [getUser, sliderValueSteps, selectStyle?.name, sliderValueAlpha, sliderValueScale, prompt, negativePrompt]
+  )
 
   // hàm create Image AiArt
-  const handleGenerate = async () => {
+  const handleGenerate = useCallback(async () => {
     if (handleCheckLogin()) {
       return
     }
@@ -150,17 +155,16 @@ function AiArtGenerator() {
     setIsLoading(true)
     const formData = prepareFormData()
     try {
-      generateAiImage(formData).then(async (res) => {
-        const base64ImageString = await convertImageToBase64(res.data)
-        setResultImage(base64ImageString)
-        setIsLoading(false)
-        deductCreditsAndSaveResult(base64ImageString) // Trừ credits và lưu kết quả hình ảnh
-      })
+      const res = await generateAiImage(formData)
+      const base64ImageString = await convertImageToBase64(res.data)
+      setResultImage(base64ImageString)
+      setIsLoading(false)
+      await deductCreditsAndSaveResult(base64ImageString) // Trừ credits và lưu kết quả hình ảnh
     } catch (error) {
       toast.error('Error. Please try again.')
       setIsLoading(false)
     }
-  }
+  }, [handleCheckLogin, handleCheckCredit, user?.credits, setIsLoading, prepareFormData, deductCreditsAndSaveResult])
 
   return (
     <WrapperAiArtGenerator>
@@ -186,7 +190,7 @@ function AiArtGenerator() {
               handleClickNoneStyle={handleClickNoneStyle}
               handleClickStyle={handleClickStyle}
             />
-            <Suspense fallback={<Loading />}>
+            <Suspense>
               <ImageUploader
                 uploadImage={uploadImage}
                 handleUploadImage={handleUploadImage}
