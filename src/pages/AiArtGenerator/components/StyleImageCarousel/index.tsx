@@ -9,6 +9,7 @@ import {
   ChooseStyleTitle,
   CustomGrid,
   CustomPaper,
+  ItemNone,
   NameStyle,
   None,
   StyledCarousel,
@@ -64,10 +65,10 @@ const StyleImageCarousel = ({
         }
       >
         <CustomGrid>
-          <Grid className={`item-none ${selectStyle === '' && 'active-none'}`} onClick={handleClickNoneStyle}>
+          <ItemNone selectStyle={selectStyle} onClick={handleClickNoneStyle}>
             <ImageGeneral src={iconNoStyle} alt='' />
             <None>None</None>
-          </Grid>
+          </ItemNone>
           <Grid sx={{ display: 'flex' }}>
             {listStyle?.map((item: StyleType) => (
               <CustomPaper

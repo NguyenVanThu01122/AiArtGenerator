@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <CssVarsProvider theme={theme}>
-      <App />
+      <App   />
       <ToastContainer />
     </CssVarsProvider>
   </Provider>
