@@ -33,7 +33,7 @@ export const MainContent = styled(Box)(({ theme }) => ({
   padding: ' 25px 20px',
   display: 'flex',
   flexDirection: 'column',
-  gap: '50px',
+  gap: '60px',
   maxWidth: '1200px',
   margin: 'auto',
   '.ic-menu': {
