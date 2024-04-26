@@ -33,6 +33,7 @@ const featuresData = [
 export default function ListFeature() {
   const navigate = useNavigate()
   const { t } = useTranslation()
+
   return (
     <Wrapper>
       {featuresData.map((feature, index) => (
