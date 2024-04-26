@@ -1,35 +1,22 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import AnimationStar from "../../components/AnimationStar";
-import EmailSentDialog from "../../components/SentEmailDialog";
-import { SidebarImageLogin } from "../../components/SidebarImageLogin";
-import TextFieldController from "../../components/Ui/TextFieldController ";
-import ImageGeneral from "../../components/Ui/image";
-import { TextFieldType } from "../../components/Ui/textFieldCommon";
-import { ROUTES } from "../../routes/routes";
-import { RegisterType, register } from "../../services/auth";
-import {
-  imageDiscord,
-  imageFacebook,
-  imageGoogle,
-  imageLogin,
-} from "../../utils/images";
-import {
-  handleFacebookAuth,
-  handleGoogleAuth,
-} from "../../utils/redirectToAuthProvider";
-import { useChangeLanguage } from "../../utils/useChangeLanguage";
-import {
-  validateEmail,
-  validateFirstName,
-  validateLastName,
-  validatePassword,
-} from "../../utils/validationRules";
-import PasswordVisibilityToggle from "../SignIn/components/PasswordVisibilityToggle";
-import { GroupSpan, TitleForm } from "../SignIn/styles";
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import AnimationStar from '../../components/AnimationStar'
+import EmailSentDialog from '../../components/SentEmailDialog'
+import { SidebarImageLogin } from '../../components/SidebarImageLogin'
+import TextFieldController from '../../components/Ui/TextFieldController '
+import ImageGeneral from '../../components/Ui/image'
+import { TextFieldType } from '../../components/Ui/textFieldCommon'
+import { ROUTES } from '../../routes/routes'
+import { RegisterType, register } from '../../services/auth'
+import { imageDiscord, imageFacebook, imageGoogle, imageLogin } from '../../utils/images'
+import { handleFacebookAuth, handleGoogleAuth } from '../../utils/redirectToAuthProvider'
+import { useChangeLanguage } from '../../utils/useChangeLanguage'
+import { validateEmail, validateFirstName, validateLastName, validatePassword } from '../../utils/validationRules'
+import PasswordVisibilityToggle from '../SignIn/components/PasswordVisibilityToggle'
+import { GroupSpan, TitleForm } from '../SignIn/styles'
 import {
   BoxContent,
   ContainerRegister,
@@ -37,30 +24,43 @@ import {
   ItemSidebar,
   OptionLogin,
   OptionSubmit,
+  RedirectLogin,
   SignUpOptions,
   StyledFormControl,
-  SubmitLogin,
   SubmitRegister,
-  WrapperRegister,
-} from "./styles";
+  WrapperRegister
+} from './styles'
 
 export default function Register() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  useChangeLanguage(); // custom hook này sẽ tự động save language khi user f5
-  const [openDialogSentEmail, setOpenDialogSentEmail] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  useChangeLanguage() // custom hook này sẽ tự động save language khi user f5
+  const [openDialogSentEmail, setOpenDialogSentEmail] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const {
     control,
     handleSubmit,
     watch,
     reset,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
-    mode: "onChange",
-  });
+    mode: 'onChange'
+  })
 
+  // Kiểm tra xem user đã từng load trang chưa
+  const [firstLoad, setFirstLoad] = useState(false)
+  useEffect(() => {
+    const hasLoaded = localStorage.getItem('hasLoaded')
+    if (!hasLoaded) {
+      setFirstLoad(true)
+      localStorage.setItem('hasLoaded', 'true')
+    }
+    return () => {
+      localStorage.removeItem('hasLoaded') // Xóa key hasLoaded khi component bị unmount
+    }
+  }, [])
+  
   // hàm xử lý form register
   const handleOnFinishRegister = (value: RegisterType) => {
     const bodyRegister = {
@@ -68,21 +68,22 @@ export default function Register() {
       lastName: value.lastName,
       email: value.email,
       password: value.password,
-      redirectUrl: "http://localhost:3000/verify-register", // link verify email
-    };
+      redirectUrl: 'http://localhost:3000/verify-register' // link verify email
+    }
     register(bodyRegister)
       .then((res) => {
-        setOpenDialogSentEmail(true);
+        setOpenDialogSentEmail(true)
       })
-      .catch((error) => toast.error(error.response?.data?.message));
-  };
+      .catch((error) => toast.error(error.response?.data?.message))
+  }
 
   const handleClose = () => {
-    setOpenDialogSentEmail(false);
-    reset(); // Reset form về trạng thái rỗng
-  };
+    setOpenDialogSentEmail(false)
+    reset() // Reset form về trạng thái rỗng
+  }
 
-  const handleTryAgain = () => setOpenDialogSentEmail(false);
+  const handleTryAgain = () => setOpenDialogSentEmail(false)
+
   return (
     <WrapperRegister>
       <AnimationStar />
@@ -90,27 +91,19 @@ export default function Register() {
         <SidebarImageLogin />
       </ItemSidebar>
       {/* content Register */}
-      <ContainerRegister>
+      <ContainerRegister animate={firstLoad}>
         <BoxContent>
           <SignUpOptions>
-            <ImageGeneral className="logo-login" src={imageLogin} />
-            <TitleForm>{t("Sign up to your account")}</TitleForm>
+            <ImageGeneral className='logo-login' src={imageLogin} />
+            <TitleForm>{t('Sign up to your account')}</TitleForm>
             <GroupImageGeneral>
-              <ImageGeneral
-                className="icon-google"
-                onClick={handleGoogleAuth}
-                src={imageGoogle}
-              />
-              <ImageGeneral className="icon-discord" src={imageDiscord} />
-              <ImageGeneral
-                className="icon-facebook"
-                onClick={handleFacebookAuth}
-                src={imageFacebook}
-              />
+              <ImageGeneral className='icon-google' onClick={handleGoogleAuth} src={imageGoogle} />
+              <ImageGeneral className='icon-discord' src={imageDiscord} />
+              <ImageGeneral className='icon-facebook' onClick={handleFacebookAuth} src={imageFacebook} />
             </GroupImageGeneral>
             <GroupSpan>
               <span></span>
-              <span>{t("OR")}</span>
+              <span>{t('OR')}</span>
               <span></span>
             </GroupSpan>
           </SignUpOptions>
@@ -118,100 +111,86 @@ export default function Register() {
           {/* form Register */}
           <StyledFormControl fullWidth>
             <TextFieldController
-              name="firstName"
+              name='firstName'
               control={control}
-              defaultValue=""
+              defaultValue=''
               type={TextFieldType.TEXT}
-              label={t("First Name")}
+              label={t('First Name')}
               fullWidth
-              margin="normal"
-              variant="outlined"
+              margin='normal'
+              variant='outlined'
               rules={validateFirstName}
               errors={errors}
             />
             <TextFieldController
-              name="lastName"
+              name='lastName'
               control={control}
-              defaultValue=""
+              defaultValue=''
               type={TextFieldType.TEXT}
-              label={t("Last Name")}
+              label={t('Last Name')}
               fullWidth
-              margin="normal"
-              variant="outlined"
+              margin='normal'
+              variant='outlined'
               errors={errors}
               rules={validateLastName}
             />
             <TextFieldController
-              name="email"
+              name='email'
               control={control}
-              defaultValue=""
+              defaultValue=''
               type={TextFieldType.EMAIL}
-              label={t("Email")}
+              label={t('Email')}
               fullWidth
-              margin="normal"
-              variant="outlined"
+              margin='normal'
+              variant='outlined'
               errors={errors}
               rules={validateEmail}
             />
             <TextFieldController
-              name="password"
+              name='password'
               control={control}
-              defaultValue=""
-              label={t("Password")}
+              defaultValue=''
+              label={t('Password')}
               fullWidth
-              margin="normal"
-              variant="outlined"
+              margin='normal'
+              variant='outlined'
               errors={errors}
               rules={validatePassword}
               type={showPassword ? TextFieldType.TEXT : TextFieldType.PASSWORD}
               InputProps={{
-                endAdornment: (
-                  <PasswordVisibilityToggle
-                    showPassword={showPassword}
-                    setShowPassword={setShowPassword}
-                  />
-                ),
+                endAdornment: <PasswordVisibilityToggle showPassword={showPassword} setShowPassword={setShowPassword} />
               }}
             />
             <TextFieldController
-              name="confirm"
+              name='confirm'
               control={control}
-              defaultValue=""
+              defaultValue=''
               fullWidth
-              margin="normal"
-              variant="outlined"
-              label={t("Confirm Password")}
+              margin='normal'
+              variant='outlined'
+              label={t('Confirm Password')}
               errors={errors}
-              type={
-                showConfirmPassword
-                  ? TextFieldType.TEXT
-                  : TextFieldType.PASSWORD
-              }
+              type={showConfirmPassword ? TextFieldType.TEXT : TextFieldType.PASSWORD}
               InputProps={{
                 endAdornment: (
                   <PasswordVisibilityToggle
                     showPassword={showConfirmPassword}
                     setShowPassword={setShowConfirmPassword}
                   />
-                ),
+                )
               }}
               rules={{
-                required: t("Please confirm your password!"),
-                validate: (value: string) =>
-                  value === watch("password") || t("Passwords do not match !"),
+                required: t('Please confirm your password!'),
+                validate: (value: string) => value === watch('password') || t('Passwords do not match !')
               }}
             />
           </StyledFormControl>
 
           <OptionSubmit>
-            <SubmitRegister onClick={handleSubmit(handleOnFinishRegister)}>
-              {t("Sign up")}
-            </SubmitRegister>
+            <SubmitRegister onClick={handleSubmit(handleOnFinishRegister)}>{t('Sign up')}</SubmitRegister>
             <OptionLogin>
               <div>{t("Don't have an account?")}</div>
-              <SubmitLogin onClick={() => navigate(ROUTES.SIGN_IN)}>
-                {t("Sign in")}
-              </SubmitLogin>
+              <RedirectLogin onClick={() => navigate(ROUTES.SIGN_IN)}>{t('Sign in')}</RedirectLogin>
             </OptionLogin>
             <div>VisionLab., Inc</div>
           </OptionSubmit>
@@ -219,11 +198,7 @@ export default function Register() {
       </ContainerRegister>
 
       {/* Dialog VerifyEmail */}
-      <EmailSentDialog
-        open={openDialogSentEmail}
-        onClose={handleClose}
-        handleTryAgain={handleTryAgain}
-      />
+      <EmailSentDialog open={openDialogSentEmail} onClose={handleClose} handleTryAgain={handleTryAgain} />
     </WrapperRegister>
-  );
+  )
 }

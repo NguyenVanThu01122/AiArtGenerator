@@ -319,7 +319,7 @@ export const RedirectSignOut = styled.div`
   }
 `
 
-export const Register = styled.div`
+export const NavigateRegister = styled.div`
   color: blueviolet;
   font-style: italic;
   font-size: large;

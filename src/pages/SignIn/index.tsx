@@ -28,9 +28,9 @@ import {
   ForgotPassword,
   GroupImageGeneral,
   GroupSpan,
+  NavigateRegister,
   OptionItem,
   RedirectSignOut,
-  Register,
   SignInOptions,
   StyledFormControl,
   StyledFormControlLabel,
@@ -162,7 +162,7 @@ export function SignIn() {
               <SubmitSignIn onClick={handleSubmit(handleOnFinishLogin)}>{t('Sign in')}</SubmitSignIn>
               <RedirectSignOut>
                 <div>{t("Don't have an account?")}</div>
-                <Register onClick={() => navigate(ROUTES.REGISTER)}>{t('Register')}</Register>
+                <NavigateRegister onClick={() => navigate(ROUTES.REGISTER)}>{t('Register')}</NavigateRegister>
               </RedirectSignOut>
               <div>VisionLab., Inc</div>
             </SubmitItem>
