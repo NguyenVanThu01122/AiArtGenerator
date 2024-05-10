@@ -51,14 +51,14 @@ const StyleImageCarousel = ({
         animation='slide'
         PrevIcon={
           <StyledFontAwesomeIconLeft
-            onClick={() => handleScrollCarousel(-800)}
+            onClick={() => handleScrollCarousel(-850)}
             icon={faAngleLeft}
             isScrollAtStart={isScrollAtStart}
           />
         }
         NextIcon={
           <StyledFontAwesomeIconRight
-            onClick={() => handleScrollCarousel(800)}
+            onClick={() => handleScrollCarousel(860)}
             icon={faAngleRight}
             isScrollAtEnd={isScrollAtEnd}
           />
