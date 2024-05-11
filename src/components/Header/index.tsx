@@ -6,7 +6,6 @@ import iconCloseSidebar from '../../images/icon-close-sidebar.svg'
 import iconOpenSidebar from '../../images/icon-open-sidebar.svg'
 
 import { useTranslation } from 'react-i18next'
-import { saveCloseMenu } from '../../reduxToolkit/Slices/AppSlice'
 import { ROUTES } from '../../routes/routes'
 import { isAuthenticated } from '../../utils/handleTokenUtils'
 import { useLogout } from '../../utils/useLogout'
@@ -33,6 +32,7 @@ import {
   SelectItem,
   WrapperHeader
 } from './styles'
+import { saveCloseMenu } from '../../redux/Slices/AppSlice'
 
 function Header() {
   const pathName = window.location.pathname

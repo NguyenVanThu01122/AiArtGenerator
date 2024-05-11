@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './i18n/i18n'
 import './index.css'
-import store from './reduxToolkit/Store'
+import store from './redux/Store'
 import App from './routes/App'
 import { theme } from './theme'
 

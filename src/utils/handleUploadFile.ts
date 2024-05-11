@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
-import { uploadFile } from '../reduxToolkit/Slices/AppSlice'
 import { FILE_FORMAT, MAX_SIZE_INBYTES } from './constants'
+import { uploadFile } from '../redux/Slices/AppSlice'
 
 export const useUploadFile = () => {
   const [fileUpload, setFileUpload] = useState<File | undefined>()

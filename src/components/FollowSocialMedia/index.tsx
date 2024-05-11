@@ -5,10 +5,10 @@ import faDiscord from "../../images/iconDiscordAiArt.svg";
 import faFacebook from "../../images/iconFacebookAiArt.svg";
 import faTiktok from "../../images/iconTiktok.svg";
 import faInstagram from "../../images/iconTwitter.svg";
-import { RootState } from "../../reduxToolkit/Slices/RootReducer";
 import { NOTIFICATION } from "../../utils/constants";
 import ImageGeneral from "../Ui/image";
 import { FollowOptions, SelectSocialMedia, TitleFollow } from "./styles";
+import { RootState } from "../../redux/Slices/RootReducer";
 
 const socialMediaLinks = [
   {

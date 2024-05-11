@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { AnyAction } from 'redux'
 import Translations from '../../components/Translations'
-import { uploadFile } from '../../reduxToolkit/Slices/AppSlice'
-import { RootState } from '../../reduxToolkit/Slices/RootReducer'
-import { fetchListStyleAiImg } from '../../reduxToolkit/Thunks/GetStyleAiImages/fetchStyleAiImg'
+
 import { deductCreditsAiArt, generateAiImage, saveResultImageAi } from '../../services/aiArtGenerator'
 import { DEFAULT_ALPHA, DEFAULT_SCALE, DEFAULT_STEPS, ERROR_MESSAGES } from '../../utils/constants'
 import { useUploadFile } from '../../utils/handleUploadFile'
@@ -20,6 +18,9 @@ import PromptInput from './components/PromptInput'
 import StyleImageCarousel from './components/StyleImageCarousel'
 import { MainContent, SectionContents, WrapperAiArtGenerator } from './styles'
 import { TypeConfig } from './types'
+import { uploadFile } from '../../redux/Slices/AppSlice'
+import { RootState } from '../../redux/Slices/RootReducer'
+import { fetchListStyleAiImg } from '../../redux/Thunks/GetStyleAiImages/fetchStyleAiImg'
 
 const AiArtResult = lazy(() => import('./components/ResultAiArt'))
 const ImageUploader = lazy(() => import('./components/ImageUploader'))

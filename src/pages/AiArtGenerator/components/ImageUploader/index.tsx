@@ -4,7 +4,6 @@ import InputGeneral from '../../../../components/Ui/input'
 import iconCancel from '../../../../images/icon-cancel.svg'
 import iconRotate from '../../../../images/icon-rotare.svg'
 import iconUploadImg from '../../../../images/icon-upload-img.svg'
-import { uploadFile } from '../../../../reduxToolkit/Slices/AppSlice'
 import { FILE_FORMAT } from '../../../../utils/constants'
 
 import Translations from '../../../../components/Translations'
@@ -20,6 +19,7 @@ import {
   UploadedImage,
   Wrapper
 } from './styles'
+import { uploadFile } from '../../../../redux/Slices/AppSlice'
 interface ImageUploaderProps {
   handleUploadImage: (e: React.ChangeEvent<HTMLInputElement>) => void
   uploadImage: string | null
