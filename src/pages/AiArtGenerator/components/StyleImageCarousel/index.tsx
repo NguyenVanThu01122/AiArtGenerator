@@ -9,6 +9,7 @@ import {
   ChooseStyleTitle,
   CustomGrid,
   CustomPaper,
+  ItemNone,
   NameStyle,
   None,
   StyledCarousel,
@@ -50,24 +51,24 @@ const StyleImageCarousel = ({
         animation='slide'
         PrevIcon={
           <StyledFontAwesomeIconLeft
-            onClick={() => handleScrollCarousel(-800)}
+            onClick={() => handleScrollCarousel(-850)}
             icon={faAngleLeft}
             isScrollAtStart={isScrollAtStart}
           />
         }
         NextIcon={
           <StyledFontAwesomeIconRight
-            onClick={() => handleScrollCarousel(800)}
+            onClick={() => handleScrollCarousel(860)}
             icon={faAngleRight}
             isScrollAtEnd={isScrollAtEnd}
           />
         }
       >
         <CustomGrid>
-          <Grid className={`item-none ${selectStyle === '' && 'active-none'}`} onClick={handleClickNoneStyle}>
+          <ItemNone selectStyle={selectStyle} onClick={handleClickNoneStyle}>
             <ImageGeneral src={iconNoStyle} alt='' />
             <None>None</None>
-          </Grid>
+          </ItemNone>
           <Grid sx={{ display: 'flex' }}>
             {listStyle?.map((item: StyleType) => (
               <CustomPaper

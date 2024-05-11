@@ -50,7 +50,7 @@ export default function HeaderHomePage({
   ]
 
   return (
-    <StyledGrid container>
+    <StyledGrid container data-aos='fade-left'>
       <StyledDrawerMenu open={isOpenMenu} onClose={handleCloseMenu}>
         <StyledBox sx={{ width: 300 }}>
           <Header>

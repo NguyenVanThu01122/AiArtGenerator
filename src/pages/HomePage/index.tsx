@@ -1,20 +1,20 @@
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
-import ImageGeneral from '../../components/Ui/image'
-import iconEmail from '../../images/HomePage/icon-mail.9ce7672789a3a4ae3a7e47c761232abf.svg'
-import logoCreator from '../../images/iconLogin1.png'
-
-import HeaderHomePage from './components/Header'
-import SectionTextToImage from './components/SectionTextToImage/indext'
-
+import { default as AOS } from 'aos'
+import 'aos/dist/aos.css'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import FollowSocialMedia from '../../components/FollowSocialMedia'
 import ButtonGeneral from '../../components/Ui/button'
+import ImageGeneral from '../../components/Ui/image'
+import iconEmail from '../../images/HomePage/icon-mail.9ce7672789a3a4ae3a7e47c761232abf.svg'
+import logoCreator from '../../images/iconLogin1.png'
 import { ROUTES } from '../../routes/routes'
 import { useChangeLanguage } from '../../utils/useChangeLanguage'
+import HeaderHomePage from './components/Header'
 import ListFeature from './components/ListFeature'
+import SectionTextToImage from './components/SectionTextToImage/indext'
 import SocialMediaContent from './components/SocialMediaContent'
 import { UserTestimonial } from './components/UserTestimonial'
 import {
@@ -43,6 +43,10 @@ export function HomePage() {
   const [isOpenMenu, setIsOpenMenu] = useState(false)
   const showMenu = () => setIsOpenMenu(true)
   const navigate = useNavigate()
+  AOS.init() // Khởi tạo thư viện AOS
+  useEffect(() => {
+    AOS.init({ duration: 1000 })
+  }, [])  
 
   return (
     <StyledContainer>

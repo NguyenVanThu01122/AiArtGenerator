@@ -1,5 +1,5 @@
-import FormControl from "@mui/material/FormControl/FormControl";
-import styled from "styled-components";
+import FormControl from '@mui/material/FormControl/FormControl'
+import styled, { css } from 'styled-components'
 
 export const WrapperRegister = styled.div`
   overflow-y: auto;
@@ -13,16 +13,16 @@ export const WrapperRegister = styled.div`
   .custom-dialog {
     background-color: red;
   }
-`;
+`
 
 export const ItemSidebar = styled.div`
   width: 53%;
   @media screen and (max-width: 768px) {
     display: none;
   }
-`;
+`
 
-export const ContainerRegister = styled.div`
+export const ContainerRegister = styled.div<{ animate: boolean }>`
   height: 100%;
   width: 47%;
   display: flex;
@@ -30,19 +30,22 @@ export const ContainerRegister = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-image: url("https://melkior-nguyen.github.io/Portfolio/static/media/bg2.e6fe0abcb2a72bd51eee.jpg");
+  background-image: url('https://melkior-nguyen.github.io/Portfolio/static/media/bg2.e6fe0abcb2a72bd51eee.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  /* background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%); */
-  animation: signUpAnimation 1s linear;
-  @keyframes signUpAnimation {
-    from {
-      transform: rotateY(180deg);
-    }
-    to {
-      transform: rotateY(0deg);
-    }
-  }
+  ${({ animate }) =>
+    animate &&
+    css`
+      animation: signInAnimation 1s linear;
+      @keyframes signInAnimation {
+        from {
+          transform: rotateY(180deg);
+        }
+        to {
+          transform: rotateY(0deg);
+        }
+      }
+    `}
 
   @media screen and (max-width: 768px) {
     width: 100%;
@@ -57,7 +60,7 @@ export const ContainerRegister = styled.div`
       }
     }
   }
-`;
+`
 
 export const BoxContent = styled.div`
   width: 560px;
@@ -84,12 +87,12 @@ export const BoxContent = styled.div`
     padding: 10px;
     width: 100%;
   }
-`;
+`
 
 export const SignUpOptions = styled.div`
   .logo-login {
   }
-`;
+`
 
 export const GroupImageGeneral = styled.div`
   display: flex;
@@ -107,7 +110,10 @@ export const GroupImageGeneral = styled.div`
       /* box-shadow: 0 0 20px 5px violet; */
       transform: scale(1.2);
       background-color: #03e9f4;
-      box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+      box-shadow:
+        0 0 5px #03e9f4,
+        0 0 25px #03e9f4,
+        0 0 50px #03e9f4,
         0 0 600px #03e9f4;
       -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
     }
@@ -124,7 +130,7 @@ export const GroupImageGeneral = styled.div`
     background-color: rgb(24, 119, 242);
     box-shadow: 0 0 20px 5px rgb(24, 119, 242);
   }
-`;
+`
 
 export const StyledFormControl = styled(FormControl)`
   height: 250px;
@@ -136,11 +142,7 @@ export const StyledFormControl = styled(FormControl)`
   .MuiOutlinedInput-input {
     color: white;
     padding: 14px;
-    background: radial-gradient(
-      ellipse at bottom,
-      #1b2735 0%,
-      #12141d 100%
-    ) !important;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #12141d 100%) !important;
   }
   .custom-label {
     color: gray;
@@ -161,14 +163,14 @@ export const StyledFormControl = styled(FormControl)`
   @media screen and (max-width: 768px) {
     padding-top: 0px;
   }
-`;
+`
 
 export const OptionSubmit = styled.div`
   margin-top: 20px;
   & > div:last-child {
     color: gray;
   }
-`;
+`
 
 export const SubmitRegister = styled.div`
   height: 50px;
@@ -186,11 +188,14 @@ export const SubmitRegister = styled.div`
     transform: scale(0.9);
     color: #12141d;
     background-color: #03e9f4;
-    box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+    box-shadow:
+      0 0 5px #03e9f4,
+      0 0 25px #03e9f4,
+      0 0 50px #03e9f4,
       0 0 600px #03e9f4;
     -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
   }
-`;
+`
 
 export const OptionLogin = styled.div`
   display: flex;
@@ -213,9 +218,9 @@ export const OptionLogin = styled.div`
       color: red;
     }
   }
-`;
+`
 
-export const SubmitLogin = styled.div`
+export const RedirectLogin = styled.div`
   animation: signInAnimation 1s linear;
   @keyframes signInAnimation {
     from {
@@ -225,4 +230,4 @@ export const SubmitLogin = styled.div`
       transform: rotateY(0deg);
     }
   }
-`;
+`
