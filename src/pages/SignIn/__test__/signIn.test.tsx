@@ -25,7 +25,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { SignIn } from '..'
-import store from '../../../reduxToolkit/Store'
+import store from '../../../redux/Store'
 
 describe('SignIn Component', () => {
   it('handles successful login', async () => {

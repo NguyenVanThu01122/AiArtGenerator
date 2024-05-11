@@ -6,8 +6,6 @@ import ImageGeneral from '../../components/Ui/image'
 import SelectGeneral from '../../components/Ui/select'
 import icGif1 from '../../images/icon-gif1.gif'
 import imgLoading from '../../images/img-loading1.gif'
-import { RootState } from '../../reduxToolkit/Slices/RootReducer'
-import { fetchResultImageAi } from '../../reduxToolkit/Thunks/GetResultAiImage/fetchResultImgAi'
 import { paramsType } from '../../services/aiImageResult'
 import { calculateIndexes } from '../../utils/calculateIndexes'
 import { DEFAULT_LIMIT, DEFAULT_PAGE, DEFAULT_SORT_DATE, OPTION_LIMIT } from '../../utils/constants'
@@ -25,6 +23,8 @@ import {
   WrapperMyAvatars
 } from './styles'
 import { ImageType } from './types'
+import { RootState } from '../../redux/Slices/RootReducer'
+import { fetchResultImageAi } from '../../redux/Thunks/GetResultAiImage/fetchResultImgAi'
 
 const DialogDeleteImageLazy = React.lazy(() => import('./components/DialogDeleteImage'))
 const BoxDetailImageAiLazy = React.lazy(() => import('./components/BoxDetailImageAi'))

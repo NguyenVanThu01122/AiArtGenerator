@@ -4,12 +4,12 @@ import { Outlet, useSearchParams } from 'react-router-dom'
 import DialogLoin from '../components/DialogLogin'
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
-import { saveLogin } from '../reduxToolkit/Slices/AppSlice'
-import { RootState } from '../reduxToolkit/Slices/RootReducer'
 import { useChangeLanguage } from '../utils/useChangeLanguage'
 import { useGetInfoUser } from '../utils/useGetInfoUser'
 import { useThemeModeStyles } from '../utils/useThemeModeStyles'
 import { BoxContent, MainContent, ParentContent, WrapperLayout } from './styles'
+import { RootState } from '../redux/Slices/RootReducer'
+import { saveLogin } from '../redux/Slices/AppSlice'
 
 export function Layout() {
   const dispatch = useDispatch()

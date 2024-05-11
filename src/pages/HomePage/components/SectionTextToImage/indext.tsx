@@ -33,7 +33,7 @@ export default function SectionTextToImage() {
   }
   const redirectSignIn = () => navigate(ROUTES.SIGN_IN)
   return (
-    <Grid container data-aos='zoom-in'>
+    <Grid container data-aos='fade-right'>
       <StyledGridHead item>
         <div className='title'>
           <div>{t('SMART. FAST. INNOVATIVE AI')}</div>
@@ -72,7 +72,7 @@ export default function SectionTextToImage() {
             component='video'
             src='https://creatorhub.ai/static/media/video-text-to-video.0608ea52e5f460d1561f.mp4'
             title='Contemplative Reptile'
-            loop 
+            loop
             muted
             autoPlay
             preload='auto'

@@ -2,11 +2,11 @@ import { DialogActions, DialogTitle } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { saveDialogLogin } from "../../reduxToolkit/Slices/AppSlice";
 import { Transition } from "../SentEmailDialog";
 import ButtonGeneral from "../Ui/button";
 import CloseButton from "../Ui/closeButton";
 import { StyledDialogCommon } from "./styles";
+import { saveDialogLogin } from "../../redux/Slices/AppSlice";
 export default function DialogLoin({ dialogLogin }: { dialogLogin: boolean }) {
   const { t } = useTranslation();
   const navigate = useNavigate();

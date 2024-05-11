@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { saveLogin, saveUser } from '../reduxToolkit/Slices/AppSlice'
+import { saveLogin, saveUser } from '../redux/Slices/AppSlice'
 import { ROUTES } from '../routes/routes'
 import { removeRefreshToken, removeToken } from './handleTokenUtils'
 
