@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Translations from '../../../../components/Translations'
-import { RootState } from '../../../../reduxToolkit/Slices/RootReducer'
 import {
   AdvancedSetting,
   AdvancedSettings,
@@ -19,6 +18,7 @@ import {
   ValueConfig,
   Wrapper
 } from './styles'
+import { RootState } from '../../../../redux/Slices/RootReducer'
 interface ConfigAiArtProps {
   prompt: string
   isLoading: boolean

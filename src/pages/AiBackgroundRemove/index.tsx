@@ -13,7 +13,6 @@ import iconRotate from '../../images/icon-rotare.svg'
 import iconStar from '../../images/icon-star.svg'
 import iconUploadImg from '../../images/icon-upload-img.svg'
 import imgLoading from '../../images/img-loading1.gif'
-import { RootState } from '../../reduxToolkit/Slices/RootReducer'
 import { deductCreditsRemoveBackground, removeBackground } from '../../services/aiBackgroundRemove'
 import { ERROR_MESSAGES, FILE_FORMAT } from '../../utils/constants'
 import { useUploadFile } from '../../utils/handleUploadFile'
@@ -51,6 +50,7 @@ import {
   Uploaded,
   WrapperAIBackgroundChanger
 } from './styles'
+import { RootState } from '../../redux/Slices/RootReducer'
 
 function AiBackgroundRemove() {
   const { t } = useTranslation()

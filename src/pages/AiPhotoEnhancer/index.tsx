@@ -12,7 +12,6 @@ import iconStar from "../../images/icon-star.svg";
 import iconUploadImg from "../../images/icon-upload-img.svg";
 import imgPhoto from "../../images/image-photo.svg";
 import imgLoading from "../../images/img-loading1.gif";
-import { RootState } from "../../reduxToolkit/Slices/RootReducer";
 import {
   deductCreditsAiEnhancer,
   generateAiPhotoEnhancer,
@@ -55,6 +54,7 @@ import {
   UploadText,
   WrapperPhotoEnhancer,
 } from "./styles";
+import { RootState } from "../../redux/Slices/RootReducer";
 
 export function AiPhotoEnhancer() {
   const { t } = useTranslation();

@@ -58,7 +58,7 @@ const StyleImageCarousel = ({
         }
         NextIcon={
           <StyledFontAwesomeIconRight
-            onClick={() => handleScrollCarousel(860)}
+            onClick={() => handleScrollCarousel(850)}
             icon={faAngleRight}
             isScrollAtEnd={isScrollAtEnd}
           />

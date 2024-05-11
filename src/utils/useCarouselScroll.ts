@@ -7,21 +7,7 @@ const useCarouselScroll = (carouselSelector: string) => {
 
   const handleScrollCarousel = (distance: number) => {
     if (carousel) {
-      let start: number | null = null
-      let currentScrollLeft = carousel.scrollLeft
-
-      const step = (timestamp: number) => {
-        if (!start) start = timestamp // Lấy thời gian bắt đầu cuộn
-        const progress = timestamp - start // Tính thời gian đã cuộn
-        const percent = Math.min(progress / 500, 1) // 500ms to scroll
-
-        carousel.scrollLeft = currentScrollLeft + distance * percent
-
-        if (percent < 1) {
-          window.requestAnimationFrame(step) // Nếu chưa cuộn hết thì gọi lại hàm step
-        }
-      }
-      window.requestAnimationFrame(step) // Gọi hàm step để cuộn carousel
+      carousel.scrollBy({ left: distance, behavior: 'smooth' })
     }
   }
 

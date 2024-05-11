@@ -33,7 +33,7 @@ export default function SectionTextToImage() {
   }
   const redirectSignIn = () => navigate(ROUTES.SIGN_IN)
   return (
-    <Grid container>
+    <Grid container data-aos='fade-right'>
       <StyledGridHead item>
         <div className='title'>
           <div>{t('SMART. FAST. INNOVATIVE AI')}</div>

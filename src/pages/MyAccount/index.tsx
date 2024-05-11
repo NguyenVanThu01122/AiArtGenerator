@@ -5,7 +5,7 @@ import ImageGeneral from '../../components/Ui/image'
 import iconAvatar from '../../images/MyAccount/avatar_25.jpg'
 import icCredits from '../../images/MyAccount/icon-credit.svg'
 import icEmail from '../../images/MyAccount/icon-email.svg'
-import { RootState } from '../../reduxToolkit/Slices/RootReducer'
+import { RootState } from '../../redux/Slices/RootReducer'
 import { useLogout } from '../../utils/useLogout'
 import {
   AddressWrapper,
