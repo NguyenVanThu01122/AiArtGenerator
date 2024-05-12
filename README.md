@@ -14,7 +14,7 @@ This project is a web application built using ReactJS in front-end.
 - ***AI Art Generator***: The input is a normal photo, and the output is an AI-generated photo. See details at [`src/pages/AiArtGenerator`](src/pages/AiArtGenerator).
 - ***AI Photo Enhancer***: Enhances image quality through AI. See details at [`src/pages/AiPhotoEnhancer`](src/pages/AiPhotoEnhancer).
 - ***AI Background Remover***: Removes the background of images through AI. See details at [`src/pages/AiBackgroundRemove`](src/pages/AiBackgroundRemove).
-- ***Multilingual Support***: Supports multiple languages, including Vietnamese. See details at [`src/i18n/vie.json`](src/i18n/vie.json).
+- ***Multilingual Support***: Supports many languages, including Vietnamese, English, Korean, and Japanese. See details at [`src/i18n/vie.json`](src/i18n).
 - ***Dark Mode, Light Mode, and System Mode***: The application supports different color schemes for better user experience. Users can switch between Dark Mode, Light Mode, and System Mode. The mode can be changed from the header of the application. The Dark Mode provides a dark color scheme that's easier on the eyes in low-light environments. The Light Mode provides a light color scheme that's suitable for well-lit environments. The System Mode automatically matches the system's current color scheme. See details at [`src/utils/useThemeModeStyles.ts`](src/utils/useThemeModeStyles.ts) and [`src/components/Header/components/ModeToggle/index.tsx`](src/components/Header/components/ModeToggle/index.tsx).
 - ***Responsive Design***: Responsive design, compatible with various screen sizes.
 
